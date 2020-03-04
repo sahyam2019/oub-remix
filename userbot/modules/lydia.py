@@ -37,7 +37,7 @@ if LYDIA_API_KEY is not None:
     api_client = LydiaAI(api_key)
 
 
-@register(outgoing=True, pattern="(ena|del|lst)cf$")
+@register(outgoing=True, pattern="^.(ena|del|lst)cf$")
 async def lydia_disable_enable(event):
     if event.fwd_from:
         return
