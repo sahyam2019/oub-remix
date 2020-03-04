@@ -52,11 +52,11 @@ async def lydia_disable_enable(event):
         await event.edit("Processing...")
         if input_str == "ena":
             session = api_client.create_session()
-            logger.info(session)
-            logger.info(add_s(user_id, chat_id, session.id, session.expires))
+            BOTLOG.info(session)
+            BOTLOG.info(add_s(user_id, chat_id, session.id, session.expires))
             await event.edit(f"Lydia AI turned on for [user](tg://user?id={user_id}) in chat: `{chat_id}`")
         elif input_str == "del":
-            logger.info(remove_s(user_id, chat_id))
+            BOTLOG.info(remove_s(user_id, chat_id))
             await event.edit(f"Lydia AI turned off for [user](tg://user?id={user_id}) in chat: `{chat_id}`")
         elif input_str == "lst":
             lsts = get_all_s()
@@ -112,10 +112,10 @@ async def on_new_message(event):
             if session_expires < time():
                 # re-generate session
                 session = api_client.create_session()
-                logger.info(session)
+                BOTLOG.info(session)
                 session_id = session.id
                 session_expires = session.expires
-                logger.info(add_s(user_id, chat_id, session_id, session_expires))
+                BOTLOG.info(add_s(user_id, chat_id, session_id, session_expires))
             # Try to think a thought.
             try:
                 async with event.client.action(event.chat_id, "typing"):
@@ -123,7 +123,7 @@ async def on_new_message(event):
                     output = api_client.think_thought(session_id, query)
                     await event.reply(output)
             except cf.exception.CoffeeHouseError as e:
-                logger.info(str(e))
+                BOTLOG.info(str(e))
 
 CMD_HELP.update({
     "lydia":
