@@ -87,8 +87,8 @@ async def lydia_disable_enable(event):
 
 @register(incoming=True, disable_edited=True)
 async def on_new_message(event):
-    if event.chat_id in UB_BLACK_LIST_CHAT:
-        return
+   # if event.chat_id in UB_BLACK_LIST_CHAT:
+    #    return
     if LYDIA_API_KEY is None:
         return
     reply = await event.get_reply_message()
