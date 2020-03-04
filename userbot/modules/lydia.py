@@ -94,7 +94,7 @@ async def on_new_message(event):
     reply = await event.get_reply_message()
     if reply is None:
         pass
-    elif reply.from_id == borg.uid:
+    elif reply.from_id == bot.uid:
         pass
     else:
         return
