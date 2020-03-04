@@ -32,8 +32,8 @@ from telethon import events
 from coffeehouse.lydia import LydiaAI
 from coffeehouse.api import API
 
-if Var.LYDIA_API_KEY is not None:
-    api_key = API(Var.LYDIA_API_KEY)
+if config.env.LYDIA_API_KEY is not None:
+    api_key = API(config.env.LYDIA_API_KEY)
     # Initialise client
     api_client = LydiaAI(api_key)
 
@@ -42,7 +42,7 @@ if Var.LYDIA_API_KEY is not None:
 async def lydia_disable_enable(event):
     if event.fwd_from:
         return
-    if Var.LYDIA_API_KEY is None:
+    if config.env.LYDIA_API_KEY is None:
         await event.edit("please add required `LYDIA_API_KEY` env var")
         return
     if event.reply_to_msg_id is not None:
@@ -67,7 +67,7 @@ async def lydia_disable_enable(event):
                     output_str += f"[user](tg://user?id={lydia_ai.user_id}) in chat `{lydia_ai.chat_id}`\n"
             else:
                 output_str = "no Lydia AI enabled users / chats. Start by replying `.enacf` to any user in any chat!"
-            if len(output_str) > Var.MAX_MESSAGE_SIZE_LIMIT:
+            if len(output_str) > config.env.MAX_MESSAGE_SIZE_LIMIT:
                 with io.BytesIO(str.encode(output_str)) as out_file:
                     out_file.name = "lydia_ai.text"
                     await event.client.send_file(
@@ -88,9 +88,9 @@ async def lydia_disable_enable(event):
 
 @register(incoming=True, disable_edited=True)
 async def on_new_message(event):
-    if event.chat_id in Var.UB_BLACK_LIST_CHAT:
+    if event.chat_id in config.env.UB_BLACK_LIST_CHAT:
         return
-    if Var.LYDIA_API_KEY is None:
+    if config.env.LYDIA_API_KEY is None:
         return
     reply = await event.get_reply_message()
     if reply is None:
