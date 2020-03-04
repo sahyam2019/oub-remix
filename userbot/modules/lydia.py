@@ -21,7 +21,7 @@ import coffeehouse as cf
 
 import asyncio
 import io
-from sql_helper.lydia_sql import get_s, get_all_s, add_s, remove_s
+from userbot.modules.sql_helper.lydia_sql import get_s, get_all_s, add_s, remove_s
 from time import time
 import coffeehouse
 from userbot import LYDIA_API_KEY
