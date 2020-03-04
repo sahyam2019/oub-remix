@@ -32,8 +32,8 @@ from telethon import events
 from coffeehouse.lydia import LydiaAI
 from coffeehouse.api import API
 
-if Var.LYDIA_API is not None:
-    api_key = API(Var.LYDIA_API)
+if Var.LYDIA_API_KEY is not None:
+    api_key = API(Var.LYDIA_API_KEY)
     # Initialise client
     api_client = LydiaAI(api_key)
 
@@ -42,8 +42,8 @@ if Var.LYDIA_API is not None:
 async def lydia_disable_enable(event):
     if event.fwd_from:
         return
-    if Var.LYDIA_API is None:
-        await event.edit("please add required `LYDIA_API` env var")
+    if Var.LYDIA_API_KEY is None:
+        await event.edit("please add required `LYDIA_API_KEY` env var")
         return
     if event.reply_to_msg_id is not None:
         input_str = event.pattern_match.group(1)
@@ -90,7 +90,7 @@ async def lydia_disable_enable(event):
 async def on_new_message(event):
     if event.chat_id in Var.UB_BLACK_LIST_CHAT:
         return
-    if Var.LYDIA_API is None:
+    if Var.LYDIA_API_KEY is None:
         return
     reply = await event.get_reply_message()
     if reply is None:
