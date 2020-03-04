@@ -1,108 +1,137 @@
-# Copyright (C) 2019 The Raphielscape Company LLC.
-#
-# Licensed under the Raphielscape Public License, Version 1.c (the "License");
-# you may not use this file except in compliance with the License.
-# credit goes to @snapdragon and @devpatel_73 for making it work on this userbot.
-#
-# Original author of the UniBorg module 'lydia' @Zero_cool7870 (Jaskaran)
-#
-"""
-Userbot module to use an AI To respond to people
-"""
+#"""Lydia AI plugin for @UniBorg
 
-import coffeehouse
-from coffeehouse.lydia import LydiaAI
-# from coffeehouse.api import API
+#.enacf <as a reply to user's message //Turns AI on For that user.
+#.delcf <as a reply to user's message //Turns AI off For that user.
+#.lstcf // Outputs List Of Currently added Users in AI Auto-Chat.
+
+#Description: A module that Act as a chatbot and chat with a User/other Bot.
+#This Module Needs CoffeeHouse API to work. so Join https://telegram.dog/IntellivoidDev and send #activateapi and follow instructions.
+#This Module also Needs DB_URI For Storage of Some Data So make sure you have that too.
+
+#Credits:
+#@Hackintosh5 (for inspiring me to write this module)
+#@Zero_cool7870 (For Writing The Original Module)
+#Zi Xing (For CoffeeHouse API)"""
+
+import logging
+logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
+                    level=logging.WARNING)
+
+import coffeehouse as cf
 
 import asyncio
+import io
+from sql_helpers.lydia_ai_sql import get_s, get_all_s, add_s, remove_s
+from time import time
+import coffeehouse
 from userbot import LYDIA_API_KEY
-
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
-
-
 from userbot.events import register
 from telethon import events
+from sample_config import Config
+from coffeehouse.lydia import LydiaAI
+from coffeehouse.api import API
 
-# Non-SQL Mode
-ACC_LYDIA = {}
-SESSION_ID = {}
+if Config.LYDIA_API is not None:
+    api_key = API(Config.LYDIA_API)
+    # Initialise client
+    api_client = LydiaAI(api_key)
 
-if LYDIA_API_KEY:
-    api_key = LYDIA_API_KEY
-    api_client = coffeehouse.API(api_key)
 
-@register(outgoing=True, pattern="^.repcf$")
-async def repcf(event):
+@register(outgoing=True, pattern="(ena|del|lst)cf")
+async def lydia_disable_enable(event):
     if event.fwd_from:
         return
-    await event.edit("Processing...")
-    try:
-        session = api_client.create_session()
-        session_id = session.id
-        reply = await event.get_reply_message()
-        msg = reply.text
-        text_rep = session.think_thought((session_id, msg))
-        await event.edit("**Lydia says**: {0}".format(text_rep))
-    except Exception as e:
-        await event.edit(str(e))
-
-@register(outgoing=True, pattern="^.addcf$")
-async def addcf(event):
-    if event.fwd_from:
+    if Config.LYDIA_API is None:
+        await event.edit("please add required `LYDIA_API` env var")
         return
-    await event.edit("Running on SQL mode for now...")
-    await asyncio.sleep(4)
-    await event.edit("Processing...")
-    reply_msg = await event.get_reply_message()
-    if reply_msg:
-        session = api_client.create_session()
-        session_id = session.id
-        ACC_LYDIA.update({str(event.chat_id) + " " + str(reply_msg.from_id): session})
-        SESSION_ID.update({str(event.chat_id) + " " + str(reply_msg.from_id): session_id})
-        await event.edit("Lydia successfully enabled for user: {} in chat: {}".format(str(reply_msg.from_id), str(event.chat_id)))
+    if event.reply_to_msg_id is not None:
+        input_str = event.pattern_match.group(1)
+        reply_msg = await event.get_reply_message()
+        user_id = reply_msg.from_id
+        chat_id = event.chat_id
+        await event.edit("Processing...")
+        if input_str == "ena":
+            session = api_client.create_session()
+            logger.info(session)
+            logger.info(add_s(user_id, chat_id, session.id, session.expires))
+            await event.edit(f"Lydia AI turned on for [user](tg://user?id={user_id}) in chat: `{chat_id}`")
+        elif input_str == "del":
+            logger.info(remove_s(user_id, chat_id))
+            await event.edit(f"Lydia AI turned off for [user](tg://user?id={user_id}) in chat: `{chat_id}`")
+        elif input_str == "lst":
+            lsts = get_all_s()
+            if len(lsts) > 0:
+                output_str = "Lydia AI enabled users:\n\n"
+                for lydia_ai in lsts:
+                    output_str += f"[user](tg://user?id={lydia_ai.user_id}) in chat `{lydia_ai.chat_id}`\n"
+            else:
+                output_str = "no Lydia AI enabled users / chats. Start by replying `.enacf` to any user in any chat!"
+            if len(output_str) > Config.MAX_MESSAGE_SIZE_LIMIT:
+                with io.BytesIO(str.encode(output_str)) as out_file:
+                    out_file.name = "lydia_ai.text"
+                    await event.client.send_file(
+                        event.chat_id,
+                        out_file,
+                        force_document=True,
+                        allow_cache=False,
+                        caption="Lydia AI enabled users",
+                        reply_to=event
+                    )
+            else:
+                await event.edit(output_str)
+        else:
+            await event.edit("Reply To User Message to Add / Delete them from Lydia Auto-Chat.")
     else:
-        await event.edit("Reply to a user to activate Lydia AI on them")
+        await event.edit("Reply To A User's Message to Add / Delete them from Lydia Auto-Chat.")
 
-@register(outgoing=True, pattern="^.remcf$")
-async def remcf(event):
-    if event.fwd_from:
-        return
-    await event.edit("Running on SQL mode for now...")
-    await asyncio.sleep(4)
-    await event.edit("Processing...")
-    reply_msg = await event.get_reply_message()
-    try:
-        del ACC_LYDIA[str(event.chat_id) + " " + str(reply_msg.from_id)]
-        del SESSION_ID[str(event.chat_id) + " " + str(reply_msg.from_id)]
-        await event.edit("Lydia successfully disabled for user: {} in chat: {}".format(str(reply_msg.from_id), str(event.chat_id)))
-    except KeyError:
-        await event.edit("This person does not have Lydia activated on him/her.")
 
 @register(incoming=True, disable_edited=True)
-async def user(event):
-    user_text = event.text
-    try:
-        session = ACC_LYDIA[str(event.chat_id) + " " + str(event.from_id)]
-        session_id = SESSION_ID[str(event.chat_id) + " " + str(event.from_id)]
-        msg = event.text
-        async with event.client.action(event.chat_id, "typing"):
-            text_rep = session.think_thought((session_id, msg))
-            wait_time = 0
-            for i in range(len(text_rep)):
-                wait_time = wait_time + 0.1
-            await asyncio.sleep(wait_time)
-            await event.reply(text_rep)
-    except KeyError:
+async def on_new_message(event):
+    if event.chat_id in Config.UB_BLACK_LIST_CHAT:
         return
+    if Config.LYDIA_API is None:
+        return
+    reply = await event.get_reply_message()
+    if reply is None:
+        pass
+    elif reply.from_id == borg.uid:
+        pass
+    else:
+        return
+    if not event.media:
+        user_id = event.from_id
+        chat_id = event.chat_id
+        s = get_s(user_id, chat_id)
+        if s is not None:
+            session_id = s.session_id
+            session_expires = s.session_expires
+            query = event.text
+            # Check if the session is expired
+            # If this method throws an exception at this point,
+            # then there's an issue with the API, Auth or Server.
+            if session_expires < time():
+                # re-generate session
+                session = api_client.create_session()
+                logger.info(session)
+                session_id = session.id
+                session_expires = session.expires
+                logger.info(add_s(user_id, chat_id, session_id, session_expires))
+            # Try to think a thought.
+            try:
+                async with event.client.action(event.chat_id, "typing"):
+                    await asyncio.sleep(1)
+                    output = api_client.think_thought(session_id, query)
+                    await event.reply(output)
+            except cf.exception.CoffeeHouseError as e:
+                logger.info(str(e))
 
-    
 CMD_HELP.update({
     "lydia":
-    ".addcf <username/reply>\
-\nUsage: add's lydia auto chat request in the chat.\
-\n\n.remcf <username/reply>\
+    ".lstcf <username/reply>\
+\nUsage: Outputs List Of Currently added Users in AI Auto-Chat.\
+\n\n.delcf <username/reply>\
 \nUsage: remove's lydia auto chat request in the chat.\
-\n\n.repcf <username/reply>\
+\n\n.enacf <username/reply>\
 \nUsage: starts lydia repling to perticular person in the chat."
 })
-
