@@ -28,7 +28,7 @@ from userbot import LYDIA_API_KEY
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
 from telethon import events
-from sample_config import Config
+import sample_config.env
 from coffeehouse.lydia import LydiaAI
 from coffeehouse.api import API
 
