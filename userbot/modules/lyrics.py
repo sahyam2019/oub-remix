@@ -5,17 +5,19 @@
 #
 #
 
-"""
-Lyrics Plugin Syntax:
-	.lyrics <aritst name, song nane>
+#"""
+#Lyrics Plugin Syntax:
+#	.lyrics <aritst name, song nane>
 
-"""
+#"""
+
 import asyncio
 import io
 import os
 from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
 from time import time
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+import lyricsgenius
 from userbot.events import register
 from telethon import events
 from userbot import GENIUS, GENIUS_API_TOKEN
@@ -27,7 +29,7 @@ import lyricsgenius
 genius = lyricsgenius.Genius(GApi)
 
 
-@register(outgoing=True, pattern="^.lyrics$")
+@register(outgoing=True, pattern="^.lyrics(?: |$)(.*)"
 async def lyrics(lyr):
 	if GApi == 'None':
 		await lyr.edit(
@@ -79,7 +81,7 @@ async def lyrics(lyr):
 
 
 
-@register(outgoing=True, pattern="^.iff$")
+@register(outgoing=True, pattern="^.iff(?: |$)(.*)"
 async def pressf(f):
 	"""Pays respects"""
 	args = f.text.split()
