@@ -30,31 +30,31 @@ genius = lyricsgenius.Genius(GApi)
 
 
 @register(outgoing=True, pattern="^.lyrics(?: |$)(.*)"
-async def lyrics(lyr):
+async def lyrics(event):
 	if GApi == 'None':
-		await lyr.edit(
+		await event.edit(
 			"`Kek provide genius api token to config.py or Heroku Var first kthxbye!`"
 		)
 	try:
-		args = lyr.text.split()
-		artist = lyr.text.split()[1]
-		snameinit = lyr.text.split(' ', 2)
+		args = event.text.split()
+		artist = event.text.split()[1]
+		snameinit = event.text.split(' ', 2)
 		sname = snameinit[2]
 	except Exception:
-		await lyr.edit("`Lel pls provide artist and song names U Dumb`")
+		await event.edit("`Lel pls provide artist and song names U Dumb`")
 		return
 
 	#Try to search for * in artist string(for multiword artist name)
 	try:
 		artist = artist.replace('*', ' ')
 	except Exception:
-		artist = lyr.text.split()[1]
+		artist = event.text.split()[1]
 		pass
 
 	if len(args) < 3:
-		await lyr.edit("`Please provide artist and song names`")
+		await event.edit("`Please provide artist and song names`")
 
-	await lyr.edit(f"`Searching lyrics for {artist} - {sname}...`")
+	await event.edit(f"`Searching lyrics for {artist} - {sname}...`")
 
 	try:
 		song = genius.search_song(sname, artist)
@@ -62,21 +62,21 @@ async def lyrics(lyr):
 		song = None
 
 	if song is None:
-		await lyr.edit(f"Song **{artist} - {sname}** not found!")
+		await event.edit(f"Song **{artist} - {sname}** not found!")
 		return
 	if len(song.lyrics) > 4096:
-			await lyr.edit("`Lyrics is too big, view the file to see it.`")
+			await event.edit("`Lyrics is too big, view the file to see it.`")
 			file = open("lyrics.txt", "w+")
 			file.write(f"Search query: \n{artist} - {sname}\n\n{song.lyrics}")
 			file.close()
-			await lyr.client.send_file(
-				lyr.chat_id,
+			await event.client.send_file(
+				event.chat_id,
 				"lyrics.txt",
-				reply_to=lyr.id,
+				reply_to=event.id,
 			)
 			os.remove("lyrics.txt")
 	else:
-		await lyr.edit(f"**Search query**: \n`{artist} - {sname}`\n\n```{song.lyrics}```")
+		await event.edit(f"**Search query**: \n`{artist} - {sname}`\n\n```{song.lyrics}```")
 	return
 
 
