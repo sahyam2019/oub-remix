@@ -18,8 +18,8 @@ from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
 from time import time
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 import lyricsgenius
-from userbot.lyrs import register
-from telethon import lyrs
+from userbot.events import register
+from telethon import events
 from userbot import GENIUS as GApi, GENIUS_API_TOKEN
 
 
