@@ -12,14 +12,9 @@ Lyrics Plugin Syntax:
 import os
 import lyricsgenius
 import random
-import re
 
 from userbot.events import register
 from userbot import CMD_HELP, LOGS, GENIUS
-
-"""Genius(lyrics) staff"""
-GApi = GENIUS
-genius = lyricsgenius.Genius(GApi)
 
 
 @register(outgoing=True, pattern="^.lyrics(?: |$)(.*)")
@@ -30,16 +25,18 @@ async def lyrics(lyric):
         await lyric.edit("`Error: please use '-' as divider for <artist> and <song>`\n"
                          "eg: `Nicki Minaj - Super Bass`")
         return
-    if GApi is None:
+
+    if GENIUS is None:
         await lyric.edit(
-            "`Provide genius api token to config.py or Heroku Var first kthxbye!`")
+            "`Provide genius access token to config.py or Heroku Var first kthxbye!`")
     else:
+        genius = lyricsgenius.Genius(GENIUS)
         try:
             args = lyric.text.split('.lyrics')[1].split('-')
             artist = args[0].strip(' ')
             song = args[1].strip(' ')
         except Exception:
-            await lyric.edit("`Lel pls provide artist and song names U Dumb`")
+            await lyric.edit("`LMAO please provide artist and song names`")
             return
 
     if len(args) < 1:
