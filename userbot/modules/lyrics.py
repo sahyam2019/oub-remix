@@ -10,10 +10,15 @@ Lyrics Plugin Syntax:
 	.lyrics <aritst name, song nane>
 
 """
-from uniborg.util import admin_cmd
+import asyncio
+import io
 import os
 from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
-from uniborg import MODULE, SYNTAX
+from time import time
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from userbot.events import register
+from telethon import events
+
 
 """Genius(lyrics) staff"""
 GApi = Config.GENIUS
