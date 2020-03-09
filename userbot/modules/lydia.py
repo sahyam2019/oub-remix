@@ -47,7 +47,7 @@ async def repcf(event):
         reply = await event.get_reply_message()
         msg = reply.text
         text_rep = session.think_thought(msg)
-        await event.edit("**sun bsdk**: {0}".format(text_rep))
+        await event.edit("**hey friend**: {0}".format(text_rep))
     except Exception as e:
         await event.edit(str(e))
 
