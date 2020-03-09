@@ -18,43 +18,43 @@ from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
 from time import time
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 import lyricsgenius
-from userbot.events import register
-from telethon import events
-from userbot import GENIUS, GENIUS_API_TOKEN
+from userbot.lyrs import register
+from telethon import lyrs
+from userbot import GENIUS as GApi, GENIUS_API_TOKEN
 
 
 """Genius(lyrics) staff"""
-GApi = GENIUS
+# GApi = GENIUS
 import lyricsgenius
 genius = lyricsgenius.Genius(GApi)
 
 
 @register(outgoing=True, pattern="^.lyrics$")
-async def lyrics(event):
+async def lyrics(lyr):
 	if GApi == 'None':
-		await event.edit(
+		await lyr.edit(
 			"`Kek provide genius api token to config.py or Heroku Var first kthxbye!`"
 		)
 	try:
-		args = event.text.split()
-		artist = event.text.split()[1]
-		snameinit = event.text.split(' ', 2)
+		args = lyr.text.split()
+		artist = lyr.text.split()[1]
+		snameinit = lyr.text.split(' ', 2)
 		sname = snameinit[2]
 	except Exception:
-		await event.edit("`Lel pls provide artist and song names U Dumb`")
+		await lyr.edit("`Lel pls provide artist and song names U Dumb`")
 		return
 
 	#Try to search for * in artist string(for multiword artist name)
 	try:
 		artist = artist.replace('*', ' ')
 	except Exception:
-		artist = event.text.split()[1]
+		artist = lyr.text.split()[1]
 		pass
 
 	if len(args) < 3:
-		await event.edit("`Please provide artist and song names`")
+		await lyr.edit("`Please provide artist and song names`")
 
-	await event.edit(f"`Searching lyrics for {artist} - {sname}...`")
+	await lyr.edit(f"`Searching lyrics for {artist} - {sname}...`")
 
 	try:
 		song = genius.search_song(sname, artist)
@@ -62,21 +62,21 @@ async def lyrics(event):
 		song = None
 
 	if song is None:
-		await event.edit(f"Song **{artist} - {sname}** not found!")
+		await lyr.edit(f"Song **{artist} - {sname}** not found!")
 		return
 	if len(song.lyrics) > 4096:
-			await event.edit("`Lyrics is too big, view the file to see it.`")
+			await lyr.edit("`Lyrics is too big, view the file to see it.`")
 			file = open("lyrics.txt", "w+")
 			file.write(f"Search query: \n{artist} - {sname}\n\n{song.lyrics}")
 			file.close()
-			await event.client.send_file(
-				event.chat_id,
+			await lyr.client.send_file(
+				lyr.chat_id,
 				"lyrics.txt",
-				reply_to=event.id,
+				reply_to=lyr.id,
 			)
 			os.remove("lyrics.txt")
 	else:
-		await event.edit(f"**Search query**: \n`{artist} - {sname}`\n\n```{song.lyrics}```")
+		await lyr.edit(f"**Search query**: \n`{artist} - {sname}`\n\n```{song.lyrics}```")
 	return
 
 
