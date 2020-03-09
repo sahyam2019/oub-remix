@@ -4,11 +4,8 @@
 # you may not use this file except in compliance with the License.
 
 
-"""
-Lyrics Plugin Syntax:
-       .lyrics <aritst name> - <song nane>
 
-"""
+
 import os
 import lyricsgenius
 import random
@@ -94,5 +91,12 @@ async def pressf(f):
 CMD_HELP.update({
     "lyrics":
     "**Usage:** .`lyrics <artist name> - <song name>`\n"
-    "__note__: **-** is neccessary when searching the lyrics to divided artist and song"
+    "__note__: **-** is neccessary when searching the lyrics to divided artist and song \n"
+"Genius lyrics plugin \n"
+ "get this value from https://genius.com/developers \n"
+
+"Add:-  GENIUS_API_TOKEN and token value in heroku app settings \n"
+  "   & GENIUS and token value in heroku app settings \n"
+
+"Lyrics Plugin Syntax: .lyrics <aritst name, song nane>"
 })
