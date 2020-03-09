@@ -98,5 +98,5 @@ CMD_HELP.update({
 "Add:-  GENIUS_API_TOKEN and token value in heroku app settings \n"
   "   & GENIUS and token value in heroku app settings \n"
 
-"Lyrics Plugin Syntax: .lyrics <aritst name, song nane>"
+"Lyrics Plugin Syntax: .lyrics <aritst name - song nane>"
 })
