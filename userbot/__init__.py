@@ -72,11 +72,6 @@ HEROKU_MEMEZ = sb(os.environ.get("HEROKU_MEMEZ", "False"))
 HEROKU_APPNAME = os.environ.get("HEROKU_APPNAME", None)
 HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
 
-# Genius lyrics get this value from https://genius.com/developers both has same values
-GENIUS_API_TOKEN = os.environ.get("GENIUS", None)
-# Genius lyrics get this value from https://genius.com/developers both has same values
-GENIUS = os.environ.get("GENIUS_API_TOKEN", None)
-
 # Custom (forked) repo URL for updater.
 UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
@@ -149,6 +144,9 @@ G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA", None)
 GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
 TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY",
                                          "./downloads")
+
+# Genius Lyrics API
+GENIUS = os.environ.get("GENIUS_ACCESS_TOKEN", None)
 
 # Setting Up CloudMail.ru and MEGA.nz extractor binaries,
 # and giving them correct perms to work properly.
