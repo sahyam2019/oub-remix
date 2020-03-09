@@ -31,8 +31,8 @@ from coffeehouse.api import API
 # Non-SQL Mode
 ACC_LYDIA = {}
 
-if Var.LYDIA_API_KEY:
-    api_key = Var.LYDIA_API_KEY
+if LYDIA_API_KEY:
+    api_key = LYDIA_API_KEY
     api_client = API(api_key)
     lydia = LydiaAI(api_client)
 
