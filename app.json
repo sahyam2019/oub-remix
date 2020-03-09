@@ -28,11 +28,11 @@
     },
     "GENIUS_API_TOKEN": {
       "description": "Get this value from https://genius.com/developers.",
-      "value": "llQORS8HMBfIsP6S2DsRbgm6qfFqXEycVVH_otPidhEtWdKEQQv2J6g-LdM9ZSPo"
+      "value": "0"
     },
     "GENIUS": {
       "description": "Get this value from https://genius.com/developers., basically same as GENIUS_API_TOKEN.",
-      "value": "llQORS8HMBfIsP6S2DsRbgm6qfFqXEycVVH_otPidhEtWdKEQQv2J6g-LdM9ZSPo"
+      "value": "0"
     },
     "HEROKU_MEMEZ": {
       "description": "This should be True if the userbot is running on a Heroku Dyno.",
