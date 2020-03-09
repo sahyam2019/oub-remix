@@ -29,7 +29,7 @@ import lyricsgenius
 genius = lyricsgenius.Genius(GApi)
 
 
-@register(outgoing=True, pattern="^.lyrics(?: |$)(.*)"
+@register(outgoing=True, pattern="^.lyrics$")
 async def lyrics(event):
 	if GApi == 'None':
 		await event.edit(
@@ -81,7 +81,7 @@ async def lyrics(event):
 
 
 
-@register(outgoing=True, pattern="^.iff(?: |$)(.*)"
+@register(outgoing=True, pattern="^.iff$")
 async def pressf(f):
 	"""Pays respects"""
 	args = f.text.split()
