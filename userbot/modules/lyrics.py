@@ -18,6 +18,7 @@ from time import time
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
 from telethon import events
+from userbot import GENIUS, GENIUS_API_TOKEN
 
 
 """Genius(lyrics) staff"""
