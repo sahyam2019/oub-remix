@@ -16,7 +16,7 @@ import sys
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from userbot import CMD_HELP, bot, HEROKU_APIKEY, HEROKU_APPNAME, UPSTREAM_REPO_URL
+from userbot import CMD_HELP, bot, HEROKU_API_KEY as HEROKU_APIKEY, HEROKU_APP_NAME as HEROKU_APPNAME, UPSTREAM_REPO_URL, HEROKU_MEMEZ
 from userbot.events import register
 
 requirements_path = path.join(
@@ -136,7 +136,7 @@ async def upstream(ups):
         heroku_applications = heroku.apps()
         if not HEROKU_APPNAME:
             await ups.edit(
-                '`[HEROKU MEMEZ] Please set up the HEROKU_APPNAME variable to be able to update userbot.`'
+                '`[HEROKU MEMEZ] Please set up the HEROKU_APP_NAME variable to be able to update userbot.`'
             )
             repo.__del__()
             return
