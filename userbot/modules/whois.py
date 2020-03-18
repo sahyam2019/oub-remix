@@ -21,7 +21,7 @@ from userbot.events import register
 async def who(event):
 
     await event.edit(
-        "`Sit tight while I steal some data from *Global Network Zone*...`")
+        "`Hacking into zuckerberg's account and stealing data 😂...`")
 
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -98,7 +98,7 @@ async def fetch_info(replied_user, event):
                              offset=42,
                              max_id=0,
                              limit=80))
-    replied_user_profile_photos_count = "Person needs help with uploading profile picture."
+    replied_user_profile_photos_count = "This gay has no pic."
     try:
         replied_user_profile_photos_count = replied_user_profile_photos.count
     except AttributeError as e:
