@@ -132,7 +132,7 @@ async def amireallyalive(alive):
                      f"User: HB \n"
                      f"Maintainer: @heyworld \n"
                      f"Admin: @heyworld \n"
-                     f"Userbot: just a bot
+                     f"Userbot: just a bot \n"
                      )    
 
 
