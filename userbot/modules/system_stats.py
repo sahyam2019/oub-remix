@@ -124,15 +124,16 @@ async def amireallyalive(alive):
     """ For .alive command, check if the bot is running.  """
     await alive.edit(
                      "`I am alive dude no worries 😘` \n"
-                     "`working status: sexy af ✔️` \n"
+                     "`STATUS:Sexy AFK ☑️` \n"
                      f"Telethon version: 69.69.69 \n"
-                     f"Python: pithun is lub\n"
+                     f"Python: pithun is lub. VER:10.10.0.1\n"
                      f"------------------------------------ \n"
-                     f"Website: https://www.heyworld.com\n"
-                     f"User: HB \n"
+                     
+                     f"User:HW \n"
                      f"Maintainer: @heyworld \n"
                      f"Admin: @heyworld \n"
                      f"Userbot: just a bot \n"
+                     f"Repo:https://github.com/sahyam2019/OpenUserBot
                      )    
 
 
