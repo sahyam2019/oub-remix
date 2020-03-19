@@ -1,66 +1,53 @@
-# TG-UserBot - A modular Telegram UserBot script for Python.
-# Copyright (C) 2019  Kandarp <https://github.com/kandnub>
+# Copyright (C) 2019 The Raphielscape Company LLC.
 #
-# TG-UserBot is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# Licensed under the Raphielscape Public License, Version 1.c (the "License");
+# you may not use this file except in compliance with the License.
 #
-# TG-UserBot is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with TG-UserBot.  If not, see <https://www.gnu.org/licenses/>.
+""" Userbot module which contains afk-related commands """
 
-import datetime
-import os
-import time
-import random
+from random import choice, randint
+from asyncio import sleep
 
 from telethon.events import StopPropagation
-from telethon.tl import types, functions
-from typing import Tuple
 
-from userbot import client
-from userbot.plugins import plugins_data
-from userbot.utils.helpers import _humanfriendly_seconds, get_chat_link
-from userbot.utils.events import NewMessage
+from userbot import (AFKREASON, COUNT_MSG, CMD_HELP, ISAFK, BOTLOG,
+                     BOTLOG_CHATID, USERS, PM_AUTO_BAN)
+from userbot.events import register
 
-DEFAULT_MUTE_SETTINGS = types.InputPeerNotifySettings(
-    silent=True, mute_until=datetime.timedelta(days=365))
-AFK = plugins_data.AFK
-AFK.privates = plugins_data.load_data('userbot_afk_privates')
-AFK.groups = plugins_data.load_data('userbot_afk_groups')
-AFK.sent = plugins_data.load_data('userbot_afk_sent')
+try:
+    from userbot.modules.sql_helper.globals import gvarstatus, addgvar, delgvar
+    afk_db = True
+except AttributeError:
+    afk_db = False
 
+# ========================= CONSTANTS ============================
 AFKSTR = [
+    "I'm busy right now. Please talk in a bag and when I come back you can just give me the bag!",
+    "I'm away right now. If you need anything, leave a message after the beep:\n`beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeep`!",
     "You missed me, next time aim better.",
-    "Me no here, Me go bye.\nLeave me message. Me reply.",
     "I'll be back in a few minutes and if I'm not...,\nwait longer.",
     "I'm not here right now, so I'm probably somewhere else.",
-    "Roses are red, violets are blue.\
-        \nLeave me a message, and I'll get back to you.",
+    "Roses are red,\nViolets are blue,\nLeave me a message,\nAnd I'll get back to you.",
+    "Sometimes the best things in life are worth waiting for…\nI'll be right back.",
     "I'll be right back,\nbut if I'm not right back,\nI'll be back later.",
     "If you haven't figured it out already,\nI'm not here.",
     "Hello, welcome to my away message, how may I ignore you today?",
-    "You know the drill, you leave a message, and I'll ignore it.",
-    "I'm away from the keyboard at the moment,\
-        \nbut if you'll scream loud enough at your screen, \
-        I might just hear you.",
+    "I'm away over 7 seas and 7 countries,\n7 waters and 7 continents,\n7 mountains and 7 hills,\n7 plains and 7 mounds,\n7 pools and 7 lakes,\n7 springs and 7 meadows,\n7 cities and 7 neighborhoods,\n7 blocks and 7 houses...\n\nWhere not even your messages can reach me!",
+    "I'm away from the keyboard at the moment, but if you'll scream loud enough at your screen, I might just hear you.",
     "I went that way\n---->",
-    "This is an away message and I am away... so leave a message.",
     "I went this way\n<----",
-    "If I were here,\nI'd tell you where I am.\
-        \nBut I'm not,\nso ask me when I return...",
-    "I am away!\nI don't know when I'll be back!\
-        \nHopefully a few minutes from now!",
+    "Please leave a message and make me feel even more important than I already am.",
+    "I am not here so stop writing to me,\nor else you will find yourself with a screen full of your own messages.",
+    "If I were here,\nI'd tell you where I am.\n\nBut I'm not,\nso ask me when I return...",
+    "I am away!\nI don't know when I'll be back!\nHopefully a few minutes from now!",
+    "I'm not available right now so please leave your name, number, and address and I will stalk you later.",
+    "Sorry, I'm not here right now.\nFeel free to talk to my userbot as long as you like.\nI'll get back to you later.",
     "I bet you were expecting an away message!",
-    "Life is so short, there are so many things to do...\
-        \nI'm away doing one of them..",
+    "Life is so short, there are so many things to do...\nI'm away doing one of them..",
     "I am not here right now...\nbut if I was...\n\nwouldn't that be awesome?",
 ]
+# =================================================================
+
 
 
 @client.onMessage(command="afk", outgoing=True, regex="afk(?: |$)(.*)?$")
