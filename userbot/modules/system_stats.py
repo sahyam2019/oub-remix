@@ -133,7 +133,7 @@ async def amireallyalive(alive):
                      f"Maintainer: @heyworld \n"
                      f"Admin: @heyworld \n"
                      f"Userbot: just a bot \n"
-                     f"Repo:https://github.com/sahyam2019/OpenUserBot
+                     f"Repo:https://github.com/sahyam2019/OpenUserBot"
                      )    
 
 
