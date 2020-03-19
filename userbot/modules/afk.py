@@ -50,7 +50,7 @@ AFKSTR = [
 
 
 
-@client.onMessage(command="afk", outgoing=True, regex="afk(?: |$)(.*)?$")
+@register(command="afk", outgoing=True, regex="afk(?: |$)(.*)?$")
 async def awayfromkeyboard(event: NewMessage.Event) -> None:
     """Set your status as AFK until you send a message again."""
     arg = event.matches[0].group(1)
@@ -64,7 +64,7 @@ async def awayfromkeyboard(event: NewMessage.Event) -> None:
     raise StopPropagation
 
 
-@client.onMessage(outgoing=True, forwards=None)
+@register(outgoing=True, forwards=None)
 async def out_listner(event: NewMessage.Event) -> None:
     """Handle your AFK status by listening to new outgoing messages."""
     if event.from_scheduled or not os.environ.pop('userbot_afk', False):
@@ -132,7 +132,7 @@ async def out_listner(event: NewMessage.Event) -> None:
     AFK.sent.clear()
 
 
-@client.onMessage(incoming=True, edited=False)
+@register(incoming=True, edited=False)
 async def inc_listner(event: NewMessage.Event) -> None:
     """Handle tags and new messages by listening to new incoming messages."""
     sender = await event.get_sender()
