@@ -123,10 +123,11 @@ async def pipcheck(pip):
 async def amireallyalive(alive):
     """ For .alive command, check if the bot is running.  """
     await alive.edit(
-                     "`I am alive dude no worries 😘` \n"
-                     "`🤖 STATUS:Sexy AFK ✅` \n"
-                     f"Telethon version: 69.69.69 \n"
-                     f"Python 🐍: pithun is lub. VER:10.10.0.1\n"
+                     
+                      
+                     f"`🤖 STATUS: Working Sexy AF ✅` \n"
+                     f"Telethon version:69.69.69 \n"
+                     f"Python version🐍:127.0.0.1\n"
                      f"------------------------------------ \n"
                      
                      f"User 👨‍🚀:HW \n"
