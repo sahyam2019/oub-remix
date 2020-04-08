@@ -19,6 +19,8 @@ from urllib.parse import quote_plus
 from urllib.error import HTTPError
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
+from telethon import events
 from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
 from urbandict import define
@@ -52,7 +54,6 @@ async def setlang(prog):
     global CARBONLANG
     CARBONLANG = prog.pattern_match.group(1)
     await prog.edit(f"Language for carbon.now.sh set to {CARBONLANG}")
-
 
 @register(outgoing=True, pattern="^.carbon")
 async def carbon_api(e):
@@ -118,8 +119,8 @@ async def carbon_api(e):
     driver.quit()
     # Removing carbon.png after uploading
     await e.delete()  # Deleting msg
-
-
+    
+    
 @register(outgoing=True, pattern="^.img (.*)")
 async def img_sampler(event):
     """ For .img command, search and return images matching the query. """
