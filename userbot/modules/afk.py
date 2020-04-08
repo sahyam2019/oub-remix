@@ -23,7 +23,7 @@ from telethon.events import StopPropagation
 from telethon.tl import types, functions
 from typing import Tuple
 
-from userbot import client
+from userbot.remix import client
 from userbot.plugins import plugins_data
 from userbot.utils.helpers import _humanfriendly_seconds, get_chat_link
 from userbot.utils.events import NewMessage
