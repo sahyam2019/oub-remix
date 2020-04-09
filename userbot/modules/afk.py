@@ -169,16 +169,16 @@ async def mention_afk(mention):
             if mention.sender_id not in USERS:
                 if AFKREASON:
                     await mention.reply(f"My Master **{DEFAULTUSER}** Is **afk since** {afk_since}.\
-                        \n**Because my King is** `{AFKREASON}`")
+                        \n**Reason**  `{AFKREASON}`")
                 else:
-                    await mention.reply(f"My King 👑 {DEFAULTUSER} 👑 is **afk Since** {afk_since}.\nand My King has left a word for you only: \n{AFKSK}\n`.` ")
+                    await mention.reply(f"My Master 👑 {DEFAULTUSER} 👑 is **afk Since** {afk_since}.\nand My master has left a word for you only: \n{AFKSK}\n`.` ")
                 USERS.update({mention.sender_id: 1})
                 COUNT_MSG = COUNT_MSG + 1
             elif mention.sender_id in USERS:
                 if USERS[mention.sender_id] % randint(2, 4) == 0:
                     if AFKREASON:
                         await mention.reply(f"My Master **{DEFAULTUSER}** Is **afk since** {afk_since}.\
-                            \n**Because my King is** `{AFKREASON}`")
+                            \n**Reason** `{AFKREASON}`")
                     else:
                         await mention.reply(f"My King 👑 {DEFAULTUSER} 👑 is **afk Since** {afk_since}.\nand My King has left a word for you only: \n{AFKSK}\n`.` ")
                     USERS[mention.sender_id] = USERS[mention.sender_id] + 1
