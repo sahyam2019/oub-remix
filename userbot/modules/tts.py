@@ -60,7 +60,7 @@ async def _(event):
             required_file_name = required_file_name + ".opus"
         end = datetime.now()
         ms = (end - start).seconds
-        await client.send_file(
+        await borg.send_file(
             event.chat_id,
             required_file_name,
             # caption="Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms),
