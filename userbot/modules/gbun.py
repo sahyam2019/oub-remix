@@ -4,8 +4,7 @@ from telethon import events
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import ChannelParticipantsAdmins
 from userbot.utils import admin_cmd
-from userbot.events import 
-
+from userbot.events import register 
 
 @register(admin_cmd("gbun"))
 async def gbun(event):
