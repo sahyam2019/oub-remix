@@ -713,7 +713,7 @@ CMD_HELP.update(
         \nUsage: Does a search on Urban Dictionary.'})
 CMD_HELP.update({
     'tts':
-    '.tts <text> [or reply]\
+    '.ttss <text> [or reply]\
         \nUsage: Translates text to speech for the language which is set.\nUse .lang tts <language code> to set language for tts. (Default is English.)'
 })
 CMD_HELP.update({
