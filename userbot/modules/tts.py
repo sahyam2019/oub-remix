@@ -13,7 +13,7 @@ from userbot.events import register
 
 
 
-@register(("tts(.*)"))
+@register(admin_cmd(pattern="tts (.*)"))
 async def _(event):
     if event.fwd_from:
         return
