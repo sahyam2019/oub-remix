@@ -20,6 +20,12 @@ from telethon.sessions import StringSession
 
 load_dotenv("config.env")
 
+CMD_LIST = {}
+# for later purposes
+CMD_HELP = {}
+INT_PLUG = ""
+LOAD_PLUG = {}
+
 # Bot Logs setup:
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 
