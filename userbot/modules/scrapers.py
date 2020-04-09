@@ -447,39 +447,7 @@ async def translateme(trans):
         )
 
 
-@register(pattern=".lang (trt|tts) (.*)", outgoing=True)
-async def lang(value):
-    """ For .lang command, change the default langauge of userbot scrapers. """
-    util = value.pattern_match.group(1).lower()
-    if util == "trt":
-        scraper = "Translator"
-        global TRT_LANG
-        arg = value.pattern_match.group(2).lower()
-        if arg in LANGUAGES:
-            TRT_LANG = arg
-            LANG = LANGUAGES[arg]
-        else:
-            await value.edit(
-                f"`Invalid Language code !!`\n`Available language codes for TRT`:\n\n`{LANGUAGES}`"
-            )
-            return
-    elif util == "tts":
-        scraper = "Text to Speech"
-        global TTS_LANG
-        arg = value.pattern_match.group(2).lower()
-        if arg in tts_langs():
-            TTS_LANG = arg
-            LANG = tts_langs()[arg]
-        else:
-            await value.edit(
-                f"`Invalid Language code !!`\n`Available language codes for TTS`:\n\n`{tts_langs()}`"
-            )
-            return
-    await value.edit(f"`Language for {scraper} changed to {LANG.title()}.`")
-    if BOTLOG:
-        await value.client.send_message(
-            BOTLOG_CHATID,
-            f"`Language for {scraper} changed to {LANG.title()}.`")
+
 
 
 @register(outgoing=True, pattern="^.yt (.*)")
