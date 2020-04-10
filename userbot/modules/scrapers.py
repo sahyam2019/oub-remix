@@ -55,8 +55,7 @@ TEMP_DOWNLOAD_DIRECTORY = "/root/userbot/.bin"
 
 @register(outgoing=True, pattern="^.carbon")
 async def carbon_api(e):
-   # if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
-   # """ A Wrapper for carbon.now.sh """
+    """ A Wrapper for carbon.now.sh """
     await e.edit("`Processing..`")
     CARBON = 'https://carbon.now.sh/?l={lang}&code={code}'
     global CARBONLANG
