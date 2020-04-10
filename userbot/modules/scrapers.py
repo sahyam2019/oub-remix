@@ -14,7 +14,7 @@ import re
 from time import sleep
 from html import unescape
 from re import findall
-from selenium import webdriver
+#from selenium import webdriver
 from urllib.parse import quote_plus
 from urllib.error import HTTPError
 from selenium.webdriver.support.ui import Select
