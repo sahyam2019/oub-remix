@@ -307,7 +307,7 @@ async def text_to_speech(query):
         return
     text = text.strip()
     lan = lan.strip()
-    if not os.path.isdir(VAR.TEMP_DOWNLOAD_DIRECTORY)
+    if not os.path.isdir(VAR.TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(VAR.TEMP_DOWNLOAD_DIRECTORY)
     required_file_name = VAR.TEMP_DOWNLOAD_DIRECTORY + "voice.ogg"
     try:
