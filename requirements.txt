@@ -52,3 +52,8 @@ pip>=19.2.3
 setuptools>=28.8.0
 SpeechRecognition>=3.4.6
 # wheel>=0.30.0a0
+telegraph
+python-dateutil
+pyfiglet   
+
+
