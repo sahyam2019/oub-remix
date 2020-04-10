@@ -14,7 +14,7 @@ import re
 from time import sleep
 from html import unescape
 from re import findall
-#from selenium import webdriver
+from selenium import webdriver
 from urllib.parse import quote_plus
 from urllib.error import HTTPError
 from selenium.webdriver.support.ui import Select
@@ -50,6 +50,7 @@ from datetime import datetime
 CARBONLANG = "auto"
 TTS_LANG = "en"
 TRT_LANG = "en"
+TEMP_DOWNLOAD_DIRECTORY = "/root/userbot/.bin"
 
 
 @register(outgoing=True, pattern="^.crblang (.*)")
@@ -307,9 +308,9 @@ async def text_to_speech(query):
         return
     text = text.strip()
     lan = lan.strip()
-    if not os.path.isdir(VAR.TEMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(VAR.TEMP_DOWNLOAD_DIRECTORY)
-    required_file_name = VAR.TEMP_DOWNLOAD_DIRECTORY + "voice.ogg"
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
+    required_file_name = TEMP_DOWNLOAD_DIRECTORY + "voice.ogg"
     try:
         #https://github.com/SpEcHiDe/UniBorg/commit/17f8682d5d2df7f3921f50271b5b6722c80f4106
         tts = gTTS(text, lang=lan)
