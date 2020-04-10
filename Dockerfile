@@ -48,51 +48,15 @@ RUN apk add --no-cache=true --update \
     readline-dev \
     sqlite \
     ffmpeg \
+    libjpeg-turbo-dev \
     sqlite-dev \
+    libc-dev \
     sudo \
     chromium \
     chromium-chromedriver \
     zlib-dev \
-    jpeg \
+    jpeg 
     #
-    build-base \
-    bzip2-dev \
-    curl \
-    coreutils \
-    figlet \
-    gcc \
-    g++ \
-    git \
-    aria2 \
-    util-linux \
-    libevent \
-    libjpeg-turbo-dev \
-    chromium \
-    chromium-chromedriver \
-    jpeg-dev \
-    libc-dev \
-    libffi-dev \
-    libpq \
-    libwebp-dev \
-    libxml2-dev \
-    libxslt-dev \
-    linux-headers \
-    musl-dev \
-    neofetch \
-    openssl-dev \
-    postgresql-client \
-    postgresql-dev \
-    pv \
-    jq \
-    wget \
-    python3-dev \
-    readline-dev \
-    ffmpeg \
-    sqlite-dev \
-    sudo \
-    zlib-dev
-
-
 
 RUN curl https://cli-assets.heroku.com/install.sh
 
