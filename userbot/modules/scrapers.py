@@ -38,11 +38,14 @@ from youtube_dl.utils import (DownloadError, ContentTooShortError,
                               MaxDownloadsReached, PostProcessingError,
                               UnavailableVideoError, XAttrMetadataError)
 from asyncio import sleep
-from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, YOUTUBE_API_KEY, CHROME_DRIVER, GOOGLE_CHROME_BIN
+from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, YOUTUBE_API_KEY, CHROME_DRIVER, GOOGLE_CHROME_BIN, bot
 from userbot.events import register
 from telethon.tl.types import DocumentAttributeAudio
 from userbot.modules.upload_download import progress, humanbytes, time_formatter
 from userbot.google_images_download import googleimagesdownload
+import subprocess
+from datetime import datetime
+
 
 CARBONLANG = "auto"
 TTS_LANG = "en"
@@ -132,7 +135,7 @@ async def img_sampler(event):
         lim = lim.replace("lim=", "")
         query = query.replace("lim=" + lim[0], "")
     except IndexError:
-        lim = 7
+        lim = 5
     response = googleimagesdownload()
 
     # creating list of arguments
@@ -286,7 +289,72 @@ async def urban_dict(ud_e):
         await ud_e.edit("No result found for **" + query + "**")
 
 
+@register(outgoing=True, pattern=r"^.tts(?: |$)([\s\S]*)")
+async def text_to_speech(query):
+#async def _(event):
+    if query.fwd_from:
+        return
+    input_str = query.pattern_match.group(1)
+    start = datetime.now()
+    if query.reply_to_msg_id:
+        previous_message = await query.get_reply_message()
+        text = previous_message.message
+        lan = input_str
+    elif "|" in input_str:
+        lan, text = input_str.split("|")
+    else:
+        await query.edit("Invalid Syntax. Module stopping.")
+        return
+    text = text.strip()
+    lan = lan.strip()
+    if not os.path.isdir('\root\downloads\'):
+        os.makedirs('\root\downloads\')
+    required_file_name = /root/downloads/ + "voice.ogg"
+    try:
+        #https://github.com/SpEcHiDe/UniBorg/commit/17f8682d5d2df7f3921f50271b5b6722c80f4106
+        tts = gTTS(text, lang=lan)
+        tts.save(required_file_name)
+        command_to_execute = [
+            "ffmpeg",
+            "-i",
+             required_file_name,
+             "-map",
+             "0:a",
+             "-codec:a",
+             "libopus",
+             "-b:a",
+             "100k",
+             "-vbr",
+             "on",
+             required_file_name + ".opus"
+        ]
+        try:
+            t_response = subprocess.check_output(command_to_execute, stderr=subprocess.STDOUT)
+        except (subprocess.CalledProcessError, NameError, FileNotFoundError) as exc:
+            await query.edit(str(exc))
+            # continue sending required_file_name
+        else:
+            os.remove(required_file_name)
+            required_file_name = required_file_name + ".opus"
+        end = datetime.now()
+        ms = (end - start).seconds
+        await bot.send_file(
+            query.chat_id,
+            required_file_name,
+            # caption="Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms),
+            reply_to=query.message.reply_to_msg_id,
+            allow_cache=False,
+            voice_note=True
+        )
+        os.remove(required_file_name)
+        await query.edit("Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms))
+        await asyncio.sleep(5)
+        await query.delete()
+    except Exception as e:
+        await query.edit(str(e))
 
+
+# kanged from Blank-x ;---;
 @register(outgoing=True, pattern="^.imdb (.*)")
 async def imdb(e):
     try:
@@ -402,7 +470,39 @@ async def translateme(trans):
         )
 
 
-
+@register(pattern=".lang (trt|tts) (.*)", outgoing=True)
+async def lang(value):
+    """ For .lang command, change the default langauge of userbot scrapers. """
+    util = value.pattern_match.group(1).lower()
+    if util == "trt":
+        scraper = "Translator"
+        global TRT_LANG
+        arg = value.pattern_match.group(2).lower()
+        if arg in LANGUAGES:
+            TRT_LANG = arg
+            LANG = LANGUAGES[arg]
+        else:
+            await value.edit(
+                f"`Invalid Language code !!`\n`Available language codes for TRT`:\n\n`{LANGUAGES}`"
+            )
+            return
+    elif util == "tts":
+        scraper = "Text to Speech"
+        global TTS_LANG
+        arg = value.pattern_match.group(2).lower()
+        if arg in tts_langs():
+            TTS_LANG = arg
+            LANG = tts_langs()[arg]
+        else:
+            await value.edit(
+                f"`Invalid Language code !!`\n`Available language codes for TTS`:\n\n`{tts_langs()}`"
+            )
+            return
+    await value.edit(f"`Language for {scraper} changed to {LANG.title()}.`")
+    if BOTLOG:
+        await value.client.send_message(
+            BOTLOG_CHATID,
+            f"`Language for {scraper} changed to {LANG.title()}.`")
 
 
 @register(outgoing=True, pattern="^.yt (.*)")
@@ -636,7 +736,7 @@ CMD_HELP.update(
         \nUsage: Does a search on Urban Dictionary.'})
 CMD_HELP.update({
     'tts':
-    '.ttss <text> [or reply]\
+    '.tts <text> [or reply]\
         \nUsage: Translates text to speech for the language which is set.\nUse .lang tts <language code> to set language for tts. (Default is English.)'
 })
 CMD_HELP.update({
