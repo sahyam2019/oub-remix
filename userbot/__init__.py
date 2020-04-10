@@ -160,6 +160,10 @@ GENIUS_API_TOKEN = os.environ.get("GENIUS", None)
 # Genius lyrics get this value from https://genius.com/developers both has same values
 GENIUS = os.environ.get("GENIUS_API_TOKEN", None)
 
+# Quotes API Token
+QUOTES_API_TOKEN = os.environ.get("QUOTES_API_TOKEN", None)
+
+
 
 
 # Setting Up CloudMail.ru and MEGA.nz extractor binaries,
