@@ -12,11 +12,12 @@ from userbot.utils import admin_cmd
 from userbot.events import register
 
 
+
 @register(outgoing=True, pattern="^.tts (.*)")
 async def text_to_speech(query):
     if query.fwd_from:
         return
-    input_str = event.pattern_match.group(1)
+    input_str = query.pattern_match.group(1)
     start = datetime.now()
     if query.reply_to_msg_id:
         previous_message = await event.get_reply_message()
