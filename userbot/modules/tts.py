@@ -13,19 +13,19 @@ from userbot.events import register
 
 
 @register(outgoing=True, pattern="^.tts (.*)")
-async def _(event):
-    if event.fwd_from:
+async def text_to_speech(query):
+    if query.fwd_from:
         return
     input_str = event.pattern_match.group(1)
     start = datetime.now()
-    if event.reply_to_msg_id:
+    if query.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         text = previous_message.message
         lan = input_str
     elif "|" in input_str:
         lan, text = input_str.split("|")
     else:
-        await event.edit("Invalid Syntax. Module stopping.")
+        await query.edit("Invalid Syntax. Module stopping.")
         return
     text = text.strip()
     lan = lan.strip()
@@ -53,15 +53,15 @@ async def _(event):
         try:
             t_response = subprocess.check_output(command_to_execute, stderr=subprocess.STDOUT)
         except (subprocess.CalledProcessError, NameError, FileNotFoundError) as exc:
-            await event.edit(str(exc))
+            await query.edit(str(exc))
             # continue sending required_file_name
         else:
             os.remove(required_file_name)
             required_file_name = required_file_name + ".opus"
         end = datetime.now()
         ms = (end - start).seconds
-        await client.send_file(
-            event.chat_id,
+        await bot.send_file(
+            query.chat_id,
             required_file_name,
             # caption="Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms),
             reply_to=event.message.reply_to_msg_id,
@@ -69,8 +69,8 @@ async def _(event):
             voice_note=True
         )
         os.remove(required_file_name)
-        await event.edit("Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms))
+        await query.edit("Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms))
         await asyncio.sleep(5)
-        await event.delete()
+        await query.delete()
     except Exception as e:
-        await event.edit(str(e))
+        await query.edit(str(e))
