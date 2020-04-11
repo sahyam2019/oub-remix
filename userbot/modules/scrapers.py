@@ -3,6 +3,7 @@
 # Licensed under the Raphielscape Public License, Version 1.c (the "License");
 # you may not use this file except in compliance with the License.
 #
+# thanks to the owner of X-tra-Telegram for tts fix
 #
 """ Userbot module containing various scrapers. """
 
@@ -52,6 +53,11 @@ TTS_LANG = "en"
 TRT_LANG = "en"
 TEMP_DOWNLOAD_DIRECTORY = "/root/userbot/.bin"
 
+@register(outgoing=True, pattern="^.crblang (.*)")
+async def setlang(prog):
+    global CARBONLANG
+    CARBONLANG = prog.pattern_match.group(1)
+    await prog.edit(f"Language for carbon.now.sh set to {CARBONLANG}")
 
 @register(outgoing=True, pattern="^.carbon")
 async def carbon_api(e):
