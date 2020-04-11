@@ -6,7 +6,7 @@ from telethon.tl.types import ChannelParticipantsAdmins
 from userbot.utils import admin_cmd
 from userbot.events import register 
 
-@register((outgoing=True, pattern="^.gbun"))
+@register(outgoing=True, pattern="^.gbun (.*)")
 async def gbun(event):
     if event.fwd_from:
         return
