@@ -31,7 +31,7 @@ from googleapiclient.http import MediaFileUpload
 from userbot import (G_DRIVE_CLIENT_ID, G_DRIVE_CLIENT_SECRET,
                      G_DRIVE_AUTH_TOKEN_DATA, BOTLOG_CHATID,
                      TEMP_DOWNLOAD_DIRECTORY, CMD_HELP, LOGS,
-                     G_DRIVE_FOLDER_ID)
+                     GDRIVE_FOLDER_ID)
 from userbot.events import register
 from userbot.modules.upload_download import humanbytes, time_formatter
 from userbot.modules.aria import aria2, check_metadata
@@ -46,26 +46,26 @@ SCOPES = [
 ]
 REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob"
 # =========================================================== #
-#      STATIC CASE FOR G_DRIVE_FOLDER_ID IF VALUE IS URL      #
+#      STATIC CASE FOR GDRIVE_FOLDER_ID IF VALUE IS URL      #
 # =========================================================== #
-__ = G_DRIVE_FOLDER_ID
+__ = GDRIVE_FOLDER_ID
 if __ is not None:
-    if "uc?id=" in G_DRIVE_FOLDER_ID:
+    if "uc?id=" in GDRIVE_FOLDER_ID:
         LOGS.info(
-            "G_DRIVE_FOLDER_ID is not a valid folderURL...")
-        G_DRIVE_FOLDER_ID = None
+            "GDRIVE_FOLDER_ID is not a valid folderURL...")
+        GDRIVE_FOLDER_ID = None
     try:
-        G_DRIVE_FOLDER_ID = __.split("folders/")[1]
+        GDRIVE_FOLDER_ID = __.split("folders/")[1]
     except IndexError:
         try:
-            G_DRIVE_FOLDER_ID = __.split("open?id=")[1]
+            GDRIVE_FOLDER_ID = __.split("open?id=")[1]
         except IndexError:
             try:
                 if "/view" in __:
-                    G_DRIVE_FOLDER_ID = __.split("/")[-2]
+                    GDRIVE_FOLDER_ID = __.split("/")[-2]
             except IndexError:
                 try:
-                    G_DRIVE_FOLDER_ID = __.split(
+                    GDRIVE_FOLDER_ID = __.split(
                                       "folderview?id=")[1]
                 except IndexError:
                     if any(map(str.isdigit, __)):
@@ -80,8 +80,8 @@ if __ is not None:
                         pass
                     else:
                         LOGS.info(
-                           "G_DRIVE_FOLDER_ID not valid...")
-                        G_DRIVE_FOLDER_ID = None
+                           "GDRIVE_FOLDER_ID not valid...")
+                        GDRIVE_FOLDER_ID = None
 # =========================================================== #
 #                                                             #
 # =========================================================== #
@@ -358,11 +358,11 @@ async def create_dir(service, folder_name):
         if parent_Id is not None:
             pass
     except NameError:
-        """ - Fallback to G_DRIVE_FOLDER_ID else root dir - """
-        if G_DRIVE_FOLDER_ID is not None:
-            metadata['parents'] = [G_DRIVE_FOLDER_ID]
+        """ - Fallback to GDRIVE_FOLDER_ID else root dir - """
+        if GDRIVE_FOLDER_ID is not None:
+            metadata['parents'] = [GDRIVE_FOLDER_ID]
     else:
-        """ - Override G_DRIVE_FOLDER_ID because parent_Id not empty - """
+        """ - Override GDRIVE_FOLDER_ID because parent_Id not empty - """
         metadata['parents'] = [parent_Id]
     folder = service.files().create(body=metadata, fields="id").execute()
     folder_id = folder.get('id')
@@ -388,11 +388,11 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
         if parent_Id is not None:
             pass
     except NameError:
-        """ - Fallback to G_DRIVE_FOLDER_ID else root dir - """
-        if G_DRIVE_FOLDER_ID is not None:
-            body['parents'] = [G_DRIVE_FOLDER_ID]
+        """ - Fallback to GDRIVE_FOLDER_ID else root dir - """
+        if GDRIVE_FOLDER_ID is not None:
+            body['parents'] = [GDRIVE_FOLDER_ID]
     else:
-        """ - Override G_DRIVE_FOLDER_ID because parent_Id not empty - """
+        """ - Override GDRIVE_FOLDER_ID because parent_Id not empty - """
         body['parents'] = [parent_Id]
     permission = {
         "role": "reader",
@@ -469,8 +469,8 @@ async def reset_parentId():
         if parent_Id is not None:
             pass
     except NameError:
-        if G_DRIVE_FOLDER_ID is not None:
-            parent_Id = G_DRIVE_FOLDER_ID
+        if GDRIVE_FOLDER_ID is not None:
+            parent_Id = GDRIVE_FOLDER_ID
     else:
         del parent_Id
     return
@@ -492,11 +492,11 @@ async def google_drive_managers(gdrive):
         if parent_Id is not None:
             pass
     except NameError:
-        """ - Fallback to G_DRIVE_FOLDER_ID else to root dir - """
-        if G_DRIVE_FOLDER_ID is not None:
-            metadata['parents'] = [G_DRIVE_FOLDER_ID]
+        """ - Fallback to GDRIVE_FOLDER_ID else to root dir - """
+        if GDRIVE_FOLDER_ID is not None:
+            metadata['parents'] = [GDRIVE_FOLDER_ID]
     else:
-        """ - Override G_DRIVE_FOLDER_ID because parent_Id not empty - """
+        """ - Override GDRIVE_FOLDER_ID because parent_Id not empty - """
         metadata['parents'] = [parent_Id]
     permission = {
         "role": "reader",
@@ -692,19 +692,19 @@ async def set_upload_folder(gdrive):
     global parent_Id
     exe = gdrive.pattern_match.group(1)
     if exe == "rm":
-        if G_DRIVE_FOLDER_ID is not None:
-            parent_Id = G_DRIVE_FOLDER_ID
+        if GDRIVE_FOLDER_ID is not None:
+            parent_Id = GDRIVE_FOLDER_ID
             return await gdrive.edit(
                 "`[FOLDER - SET]`\n\n"
                 " • `Status :` **OK**\n"
-                " • `Reason :` will use `G_DRIVE_FOLDER_ID`."
+                " • `Reason :` will use `GDRIVE_FOLDER_ID`."
             )
         else:
             del parent_Id
             return await gdrive.edit(
                 "`[FOLDER - SET]`\n\n"
                 " • `Status :` **OK**\n"
-                " • `Reason :` `G_DRIVE_FOLDER_ID` is empty, will use root."
+                " • `Reason :` `GDRIVE_FOLDER_ID` is empty, will use root."
             )
     inp = gdrive.pattern_match.group(2)
     if not inp:
@@ -852,5 +852,5 @@ CMD_HELP.update({
     "\nUsage: change upload directory."
     "\n\n.gdfset rm"
     "\nUsage: remove set parentId from\n.gdfset put <value>"
-    "to **G_DRIVE_FOLDER_ID** and if empty upload will go to root."
+    "to **GDRIVE_FOLDER_ID** and if empty upload will go to root."
 })
