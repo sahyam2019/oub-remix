@@ -24,6 +24,16 @@ AFKSTR = [
     "`I'm busy right now. Please talk in a bag and when I come back you can just give me the bag!`",
     "I'm away right now. If you need anything, leave a message after the beep:\n`beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeep`!",
     "`You missed me, next time aim better.`",
+    "`Give me a couple minutes... damn kids are trying to blow my car up again.`",
+    "`Stop looking at me.`",
+    "`Sorry I'm not sorry.`",
+    "`I may be schizophrenic, but at least I have each other, and when I am alone I am together.`"
+    "`Somebody told me to change my away message so I did.`"
+    "`Sex is like poker: If you don't have a partner you better have a really strong hand.`"
+    "`Let's discuss right and left. You're right, I left.`",
+    "`Sorry to have missed you but I am probably busy or sleeping.`",
+    "`Living vicariously through myself.`",
+    "`I can’t reply right now. I’m not away but I’m just hiding from someone, pretending I’m away. If it’s not you I’m running away from.`",
     "`I'll be back in a few minutes and if I'm not...,\nwait longer.`",
     "`I'm not here right now, so I'm probably somewhere else.`",
     "`Roses are red,\nViolets are blue,\nLeave me a message,\nAnd I'll get back to you.`",
@@ -268,7 +278,7 @@ CMD_HELP.update({
     "afk":
     ".afk [Optional Reason]\
 \nUsage: Sets you as afk.\nReplies to anyone who tags/PM's \
-\nyou telling them that you are AFK(reason).\
+\ntelling them that you are AFK(reason) And since when(Time).\
 \n\n.unafk\
 \nUsage: Back from afk state\
 "
