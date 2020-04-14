@@ -130,10 +130,10 @@ async def amireallyalive(alive):
                      f"Python version🐍:127.0.0.1\n"
                      f"------------------------------------ \n"
                      
-                     f"User 👨‍🚀:HW \n"
-                     f"Maintainer 🏄‍♂️: @heyworld \n"
-                     f"Admin 👑: @heyworld \n"
-                     f"Userbot 😏: just a bot \n"
+                     f"User 👨‍🚀:Ritaa \n"
+                     f"Maintainer 🏄‍♂️: @Literally_Dead \n"
+                     f"Admin 👑: @Literally_Dead \n"
+                     f"Userbot 😏: RitaaUB \n"
                      f"Repo 📥:https://github.com/sahyam2019/OpenUserBot"
                      )    
 
