@@ -5,6 +5,7 @@ from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import ChannelParticipantsAdmins
 from userbot.utils import admin_cmd
 from userbot.events import register 
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 
 @register(outgoing=True, pattern="^.gbun(?: |$)(.*)")
 async def gbun(event):
@@ -17,7 +18,7 @@ async def gbun(event):
     await event.edit("**Summoning out le Gungnir ❗️⚜️☠️**")
     asyncio.sleep(3.5)
     chat = await event.get_input_chat()
-    async for x in borg.iter_participants(chat, filter=ChannelParticipantsAdmins):
+    async for x in bot.iter_participants(chat, filter=ChannelParticipantsAdmins):
         mentions += f""
     reply_message = None
     if event.reply_to_msg_id:
