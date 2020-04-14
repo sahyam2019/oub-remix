@@ -59,5 +59,5 @@ async def gbun(event):
     await event.delete()
     CMD_HELP.update(
     {"fgban": ".fgban\
-    \nUsage: Type .fgban or Reply .fgban reason and see yourself."})
+    \nUsage: Type .fgban or Reply .fgban reason and see it yourself."})
     
