@@ -43,9 +43,9 @@ async def gbun(event):
                   "**ID : ** `{}`\n"
                 ).format(firstname, idd, firstname, idd)
             if usname == None:
-                jnl += "**Victim Nigga's username: ** `Doesn't own a username!`\n"
+                jnl += "**Username: ** `Doesn't own a username!`\n"
             elif usname != "None":
-                jnl += "**Victim Nigga's username** : @{}\n".format(usname)
+                jnl += "**Username** : @{}\n".format(usname)
             if len(gbunVar) > 0:
                 gbunm = "`{}`".format(gbunVar)
                 gbunr = "**Reason: **"+gbunm
