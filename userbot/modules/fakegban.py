@@ -7,8 +7,11 @@ from telethon.tl.types import ChannelParticipantsAdmins
 from userbot.utils import admin_cmd
 from userbot.events import register 
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+# ================= CONSTANT =================
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
+# ============================================
 
-@register(outgoing=True, pattern="^.gbun(?: |$)(.*)")
+@register(outgoing=True, pattern="^.fgban(?: |$)(.*)")
 async def gbun(event):
     if event.fwd_from:
         return
@@ -53,3 +56,7 @@ async def gbun(event):
         mention = "`Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By {DEFAULTUSER}..\nReason: No Reason Given. `"
         await event.reply(mention)
     await event.delete()
+    CMD_HELP.update(
+    {"fgban": ".fgban\
+    \nUsage: Type .fgban or Reply .fgban reason and see yourself."})
+    
