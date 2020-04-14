@@ -36,9 +36,9 @@ async def gbun(event):
         if idd == 1036951071:
             await reply_message.reply("`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 6969$ to my master__ [Heyworld](tg://user?id=1036951071) __to release your account__😏")
         else:
-            jnl=("`Warning!! `"
+            jnl=("`Warning!!`"
                   "[{}](tg://user?id={})"
-                  f"`𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By`@{DEFAULTUSER}\n\n"
+                  f"` 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By` @{DEFAULTUSER}\n\n"
                   "**Name: ** __{}__\n"
                   "**ID : ** `{}`\n"
                 ).format(firstname, idd, firstname, idd)
