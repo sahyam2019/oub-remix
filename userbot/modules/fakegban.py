@@ -1,4 +1,5 @@
 # This is a troll indeed ffs *facepalm*
+#Ported from xtra-telegram by @heyworld
 import asyncio
 from telethon import events
 from telethon.tl.functions.users import GetFullUserRequest
@@ -14,7 +15,7 @@ async def gbun(event):
     gbunVar = event.text
     gbunVar = gbunVar[6:]
     mentions = "`Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By Admin...\n`"
-    no_reason = "__Reason: Potential Porn Addict. __"
+    no_reason = "No Reason Given "
     await event.edit("**Summoning out le Gungnir ❗️⚜️☠️**")
     asyncio.sleep(3.5)
     chat = await event.get_input_chat()
