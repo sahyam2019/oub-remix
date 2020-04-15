@@ -28,7 +28,7 @@ def bruh(name):
 
 @register(outgoing=True, pattern="^.song(?: |$)(.*)")
 async def _(event):
- if event.fwd_from:
+    if event.fwd_from:
         return
     DELAY_BETWEEN_EDITS = 0.3
     PROCESS_RUN_TIME = 100
