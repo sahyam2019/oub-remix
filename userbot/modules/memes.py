@@ -959,7 +959,7 @@ async def Oem(e):
 
 @register(outgoing=True, pattern="^.10iq$")
 async def iqless(e):
-    await e.edit("♿")
+    await e.edit("👀")
 
 
 @register(outgoing=True, pattern="^.moon$")
