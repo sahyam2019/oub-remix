@@ -58,3 +58,5 @@ CMD_HELP.update({
         ".song <songname>"
         "\nUsage: For searching songs.\n"
     })
+
+
