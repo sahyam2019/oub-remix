@@ -1,4 +1,5 @@
-"""do `.song <song keyword>`"""
+# Originally from Bothub
+# Port to UserBot by @heyworld
 
 from telethon import events
 import subprocess
@@ -6,9 +7,9 @@ from telethon.errors import MessageEmptyError, MessageTooLongError, MessageNotMo
 import io
 import asyncio
 import time
-from userbot.utils import admin_cmd
+#from userbot.utils import admin_cmd
 from userbot.events import register 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, ALIVE_NAME
+from userbot import bot
 import glob
 import os
 try:
@@ -36,7 +37,7 @@ async def _(event):
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
-    await event.edit("ok finding the song")    
+    await event.edit("searching song..please wait")    
     bruh(str(cmd))
     l = glob.glob("*.mp3")
     loa = l[0]
@@ -51,3 +52,9 @@ async def _(event):
             )
     os.system("rm -rf *.mp3")
     subprocess.check_output("rm -rf *.mp3",shell=True)
+    CMD_HELP.update({
+    "instamusic": 
+        ".song songname\
+        \nUsage: For searching songs."
+})
+    
