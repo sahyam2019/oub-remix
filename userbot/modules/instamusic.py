@@ -53,6 +53,6 @@ async def _(event):
     os.system("rm -rf *.mp3")
     subprocess.check_output("rm -rf *.mp3",shell=True)
      CMD_HELP.update(
-    {"imusic": ".song songname\
+    {"instamusic": ".song songname\
     \nUsage: used for searching songs."})
     
