@@ -6,7 +6,7 @@ from telethon.errors import MessageEmptyError, MessageTooLongError, MessageNotMo
 import io
 import asyncio
 import time
-from userbot.util import admin_cmd
+from userbot.utils import admin_cmd
 from userbot.events import register 
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, ALIVE_NAME
 import glob
