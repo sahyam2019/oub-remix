@@ -9,7 +9,7 @@ import asyncio
 import time
 #from userbot.utils import admin_cmd
 from userbot.events import register 
-from userbot import bot
+from userbot import bot, CMD_HELP
 import glob
 import os
 try:
