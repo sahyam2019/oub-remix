@@ -6,7 +6,9 @@ from telethon.errors import MessageEmptyError, MessageTooLongError, MessageNotMo
 import io
 import asyncio
 import time
-from uniborg.util import admin_cmd
+from userbot.util import admin_cmd
+from userbot.events import register 
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, ALIVE_NAME
 import glob
 import os
 try:
@@ -24,7 +26,7 @@ def bruh(name):
     os.system("instantmusic -q -s "+name)
     
 
-@borg.on(admin_cmd(pattern="song ?(.*)"))
+@register(outgoing=True, pattern="^.song(?: |$)(.*)"
 async def _(event):
     if event.fwd_from:
         return
@@ -39,7 +41,7 @@ async def _(event):
     l = glob.glob("*.mp3")
     loa = l[0]
     await event.edit("sending song")
-    await borg.send_file(
+    await bot.send_file(
                 event.chat_id,
                 loa,
                 force_document=True,
