@@ -257,7 +257,7 @@ async def afk_on_pm(sender):
                     await sender.reply(f"My Master **{DEFAULTUSER}** Is **afk since** {afk_since}.\
                         \n**Because my King is** `{AFKREASON}`")
                 else:
-                    await sender.replyf(f"My King 👑 {DEFAULTUSER} 👑 is **afk Since** {afk_since}.\nand My King has left a word for you only: \n{AFKSK}\n`.` ")
+                    await sender.replyf(f"Heya! I'm currently unavailable.Since when,you ask?For {afk_since} i guess.\n When will I be back?Soon Whenever I feel like it( ಠ ʖ̯ ಠ) \n`.` ")
                 USERS.update({sender.sender_id: 1})
                 COUNT_MSG = COUNT_MSG + 1
             elif apprv and sender.sender_id in USERS:
