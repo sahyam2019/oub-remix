@@ -41,8 +41,7 @@ async def magisk(request):
 
 
 CMD_HELP.update({
-    "android":
-    ".magisk\
-\nGet latest Magisk releases\
-})
-  
+        "magisk": 
+        ".magisk"
+        "\nUsage: see it urself.\n"
+    })
