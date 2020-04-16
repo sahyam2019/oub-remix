@@ -4,6 +4,7 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 # All Credits to https://t.me/azrim89 for timestamp.
+#.Added some custom gay things. Ignore it. I hate bots
 
 """ Userbot module which contains afk-related commands """
 
