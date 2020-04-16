@@ -159,7 +159,7 @@ async def ANTI_SPAMBOT(welcm):
                             await welcm.reply(
                                 "@admins\n"
                                 "`ANTI SPAMBOT DETECTOR!\n"
-                                "THIS USER MATCHES MY ALGORITHMS AS A SPAMBOT!`"
+                                "THIS USER SEEMS A SPAMMER AND MATCHES MY PRO BOT'S ALGORITHM. @admins check it!`"
                                 f"REASON: {reason}")
                             kicked = False
                             reported = True
