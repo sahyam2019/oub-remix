@@ -166,6 +166,12 @@ GENIUS = os.environ.get("GENIUS_API_TOKEN", None)
 # Quotes API Token
 QUOTES_API_TOKEN = os.environ.get("QUOTES_API_TOKEN", None)
 
+# Photo Chat - Get this value from http://antiddos.systems
+API_TOKEN = os.environ.get("API_TOKEN", "15e05de0-0357-4553-b39c-d614443ed91e")
+API_URL = os.environ.get("API_URL", "http://antiddos.systems")    
+
+
+
 
 
 
