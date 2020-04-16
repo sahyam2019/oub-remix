@@ -7,7 +7,7 @@ import telethon.tl.types
 from telethon.tl.types import *
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
-
+from telethon.tl.types import inputMediaDice as InputMediaDice
 
 
 
@@ -18,8 +18,6 @@ async def _(event):
         return
         input_str = event.pattern_match.group(1)
     await event.delete()
-    try:
-        from telethon.tl.types import InputMediaDice
     r = await event.reply(file=InputMediaDice())
     if input_str:
         try:
