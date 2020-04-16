@@ -1,4 +1,5 @@
 
+import telethon.tl.types
 from telethon.tl.types import InputMediaDice
 #from userbot.util import admin_cmd
 from userbot.events import register
