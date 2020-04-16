@@ -1,5 +1,5 @@
 # credits: SNAPDRAGON (@s_n_a_p_s)
-#originally from xtra-tg
+#originally from xtra-telegram
 #ported by @heyworld
 
 from telethon import events
