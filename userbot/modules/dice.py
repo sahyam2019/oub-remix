@@ -1,16 +1,23 @@
-
+"""@RollADie
+Syntax: .dice"""
+#from telethon.tl.types import InputMediaDice
+import telethon
+#from uniborg.util import admin_cmd
 import telethon.tl.types
-from telethon.tl.types import InputMediaDice
-#from userbot.util import admin_cmd
+from telethon.tl.types import *
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
-from userbot import bot, CMD_HELP
 
 
 
-@register(outgoing=True, pattern="^.dice(?: |$)(.*)")
+
+#@borg.on(admin_cmd(pattern="dice ?(.*)"))
+@register(outgoing=True, pattern="^.dice$")
 async def _(event):
     if event.fwd_from:
         return
+        try:
+            from telethon.tl.types import InputMediaDice
     input_str = event.pattern_match.group(1)
     await event.delete()
     r = await event.reply(file=InputMediaDice())
@@ -22,8 +29,9 @@ async def _(event):
                 r = await event.reply(file=InputMediaDice())
         except:
             pass
+            
 CMD_HELP.update({
         "dice": 
-        ".dice"
-        "\nUsage: check yourself.\n"
+        ".dice reply_message. \
+          \n. "
     })
