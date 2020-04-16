@@ -16,10 +16,10 @@ from userbot.events import register
 async def _(event):
     if event.fwd_from:
         return
-        try:
-            from telethon.tl.types import InputMediaDice
-    input_str = event.pattern_match.group(1)
+        input_str = event.pattern_match.group(1)
     await event.delete()
+    try:
+        from telethon.tl.types import InputMediaDice
     r = await event.reply(file=InputMediaDice())
     if input_str:
         try:
