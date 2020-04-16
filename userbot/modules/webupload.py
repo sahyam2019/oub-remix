@@ -23,7 +23,7 @@ async def _(event):
         file_name = input_str
     else:
         reply = await event.get_reply_message()
-        file_name = await bot.download_media(reply.media, var.TEMP_DOWNLOAD_DIRECTORY)
+        file_name = await bot.download_media(reply.media, TEMP_DOWNLOAD_DIRECTORY)
     reply_to_id = event.message.id
     CMD_WEB = {"anonfiles": "curl -F \"file=@{}\" https://anonfiles.com/api/upload", "transfer": "curl --upload-file \"{}\" https://transfer.sh/{os.path.basename(file_name)}", "filebin": "curl -X POST --data-binary \"@test.png\" -H \"filename: {}\" \"https://filebin.net\"", "anonymousfiles": "curl -F file=\"@{}\" https://api.anonymousfiles.io/", "megaupload": "curl -F \"file=@{}\" https://megaupload.is/api/upload", "bayfiles": ".exec curl -F \"file=@{}\" https://bayfiles.com/api/upload"}
     try:
