@@ -17,7 +17,7 @@ from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 
-@register(pattern=".whois(?: |$)(.*)", outgoing=True)
+@register(pattern=".data(?: |$)(.*)", outgoing=True)
 async def who(event):
 
     await event.edit(
@@ -148,7 +148,7 @@ async def fetch_info(replied_user, event):
 
 
 CMD_HELP.update({
-    "whois":
-    ".whois <username> or reply to someones text with .whois\
+    "User Info":
+    ".data <username> or reply to someones text with .data\
     \nUsage: Gets info of an user."
 })
