@@ -387,15 +387,15 @@ CHASE_STR = [
     "Where do you think you're going?",
     "Huh? what? did they get away?",
     "ZZzzZZzz... Huh? what? oh, just them again, nevermind.",
-    "Get back here!",
-    "Not so fast...",
+    "`Get back here!`",
+    "`Not so fast...`",
     "Look out for the wall!",
     "Don't leave me alone with them!!",
     "You run, you die.",
-    "Jokes on you, I'm everywhere",
+    "`Jokes on you, I'm everywhere`",
     "You're gonna regret that...",
     "You could also try /kickme, I hear that's fun.",
-    "Go bother someone else, no-one here cares.",
+    "`Go bother someone else, no-one here cares.`",
     "You can run, but you can't hide.",
     "Is that all you've got?",
     "I'm behind you...",
@@ -439,7 +439,6 @@ HELLOSTR = [
     "Hi !",
     "‘Ello, gov'nor!",
     "What’s crackin’?",
-    "‘Sup, homeslice?",
     "Howdy, howdy ,howdy!",
     "Hello, who's there, I'm talking.",
     "You know who this is.",
@@ -447,14 +446,29 @@ HELLOSTR = [
     "Whaddup.",
     "Greetings and salutations!",
     "Hello, sunshine!",
-    "Hey, howdy, hi!",
+    "`Hey, howdy, hi!`",
     "What’s kickin’, little chicken?",
     "Peek-a-boo!",
     "Howdy-doody!",
-    "Hey there, freshman!",
-    "I come in peace!",
+    "`Hey there, freshman!`",
+    "`I come in peace!`",
+    "`I come for peace!`",
     "Ahoy, matey!",
-    "Hiya!",
+    "`Hi !`",
+]
+
+PROSTR = [
+    "`You is pro user.`",
+     "`Pros here -_- Time to Leave`",
+     "`Pros everywhere`",
+     "`Pro Pro Pro ; What a tragedy`",
+]
+
+NUBSTR = [
+    "`Only few were Pro and you join the Party`",
+    "`Only few were Pro and you join the Party`",
+    "`Only few were Pro and you join the Party`",
+    "`Only few were Pro and you join the Party`",
 ]
 
 SHGS = [
@@ -520,7 +534,7 @@ SLAP_TEMPLATES = [
     "{hits} {victim} with a {item}.",
     "{hits} {victim} in the face with a {item}.",
     "{hits} {victim} around a bit with a {item}.",
-    "{throws} a {item} at {victim}.",
+    "`{throws} a {item} at {victim}.`",
     "grabs a {item} and {throws} it at {victim}'s face.",
     "{hits} a {item} at {victim}.", "{throws} a few {item} at {victim}.",
     "grabs a {item} and {throws} it in {victim}'s face.",
@@ -533,7 +547,7 @@ SLAP_TEMPLATES = [
     "holds {victim} down and repeatedly {hits} them with a {item}.",
     "prods {victim} with a {item}.",
     "picks up a {item} and {hits} {victim} with it.",
-    "ties {victim} to a chair and {throws} a {item} at them.",
+    "`ties {victim} to a chair and {throws} a {item} at them.`",
     "{hits} {victim} {where} with a {item}.",
     "ties {victim} to a pole and whips them {where} with a {item}."
     "gave a friendly push to help {victim} learn to swim in lava.",
@@ -877,6 +891,18 @@ async def hoi(hello):
     await hello.edit(choice(HELLOSTR))
 
 
+@register(outgoing=True, pattern="^.pro$")
+async def pero(proo):
+    """ Greet everyone! """
+    await proo.edit(choice(PROSTR))
+
+
+@register(outgoing=True, pattern="^.nub$")
+async def noob(nubdo):
+    """ Greet everyone! """
+    await nubdo.edit(choice(NUBSTR))
+
+
 @register(outgoing=True, pattern="^.owo(?: |$)(.*)")
 async def faces(owo):
     """ UwU """
@@ -959,7 +985,7 @@ async def Oem(e):
 
 @register(outgoing=True, pattern="^.10iq$")
 async def iqless(e):
-    await e.edit("👀")
+    await e.edit("you low iq idiot")
 
 
 @register(outgoing=True, pattern="^.moon$")
