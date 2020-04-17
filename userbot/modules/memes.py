@@ -1162,7 +1162,7 @@ async def typewriter(typew):
         await sleep(sleep_time)
                       
 
-@register(outgoing=True, pattern="^.earch(?: |$)(.*)")
+@register(events.NewMessage(pattern=r"\.earth", outgoing=True))
 async def _(event):
 	if event.fwd_from:
 		return
