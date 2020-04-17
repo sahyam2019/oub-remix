@@ -10,6 +10,10 @@ from re import sub
 from random import randint
 from os import execl
 import time
+from telethon import events
+
+
+
 
 from collections import deque
 
@@ -1156,6 +1160,17 @@ async def typewriter(typew):
         await typew.edit(old_text)
         await sleep(sleep_time)
                       
+
+@register(outgoing=True, pattern="^.earch(?: |$)(.*)")
+async def _(event):
+	if event.fwd_from:
+		return
+	deq = deque(list("🌏🌍🌎🌎🌍🌏🌍🌎"))
+	for _ in range(48):
+		await asyncio.sleep(0.1)
+		await event.edit("".join(deq))
+		deq.rotate(1)                      
+                      
 @register(outgoing=True, pattern="^.lol$")
 async def lol(e):
     await e.edit("😂\n😂\n😂\n😂\n😂😂😂😂\n\n   😂😂😂\n 😂         😂\n😂           😂\n 😂         😂\n   😂😂😂\n\n😂\n😂\n😂\n😂\n😂😂😂😂")
@@ -1171,6 +1186,8 @@ CMD_HELP.update({
 \n\n;_;\
 \nUsage: Like `-_-` but crying.\
 \n\n.lol\
+\n\n.earth\
+\nusage:type .earth\
 \nusage: Reply .lol for funny lol text\
 \n\n.cp\
 \nUsage: Copypasta the famous meme\
