@@ -1,6 +1,6 @@
 # Copyright (C) 2020 Adek Maulana.
 # All rights reserved.
-#for OUB
+
 """
    Heroku manager for your userbot
 """
