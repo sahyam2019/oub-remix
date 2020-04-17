@@ -41,9 +41,9 @@ async def _(event):
     )
     stdout, stderr = await process.communicate()
     await event.edit(f"{stdout.decode()}")
-    CMD_HELP.update({
-        "webupload": 
-        ".webupload --(anonfiles|transfer|filebin|anonymousfiles|megaupload|bayfiles)"
-        "\nUsage: reply .webupload --anonfiles or .webupload --filebin and the file will be uploaded to that website \n"
-    })
     
+CMD_HELP.update({
+        "webupload": 
+        "\n.webupload --(anonfiles|transfer|filebin|anonymousfiles|megaupload|bayfiles) \,
+         \nUsage: reply .webupload --anonfiles or .webupload --filebin and the file will be uploaded to that website. "
+    })
