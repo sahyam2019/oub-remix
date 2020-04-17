@@ -7,11 +7,18 @@
 from asyncio import sleep
 from random import choice, getrandbits, randint
 from re import sub
+from random import randint
+from os import execl
 import time
 
 from collections import deque
 
 import requests
+import sys
+import os
+import io
+
+import json
 
 from cowpy import cow
 
@@ -1148,7 +1155,10 @@ async def typewriter(typew):
         await sleep(sleep_time)
         await typew.edit(old_text)
         await sleep(sleep_time)
-
+                      
+@register(outgoing=True, pattern="^.lol$")
+async def lol(e):
+    await e.edit("😂\n😂\n😂\n😂\n😂😂😂😂\n\n   😂😂😂\n 😂         😂\n😂           😂\n 😂         😂\n   😂😂😂\n\n😂\n😂\n😂\n😂\n😂😂😂😂")
 
 CMD_HELP.update({
     "memes":
@@ -1160,6 +1170,8 @@ CMD_HELP.update({
 \nUsage: Ok...\
 \n\n;_;\
 \nUsage: Like `-_-` but crying.\
+\n\n.lol\
+\nusage: Reply .lol for funny lol text\
 \n\n.cp\
 \nUsage: Copypasta the famous meme\
 \n\n.vapor\
