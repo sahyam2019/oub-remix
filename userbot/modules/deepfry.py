@@ -134,5 +134,5 @@ async def check_media(reply_message):
         
 CMD_HELP.update({
 "deepfry": ".deepfry\
-    \nUsage: Reply .deepfry to an image or sticker to deep fry it!. "
+    \nUsage: Reply .deepfry 1-5 to an image or sticker to deep fry it!. "
 })   
