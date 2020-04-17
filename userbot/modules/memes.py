@@ -1162,15 +1162,7 @@ async def typewriter(typew):
         await sleep(sleep_time)
                       
 
-@register(events.NewMessage(pattern=r"\.earth", outgoing=True))
-async def _(event):
-	if event.fwd_from:
-		return
-	deq = deque(list("🌏🌍🌎🌎🌍🌏🌍🌎"))
-	for _ in range(48):
-		await asyncio.sleep(0.1)
-		await event.edit("".join(deq))
-		deq.rotate(1)                      
+      
                       
 @register(outgoing=True, pattern="^.lol$")
 async def lol(e):
