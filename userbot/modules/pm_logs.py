@@ -1,4 +1,5 @@
 #this module originally created by @spechide https://github.com/SpEcHiDe/UniBorg
+#ported to oub by @heyworld
 
 import asyncio
 from telethon import events
