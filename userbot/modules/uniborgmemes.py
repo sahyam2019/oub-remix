@@ -936,4 +936,27 @@ async def _(event):
 
             await event.edit(animation_chars[i % 11])
 
+@register(outgoing=True, pattern="^.plane(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+        
+        
+    await event.edit("✈-------------")
+    await event.edit("-✈------------")
+    await event.edit("--✈-----------")
+    await event.edit("---✈----------")
+    await event.edit("----✈---------")
+    await event.edit("-----✈--------")
+    await event.edit("------✈-------")
+    await event.edit("-------✈------")
+    await event.edit("--------✈-----") 
+    await event.edit("---------✈----")
+    await event.edit("----------✈---")
+    await event.edit("-----------✈--")
+    await event.edit("------------✈-")
+    await event.edit("-------------✈")
+    await asyncio.sleep(3)
+    await event.delete()
+
 		
