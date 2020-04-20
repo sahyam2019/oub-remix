@@ -1042,8 +1042,8 @@ CMD_HELP.update({
 \n\n.quickheal, .sqh , .vquickheal\
 \nUsage: Virus found ...Remove it using this 😂😂.\
 \n\n.plane\
-\nUsage: For travelling from one place to another ✈️✈️ !!\
+\nUsage: For travelling from one place to another ✈️✈️\
 \n\n.jio\
-\nUsage: Your network slow?? Boost it using this 🤣🤣 .\
+\nUsage: Your network slow?? Boost it using this 🤣🤣\
 \n\n\nWARNING⚠️⚠️: All this cmds will spam group recents.\nUse it in OT groups/Spam groups OR GET YOU A** KICKED😂😂."
 })		
