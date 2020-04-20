@@ -1039,7 +1039,7 @@ CMD_HELP.update({
 \nUsage: Now you can hack whatsapp too 😂😂 \
 \n\n.solar\
 \nUsage: Our beautiful solar system 🌞🌞\
-\n\n.quickheal, .sqh , .vquickheal\
+\n\n.quickheal or .sqh or .vquickheal\
 \nUsage: Virus found ...Remove it using this 😂😂.\
 \n\n.plane\
 \nUsage: For travelling from one place to another ✈️✈️\
