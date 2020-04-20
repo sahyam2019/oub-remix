@@ -1029,14 +1029,14 @@ CMD_HELP.update({
 \nUsage: see it yourself 🤐🤐.\
 \n\n.isro\
 \nUsage: For calling aliens 👽👽 :P\
-\n\n.gangstar\
+\n\ngangstar\
 \nUsage:U becum gengstar 🤠🤠.\
 \n\n.hack\
 \nUsage: For hacking telegram🖥️🖥️.\
 \n\n.hypno\
 \nUsage: Oh fek my eyes 👀\
 \n\n.whatsapp\
-\nUsage: Now you can hack whatsapp too. 😂😂 !!\
+\nUsage: Now you can hack whatsapp too 😂😂 \
 \n\n.solar\
 \nUsage: Our beautiful solar system 🌞🌞\
 \n\n.quickheal, .sqh , .vquickheal\
