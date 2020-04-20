@@ -1,11 +1,12 @@
-"""COMMAND : .eye"""
-
+#all plugins are imported from bothub by @heyworld
+#Don't edit or you gay
+#credits: spechide,ravana69&mkaraniya 
 from telethon import events
 
 import asyncio
 
 from userbot.events import register 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from userbot import  CMD_HELP, bot
 
 
 
@@ -17,9 +18,9 @@ async def _(event):
 
         return
 
-    animation_interval = 2
+    animation_interval = 3
 
-    animation_ttl = range(0, 40)
+    animation_ttl = range(0, 103)
 
     input_str = event.pattern_match.group(1)
 
@@ -29,26 +30,29 @@ async def _(event):
 
         animation_chars = [
 
-            "✋🏻\n  =====> By faith Enoch was translated so that he did not see death, ",
-            "✋🏻\n  =====> and was not found because God had translated him; ",    
-            "✋🏻\n  =====> for before his translation he had this testimony, ",
-            "✋🏻\n  =====> that he pleased God. ",
-            "✋🏻\n  =====> But without faith it is impossible to please Him. ",    
-            "✋🏻\n  =====> It is the will of God that ",
-            "✋🏻\n  =====> we learn to walk in a manner pleasing to the Lord: ",
-            "✋🏻\n  =====> that you may have a walk worthy of the Lord, ",    
-            "✋🏻\n  =====> fully pleasing Him",
-            "✋🏻\n  =====> Hi All, How Are You Guys,, Praise The Lord..."
+            "👁👁\n  👄  =====> Hey, How are you?",
+            "👁👁\n  👅  =====> Everything okay?",    
+            "👁👁\n  💋  =====> Why are you staring at this?",
+            "👁👁\n  👄  =====> You idiot",
+            "👁👁\n  👅  =====> Go away",    
+            "👁👁\n  💋  =====> Stop laughing",
+            "👁👁\n  👄  =====> It's not funny",
+            "👁👁\n  👅  =====> I guess ur still looking",    
+            "👁👁\n  💋  =====> Ok retard 😑",
+            "👁👁\n  👄  =====> I go away then"
         ]
 
         for i in animation_ttl:
 
             await asyncio.sleep(animation_interval)
 
-            await event.edit(animation_chars[i % 10])
+            await event.edit(animation_chars[i % 103])
+
+
+ 
 
             
-@bot.on(events.NewMessage(pattern=r"\.earth", outgoing=True))
+@register(outgoing=True, pattern="^.earth(?: |$)(.*)")
 async def _(event):
 	if event.fwd_from:
 		return
@@ -400,7 +404,7 @@ async def _(event):
 
     input_str = event.pattern_match.group(1)
 
-    if input_str == "OS":
+    if input_str == "os":
 
         await event.edit(input_str)
 
@@ -412,7 +416,7 @@ async def _(event):
             "__Current Loaded OS: CrDroid OS__\n\n**To Boot Other OS, Use The Following Trigger:**\n✅ `.Macos`\n☑️ `.Windows`\n☑️ `.Linux`\n☑️ `.Stock`",
             "__Current Loaded OS: CrDroid OS__\n\n**To Boot Other OS, Use The Following Trigger:**\n✅ `.Macos`\n✅ `.Windows`\n☑️ `.Linux`\n☑️ `.Stock`",
             "__Current Loaded OS: CrDroid OS__\n\n**To Boot Other OS, Use The Following Trigger:**\n✅ `.Macos`\n✅ `.Windows`\n✅ `.Linux`\n☑️ `.Stock`",
-            "__Current Loaded OS: CrDroid OS__\n\n**To Boot Other OS, Use The Following Trigger:**\n✅ `.Macos`\n✅ `.Windows`\n✅ `.Linux`\n✅ `.Stock`\n\nDeveloped By: @Mayur_Karaniya"
+            "__Current Loaded OS: CrDroid OS__\n\n**To Boot Other OS, Use The Following Trigger:**\n✅ `.Macos`\n✅ `.Windows`\n✅ `.Linux`\n✅ `.Stock`\n\n by @heyworld and others"
  ]
 
         for i in animation_ttl:
@@ -1006,4 +1010,39 @@ async def _(event):
 
             await event.edit(animation_chars[i % 19])
 
-		
+CMD_HELP.update({
+    "uniborgmemes":
+    ".eye\
+\nUsage: super spammy but cool.\
+\n\n.earth\
+\nusage: spin like earth 🌎🌎\
+\n\n.bombs\
+\nUsage: For bombing tg 🤣🤣\
+\n\n.gift\
+\nUsage: Well it's a gift i can't say what's inside 😁😁!\
+\n\n.police\
+\nUsage: Time to go to jail 😔😔.\
+\n\n.kill\
+\nUsage: For killing your enemies 🔫🔫 !!\
+\n\n.os\
+\nUsage: see it yourself 🤐🤐.\
+\n\n.isro\
+\nUsage: For calling aliens 👽👽 :P\
+\n\n.gangstar\
+\nUsage:U becum gengstar 🤠🤠.\
+\n\n.hack\
+\nUsage: For hacking tg🖥️🖥️.\
+\n\n.hypno\
+\nUsage: Oh fek my eyes 👀\
+\n\n.whatsapp\
+\nUsage: Now you can hack whatsapp too. 😂😂 !!\
+\n\n.solar\
+\nUsage: Our beautiful solar system 🌞🌞\
+\n\n.quickheal, .sqh , .vquickheal\
+\nUsage: Virus found ...Remove it using this 😂😂.\
+\n\n.plane\
+\nUsage: For travelling from one place to another ✈️✈️ !!\
+\n\n.jio\
+\nUsage: Your network slow?? Boost it using this 🤣🤣 .\
+\n\n\nWARNING⚠️⚠️: All this cmds will spam group recents.\nUse it in OT groups/Spam groups OR GET YOU A** KICKED😂😂."
+})		
