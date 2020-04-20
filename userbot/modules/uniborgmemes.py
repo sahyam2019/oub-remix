@@ -1014,7 +1014,7 @@ async def _(event):
 CMD_HELP.update({
     "uniborgmemes":
     ".eye\
-\nUsage: super spammy but cool.\
+\nUsage: see it yourself.\
 \n\n.earth\
 \nusage: spins like earth 🌎🌎\
 \n\n.bombs\
@@ -1032,7 +1032,7 @@ CMD_HELP.update({
 \n\n.gangstar\
 \nUsage:U becum gengstar 🤠🤠.\
 \n\n.hack\
-\nUsage: For hacking tg🖥️🖥️.\
+\nUsage: For hacking telegram🖥️🖥️.\
 \n\n.hypno\
 \nUsage: Oh fek my eyes 👀\
 \n\n.whatsapp\
