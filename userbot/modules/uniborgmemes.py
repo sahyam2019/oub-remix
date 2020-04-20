@@ -1015,7 +1015,7 @@ CMD_HELP.update({
     ".eye\
 \nUsage: super spammy but cool.\
 \n\n.earth\
-\nusage: spin like earth 🌎🌎\
+\nusage: spins like earth 🌎🌎\
 \n\n.bombs\
 \nUsage: For bombing tg 🤣🤣\
 \n\n.gift\
