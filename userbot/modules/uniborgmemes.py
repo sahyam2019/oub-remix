@@ -1029,7 +1029,7 @@ CMD_HELP.update({
 \nUsage: see it yourself 🤐🤐.\
 \n\n.isro\
 \nUsage: For calling aliens 👽👽 :P\
-\n\ngangstar\
+\n\n.gangstar\
 \nUsage:U becum gengstar 🤠🤠.\
 \n\n.hack\
 \nUsage: For hacking telegram🖥️🖥️.\
