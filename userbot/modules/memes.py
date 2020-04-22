@@ -927,7 +927,7 @@ async def noob(nubdo):
     await nubdo.edit(choice(NUBSTR))
                       
 @register(outgoing=True, pattern="^.bye$")
-async def pero(bhagobc):
+async def bhago(bhagobc):
     """ Greet everyone! """
     await bhagobc.edit(choice(BYESTR))
 
