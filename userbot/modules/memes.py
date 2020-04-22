@@ -479,10 +479,20 @@ PROSTR = [
 ]
 
 NUBSTR = [
-    "`Only few were Pro and you join the Party`",
-    "`Only few were Pro and you join the Party`",
-    "`Only few were Pro and you join the Party`",
-    "`Only few were Pro and you join the Party`",
+    "`Haha noob trying to act pro`",
+    "`Hi Nub what'sup`",
+    "`Only i and you know that ur a noob and trying to act like pro`",
+    "`Sorry we don't appoint noobs`",
+]
+
+BYESTR = [
+    "`Nice talking with you`"
+    "`I've gotta go!`"
+    "`I've gotta run!`"
+    "`I've gotta split`"
+    "`I'm off!`"
+    "`Great to see you,bye`"
+    "`See you soon`"
 ]
 
 SHGS = [
@@ -915,7 +925,11 @@ async def pero(proo):
 async def noob(nubdo):
     """ Greet everyone! """
     await nubdo.edit(choice(NUBSTR))
-
+                      
+@register(outgoing=True, pattern="^.bye$")
+async def pero(bhagobc):
+    """ Greet everyone! """
+    await bhagobc.edit(choice(BYESTR))
 
 @register(outgoing=True, pattern="^.owo(?: |$)(.*)")
 async def faces(owo):
@@ -1181,7 +1195,7 @@ async def _(event):
         await event.delete()
         await bot.send_message(event.chat_id, caption, parse_mode="HTML")
     else:
-        await event.edit("Reply to user with `.mention <your text>`")
+        await event.edit("Reply to user with `.men <your text>`")
 
 CMD_HELP.update({
     "memes":
@@ -1223,6 +1237,8 @@ CMD_HELP.update({
 \nUsage: Flip a coin !!\
 \n\n.owo\
 \nUsage: UwU\
+\n\n.pro or .nub or .bye\
+\nUsage: see it yourself\
 \n\n.react\
 \nUsage: Make your userbot react to everything.\
 \n\n.slap\
