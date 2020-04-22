@@ -26,7 +26,7 @@ except PhoneNumberInvalidError:
 for module_name in ALL_MODULES:
     imported_module = import_module("userbot.modules." + module_name)
 
-LOGS.info("You are oub-remix [1.0.0]")
+LOGS.info("You are running oub-remix [1.0.0]")
 
 LOGS.info(
     "😘You bot is running now. go enjoy 😘."
