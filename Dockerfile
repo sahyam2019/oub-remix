@@ -56,7 +56,7 @@ RUN apk add --no-cache=true --update \
     chromium-chromedriver \
     zlib-dev \
     jpeg 
-    libfreetype6-dev 
+     
     #
 
 RUN curl https://cli-assets.heroku.com/install.sh
