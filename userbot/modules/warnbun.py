@@ -1,4 +1,4 @@
-
+#help will be added later don't kang
 
 import asyncio
 from telethon import events
