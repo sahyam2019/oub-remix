@@ -1,6 +1,6 @@
 # Copyright (C) 2019 The Raphielscape Company LLC.
 #
-# Licensed under the Raphielscape Public License, Version 1.c (the "License");
+# Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
 # The entire source code is OSSRPL except
@@ -68,7 +68,7 @@ def humanbytes(size):
     return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
 
 
-def time_formatter(milliseconds: int) -> str:
+def time_formatter(seconds: int) -> str:
     """Inputs time in milliseconds, to get beautified time,
     as string"""
     seconds, milliseconds = divmod(int(milliseconds), 1000)
