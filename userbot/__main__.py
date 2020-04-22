@@ -29,8 +29,9 @@ for module_name in ALL_MODULES:
 LOGS.info("You are running oub-remix [1.0.0]")
 
 LOGS.info(
-    "😘You bot is running now. go enjoy😘."
-    "\nThanks to dev and mkaraniya for helping me running this bot")
+    "Congratulations, your userbot is now running !! Test it by typing .alive/.ping in any chat."
+    "If you need assistance, head to https://t.me/PPE_Support")
+    
     
 
 if len(argv) not in (1, 3, 4):
