@@ -486,13 +486,13 @@ NUBSTR = [
 ]
 
 BYESTR = [
-    "`Nice talking with you`"
-    "`I've gotta go!`"
-    "`I've gotta run!`"
-    "`I've gotta split`"
-    "`I'm off!`"
-    "`Great to see you,bye`"
-    "`See you soon`"
+    "`Nice talking with you`",
+    "`I've gotta go!`",
+    "`I've gotta run!`",
+    "`I've gotta split`",
+    "`I'm off!`",
+    "`Great to see you,bye`",
+    "`See you soon`",
 ]
 
 SHGS = [
