@@ -1169,7 +1169,7 @@ async def typewriter(typew):
 async def lol(e):
     await e.edit("😂\n😂\n😂\n😂\n😂😂😂😂\n\n   😂😂😂\n 😂         😂\n😂           😂\n 😂         😂\n   😂😂😂\n\n😂\n😂\n😂\n😂\n😂😂😂😂")
 
-@register(outgoing=True, pattern="^.men$")
+@register(outgoing=True, pattern="^.men(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
