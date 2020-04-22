@@ -9,7 +9,7 @@ RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/r
 #
 # Installing Packages
 #
-RUN apk add --no-cache=true --update \
+RUN apk add freetype-dev --no-cache=true --update \
     coreutils \
     bash \
     build-base \
@@ -56,7 +56,7 @@ RUN apk add --no-cache=true --update \
     chromium-chromedriver \
     zlib-dev \
     jpeg 
-    freetype-dev \
+    
      
     #
 
