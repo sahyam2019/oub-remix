@@ -57,5 +57,6 @@ selenium<=75.0.0.1
 telegraph
 python-dateutil
 pyfiglet   
-
+jotquote
+csvfaker
 
