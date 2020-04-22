@@ -29,8 +29,8 @@ for module_name in ALL_MODULES:
 LOGS.info("You are running oub-remix [1.0.0]")
 
 LOGS.info(
-    "😘You bot is running now. go enjoy 😘."
-    "Thanks to dev and mkaraniya for helping me running this bot")
+    "😘You bot is running now. go enjoy😘."
+    "\nThanks to dev and mkaraniya for helping me running this bot")
     
 
 if len(argv) not in (1, 3, 4):
