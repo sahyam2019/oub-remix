@@ -56,6 +56,7 @@ RUN apk add --no-cache=true --update \
     chromium-chromedriver \
     zlib-dev \
     jpeg 
+    freetype-dev \
      
     #
 
