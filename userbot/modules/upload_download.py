@@ -69,7 +69,7 @@ def humanbytes(size):
 
 
 def time_formatter(seconds: int) -> str:
-    """Inputs time in milliseconds, to get beautified time,
+    """Inputs time in seconds, to get beautified time,
     as string"""
     seconds, milliseconds = divmod(int(milliseconds), 1000)
     minutes, seconds = divmod(seconds, 60)
@@ -79,7 +79,7 @@ def time_formatter(seconds: int) -> str:
         ((str(hours) + " hour(s), ") if hours else "") + \
         ((str(minutes) + " minute(s), ") if minutes else "") + \
         ((str(seconds) + " second(s), ") if seconds else "") + \
-        ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
+        ((str(seconds) + " second(s), ") if seconds else "")
     return tmp[:-2]
 
 
