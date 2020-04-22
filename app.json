@@ -58,6 +58,11 @@
     "UPSTREAM_REPO_URL": {
       "description": "In case you maintain a fork, add your repo URL here.",
       "required": false
+      
+    },
+    "TELEGRAPH_SHORT_NAME": {
+      "description": "add your desired TELEGRAPH_SHORT_NAME.",
+      "value": "oub-remix"
     },
     "COUNTRY": {
       "description": "Set your Country to be used in the .time and .date commands.",
