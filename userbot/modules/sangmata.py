@@ -12,7 +12,7 @@ from telethon.tl.functions.account import UpdateNotifySettingsRequest
 from userbot import bot, CMD_HELP
 from userbot.events import register
 
-@register(outgoing=True, pattern="^.sg(?: |$)(.*)")
+@register(outgoing=True, pattern="^.sm(?: |$)(.*)")
 async def lastname(steal):
     if steal.fwd_from:
         return 
@@ -76,8 +76,8 @@ async def pembohong(fake):
              await fake.edit(f"{response.message.message}")
 
 CMD_HELP.update({
-        "mata mata": 
-        ".sg \
+        "sangmata": 
+        ".sm \
           \nUsage: Steal ur or friend name.\
           \n\n.fakemail\
           \nUsage: Fake an email to ur friends or someone."
