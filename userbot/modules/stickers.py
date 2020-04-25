@@ -273,6 +273,15 @@ async def resize_photo(photo):
 
     return image
 
+async def _delete_sticker_messages(
+        message: types.Message) -> Sequence[types.messages.AffectedMessages]:
+    messages = [message]
+    async for msg in bot.iter_messages(entity="@Stickers",
+                                          offset_id=message.id,
+                                          reverse=True):
+        messages.append(msg)
+
+    return await bot.delete_messages('@Stickers', messages)
 
 @register(outgoing=True, pattern="^.stkrinfo$")
 async def get_pack_info(event):
