@@ -1,8 +1,10 @@
 from userbot.modules.sql_helper.mute_sql import is_muted, mute, unmute
 import asyncio
-import register, bot
+from userbot.events import register 
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, ALIVE_NAME
 
-@register(outgoing=True, pattern=r"^.mute ?(\d+)?")
+
+@register(outgoing=True, pattern=r"^.pmute ?(\d+)?")
 async def startmute(event):
     private = False
     if event.fwd_from:
@@ -45,7 +47,7 @@ async def startmute(event):
         else:
             await event.edit("Successfully muted that person.\n**｀-´)⊃━☆ﾟ.*･｡ﾟ **")
 
-@register(outgoing=True, pattern=r"^.unmute ?(\d+)?")
+@register(outgoing=True, pattern=r"^.punmute ?(\d+)?")
 async def endmute(event):
     private = False
     if event.fwd_from:
@@ -77,7 +79,7 @@ async def endmute(event):
             await event.edit("Successfully unmuted that person\n乁( ◔ ౪◔)「    ┑(￣Д ￣)┍")
             
 
-@register(outgoing=True, pattern=r"^.mute ?(\d+)?", allow_sudo=True)
+@register(outgoing=True, pattern=r"^.pmute ?(\d+)?", allow_sudo=True)
 async def startmute(event):
     private = False
     if event.fwd_from:
@@ -120,7 +122,7 @@ async def startmute(event):
         else:
             await event.edit("Successfully muted that person.\n**｀-´)⊃━☆ﾟ.*･｡ﾟ **")
 
-@register(outgoing=True, pattern=r"^.unmute ?(\d+)?", allow_sudo=True)
+@register(outgoing=True, pattern=r"^.punmute ?(\d+)?", allow_sudo=True)
 async def endmute(event):
     private = False
     if event.fwd_from:
