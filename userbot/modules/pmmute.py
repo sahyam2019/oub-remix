@@ -177,9 +177,9 @@ async def hehehe(event):
             
 CMD_HELP.update({
     "pmmute":
-    ".pmute \
+    "`.pmute`\
 \nUsage: Reply .pmute and it will mute that person in pm  \
-\n\n.punmute\
-\nUsage:Reply .pumute and it will unmute that person in pm \
+\n\n.`punmute`\
+\nUsage:Reply .punmute and it will unmute that person in pm \
 "
 })
