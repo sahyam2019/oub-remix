@@ -79,7 +79,7 @@ async def endmute(event):
             await event.edit("Successfully unmuted that person\n乁( ◔ ౪◔)「    ┑(￣Д ￣)┍")
             
 
-@register(outgoing=True, pattern=r"^.pmute ?(\d+)?", allow_sudo=True)
+@register(outgoing=True, pattern=r"^.pmute ?(\d+)?")
 async def startmute(event):
     private = False
     if event.fwd_from:
@@ -122,7 +122,7 @@ async def startmute(event):
         else:
             await event.edit("Successfully muted that person.\n**｀-´)⊃━☆ﾟ.*･｡ﾟ **")
 
-@register(outgoing=True, pattern=r"^.punmute ?(\d+)?", allow_sudo=True)
+@register(outgoing=True, pattern=r"^.punmute ?(\d+)?")
 async def endmute(event):
     private = False
     if event.fwd_from:
