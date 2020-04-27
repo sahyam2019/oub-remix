@@ -1057,6 +1057,8 @@ CMD_HELP.update({
 \nUsage:U becum gengstar 🤠🤠.\
 \n\n.hack\
 \nUsage: For hacking telegram🖥️🖥️.\
+\n\n.dump\
+\nUsage: For throwing waste xD\
 \n\n.hypno\
 \nUsage: Oh fek my eyes 👀\
 \n\n.whatsapp\
