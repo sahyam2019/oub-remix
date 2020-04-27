@@ -1012,7 +1012,7 @@ async def _(event):
 
             await event.edit(animation_chars[i % 19])
 		
-@register(outgoing=True, pattern="^.dumb(?: |$)(.*)")
+@register(outgoing=True, pattern="^.dump(?: |$)(.*)")
 async def _(message):
     try:
         obj = message.pattern_match.group(1)
@@ -1069,7 +1069,5 @@ CMD_HELP.update({
 \nUsage: For travelling from one place to another ✈️✈️\
 \n\n.jio\
 \nUsage: Your network slow?? Boost it using this 🤣🤣\
-\n\n.dumb\
-\nUsage: Throw waste out xD\	
 \n\n\nWARNING⚠️⚠️: All this cmds will spam group recents.\nUse it in OT groups/Spam groups OR GET YOU A** KICKED😂😂."
 })		
