@@ -263,9 +263,9 @@ async def _(event):
         await event.edit("Text: **{}**\n\nMeaning: **{}**\n\nExample: __{}__".format(mean.word, mean.definition, mean.example))
     except asyncurban.WordNotFoundError:
         await event.edit("No result found for **" + word + "**")
-        if BOTLOG:
-            await ud_e.client.send_message(
+       
                
+
 @register(outgoing=True, pattern=r"^.tts(?: |$)([\s\S]*)")
 async def text_to_speech(query):
 #async def _(event):
