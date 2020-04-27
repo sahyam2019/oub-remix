@@ -8,6 +8,7 @@ dnspython
 emoji
 cryptg
 gitpython
+asyncurban
 google-api-python-client==1.8.0
 google-auth-oauthlib
 googletrans>=2.4.0
