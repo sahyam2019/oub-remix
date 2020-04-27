@@ -265,12 +265,7 @@ async def _(event):
         await event.edit("No result found for **" + word + "**")
         if BOTLOG:
             await ud_e.client.send_message(
-                BOTLOG_CHATID,
-                "ud query `" + query + "` executed successfully.")
-    else:
-        await ud_e.edit("No result found for **" + query + "**")
-
-
+               
 @register(outgoing=True, pattern=r"^.tts(?: |$)([\s\S]*)")
 async def text_to_speech(query):
 #async def _(event):
