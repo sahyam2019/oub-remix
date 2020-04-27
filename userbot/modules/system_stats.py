@@ -128,13 +128,14 @@ async def amireallyalive(alive):
                      f"`🤖 STATUS: Working Sexy AF ✅` \n"
                      f"Telethon version:{version.__version__} \n"
                      f"Python version🐍:{python_version()} \n"
+                     f"`Bot Version🤘: Remix 1.0` \n"
                      f"------------------------------------ \n"
                      
                      f"User 👨‍🚀:{DEFAULTUSER} \n"
                      f"Maintainer 🏄‍♂️: @heyworld \n"
                      f"Admin 👑:{DEFAULTUSER} \n"
                      f"Userbot 😏: OpenUserBot \n"
-                     f"Repo 📥:https://github.com/sahyam2019/OpenUserBot"
+                     f"Repo 📥:https://github.com/sahyam2019/oub-remix.git"
                      )    
 
 
