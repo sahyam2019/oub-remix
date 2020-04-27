@@ -171,8 +171,8 @@ async def hehehe(event):
         return
     chat = await event.get_chat()
     if event.is_private:
-        if not pmpermit_sql.is_approved(chat.id):
-            pmpermit_sql.approve(chat.id, "supreme lord ehehe")
+        if not pm_permit_sql.is_approved(chat.id):
+            pm_permit_sql.approve(chat.id, "supreme lord ehehe")
             await bot.send_message(chat, "`This inbox has been blessed by my master. Consider yourself lucky.`\n**Increased Stability and Karma** (づ￣ ³￣)づ")
             
 CMD_HELP.update({
