@@ -16,7 +16,7 @@ export BOT_API_KEY TELEGRAM_TOKEN
 tg_sendinfo "<code>I am gonna merge staging into sql-extended</code>"
 cd
 git clone https://github.com/sahyam2019/oub-remix.git
-cd Telegram-Paperplane
+cd oub-remix
 git remote set-url origin https://${GH_USERNAME}:${GH_PERSONAL_TOKEN}@github.com/sahyam2019/oub-remix.git
 git fetch
 git checkout staging
