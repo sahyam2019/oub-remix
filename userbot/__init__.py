@@ -13,6 +13,8 @@ from distutils.util import strtobool as sb
 
 from pylast import LastFMNetwork, md5
 from pySmartDL import SmartDL
+from pymongo import MongoClient
+from redis import StrictRedis
 from dotenv import load_dotenv
 from requests import get
 from telethon import TelegramClient
@@ -113,6 +115,10 @@ LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
 # Telegraph 
 TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", None)
 
+# For MONGO based DataBase
+MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
+
+
 # set blacklist_chats where you do not want userbot's features
 UB_BLACK_LIST_CHAT = os.environ.get("UB_BLACK_LIST_CHAT", "")
     
@@ -168,7 +174,34 @@ QUOTES_API_TOKEN = os.environ.get("QUOTES_API_TOKEN", None)
 
 # Photo Chat - Get this value from http://antiddos.systems
 API_TOKEN = os.environ.get("API_TOKEN", "15e05de0-0357-4553-b39c-d614443ed91e")
-API_URL = os.environ.get("API_URL", "http://antiddos.systems")    
+API_URL = os.environ.get("API_URL", "http://antiddos.systems") 
+
+# Init Mongo
+MONGOCLIENT = MongoClient(MONGO_DB_URI, 27017, serverSelectionTimeoutMS=1)
+MONGO = MONGOCLIENT.userbot
+
+
+def is_mongo_alive():
+    try:
+        MONGOCLIENT.server_info()
+    except BaseException:
+        return False
+    return True
+
+
+# Init Redis
+# Redis will be hosted inside the docker container that hosts the bot
+# We need redis for just caching, so we just leave it to non-persistent
+REDIS = StrictRedis(host='localhost', port=6379, db=0)
+
+
+def is_redis_alive():
+    try:
+        REDIS.ping()
+        return True
+    except BaseException:
+        return False
+    
 
 
 
@@ -238,6 +271,7 @@ with bot:
 COUNT_MSG = 0
 USERS = {}
 COUNT_PM = {}
+ENABLE_KILLME = True
 LASTMSG = {}
 CMD_HELP = {}
 ISAFK = False
