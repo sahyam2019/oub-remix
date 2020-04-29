@@ -45,7 +45,7 @@ tg_senderror() {
     fi
     tg_sendinfo "<code>Build Throwing Error(s)</code>" \
         "${REVIEWERS} please look in!" \
-        "Logs: https://semaphoreci.com/sahyam2019/oub-remix"
+        "Logs: https://semaphoreci.com/baalajimaestro/telegram-userbot"
 
     [ -n "${STATUS}" ] &&
     exit "${STATUS}" ||
