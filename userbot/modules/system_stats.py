@@ -128,7 +128,7 @@ async def amireallyalive(alive):
                      f"`🤖 STATUS: Working Sexy AF ✅` \n"
                      f"Telethon version:{version.__version__} \n"
                      f"Python version🐍:{python_version()} \n"
-                     f"`Bot Version🤘: Remix 1.0` \n"
+                     f"`Bot Version🤘: Remix 1.1` \n"
                      f"------------------------------------ \n"
                      
                      f"User 👨‍🚀:{DEFAULTUSER} \n"
