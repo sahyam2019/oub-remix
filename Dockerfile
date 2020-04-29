@@ -61,6 +61,9 @@ RUN apk add freetype-dev --no-cache=true --update \
     #
 
 RUN curl https://cli-assets.heroku.com/install.sh
+RUN curl -sSf --retry 5 -o python-3.8.tar.bz2 ${archive_url}
+
+RUN sudo tar xjf python-3.8.tar.bz2 --directory /
 
 RUN python3 -m ensurepip \
     && pip3 install --upgrade pip setuptools \
