@@ -18,4 +18,4 @@
 <p align="center">Also join our <a href="https://t.me/PPE_Support">Telegram Support Group</a> for help and support!</p>
 <p align="center">&nbsp;</p>
 <h2 align="center">License</h2>
-<p align="center"><a href="https://github.com/sahyam2019/oub-remixt/blob/sql-extended/LICENSE">Raphielscape Public License</a> - Version 1.d, February 2020</p>
+<p align="center"><a href="https://github.com/sahyam2019/oub-remix/blob/sql-extended/LICENSE">Raphielscape Public License</a> - Version 1.d, February 2020</p>
