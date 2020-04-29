@@ -1,7 +1,10 @@
-language: python
-python:
-  - "3.8"
-# command to install dependencies
-install:
-  - pip install -r requirements.txt
-script: echo overide build passing lol
+language: minimal
+
+dist: bionic
+
+script:
+  - bash init/Merge.sh
+
+branches:
+  only:
+  - sql-extended
