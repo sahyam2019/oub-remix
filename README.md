@@ -1,4 +1,4 @@
-<h1 align="center">Project OpenUserBot</h1>
+<h1 align="center">Project OpenUserBot Remix</h1>
 <h3 align="center">A modular Telegram userbot running on Python 3.8+ with an sqlalchemy database.</h3>
 <h4 align="center">Based on RaphielGang's <a href="https://github.com/RaphielGang/Telegram-UserBot">Paperplane</a> Telegram userbot...</h4>
 <h4 align="center">...or rather, it's Paperplane + insane extras from the community.</h4>
@@ -17,4 +17,4 @@
 <p align="center">Also join our <a href="https://t.me/PPE_Support">Telegram Support Group</a> for help and support!</p>
 <p align="center">&nbsp;</p>
 <h2 align="center">License</h2>
-<p align="center"><a href="https://github.com/mkaraniya/OpenUserBot/blob/sql-extended/LICENSE">Raphielscape Public License</a> - Version 1.c, June 2019</p>
+<p align="center"><a href="https://github.com/sahyam2019/oub-remixt/blob/sql-extended/LICENSE">Raphielscape Public License</a> - Version 1.d, February 2020</p>
