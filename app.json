@@ -1,7 +1,7 @@
 {
-  "name": "Telegram Open User Bot",
-  "description": "[OpenUserBot] A modular Telegram userbot running on Python 3.7+ with an sqlalchemy database.",
-  "logo": "https://telegra.ph/file/d04a1724c6dd8a957bd0e.png",
+  "name": "OPEN USERBOT REMIX",
+  "description": "[OUB-REMIX] A modular Telegram userbot running on Python 3.7+ with an sqlalchemy database, which can be coupled up with Mongo DB and a Redis backend",
+  "logo": "https://telegra.ph/file/90b4e03927ad8d90825ea.jpg",
   "keywords": [
     "telegram",
     "userbot",
@@ -9,7 +9,7 @@
     "modular",
     "productivity"
   ],
-  "repository": "https://github.com/mkaraniya/OpenUserBot",
+  "repository": "https://github.com/sahyam2019/oub-remix",
   "website": "https://telegra.ph/How-to-host-a-Telegram-Userbot-11-02",
   "success_url": "https://t.me/PPE_Support",
   "stack": "container",
@@ -22,6 +22,16 @@
       "description": "Get this value from my.telegram.org.",
       "required": true
     },
+    "API_TOKEN": {
+      "description": "Get this value from http://antiddos.systems! Please do not steal",
+      "value": "",
+      "required": false
+    },
+    "API_URL": {
+      "description": "The value is http://antiddos.systems!",
+      "value": "http://antiddos.systems",
+      "required": false
+    },
     "STRING_SESSION": {
       "description": "Get this value by running [python3 string_session.py] in Termux or local system.",
       "required": true
@@ -29,6 +39,10 @@
     "GENIUS_API_TOKEN": {
       "description": "Get this value from https://genius.com/developers.",
       "value": "0"
+    },
+    "MONGO_DB_URI": {
+            "description": "Your MongoDB Atlas URL, Get your guide from https://telegra.ph/Mongo-DB-12-24.",
+            "required": true 
     },
     "GENIUS": {
       "description": "Get this value from https://genius.com/developers., basically same as GENIUS_API_TOKEN.",
@@ -58,11 +72,6 @@
     "UPSTREAM_REPO_URL": {
       "description": "In case you maintain a fork, add your repo URL here.",
       "required": false
-      
-    },
-    "TELEGRAPH_SHORT_NAME": {
-      "description": "add your desired TELEGRAPH_SHORT_NAME.",
-      "value": "oub-remix"
     },
     "COUNTRY": {
       "description": "Set your Country to be used in the .time and .date commands.",
@@ -126,6 +135,10 @@
     "TMP_DOWNLOAD_DIRECTORY": {
       "description": "Download location for many modules (GDrive, .download etc..)",
       "value": "./downloads/"
+    },
+    "TELEGRAPH_SHORT_NAME": {
+      "description": "add your desired TELEGRAPH_SHORT_NAME.",
+      "value": "oub-remix"
     },
     "CLEAN_WELCOME": {
       "description": "When a new person joins, the old welcome message is deleted.",
@@ -197,5 +210,21 @@
         "version": "12"
       }
     }
-  ]
+  ],"buildpacks": [{
+    "url": "https://github.com/heroku/heroku-buildpack-python.git"
+  }, {
+    "url": "https://github.com/heroku/heroku-buildpack-redis"
+  }, {
+    "url": "https://github.com/heroku/heroku-buildpack-google-chrome"
+  }, {
+    "url": "https://github.com/HasibulKabir/heroku-buildpack-rarlab"
+  },{
+    "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+  }, {
+    "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
+  }, {
+    "url": "https://github.com/amivin/aria2-heroku"
+  }, {
+    "url": "https://github.com/stevo550/buildpack-slug-cleaner"
+  }]
 }
