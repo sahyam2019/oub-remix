@@ -3,7 +3,7 @@ language: minimal
 dist: bionic
 
 before_install:
-  - chmod +x Merge.sh
+  - chmod +x init/Merge.sh
 
 script:
   - bash init/Merge.sh
