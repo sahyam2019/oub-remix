@@ -1,4 +1,5 @@
 #imported from ravana69/pornhub to userbot by @heyworld 
+#please don't nuke my credits 😓
 import requests
 import bs4 
 import re
