@@ -42,18 +42,18 @@ async def _(event):
     user_bio = replied_user.about
     if user_bio is not None:
         user_bio = html.escape(replied_user.about)
-    await borg(functions.account.UpdateProfileRequest(
+    await bot(functions.account.UpdateProfileRequest(
         first_name=first_name
     ))
-    await borg(functions.account.UpdateProfileRequest(
+    await bot(functions.account.UpdateProfileRequest(
         last_name=last_name
     ))
-    await borg(functions.account.UpdateProfileRequest(
+    await bot(functions.account.UpdateProfileRequest(
         about=user_bio
     ))
     n = 1
-    pfile = await borg.upload_file(profile_pic)  # pylint:disable=E060      
-    await borg(functions.photos.UploadProfilePhotoRequest(  # pylint:disable=E0602
+    pfile = await bot.upload_file(profile_pic)  # pylint:disable=E060      
+    await bot(functions.photos.UploadProfilePhotoRequest(  # pylint:disable=E0602
         pfile
     ))
     #message_id_to_reply = event.message.reply_to_msg_id
@@ -65,7 +65,7 @@ async def _(event):
     #  reply_to=message_id_to_reply,
     #  )
     await event.delete()
-    await borg.send_message(
+    await bot.send_message(
       event.chat_id,
       "**Bro @r4v4n4 said me that my dad fcuked your mom and you were the result.**",
       reply_to=reply_message
