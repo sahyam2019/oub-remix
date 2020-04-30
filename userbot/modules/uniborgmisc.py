@@ -405,7 +405,7 @@ async def _(event):
             await mone.edit("Stored the pdf to `{}` in {} seconds.".format(downloaded_file_name, ms))
             watermark(
                 inputpdf=downloaded_file_name,
-                outputpdf='./downloads/watermark/' + reply_message.file.name,
+                outputpdf='./downloads/' + reply_message.file.name,
                 watermarkpdf='./bin/watermark.pdf'
             )
         # filename = sorted(get_lst_of_files('./ravana/watermark/' + reply_message.file.name, []))
