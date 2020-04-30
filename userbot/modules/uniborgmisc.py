@@ -507,12 +507,11 @@ CMD_HELP.update({
 \n\n.calc\
 \nUsage:.calc <term1><operator><term2>\nFor eg .calc 02*02 or 99*99 (the zeros are important) (two terms and two digits max).\
 \n\n.remove\
-\nUsage:.remove d or y or m or w or o or q or r.\
-\n\n(d=deletedact,y=userstatsempty,m=userstatsmonth,w=userstatsweek,o=userstatsoffline,q=userstatsonline,r=userstatsrecently)\ 
+\nUsage:.remove d or y or m or w or o or q or r.\n(d=deletedact y=userstatsempty m=userstatsmonth w=userstatsweek o=userstatsoffline q=userstatsonline r=userstatsrecently).\
 \n\n.xcd\
-\nusage: type xcd <query>\nps:i have no damm idea how it works 🤷\
+\nUsage: type xcd <query>.ps:i have no damm idea how it works 🤷\
 \n\n.grab <count>\
-\nusage: replay .grab or .grab <count> to grab profile picture\
+\nUsage:replay .grab or .grab <count> to grab profile picture.\
 \n\n.watermark\
 \nusage: still fixing 😔\
 \n\n.res\
