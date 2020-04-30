@@ -368,7 +368,7 @@ async def potocmd(event):
             else:
                 await event.edit("`No photo found of that Nigga , now u Die`")
                 return
-@register(outgoing=True, pattern="^.watermark(?: |$)(.*)"))
+@register(outgoing=True, pattern="^.watermark(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
