@@ -4,7 +4,6 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 # All Credits to https://t.me/azrim89 for timestamp.
-#.Added some custom afk strings. Ignore it. I hate bots
 
 """ Userbot module which contains afk-related commands """
 
@@ -25,16 +24,6 @@ AFKSTR = [
     "`I'm busy right now. Please talk in a bag and when I come back you can just give me the bag!`",
     "I'm away right now. If you need anything, leave a message after the beep:\n`beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeep`!",
     "`You missed me, next time aim better.`",
-    "`Give me a couple minutes... damn kids are trying to blow my car up again.`",
-    "`Stop looking at me.`",
-    "`Sorry I'm not sorry.`",
-    "`I may be schizophrenic, but at least I have each other, and when I am alone I am together.`"
-    "`Somebody told me to change my away message so I did.`"
-    "`Sex is like poker: If you don't have a partner you better have a really strong hand.`"
-    "`Let's discuss right and left. You're right, I left.`",
-    "`Sorry to have missed you but I am probably busy or sleeping.`",
-    "`Living vicariously through myself.`",
-    "`I can’t reply right now. I’m not away but I’m just hiding from someone, pretending I’m away. If it’s not you I’m running away from.`",
     "`I'll be back in a few minutes and if I'm not...,\nwait longer.`",
     "`I'm not here right now, so I'm probably somewhere else.`",
     "`Roses are red,\nViolets are blue,\nLeave me a message,\nAnd I'll get back to you.`",
@@ -180,16 +169,16 @@ async def mention_afk(mention):
             if mention.sender_id not in USERS:
                 if AFKREASON:
                     await mention.reply(f"My Master **{DEFAULTUSER}** Is **afk since** {afk_since}.\
-                        \n**Reason**  `{AFKREASON}`")
+                        \n**Because my King is** `{AFKREASON}`")
                 else:
-                    await mention.reply(f"My Master 👑 {DEFAULTUSER} 👑 is **afk Since** {afk_since}.\nand My master has left a word for you only: \n{AFKSK}\n`.` ")
+                    await mention.reply(f"My King 👑 {DEFAULTUSER} 👑 is **afk Since** {afk_since}.\nand My King has left a word for you only: \n{AFKSK}\n`.` ")
                 USERS.update({mention.sender_id: 1})
                 COUNT_MSG = COUNT_MSG + 1
             elif mention.sender_id in USERS:
                 if USERS[mention.sender_id] % randint(2, 4) == 0:
                     if AFKREASON:
                         await mention.reply(f"My Master **{DEFAULTUSER}** Is **afk since** {afk_since}.\
-                            \n**Reason** `{AFKREASON}`")
+                            \n**Because my King is** `{AFKREASON}`")
                     else:
                         await mention.reply(f"My King 👑 {DEFAULTUSER} 👑 is **afk Since** {afk_since}.\nand My King has left a word for you only: \n{AFKSK}\n`.` ")
                     USERS[mention.sender_id] = USERS[mention.sender_id] + 1
@@ -256,18 +245,18 @@ async def afk_on_pm(sender):
             if sender.sender_id not in USERS:
                 if AFKREASON:
                     await sender.reply(f"My Master **{DEFAULTUSER}** Is **afk since** {afk_since}.\
-                        \n**Reason:** `{AFKREASON}`")
+                        \n**Because my King is** `{AFKREASON}`")
                 else:
-                    await sender.replyf(f"Heya! I'm currently unavailable.Since when,you ask?For {afk_since} i guess.\n When will I be back?Soon Whenever I feel like it( ಠ ʖ̯ ಠ) \n`.` ")
+                    await sender.replyf(f"My King 👑 {DEFAULTUSER} 👑 is **afk Since** {afk_since}.\nand My King has left a word for you only: \n{AFKSK}\n`.` ")
                 USERS.update({sender.sender_id: 1})
                 COUNT_MSG = COUNT_MSG + 1
             elif apprv and sender.sender_id in USERS:
                 if USERS[sender.sender_id] % randint(2, 4) == 0:
                     if AFKREASON:
                         await sender.reply(f"My Master **{DEFAULTUSER}** Is **afk since** {afk_since}.\
-                            \n**Reason:** `{AFKREASON}`")
+                            \n**Because my King is** `{AFKREASON}`")
                     else:
-                        await sender.reply(f"Heya! I'm currently unavailable.Since when,you ask?For {afk_since} i guess.\n When will I be back? Soon Whenever I feel like it( ಠ ʖ̯ ಠ) \n`.` ")
+                        await sender.reply(f"My King 👑 {DEFAULTUSER} 👑 is **afk Since** {afk_since}.\nand My King has left a word for you only: \n{AFKSK}\n`.` ")
                     USERS[sender.sender_id] = USERS[sender.sender_id] + 1
                     COUNT_MSG = COUNT_MSG + 1
                 else:
@@ -279,7 +268,7 @@ CMD_HELP.update({
     "afk":
     ".afk [Optional Reason]\
 \nUsage: Sets you as afk.\nReplies to anyone who tags/PM's \
-\ntelling them that you are AFK(reason) And since when(Time).\
+\nyou telling them that you are AFK(reason).\
 \n\n.unafk\
 \nUsage: Back from afk state\
 "
