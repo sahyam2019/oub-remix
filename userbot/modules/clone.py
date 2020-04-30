@@ -12,7 +12,7 @@ from telethon.tl import functions
 from userbot.events import register 
 from userbot import TEMP_DOWNLOAD_DIRECTORY, CMD_HELP, bot
 
-@borg.on(admin_cmd(pattern="clone ?(.*)"))
+@register(outgoing=True, pattern="^.getid(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
