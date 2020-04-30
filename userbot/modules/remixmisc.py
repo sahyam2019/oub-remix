@@ -499,7 +499,7 @@ async def _(event):
              await event.client.send_message(event.chat_id, response.message)
             
 CMD_HELP.update({
-    "uniborgmisc":
+    "remixmisc":
     ".app\
 \nUsage: type .app name and get app details.\
 \n\n.undlt\
