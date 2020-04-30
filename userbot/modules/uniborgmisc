@@ -1,11 +1,12 @@
 import requests
 import bs4 
 import re
-#from uniborg.util import admin_cmd
 from telethon import *
-from uniborg import *
+from userbot.events import register 
+from userbot import CMD_HELP, bot
+from telethon import events
 
-@borg.on(admin_cmd(pattern="app (.*)", allow_sudo=True))
+@register(outgoing=True, pattern="^.app(?: |$)(.*)")
 async def apk(e):
     try:
         app_name = e.pattern_match.group(1)
@@ -33,7 +34,7 @@ async def apk(e):
     except Exception as err:
         await e.edit("Exception Occured:- "+str(err))
 
-@borg.on(admin_cmd(pattern="appr (.*)", allow_sudo=True))
+@register(outgoing=True, pattern="^.appr(?: |$)(.*)")
 async def apkr(e):
     try:
         app_name = e.pattern_match.group(1)
