@@ -9,6 +9,10 @@ from userbot import CMD_HELP, bot
 from telethon import events
 from telethon.tl import functions, types
 from urllib.parse import quote
+from datetime import datetime, timedelta
+from telethon.tl.types import UserStatusEmpty, UserStatusLastMonth, UserStatusLastWeek, UserStatusOffline, UserStatusOnline, UserStatusRecently, ChannelParticipantsKicked, ChatBannedRights
+from time import sleep
+
 
 @register(outgoing=True, pattern="^.app(?: |$)(.*)")
 async def apk(e):
