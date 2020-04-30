@@ -1,13 +1,8 @@
-language: minimal
 
-dist: bionic
-
-before_install:
-  - chmod +x init/Merge.sh
-
-script:
-  - bash init/Merge.sh
-
-branches:
-  only:
-  - sql-extended
+language: python
+python:
+  - "3.8"
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+script: echo overide build
