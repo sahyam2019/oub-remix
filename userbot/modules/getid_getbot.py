@@ -53,7 +53,7 @@ CMD_HELP.update({
     "getid":
     ".getid\
 \nUsage: Get ID of any Telegram media, or any user\
-\n\n.getbot\
+\n.getbot\
 \nUsage: Get the Bots in any chat\
 "
 })
