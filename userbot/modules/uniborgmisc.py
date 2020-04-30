@@ -505,9 +505,9 @@ CMD_HELP.update({
 \n\n.undlt\
 \nUsage: undo deleted message but u need admin permission.\
 \n\n.calc\
-\nUsage:.calc <term1><operator><term2>\nFor eg .calc 02*02 or 99*99 (the zeros are important) (two terms and two digits max.\
+\nUsage:.calc <term1><operator><term2>\nFor eg .calc 02*02 or 99*99 (the zeros are important) (two terms and two digits max).\
 \n\n.remove\
-\nUsage:.remove d, y, m, w, o, q, r.\n(d=deletedact,y=userstatsempty,m=userstatsmonth,w=userstatsweek,o=userstatsoffline,q=userstatsonline,r=userstatsrecently).\ 
+\nUsage:.remove d, y, m, w, o, q, r.\nd=deletedact,y=userstatsempty,m=userstatsmonth,w=userstatsweek,o=userstatsoffline,q=userstatsonline,r=userstatsrecently\ 
 \n\n.xcd\
 \nusage: type xcd <query>\nps:i have no damm idea how it works 🤷\
 \n\n.grab <count>\
