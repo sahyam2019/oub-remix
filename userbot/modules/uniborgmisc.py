@@ -469,64 +469,7 @@ def get_lst_of_files(input_directory, output_lst):
         output_lst.append(current_file_name)
     return output_lst
 
-@register(outgoing=True, pattern="^.z(?: |$)(.*)")
-async def on_file_to_photo(event):
 
-    await event.delete()
-
-    target = await event.get_reply_message()
-
-    try:
-
-        image = target.media.document
-
-    except AttributeError:
-
-        return
-
-    if not image.mime_type.startswith('image/'):
-
-        return  # This isn't an image
-
-    if image.mime_type == 'image/webp':
-
-        return  # Telegram doesn't let you directly send stickers as photos
-
-    if image.size > 10 * 1024 * 1024:
-
-        return  # We'd get PhotoSaveFileInvalidError otherwise
-
-
-
-    file = await bot.download_media(target, file=BytesIO())
-
-    file.seek(0)
-
-    img = await bot.upload_file(file)
-
-    img.name = 'image.png'
-
-
-
-    try:
-
-        await bot(SendMediaRequest(
-
-            peer=await event.get_input_chat(),
-
-            media=types.InputMediaUploadedPhoto(img),
-
-            message=target.message,
-
-            entities=target.entities,
-
-            reply_to_msg_id=target.id
-
-        ))
-
-    except PhotoInvalidDimensionsError:
-
-        return
 @register(outgoing=True, pattern="^.res(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
@@ -554,3 +497,24 @@ async def _(event):
           else: 
              await event.delete()
              await event.client.send_message(event.chat_id, response.message)
+            
+CMD_HELP.update({
+    "uniborgmisc":
+    ".app\
+\nUsage: type .app name and get app details.\
+\n\n.undlt\
+\nUsage: undo deleted message but u need admin permission.\
+\n\n.calc\
+\nUsage:.calc <term1><operator><term2>\nFor eg .calc 02*02 or 99*99 (the zeros are important) (two terms and two digits max.\
+\n\n.remove\
+\nUsage:.remove d, y, m, w, o, q, r.\n(d=deletedact,y=userstatsempty,m=userstatsmonth,w=userstatsweek,o=userstatsoffline,q=userstatsonline,r=userstatsrecently).\ 
+\n\n.xcd\
+\nusage: type xcd <query>\nps:i have no damm idea how it works 🤷\
+\n\n.grab <count>\
+\nusage: replay .grab or .grab <count> to grab profile picture\
+\n\n.watermark\
+\nusage: still fixing 😔\
+\n\n.res\
+\nusage: type account,channel,group or bot username and reply with .res and check restriction\
+\n\n\n PS: I will add more xD" 
+})
