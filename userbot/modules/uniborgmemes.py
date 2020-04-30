@@ -12,6 +12,7 @@ from telethon.errors.rpcerrorlist import MessageIdInvalidError
 from random import choice, getrandbits, randint
 from re import sub
 from random import randint
+import random
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
@@ -1390,7 +1391,7 @@ async def _(event):
 
     await asyncio.sleep(2)
 
-    x=(choice.randrange(1,96))
+    x=(random.randrange(1,96))
 
     if x==1:
 
