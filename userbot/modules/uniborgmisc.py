@@ -1,6 +1,7 @@
 import requests
 import bs4 
 import re
+import asyncio
 from telethon import *
 from userbot.events import register 
 from userbot import CMD_HELP, bot
@@ -62,3 +63,21 @@ async def apkr(e):
         await e.edit("No result found in search. Please enter **Valid app name**")
     except Exception as err:
         await e.edit("Exception Occured:- "+str(err))
+        
+@register(outgoing=True, pattern="^.undlt(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    c = await event.get_chat()
+    if c.admin_rights or c.creator:
+        a = await bot.get_admin_log(event.chat_id,limit=1, search="", edit=False, delete=True)
+        for i in a:
+          await event.reply(i.original.action.message)
+    else:
+        await event.edit("You need administrative permissions in order to do this command")
+        await asyncio.sleep(3)
+        await event.delete()
+        
+        
+        
+        
