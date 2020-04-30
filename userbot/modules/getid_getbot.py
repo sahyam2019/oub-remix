@@ -49,7 +49,7 @@ async def _(event):
     await event.edit(mentions)
     
     
- CMD_HELP.update({
+CMD_HELP.update({
     "getid":
     ".getid\
 \nUsage: Get ID of any Telegram media, or any user\
