@@ -2863,7 +2863,7 @@ async def _(event):
 		
 		
 CMD_HELP.update({
-    "uniborgmemes":
+    "remixmemes":
     ".eye\
 \nUsage: see it yourself.\
 \n\n.earth\
