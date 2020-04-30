@@ -8,6 +8,7 @@ from userbot.events import register
 from userbot import CMD_HELP, bot
 from telethon import events
 from telethon.tl import functions, types
+from urllib.parse import quote
 
 @register(outgoing=True, pattern="^.app(?: |$)(.*)")
 async def apk(e):
@@ -113,32 +114,48 @@ async def _(event):
     else:
         await event.edit("use .calc help")
         
-@register(outgoing=True, pattern="^.giz(?: |$)(.*)")
-async def gizoogle(event):
+@register(outgoing=True, pattern="^.xcd(?: |$)(.*)")
+async def _(event):
     if event.fwd_from:
         return
     input_str = event.pattern_match.group(1)
-    await event.edit("Processing...")
-    if not input_str:
-        return await event.edit("I can't gizoogle nothing.")
+    xkcd_id = None
+    if input_str:
+        if input_str.isdigit():
+            xkcd_id = input_str
+        else:
+            xkcd_search_url = "https://relevantxkcd.appspot.com/process?"
+            queryresult = requests.get(
+                xkcd_search_url,
+                params={
+                    "action":"xkcd",
+                    "query":quote(input_str)
+                }
+            ).text
+            xkcd_id = queryresult.split(" ")[2].lstrip("\n")
+    if xkcd_id is None:
+        xkcd_url = "https://xkcd.com/info.0.json"
     else:
-        try:
-            result = text(input_str)
-        except:
-            result = "Failed to gizoogle the text."
-        finally:
-            return await event.edit(result)
-
-def text(input_text: str) -> str:
-        """Taken from https://github.com/chafla/gizoogle-py/blob/master/gizoogle.py"""
-        params = {"translatetext": input_text}
-        target_url = "http://www.gizoogle.net/textilizer.php"
-        resp = requests.post(target_url, data=params)
-        # the html returned is in poor form normally.
-        soup_input = re.sub("/name=translatetext[^>]*>/", 'name="translatetext" >', resp.text)
-        soup = bs4.BeautifulSoup(soup_input, "lxml")
-        giz = soup.find_all(text=True)
-        giz_text = giz[37].strip("\r\n")  # Hacky, but consistent.
-        return giz_text
-        
-        
+        xkcd_url = "https://xkcd.com/{}/info.0.json".format(xkcd_id)
+    r = requests.get(xkcd_url)
+    if r.ok:
+        data = r.json()
+        year = data.get("year")
+        month = data["month"].zfill(2)
+        day = data["day"].zfill(2)
+        xkcd_link = "https://xkcd.com/{}".format(data.get("num"))
+        safe_title = data.get("safe_title")
+        transcript = data.get("transcript")
+        alt = data.get("alt")
+        img = data.get("img")
+        title = data.get("title")
+        output_str = """[\u2060]({})**{}**
+[XKCD ]({})
+Title: {}
+Alt: {}
+Day: {}
+Month: {}
+Year: {}""".format(img, input_str, xkcd_link, safe_title, alt, day, month, year)
+        await event.edit(output_str, link_preview=True)
+    else:
+        await event.edit("xkcd n.{} not found!".format(xkcd_id))
