@@ -328,7 +328,7 @@ async def ban_user(chat_id, i, rights):
         return False, str(exc)
        
 @register(outgoing=True, pattern="^.grab(?: |$)(.*)")
-    async def potocmd(event):
+async def potocmd(event):
         """Gets the profile photos of replied users, channels or chats"""
         id = "".join(event.raw_text.split(maxsplit=2)[1:])
         user = await event.get_reply_message()
