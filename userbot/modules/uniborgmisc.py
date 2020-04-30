@@ -2,6 +2,7 @@
 import requests
 import bs4 
 import re
+import os
 import asyncio
 import zipfile
 import time
@@ -23,7 +24,7 @@ from telethon.tl.types import MessageEntityMentionName
 from telethon.utils import get_input_location
 from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
 from telethon.tl.types import DocumentAttributeFilename
-from userbot.utils import  humanbytes, progress, time_formatter
+from userbot.modules.upload_download import progress, humanbytes, time_formatter
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from telethon.errors import PhotoInvalidDimensionsError
