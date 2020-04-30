@@ -9,6 +9,9 @@ from userbot.events import register
 from userbot import  CMD_HELP, bot, ALIVE_NAME
 from collections import deque
 from telethon.errors.rpcerrorlist import MessageIdInvalidError
+from random import choice, getrandbits, randint
+from re import sub
+from random import randint
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
@@ -1387,7 +1390,7 @@ async def _(event):
 
     await asyncio.sleep(2)
 
-    x=(random.randrange(1,96))
+    x=(choice.randrange(1,96))
 
     if x==1:
 
