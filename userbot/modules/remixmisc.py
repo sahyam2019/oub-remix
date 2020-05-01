@@ -383,7 +383,7 @@ async def _(event):
                 outputpdf='./downloads/' + reply_message.file.name,
                 watermarkpdf='./bin/watermark.pdf'
             )
-        # filename = sorted(get_lst_of_files('./ravana/watermark/' + reply_message.file.name, []))
+        # filename = sorted(get_lst_of_files('./downloads/' + reply_message.file.name, []))
         #filename = filename + "/"
         await event.edit("Uploading now")
         caption_rts = os.path.basename(watermark_path + reply_message.file.name)
@@ -426,7 +426,7 @@ async def _(event):
         #                 )
         #             ]
         #         try:
-        #             await borg.send_file(
+        #             await bot.send_file(
         #                 event.chat_id,
         #                 single_file,
         #                 caption=f"`{caption_rts}`",
@@ -440,7 +440,7 @@ async def _(event):
         #                 # )
         #             )
         #         except Exception as e:
-        #             await borg.send_message(
+        #             await bot.send_message(
         #                 event.chat_id,
         #                 "{} caused `{}`".format(caption_rts, str(e)),
         #                 reply_to=event.message.id
