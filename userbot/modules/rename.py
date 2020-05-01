@@ -7,11 +7,11 @@ import math
 import os
 from pySmartDL import SmartDL
 from telethon.tl.types import DocumentAttributeVideo
-from userbot import CMD_HELP, bot, TMP_DOWNLOAD_DIRECTORY
+from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY
 from userbot.modules.upload_download import progress, humanbytes, time_formatter
 from userbot.events import register
 
-thumb_image_path = TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
+thumb_image_path = TMEP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 
 
 @register(outgoing=True, pattern="^.rnupload(?: |$)(.*)")
@@ -23,14 +23,14 @@ async def _(event):
         thumb = thumb_image_path
     await event.edit("⚡️`Rename and upload in progress, please wait!`⚡️")
     input_str = event.pattern_match.group(1)
-    if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
         start = datetime.now()
         end = datetime.now()
         file_name = input_str
         reply_message = await event.get_reply_message()
-        to_download_directory = TMP_DOWNLOAD_DIRECTORY
+        to_download_directory = TEMP_DOWNLOAD_DIRECTORY
         downloaded_file_name = os.path.join(to_download_directory, file_name)
         downloaded_file_name = await bot.download_media(
             reply_message,
