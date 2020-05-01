@@ -11,7 +11,7 @@ from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY
 from userbot.modules.upload_download import progress, humanbytes, time_formatter
 from userbot.events import register
 
-thumb_image_path = TMEP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
+thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 
 
 @register(outgoing=True, pattern="^.rnupload(?: |$)(.*)")
@@ -24,7 +24,7 @@ async def _(event):
     await event.edit("⚡️`Rename and upload in progress, please wait!`⚡️")
     input_str = event.pattern_match.group(1)
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(TMP_DOWNLOAD_DIRECTORY)
+        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
         start = datetime.now()
         end = datetime.now()
