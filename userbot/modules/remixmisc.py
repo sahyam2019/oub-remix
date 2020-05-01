@@ -355,7 +355,7 @@ async def potocmd(event):
 async def _(event):
     if event.fwd_from:
         return
-    mone = await event.edit("Processing ...")
+    bot = await event.edit("Processing ...")
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     if not os.path.isdir("./downloads/"):
@@ -369,15 +369,15 @@ async def _(event):
                 reply_message,
                 TEMP_DOWNLOAD_DIRECTORY,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    progress(d, t, mone, c_time, "trying to download")
+                    progress(d, t, bot, c_time, "trying to download")
                 )
             )
         except Exception as e:  # pylint:disable=C0103,W0703
-            await mone.edit(str(e))
+            await bot.edit(str(e))
         else:
             end = datetime.now()
             ms = (end - start).seconds
-            await mone.edit("Stored the pdf to `{}` in {} seconds.".format(downloaded_file_name, ms))
+            await bot.edit("Stored the pdf to `{}` in {} seconds.".format(downloaded_file_name, ms))
             watermark(
                 inputpdf=downloaded_file_name,
                 outputpdf='./downloads/' + reply_message.file.name,
