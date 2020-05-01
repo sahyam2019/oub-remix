@@ -11,7 +11,7 @@ from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY
 from userbot.modules.upload_download import progress, humanbytes, time_formatter
 from userbot.events import register
 
-thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
+thumb_image_path = './downloads/' + "/thumb_image.jpg"
 
 
 @register(outgoing=True, pattern="^.rnupload(?: |$)(.*)")
