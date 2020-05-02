@@ -14,8 +14,13 @@ import os
 import io
 import sys
 import json
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, GIT_REPO_NAME, ALIVE_NAME
 from userbot.events import register
+
+
+# ================= CONSTANT =================
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
+# ============================================
 
 
 @register(outgoing=True, pattern="^.random")
@@ -128,9 +133,16 @@ async def repeat(rep):
 async def repo_is_here(wannasee):
     """ For .repo command, just returns the repo URL. """
     await wannasee.edit(
-        "Click [here](https://github.com/sahyam2019/oub-remix) to open oub-remix's GitHub page."
+        "Click [here](https://github.com/sahyam2019/oub-remix) to open OpenUserBot's GitHub page."
     )
 
+    
+@register(outgoing=True, pattern="^.myrepo$")
+async def myrepo_is_here(wannaseeme):
+    """ For .myrepo command, just returns the repo URL. """
+    await wannaseeme.edit(
+        f'Click [here](https://github.com/{GIT_REPO_NAME}/tree/sql-extended/) to open {DEFAULTUSER}`s GitHub page'
+    )
 
 @register(outgoing=True, pattern="^.raw$")
 async def raw(event):
@@ -189,6 +201,12 @@ CMD_HELP.update({
     'repo':
     '.repo\
 \nUsage: If you are curious what makes the userbot work, this is what you need.'
+})
+
+CMD_HELP.update({
+    'myrepo':
+    '.myrepo\
+\nUsage: If you are curious which is your personal repo, this is what you have.'
 })
 
 CMD_HELP.update({
