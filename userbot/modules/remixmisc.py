@@ -4,6 +4,7 @@ import requests
 import bs4 
 import re
 import os
+import math
 import asyncio
 import zipfile
 import time
@@ -21,6 +22,7 @@ from telethon import events
 from telethon.tl import functions, types
 from urllib.parse import quote
 from datetime import datetime, timedelta
+from telethon.tl.types import DocumentAttributeVideo
 from telethon.tl.types import UserStatusEmpty, UserStatusLastMonth, UserStatusLastWeek, UserStatusOffline, UserStatusOnline, UserStatusRecently, ChannelParticipantsKicked, ChatBannedRights
 from time import sleep
 from telethon.tl.functions.photos import GetUserPhotosRequest
@@ -44,6 +46,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 
 
 if 1 == 1:
@@ -322,6 +325,52 @@ async def ban_user(chat_id, i, rights):
         return True, None
     except Exception as exc:
         return False, str(exc)
+    
+    
+@register(outgoing=True, pattern="^.rnupload(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    thumb = None
+    if os.path.exists(thumb_image_path):
+        thumb = thumb_image_path
+    await event.edit("`Rename & Upload in process 🙄🙇‍♂️🙇‍♂️🙇‍♀️ It might take some time if file size is big`")
+    input_str = event.pattern_match.group(1)
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
+    if event.reply_to_msg_id:
+        start = datetime.now()
+        end = datetime.now()
+        file_name = input_str
+        reply_message = await event.get_reply_message()
+        to_download_directory = TEMP_DOWNLOAD_DIRECTORY
+        downloaded_file_name = os.path.join(to_download_directory, file_name)
+        downloaded_file_name = await bot.download_media(
+            reply_message,
+            downloaded_file_name,
+            )
+        ms_one = (end - start).seconds
+        if os.path.exists(downloaded_file_name):
+            c_time = time.time()
+            await bot.send_file(
+                event.chat_id,
+                downloaded_file_name,
+                force_document=True,
+                supports_streaming=False,
+                allow_cache=False,
+                reply_to=event.message.id,
+                thumb=thumb,
+                )
+            end_two = datetime.now()
+            os.remove(downloaded_file_name)
+            ms_two = (end_two - end).seconds
+            await event.edit("Downloaded in {} seconds. Uploaded in {} seconds.".format(ms_one, ms_two))
+        else:
+            await event.edit("File Not Found {}".format(input_str))
+    else:
+        await event.edit("Syntax // .rnupload filename.extension as reply to a Telegram media")
+
+    
        
 @register(outgoing=True, pattern="^.grab(?: |$)(.*)")
 async def potocmd(event):
@@ -354,125 +403,6 @@ async def potocmd(event):
             else:
                 await event.edit("`No photo found of that Nigga , now u Die`")
                 return
-@register(outgoing=True, pattern="^.watermark(?: |$)(.*)")
-async def _(event):
-    if event.fwd_from:
-        return
-    bot = await event.edit("Processing ...")
-    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
-    if not os.path.isdir("./downloads/"):
-        os.makedirs("./downloads/")
-    if event.reply_to_msg_id:
-        start = datetime.now()
-        reply_message = await event.get_reply_message()
-        try:
-            c_time = time.time()
-            downloaded_file_name = await bot.download_media(
-                reply_message,
-                TEMP_DOWNLOAD_DIRECTORY,
-                progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    progress(d, t, bot, c_time, "trying to download")
-                )
-            )
-        except Exception as e:  # pylint:disable=C0103,W0703
-            await bot.edit(str(e))
-        else:
-            end = datetime.now()
-            ms = (end - start).seconds
-            await bot.edit("Stored the pdf to `{}` in {} seconds.".format(downloaded_file_name, ms))
-            watermark(
-                inputpdf=downloaded_file_name,
-                outputpdf='./downloads/' + reply_message.file.name,
-                watermarkpdf='./bin/watermark.pdf'
-            )
-        # filename = sorted(get_lst_of_files('./downloads/' + reply_message.file.name, []))
-        #filename = filename + "/"
-        await event.edit("Uploading now")
-        caption_rts = os.path.basename(watermark_path + reply_message.file.name)
-        await bot.send_file(
-            event.chat_id,
-            watermark_path + reply_message.file.name,
-            reply_to=event.message.id,
-            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(d, t, event, c_time, "trying to upload")
-            )
-        )
-        # r=root, d=directories, f = files
-        # for single_file in filename:
-        #     if os.path.exists(single_file):
-        #         # https://stackoverflow.com/a/678242/4723940
-        #         caption_rts = os.path.basename(single_file)
-        #         force_document = False
-        #         supports_streaming = True
-        #         document_attributes = []
-        #         if single_file.endswith((".mp4", ".mp3", ".flac", ".webm")):
-        #             metadata = extractMetadata(createParser(single_file))
-        #             duration = 0
-        #             width = 0
-        #             height = 0
-        #             if metadata.has("duration"):
-        #                 duration = metadata.get('duration').seconds
-        #             if os.path.exists(thumb_image_path):
-        #                 metadata = extractMetadata(createParser(thumb_image_path))
-        #                 if metadata.has("width"):
-        #                     width = metadata.get("width")
-        #                 if metadata.has("height"):
-        #                     height = metadata.get("height")
-        #             document_attributes = [
-        #                 DocumentAttributeVideo(
-        #                     duration=duration,
-        #                     w=width,
-        #                     h=height,
-        #                     round_message=False,
-        #                     supports_streaming=True
-        #                 )
-        #             ]
-        #         try:
-        #             await bot.send_file(
-        #                 event.chat_id,
-        #                 single_file,
-        #                 caption=f"`{caption_rts}`",
-        #                 force_document=force_document,
-        #                 supports_streaming=supports_streaming,
-        #                 allow_cache=False,
-        #                 reply_to=event.message.id,
-        #                 attributes=document_attributes,
-        #                 # progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-        #                 #     progress(d, t, event, c_time, "trying to upload")
-        #                 # )
-        #             )
-        #         except Exception as e:
-        #             await bot.send_message(
-        #                 event.chat_id,
-        #                 "{} caused `{}`".format(caption_rts, str(e)),
-        #                 reply_to=event.message.id
-        #             )
-        #             # some media were having some issues
-        #             continue
-        #         os.remove(single_file)
-        # os.remove(downloaded_file_name)
-
-def watermark(inputpdf, outputpdf, watermarkpdf):
-    watermark = PdfFileReader(watermarkpdf)
-    watermarkpage = watermark.getPage(0)
-    pdf = PdfFileReader(inputpdf)
-    pdfwrite = PdfFileWriter()
-    for page in range(pdf.getNumPages()):
-        pdfpage = pdf.getPage(page)
-        pdfpage.mergePage(watermarkpage)
-        pdfwrite.addPage(pdfpage)
-    with open(outputpdf, 'wb') as fh:
-        pdfwrite.write(fh)
-
-def get_lst_of_files(input_directory, output_lst):
-    filesinfolder = os.listdir(input_directory)
-    for file_name in filesinfolder:
-        current_file_name = os.path.join(input_directory, file_name)
-        if os.path.isdir(current_file_name):
-            return get_lst_of_files(current_file_name, output_lst)
-        output_lst.append(current_file_name)
-    return output_lst
 
 
 @register(outgoing=True, pattern="^.res(?: |$)(.*)")
@@ -635,8 +565,8 @@ CMD_HELP.update({
 \nUsage: type xcd <query>.ps:i have no damm idea how it works 🤷\
 \n\n.grab <count>\
 \nUsage:replay .grab or .grab <count> to grab profile picture.\
-\n\n.watermark\
-\nusage: still fixing 😔\
+\n\n.rnupload filename.extenstion\
+\nusage:reply to a sticker and type .rnupload xyz.jpg\
 \n\n.clone @username\
 \nusage: clone you whole freking account except username so stay safe\
 \n\n.res\
