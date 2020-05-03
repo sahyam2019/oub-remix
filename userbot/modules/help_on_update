@@ -24,7 +24,8 @@ async def usit(e):
         "\n[Termux Method](https://telegra.ph/How-to-keep-OpenUserBot-repo-updated-while-keeping-your-changes-through-Termux-method-04-01)"
         "\n[Kali Linux Method](https://telegra.ph/How-to-keep-OpenUserBot-repo-updated-while-keeping-your-changes-through-Termux-method-04-01)"
         "\n[Ubuntu Linux Method](https://telegra.ph/How-to-keep-OUB-repo-updated-while-keeping-your-changes-through-Ubuntu-Terminal-method-04-01-2)"
-        "\n[Special - Note](https://telegra.ph/Special-Note-11-02)")
+        "\n[Special - Note](https://telegra.ph/Special-Note-11-02)"
+        "\n[video-tutorial](https://youtu.be/us1O-AnWmHA)")
     
 @register(outgoing=True, pattern="^.varoub$")
 async def var(m):
