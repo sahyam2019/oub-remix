@@ -1,5 +1,6 @@
 from asyncio import sleep
 from random import choice, getrandbits, randint
+import re
 from re import sub
 import random
 from os import execl
