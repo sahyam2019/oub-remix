@@ -1,3 +1,4 @@
+#imported by ppe-remix by @heyworld & @DeletedUser420
 from asyncio import sleep
 from random import choice, getrandbits, randint
 import re
