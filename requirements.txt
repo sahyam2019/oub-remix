@@ -23,6 +23,7 @@ REPO_LINK
 heroku3>=3.4.0	
 httplib2==0.15.0
 humanize
+re2>=0.2.24 
 lxml
 oauth2client
 Pillow>=6.0.0
