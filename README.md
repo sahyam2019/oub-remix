@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/sahyam2019/oub-remix.svg?branch=sql-extended)](https://travis-ci.com/sahyam2019/oub-remix)
 <h1 align="center">Project OpenUserBot Remix</h1>
-<h2 align="center">⚠️Kang at your own risk⚠️. No personal support will be provided and if really need help ask in <a href="https://t.me/PPE_Support">support group</a> </h2>
+<h2 align="center">⚠️Kang at your own risk⚠️. No personal support will be provided and if you really need help ask in <a href="https://t.me/PPE_Support">support group</a> </h2>
 <h3 align="center">A modular Telegram userbot running on Python 3.8+ with an sqlalchemy database.</h3>
 <h4 align="center">Based on RaphielGang's <a href="https://github.com/RaphielGang/Telegram-UserBot">Paperplane</a> Telegram userbot...</h4>
 <h4 align="center">...or rather, it's Paperplane + insane extras from the community.</h4>
