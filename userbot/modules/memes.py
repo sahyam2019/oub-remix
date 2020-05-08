@@ -1119,38 +1119,39 @@ async def let_me_google_that_for_you(lmgtfy_q):
     \n[{query}]({r.json()['shorturl']})")
 
 
-@register(pattern=r".scam(?: |$)(.*)", outgoing=True)
-async def scam(event):
-    """ Just a small command to fake chat actions for fun !! """
-    options = [
-        'typing', 'contact', 'game', 'location', 'voice', 'round', 'video',
-        'photo', 'document', 'cancel'
-    ]
-    input_str = event.pattern_match.group(1)
-    args = input_str.split()
-    if len(args) is 0:  # Let bot decide action and time
-        scam_action = choice(options)
-        scam_time = randint(30, 60)
-    elif len(args) is 1:  # User decides time/action, bot decides the other.
-        try:
-            scam_action = str(args[0]).lower()
-            scam_time = randint(30, 60)
-        except ValueError:
-            scam_action = choice(options)
-            scam_time = int(args[0])
-    elif len(args) is 2:  # User decides both action and time
-        scam_action = str(args[0]).lower()
-        scam_time = int(args[1])
-    else:
-        await event.edit("`Invalid Syntax !!`")
-        return
-    try:
-        if (scam_time > 0):
-            await event.delete()
-            async with event.client.action(event.chat_id, scam_action):
-                await sleep(scam_time)
-    except BaseException:
-        return
+#@register(pattern=r".scam(?: |$)(.*)", outgoing=True)
+#async def scam(event):
+   # """ Just a small command to fake chat actions for fun !! """
+   # options = [
+      #  'typing', 'contact', 'game', 'location', 'voice', 'round', 'video',
+     #   'photo', 'document', 'cancel'
+    #]
+   # input_str = event.pattern_match.group(1)
+  #  args = input_str.split()
+   # if len(args) is 0:  # Let bot decide action and time
+        #scam_action = choice(options)
+       # scam_time = randint(30, 60)
+    #elif len(args) is 1:  # User decides time/action, bot decides the other.
+        #try:
+         #   scam_action = str(args[0]).lower()
+        #    scam_time = randint(30, 60)
+       # except ValueError:
+      #      scam_action = choice(options)
+     #       scam_time = int(args[0])
+    #elif len(args) is 2:  # User decides both action and time
+      #  scam_action = str(args[0]).lower()
+     #   scam_time = int(args[1])
+    #else:
+      #  await event.edit("`Invalid Syntax !!`")
+     #   return
+    #try:
+        #if (scam_time > 0):
+       #     await event.delete()
+      #      async with event.client.action(event.chat_id, scam_action):
+     #           await sleep(scam_time)
+    #except BaseException:
+       # return
+                      
 
 
 @register(pattern=r".type(?: |$)(.*)", outgoing=True)
@@ -1270,8 +1271,5 @@ CMD_HELP.update({
 \nUsage: Let me Google that for you real quick !!\
 \n\n.decide [Alternates: (.yes, .no, .maybe)]\
 \nUsage: Make a quick decision.\
-\n\n.scam <action> <time>\
-\n[Available Actions: (typing, contact, game, location, voice, round, video, photo, document, cancel)]\
-\nUsage: Create fake chat actions, for fun. (Default action: typing)\
 \n\n\nThanks to 🅱️ottom🅱️ext🅱️ot (@NotAMemeBot) for some of these."
 })
