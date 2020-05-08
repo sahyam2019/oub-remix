@@ -2,6 +2,8 @@ aiohttp
 aria2p
 async_generator
 cowpy
+psutil
+wget
 TgCrypto>=1.2.0
 cffi>=1.0.0
 dnspython
