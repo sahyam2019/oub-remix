@@ -15,7 +15,7 @@
     Telegram Team deleted your account?
     And after that, then you pointed your fingers at us
     for getting your acoount deleted?
-    I will be rolling on the floor laughing at you
+    I will be rolling on the floor laughing at you.
     No presonal support will be provided. If you need help ask in 
     support group mentioned below.
 /**
