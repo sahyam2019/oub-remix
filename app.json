@@ -170,7 +170,7 @@
     },
     "DEFAULT_BIO": {
       "description": "Default profile bio.",
-      "value": "[PM = Report Spam] I ❤ ️@OpenUserBot",
+      "value": "[PM = Report Spam] I ❤ ️@oub-remix",
       "required": false
     },
     "ALIVE_NAME": {
