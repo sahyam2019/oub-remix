@@ -156,7 +156,7 @@ async def terminal_runner(term):
         await term.edit("`That's a dangerous operation! Not Permitted!`")
         return
 
-    process = await asyncio.create_subprocess_shell(
+    process = await asyncio.create_subprocess_exec(
         command,
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE)
