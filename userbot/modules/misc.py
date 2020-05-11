@@ -1,6 +1,6 @@
 # Copyright (C) 2019 The Raphielscape Company LLC.
 #
-# Licensed under the Raphielscape Public License, Version 1.c (the "License");
+# Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
 # You can find misc modules, which dont fit in anything xD
@@ -133,7 +133,7 @@ async def repeat(rep):
 async def repo_is_here(wannasee):
     """ For .repo command, just returns the repo URL. """
     await wannasee.edit(
-        "Click [here](https://github.com/sahyam2019/oub-remix) to open OpenUserBot's GitHub page."
+        "Click [here](https://github.com/sahyam2019/oub-remix) to open oub-remix's GitHub page."
     )
 
     
