@@ -15,7 +15,7 @@ DICE = "🎲"
 # EMOJI CONSTANTS
 
 
-@register(outgoing=True, pattern=f"^.{dice}|{dart}(?: |$)(.*)")
+@register(outgoing=True, (pattern=f"^.{dice}|{dart})(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
