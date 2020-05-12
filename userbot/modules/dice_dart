@@ -40,7 +40,7 @@ async def _(event):
 
         
 CMD_HELP.update({
-    "dice":
-    ".dice\
+    "dice_dart":
+    ".dice or .dart\
 \nUsage: hahaha just a magic."
 })    
