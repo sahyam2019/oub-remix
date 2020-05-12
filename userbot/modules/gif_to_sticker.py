@@ -6,7 +6,6 @@ from pySmartDL import SmartDL
 from telethon import types, utils, events
 from telethon.tl.functions.messages import SaveGifRequest, UploadMediaRequest
 from telethon import events
-from sample_config import Config
 from userbot.events import register 
 from userbot import CMD_HELP, bot
 
