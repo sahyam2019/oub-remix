@@ -24,8 +24,8 @@ async def _(event):
     if event.fwd_from:
         return
     start = datetime.now()
-    if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(TMP_DOWNLOAD_DIRECTORY)
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     input_str = event.pattern_match.group(1)
     message = "SYNTAX: `.paste <long text to include>`"
     if input_str:
@@ -35,7 +35,7 @@ async def _(event):
         if previous_message.media:
             downloaded_file_name = await bot.download_media(
                 previous_message,
-                TMP_DOWNLOAD_DIRECTORY,
+                TEMP_DOWNLOAD_DIRECTORY,
                 progress_callback=progress
             )
             m_list = None
