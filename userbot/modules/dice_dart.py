@@ -5,6 +5,7 @@ from telethon.tl.types import InputMediaDice
 #from uniborg.util import admin_cmd
 from userbot.events import register 
 from userbot import CMD_HELP, bot
+from telethon.tl.types import InputMediaDart
 
 
 
@@ -24,7 +25,6 @@ async def _(event):
     if event.reply_to_msg_id:
         reply_message = await event.get_reply_message()
     emoticon = event.pattern_match.group(1)
-    input_str = event.pattern_match.group(2)
     await event.delete()
     r = await reply_message.reply(file=InputMediaDice(emoticon=emoticon))
     if input_str:
@@ -44,7 +44,6 @@ async def _(event):
     if event.reply_to_msg_id:
         reply_message = await event.get_reply_message()
     emoticon = event.pattern_match.group(1)
-    input_str = event.pattern_match.group(2)
     await event.delete()
     r = await reply_message.reply(file=InputMediaDice(emoticon=emoticon))
     if input_str:
