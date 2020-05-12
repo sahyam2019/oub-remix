@@ -8,25 +8,36 @@ from userbot import CMD_HELP, bot
 
 
 
-@register(outgoing=True, pattern="^.dice(?: |$)(.*)")
+
+# EMOJI CONSTANTS
+DART = "🎯"
+DICE = "🎲"
+# EMOJI CONSTANTS
+
+
+@register(outgoing=True, pattern=f"^.{dice}|{dart}(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
-    input_str = event.pattern_match.group(1)
+    reply_message = event
+    if event.reply_to_msg_id:
+        reply_message = await event.get_reply_message()
+    emoticon = event.pattern_match.group(1)
+    input_str = event.pattern_match.group(2)
     await event.delete()
-    r = await event.reply(file=InputMediaDice(''))
+    r = await reply_message.reply(file=InputMediaDice(emoticon=emoticon))
     if input_str:
         try:
             required_number = int(input_str)
             while not r.media.value == required_number:
                 await r.delete()
-                r = await event.reply(file=InputMediaDice(''))
+                r = await reply_message.reply(file=InputMediaDice(emoticon=emoticon))
         except:
             pass
 
         
 CMD_HELP.update({
     "dice":
-    ".dice or .dice 1 to 6 any value\
+    ".dice\
 \nUsage: hahaha just a magic."
 })    
