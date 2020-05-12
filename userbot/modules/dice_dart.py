@@ -33,7 +33,7 @@ async def _(event):
             pass
             
 
-@register(outgoing=True, pattern=f"^.{dart}(?: |$)(.*)")
+@register(outgoing=True, pattern=f"^{dart}(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
