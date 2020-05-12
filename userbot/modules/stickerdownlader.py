@@ -10,20 +10,16 @@ from userbot.events import register
 
 @register(outgoing=True, pattern="^.sd(?: |$)(.*)")
 async def _(std):
-    await std.edit("`Sending information...`")
-    level = std.pattern_match.group(2)
+   async def _(event):
     if std.fwd_from:
-        return
+        return 
     if not std.reply_to_msg_id:
-        await std.edit("`Reply to any user message photo...`")
-        return
-    reply_message = await std.get_reply_message()
+       await std.edit("```Reply to any user message.```")
+       return
+    reply_message = await std.get_reply_message() 
     if not reply_message.media:
-        await std.edit("`No image found...`")
-        return
-    if reply_message.sender.bot:
-        await std.edit("`Reply to actual user...`")
-        return
+       await event.edit("```Reply to text media```")
+       return
     chat = "@Stickerdownloadbot"
     message_id_to_reply = std.message.reply_to_msg_id
     async with std.client.conversation(chat) as conv:
