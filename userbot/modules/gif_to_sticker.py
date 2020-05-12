@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from uniborg import util
+from userbot import utils
 from PIL import Image, ImageDraw, ImageFont
 from pySmartDL import SmartDL
 from telethon import types, utils, events
