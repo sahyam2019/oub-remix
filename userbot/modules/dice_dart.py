@@ -5,7 +5,7 @@ from telethon.tl.types import InputMediaDice
 #from uniborg.util import admin_cmd
 from userbot.events import register 
 from userbot import CMD_HELP, bot
-from telethon.tl.types import InputMediaDart
+#from telethon.tl.types import InputMediaDart
 
 
 
@@ -45,16 +45,10 @@ async def _(event):
         reply_message = await event.get_reply_message()
     emoticon = event.pattern_match.group(1)
     await event.delete()
-    r = await reply_message.reply(file=InputMediaDart(emoticon=emoticon))
-    if input_str:
-        try:
-            required_number = int(input_str)
-            while not r.media.value == required_number:
-                await r.delete()
-                r = await reply_message.reply(file=InputMediaDart(emoticon=emoticon))
+    r = await reply_message.reply(file=InputMediaDice(''))
+   
         except:
             pass
-
 
 
         
