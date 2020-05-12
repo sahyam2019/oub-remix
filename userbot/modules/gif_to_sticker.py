@@ -10,8 +10,8 @@ from sample_config import Config
 from userbot.events import register 
 from userbot import CMD_HELP, bot
 
-sticker_to_gif = storage.sticker_to_gif or {}
-access_hashes = storage.access_hashes or {}
+sticker_to_gif = bot.sticker_to_gif or {}
+access_hashes = bot.access_hashes or {}
 gif_to_sticker = {str(gif): int(sticker) for sticker, gif in sticker_to_gif.items()}
 
 
@@ -46,8 +46,8 @@ async def convert_sticker_to_gif(sticker):
     gif_to_sticker[str(media.id)] = sticker.id
     access_hashes[str(sticker.id)] = sticker.access_hash
     access_hashes[str(media.id)] = media.access_hash
-    storage.sticker_to_gif = sticker_to_gif
-    storage.access_hashes = access_hashes
+    bot.sticker_to_gif = sticker_to_gif
+    bot.access_hashes = access_hashes
 
     return media
 
