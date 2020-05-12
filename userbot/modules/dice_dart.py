@@ -46,7 +46,7 @@ async def _(event):
     emoticon = event.pattern_match.group(1)
     await event.delete()
     r = await reply_message.reply(file=InputMediaDice(''))
-   except:
+    except:
       pass
 
    
