@@ -45,13 +45,13 @@ async def _(event):
         reply_message = await event.get_reply_message()
     emoticon = event.pattern_match.group(1)
     await event.delete()
-    r = await reply_message.reply(file=InputMediaDice(emoticon=emoticon))
+    r = await reply_message.reply(file=InputMediaDart(emoticon=emoticon))
     if input_str:
         try:
             required_number = int(input_str)
             while not r.media.value == required_number:
                 await r.delete()
-                r = await reply_message.reply(file=InputMediaDice(emoticon=emoticon))
+                r = await reply_message.reply(file=InputMediaDart(emoticon=emoticon))
         except:
             pass
 
