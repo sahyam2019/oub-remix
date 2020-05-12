@@ -4,62 +4,61 @@ import os
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
-nekourl = "https://nekobin.com/"
+
+def progress(current, total):
+    logger.info("Downloaded {} of {}\nCompleted {}".format(current, total, (current / total) * 100))
 
 
 @register(outgoing=True, pattern=r"^.npaste(?: |$)([\s\S]*)")
-async def paste(pstl):
-    """ For .npaste command, pastes the text directly to nekobin. """
-    nekobin_final_url = ""
-    match = pstl.pattern_match.group(1).strip()
-    reply_id = pstl.reply_to_msg_id
-
-    if not match and not reply_id:
-        await pstl.edit("`noob i caanot paste void.`")
+async def _(event):
+    if event.fwd_from:
         return
-
-    if match:
-        message = match
-    elif reply_id:
-        message = (await pstl.get_reply_message())
-        if message.media:
-            downloaded_file_name = await pstl.client.download_media(
-                message,
+    start = datetime.now()
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
+    input_str = event.pattern_match.group(1)
+    message = "SYNTAX: `.paste <long text to include>`"
+    if input_str:
+        message = input_str
+    elif event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        if previous_message.media:
+            downloaded_file_name = await bot.download_media(
+                previous_message,
                 TEMP_DOWNLOAD_DIRECTORY,
+                progress_callback=progress
             )
             m_list = None
             with open(downloaded_file_name, "rb") as fd:
                 m_list = fd.readlines()
             message = ""
             for m in m_list:
-                message += m.decode("UTF-8") + "\r"
+                # message += m.decode("UTF-8") + "\r\n"
+                message += m.decode("UTF-8")
             os.remove(downloaded_file_name)
         else:
-            message = message.message
-
-    # Nekobin
-    await pstl.edit("`Pasting text . . .`")
-    resp = post(nekourl + "documents", data=message.encode('utf-8'))
-
-    if resp.status_code == 200:
-        response = resp.json()
-        key = response['key']
-        nekobin_final_url = nekourl + key
-
-        if response['isUrl']:
-            reply_text = ("`Pasted successfully!`\n\n"
-                          f"`Shortened URL:` {nekobin_final_url}\n\n"
-                          "`Original(non-shortened) URLs`\n"
-                          f"`Nekobin URL`: {nekourl}v/{key}\n")
-        else:
-            reply_text = ("`Pasted successfully!`\n\n"
-                          f"`nekobin URL`: {nekobin_final_url}")
+            message = previous_message.message
     else:
-        reply_text = ("`Failed to reach nekobin`")
+        message = "SYNTAX: `.paste <long text to include>`"
+    py_file =  ""
+    if downloaded_file_name.endswith(".py"):
+        py_file += ".py"
+        data = message
+        key = requests.post('https://nekobin.com/api/documents', json={"content": data}).json().get('result').get('key')
+        url = f'https://nekobin.com/{key}{py_file}'
+        reply_text = f'Nekofied to *Nekobin* : {url}'
+        await event.edit(reply_text)
+    else:
+        data = message
+        key = requests.post('https://nekobin.com/api/documents', json={"content": data}).json().get('result').get('key')
+        url = f'https://nekobin.com/{key}'
+        reply_text = f'Nekofied to *Nekobin* : {url}'
+        await event.edit(reply_text)
 
-    await pstl.edit(reply_text)
-    if BOTLOG:
-        await pstl.client.send_message(
-            BOTLOG_CHATID,
-            f"NekoPaste query was executed successfully",
-        )
+# data = "tets sgdfgklj kdgjld"
+
+# key = requests.post('https://nekobin.com/api/documents', json={"content": data}).json().get('result').get('key')
+
+# url = f'https://nekobin.com/{key}'
+
+# reply_text = f'Nekofied to *Nekobin* : {url}'
