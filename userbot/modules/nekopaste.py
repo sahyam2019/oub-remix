@@ -15,6 +15,7 @@ async def _(event):
     if event.fwd_from:
         return
     start = datetime.now()
+    downloaded_file_name = None
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     input_str = event.pattern_match.group(1)
@@ -26,7 +27,7 @@ async def _(event):
         if previous_message.media:
             downloaded_file_name = await bot.download_media(
                 previous_message,
-                TEMP_DOWNLOAD_DIRECTORY= None,
+                TEMP_DOWNLOAD_DIRECTORY,
                 progress_callback=progress
             )
             m_list = None
@@ -34,7 +35,6 @@ async def _(event):
                 m_list = fd.readlines()
             message = ""
             for m in m_list:
-                # message += m.decode("UTF-8") + "\r\n"
                 message += m.decode("UTF-8")
             os.remove(downloaded_file_name)
         else:
@@ -55,11 +55,3 @@ async def _(event):
         url = f'https://nekobin.com/{key}'
         reply_text = f'Nekofied to *Nekobin* : {url}'
         await event.edit(reply_text)
-
-# data = "tets sgdfgklj kdgjld"
-
-# key = requests.post('https://nekobin.com/api/documents', json={"content": data}).json().get('result').get('key')
-
-# url = f'https://nekobin.com/{key}'
-
-# reply_text = f'Nekofied to *Nekobin* : {url}'
