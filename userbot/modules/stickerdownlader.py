@@ -19,9 +19,6 @@ async def _(event):
     if not reply_message.media:
        await event.edit("```Reply to image or sticker```")
        return
-    if not reply_message.text:
-       await event.edit("```Reply to a Link```")
-       return   
     chat = "@Stickerdownloadbot"
     sender = reply_message.sender
     if reply_message.sender.bot:
