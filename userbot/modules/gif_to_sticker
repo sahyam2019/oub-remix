@@ -8,7 +8,7 @@ from telethon.tl.functions.messages import SaveGifRequest, UploadMediaRequest
 from telethon import events
 from sample_config import Config
 from userbot.events import register 
-from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY
+from userbot import CMD_HELP, bot
 
 sticker_to_gif = storage.sticker_to_gif or {}
 access_hashes = storage.access_hashes or {}
