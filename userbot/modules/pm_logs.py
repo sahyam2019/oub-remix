@@ -1,7 +1,7 @@
 #This module was created by @spechide for Uniborg
 """Log PMs
 this will now log chat msgs to your botlog chat id.
-if you don't want chat logs than use `.nolog` .
+if you don't want chat logs than use `.nolog` , for opposite use `.log`. Default is .log enabled.
 enjoy this now.
 Thanks to @heyworld for a small correction"""
 
@@ -50,3 +50,24 @@ async def approve_p_m(event):
                 await event.edit("Won't Log Messages from this chat")
                 await asyncio.sleep(3)
                 await event.delete()
+
+                
+@register(pattern="^.log(?: |$)(.*)")
+async def approve_p_m(event):
+    if event.fwd_from:
+        return
+    reason = event.pattern_match.group(1)
+    chat = await event.get_chat()
+    if BOTLOG:
+        if event.is_private:
+            if chat.id in NO_PM_LOG_USERS:
+                NO_PM_LOG_USERS.remove(chat.id)
+                await event.edit("Will Log Messages from this chat")
+                await asyncio.sleep(3)
+                await event.delete()
+
+CMD_HELP.update({
+    "logpms":
+    "If you don't want chat logs than use `.nolog` , for opposite use `.log`. Default is .log enabled\
+\nUsage: This will now log chat msgs to your botlog chat id."
+})    
