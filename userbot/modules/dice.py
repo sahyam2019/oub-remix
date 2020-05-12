@@ -16,7 +16,7 @@ DICE = "🎲"
 
 
 
-@register(outgoing=True, (pattern=f"({DART}|{DICE}) ?(.*)"))
+@register(outgoing=True, (pattern=f"^\.(?:{DART}|{DICE})\s?(.)?"))
 async def _(event):
     if event.fwd_from:
         return
