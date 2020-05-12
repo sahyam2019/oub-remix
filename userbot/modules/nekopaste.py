@@ -26,7 +26,7 @@ async def _(event):
         if previous_message.media:
             downloaded_file_name = await bot.download_media(
                 previous_message,
-                TEMP_DOWNLOAD_DIRECTORY,
+                TEMP_DOWNLOAD_DIRECTORY= None,
                 progress_callback=progress
             )
             m_list = None
