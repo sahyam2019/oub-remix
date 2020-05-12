@@ -21,7 +21,7 @@ async def convert_sticker_to_gif(sticker):
         access_hash = access_hashes[str(gif_id)]
         return types.InputDocument(gif_id, access_hash, b'')
     file = BytesIO()
-    await borg.download_media(sticker, file=file)
+    await bot.download_media(sticker, file=file)
     file.seek(0)
 
     # remove alpha
