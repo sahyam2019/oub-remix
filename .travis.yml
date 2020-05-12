@@ -1,8 +1,10 @@
+language: minimal
 
-language: python
-python:
-  - "3.8"
-# command to install dependencies
-install:
-  - pip install -r requirements.txt
-script: echo overide build
+dist: Focal Fossa
+
+script:
+  - bash init/Merge.sh
+
+branches:
+  only:
+  - sql-extended
