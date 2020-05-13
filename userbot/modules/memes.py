@@ -481,7 +481,7 @@ PROSTR = [
 NUBSTR = [
     "`Haha noob trying to act pro`",
     "`Hi Nub what'sup`",
-    "`Only i and you know that ur a noob and trying to act like pro`",
+    "`Only i and you know that you are a noob and trying to act like pro`",
     "`Sorry we don't appoint noobs`",
     "`Bot rule 420 section 69 prevents me from replying to stupid nubfuks like you.`",
 ]
