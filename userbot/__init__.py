@@ -95,6 +95,7 @@ CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 # SQL Database URI
 DB_URI = os.environ.get("DATABASE_URL", None)
 
+
 # OCR API key
 OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
 
@@ -118,6 +119,9 @@ TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", None)
 # For MONGO based DataBase
 MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
 
+#Screenshot_layer
+SCREENSHOT_LAYER_ACCESS_KEY = os.environ.get("SCREENSHOT_LAYER_ACCESS_KEY",
+                                             None)
 
 # set blacklist_chats where you do not want userbot's features
 UB_BLACK_LIST_CHAT = os.environ.get("UB_BLACK_LIST_CHAT", "")
