@@ -42,7 +42,7 @@
     },
     "MONGO_DB_URI": {
             "description": "Your MongoDB Atlas URL, Get your guide from https://telegra.ph/Mongo-DB-12-24.",
-            "required": true 
+            "required": false 
     },
     "GENIUS": {
       "description": "Get this value from https://genius.com/developers., basically same as GENIUS_API_TOKEN.",
