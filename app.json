@@ -110,7 +110,7 @@
     },
     "SCREENSHOT_LAYER_ACCESS_KEY": {
       "description": "Your web screenshot api, get it from 'https://screenshotlayer.com/'",
-      "value": "False"
+      "required": false
     },
     "PM_AUTO_BAN": {
       "description": "PM Auto-Ban Feature Switch. Also known as the 'bleep blop, this is a bot...' module.",
