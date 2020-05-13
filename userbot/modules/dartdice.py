@@ -2,7 +2,6 @@
 #bug fixed by @d3athwarrior
 
 from telethon.tl.types import InputMediaDice
-#from uniborg.util import admin_cmd
 from userbot.events import register 
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, ALIVE_NAME
 
@@ -42,7 +41,7 @@ async def _(event):
             pass        
         
 CMD_HELP.update({
-    "dice":
-    ".dice or .dice 1 to 6 any value\
+    "dicedart":
+    ".dice or .dart\
 \nUsage: hahaha just a magic."
 })    
