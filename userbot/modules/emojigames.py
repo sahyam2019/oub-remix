@@ -59,6 +59,6 @@ async def _(event):
         
 CMD_HELP.update({
     "emojigames":
-    ".dice 1-6 or .dart1-6 or .bb1-4\
+    ".dice 1-6 or .dart1-6 or .bb1-5\
 \nUsage: hahaha just a magic.\nWarning:`Don't use any other values or bot will crash`"
 })    
