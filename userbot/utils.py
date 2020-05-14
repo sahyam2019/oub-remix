@@ -8,6 +8,11 @@ from userbot import CMD_LIST
 import re
 import logging
 import inspect
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+from userbot import TEMP_DOWNLOAD_DIRECTORY, GOOGLE_CHROME_BIN, CHROME_DRIVER
+import hashlib
 
 def command(**args):
     stack = inspect.stack()
@@ -128,6 +133,17 @@ def remove_plugin(shortname):
                     del bot._event_builders[i]
     except:
         raise ValueError
+        
+ async def chrome(chrome_options=None):
+    if chrome_options is None:
+        chrome_options = await options()
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+        os.mkdir(TEMP_DOWNLOAD_DIRECTORY)
+    prefs = {'download.default_directory': TEMP_DOWNLOAD_DIRECTORY}
+    chrome_options.add_experimental_option('prefs', prefs)
+    driver = webdriver.Chrome(executable_path=CHROME_DRIVER,
+                              options=chrome_options)
+    return driver       
 
 def admin_cmd(pattern=None, **args):
     stack = inspect.stack()
@@ -266,7 +282,24 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
                 type_of_ps, file_name, tmp))
         else:
             await event.edit("{}\n{}".format(type_of_ps, tmp))
+            
+            
+async def md5(fname: str) -> str:
+    hash_md5 = hashlib.md5()
+    with open(fname, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            hash_md5.update(chunk)
+    return hash_md5.hexdigest()
 
+async def options():
+    chrome_options = Options()
+    chrome_options.binary_location = GOOGLE_CHROME_BIN
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--window-size=1920x1080")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-gpu")
+    return chrome_options            
 
 def humanbytes(size):
     """Input size in bytes,
@@ -282,6 +315,20 @@ def humanbytes(size):
         size /= power
         raised_to_pow += 1
     return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
+
+
+def human_to_bytes(size: str) -> int:
+    units = {
+        "M": 2**20, "MB": 2**20,
+        "G": 2**30, "GB": 2**30,
+        "T": 2**40, "TB": 2**40
+    }
+
+    size = size.upper()
+    if not re.match(r' ', size):
+        size = re.sub(r'([KMGT])', r' \1', size)
+    number, unit = [string.strip() for string in size.split()]
+    return int(float(number)*units[unit])
 
 
 def time_formatter(milliseconds: int) -> str:
