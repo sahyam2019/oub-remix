@@ -117,7 +117,7 @@ LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
 TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", None)
 
 # For MONGO based DataBase
-MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
+MONGO_URI = os.environ.get("MONGO_URI", None)
 
 #Screenshot_layer
 SCREENSHOT_LAYER_ACCESS_KEY = os.environ.get("SCREENSHOT_LAYER_ACCESS_KEY",
