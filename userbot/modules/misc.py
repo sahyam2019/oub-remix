@@ -170,7 +170,7 @@ async def raw(event):
 
 CMD_HELP.update({
     "misc":
-    ".random <item1> <item2> ... <itemN>\\
+    ".random <item1> <item2> ... <itemN>\
 \nUsage: Get a random item from the list of items.\
 \n\n.sleep <seconds>\
 \nusage:Userbots get tired too. Let yours snooze for a few seconds.\
