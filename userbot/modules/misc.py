@@ -175,7 +175,7 @@ CMD_HELP.update({
 \n\n.sleep <seconds>\
 \nusage:Userbots get tired too. Let yours snooze for a few seconds.\
 \n\n.shutdown\
-\nUsage: shutdowns the bot temporarily\ 
+\nUsage: Shutdowns the bot temporarily\
 \n\n.support\
 \nUsage: if you need help, use this command\
 \n\n.community\
