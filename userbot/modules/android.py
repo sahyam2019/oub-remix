@@ -45,7 +45,7 @@ async def magisk(request):
     await request.edit(releases)
     
     
- @register(outgoing=True, pattern="^.pixeldl(?: |$)(.*)")
+@register(outgoing=True, pattern="^.pixeldl(?: |$)(.*)")
 async def download_api(dl):
     await dl.edit("`Collecting information...`")
     URL = dl.pattern_match.group(1)
