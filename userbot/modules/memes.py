@@ -1324,6 +1324,10 @@ CMD_HELP.update({
 \nUsage: You better start running\
 \n\n.metoo\
 \nUsage: Haha yes\
+\n\n.gn\
+\nUsage: goodnight friend\
+\n\n.gm\
+\nUsage: goodmorning friend\
 \n\n.mock\
 \nUsage: Do it and find the real fun.\
 \n\n.clap\
