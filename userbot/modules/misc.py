@@ -175,14 +175,13 @@ CMD_HELP.update({
 \n\n.sleep <seconds>\
 \nusage:Userbots get tired too. Let yours snooze for a few seconds.\
 \n\n..shutdown\
-\nUsage:Sometimes you need to shut down your bot. Sometimes you just hope to\
-hear Windows XP shutdown sound... but you don't.\ 
+\nUsage:shutdowns the bot temporarily\ 
 \n\n.support\
 \nUsage: if you need help, use this command\
 \n\n.community\
 \nUsage: Join the awesome OpenUserBot community !!\
 \n\n.repo\
-\nUsage: If you are curious what makes the userbot work, this is what you need. !!\
+\nUsage: If you are curious what makes the userbot work, this is what you need !!\
 \n\n.myrepo\
 \nUsage: If you are curious which is your personal repo, this is what you have.\
 \n\n.readme\
