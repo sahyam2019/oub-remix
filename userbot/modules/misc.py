@@ -169,67 +169,30 @@ async def raw(event):
 
 
 CMD_HELP.update({
-    'random':
-    '.random <item1> <item2> ... <itemN>\
-\nUsage: Get a random item from the list of items.'
-})
-
-CMD_HELP.update({
-    'sleep':
-    '.sleep <seconds>\
-\nUsage: Userbots get tired too. Let yours snooze for a few seconds.'
-})
-
-CMD_HELP.update({
-    "shutdown":
-    ".shutdown\
-\nUsage: Sometimes you need to shut down your bot. Sometimes you just hope to\
-hear Windows XP shutdown sound... but you don't."
-})
-
-CMD_HELP.update(
-    {'support': ".support\
-\nUsage: If you need help, use this command."})
-
-CMD_HELP.update({
-    'community':
-    ".community\
-\nUsage: Join the awesome Paperplane userbot community !!"
-})
-
-CMD_HELP.update({
-    'repo':
-    '.repo\
-\nUsage: If you are curious what makes the userbot work, this is what you need.'
-})
-
-CMD_HELP.update({
-    'myrepo':
-    '.myrepo\
-\nUsage: If you are curious which is your personal repo, this is what you have.'
-})
-
-CMD_HELP.update({
-    "readme":
-    ".readme\
-\nUsage: Provide links to setup the userbot and it's modules."
-})
-
-CMD_HELP.update(
-    {"creator": ".creator\
-\nUsage: Know who created this awesome userbot !!"})
-
-CMD_HELP.update({
-    "repeat":
-    ".repeat <no.> <text>\
-\nUsage: Repeats the text for a number of times. Don't confuse this with spam tho."
-})
-
-CMD_HELP.update({"restart": ".restart\
-\nUsage: Restarts the bot !!"})
-
-CMD_HELP.update({
-    "raw":
-    ".raw\
+    "misc":
+    ".random <item1> <item2> ... <itemN>\\
+\nUsage: Get a random item from the list of items.\
+\n\n.sleep <seconds>\
+\nusage:Userbots get tired too. Let yours snooze for a few seconds.\
+\n\n..shutdown\
+\nUsage:Sometimes you need to shut down your bot. Sometimes you just hope to\
+hear Windows XP shutdown sound... but you don't.\ 
+\n\n.support\
+\nUsage: if you need help, use this command\
+\n\n.community\
+\nUsage: Join the awesome OpenUserBot community !!\
+\n\n.repo\
+\nUsage: If you are curious what makes the userbot work, this is what you need. !!\
+\n\n.myrepo\
+\nUsage: If you are curious which is your personal repo, this is what you have.\
+\n\n.readme\
+\nUsage: Provide links to setup the userbot and it's modules.\
+\n\n.creator\
+\nUsage: Know who created this awesome userbot !!\
+\n\n.repeat <no.> <text>\
+\nUsage: Repeats the text for a number of times. Don't confuse this with spam tho.\
+\n\n.restart\
+\nUsage: Restarts the bot !!\
+\n\n.raw\
 \nUsage: Get detailed JSON-like formatted data about replied message."
 })
