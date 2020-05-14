@@ -3,6 +3,7 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #custom cmds by @heyworld to make it look more gayish
+#Thanks to @AbhinavShinde for strings
 """ Userbot module for having some fun with people. """
 
 from asyncio import sleep
@@ -496,6 +497,61 @@ BYESTR = [
     "`See you soon`",
 ]
 
+GDNIGHT = [
+    "`Good night keep your dreams alive`",
+    "`Night, night, to a dear friend! May you sleep well!`",
+    "`May the night fill with stars for you. May counting every one, give you contentment!`",
+    "`Wishing you comfort, happiness, and a good night’s sleep!`",
+    "`Now relax. The day is over. You did your best. And tomorrow you’ll do better. Good Night!`",
+    "`Good night to a friend who is the best! Get your forty winks!`",
+    "`May your pillow be soft, and your rest be long! Good night, friend!`",
+    "`Let there be no troubles, dear friend! Have a Good Night!`",
+    "`Rest soundly tonight, friend!`",
+    "`Have the best night’s sleep, friend! Sleep well!`",
+    "`Have a very, good night, friend! You are wonderful!`",
+    "`Relaxation is in order for you! Good night, friend!`",
+    "`Good night. May you have sweet dreams tonight.`",
+    "`Sleep well, dear friend and have sweet dreams.`",
+    "`As we wait for a brand new day, good night and have beautiful dreams.`",
+    "`Dear friend, I wish you a night of peace and bliss. Good night.`",
+    "`Darkness cannot last forever. Keep the hope alive. Good night.`",
+    "`By hook or crook you shall have sweet dreams tonight. Have a good night, buddy!`",
+    "`Good night, my friend. I pray that the good Lord watches over you as you sleep. Sweet dreams.`",
+    "`Good night, friend! May you be filled with tranquility!`",
+    "`Wishing you a calm night, friend! I hope it is good!`",
+    "`Wishing you a night where you can recharge for tomorrow!`",
+    "`Slumber tonight, good friend, and feel well rested, tomorrow!`",
+    "`Wishing my good friend relief from a hard day’s work! Good Night!`",
+    "`Good night, friend! May you have silence for sleep!`",
+]
+
+GDMORNING = [
+    "`Life is full of uncertainties. But there will always be a sunrise after every sunset. Good morning!`",
+    "`It doesn’t matter how bad was your yesterday. Today, you are going to make it a good one. Wishing you a good morning!`",
+    "`If you want to gain health and beauty, you should wake up early. Good morning!`",
+    "`May this morning offer you new hope for life! May you be happy and enjoy every moment of it. Good morning!`",
+    "`May the sun shower you with blessings and prosperity in the days ahead. Good morning!`",
+    "`Every sunrise marks the rise of life over death, hope over despair and happiness over suffering. Wishing you a very enjoyable morning today!`",
+    "`Wake up and make yourself a part of this beautiful morning. A beautiful world is waiting outside your door. Have an enjoyable time!`",
+    "`Welcome this beautiful morning with a smile on your face. I hope you’ll have a great day today. Wishing you a very good morning!`",
+    "`You have been blessed with yet another day. What a wonderful way of welcoming the blessing with such a beautiful morning! Good morning to you!`",
+    "`Waking up in such a beautiful morning is a guaranty for a day that’s beyond amazing. I hope you’ll make the best of it. Good morning!`",
+    "`Nothing is more refreshing than a beautiful morning that calms your mind and gives you reasons to smile. Good morning! Wishing you a great day.`",
+    "`Another day has just started. Welcome the blessings of this beautiful morning. Rise and shine like you always do. Wishing you a wonderful morning!`",
+    "`Wake up like the sun every morning and light up the world your awesomeness. You have so many great things to achieve today. Good morning!`",
+    "`A new day has come with so many new opportunities for you. Grab them all and make the best out of your day. Here’s me wishing you a good morning!`",
+    "`The darkness of night has ended. A new sun is up there to guide you towards a life so bright and blissful. Good morning dear!`",
+    "`Wake up, have your cup of morning tea and let the morning wind freshen you up like a happiness pill. Wishing you a good morning and a good day ahead!`",
+    "`Sunrises are the best; enjoy a cup of coffee or tea with yourself because this day is yours, good morning! Have a wonderful day ahead.`",
+    "`A bad day will always have a good morning, hope all your worries are gone and everything you wish could find a place. Good morning!`",
+    "`A great end may not be decided but a good creative beginning can be planned and achieved. Good morning, have a productive day!`",
+    "`Having a sweet morning, a cup of coffee, a day with your loved ones is what sets your “Good Morning” have a nice day!`",
+    "`Anything can go wrong in the day but the morning has to be beautiful, so I am making sure your morning starts beautiful. Good morning!`",
+    "`Open your eyes with a smile, pray and thank god that you are waking up to a new beginning. Good morning!`",
+    "`Morning is not only sunrise but A Beautiful Miracle of God that defeats the darkness and spread light. Good Morning.`",
+    "`Life never gives you a second chance. So, enjoy every bit of it. Why not start with this beautiful morning. Good Morning!`",
+    "`If you want to gain health and beauty, you should wake up early. Good Morning!`",
+]    
 SHGS = [
     "┐(´д｀)┌",
     "┐(´～｀)┌",
@@ -914,6 +970,18 @@ async def zal(zgfy):
 async def hoi(hello):
     """ Greet everyone! """
     await hello.edit(choice(HELLOSTR))
+                      
+                      
+@register(outgoing=True, pattern="^.gn$")
+async def night(night):
+    """ Greet everyone! """
+    await night.edit(choice(GDNIGHT))
+                      
+                      
+@register(outgoing=True, pattern="^.gm$")
+async def morning(morning):
+    """ Greet everyone! """
+    await morning.edit(choice(GDMORNING))
 
 
 @register(outgoing=True, pattern="^.pro$")
