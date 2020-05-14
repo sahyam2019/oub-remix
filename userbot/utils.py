@@ -14,6 +14,11 @@ from selenium.webdriver.chrome.options import Options
 from userbot import TEMP_DOWNLOAD_DIRECTORY, GOOGLE_CHROME_BIN, CHROME_DRIVER
 import hashlib
 
+class CancelProcess(Exception):
+    """
+       Cancel Process
+    """
+
 def command(**args):
     stack = inspect.stack()
     previous_stack_frame = stack[1]
