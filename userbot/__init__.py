@@ -119,6 +119,11 @@ TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", None)
 # For MONGO based DataBase
 MONGO_URI = os.environ.get("MONGO_URI", None)
 
+# For redis based DataBase
+REDIS_ENDPOINT = os.environ.get("REDIS_ENDPOINT", None)
+REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", None)
+
+
 #Screenshot_layer
 SCREENSHOT_LAYER_ACCESS_KEY = os.environ.get("SCREENSHOT_LAYER_ACCESS_KEY",
                                              None)
