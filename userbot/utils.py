@@ -134,7 +134,7 @@ def remove_plugin(shortname):
     except:
         raise ValueError
         
- async def chrome(chrome_options=None):
+async def chrome(chrome_options=None):
     if chrome_options is None:
         chrome_options = await options()
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
