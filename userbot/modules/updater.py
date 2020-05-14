@@ -78,6 +78,8 @@ async def upstream(ups):
         repo.create_head('sql-extended', origin.refs.sql-extended)
         repo.heads.sql-extended.set_tracking_branch(origin.refs.sql-extended)
         repo.heads.sql-extended.checkout(True)
+        origin.pull()
+        origin.push()
 
     ac_br = repo.active_branch.name
     if ac_br != 'sql-extended':
