@@ -5,57 +5,69 @@
 #
 # The entire source code is OSSRPL except 'screencapture' which is MPL
 # License: MPL and OSSRPL
-""" Userbot module for ScreenshotLayer API """
 
-import os
+import io
 
-from requests import get
-
-from userbot import CMD_HELP, SCREENSHOT_LAYER_ACCESS_KEY
+from re import match
+from asyncio import sleep
 from userbot.events import register
+from userbot.utils import chrome, options
+from userbot import CMD_HELP
 
 
-@register(pattern=r"^.ss (.*)", outgoing=True)
+@register(pattern="^.ss (.*)", outgoing=True)
 async def capture(url):
-    """ For .screencapture command, capture a website and send the photo. """
-    if SCREENSHOT_LAYER_ACCESS_KEY is None:
-        await url.edit(
-            "Need to get an API key from https://screenshotlayer.com\
-            /product \nModule stopping!")
-        return
-    await url.edit("Processing ...")
-    sample_url = "https://api.screenshotlayer.com/api/capture"
-    sample_url += "?access_key={}&url={}&fullpage={}&format={}&viewport={}"
+    """ For .ss command, capture a website's screenshot and send the photo. """
+    await url.edit("`Processing...`")
+    chrome_options = await options()
+    chrome_options.add_argument("--test-type")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.arguments.remove("--window-size=1920x1080")
+    driver = await chrome(chrome_options=chrome_options)
     input_str = url.pattern_match.group(1)
-    response_api = get(
-        sample_url.format(SCREENSHOT_LAYER_ACCESS_KEY, input_str, "1", "PNG",
-                          "2560x1440"),
-        stream=True,
-    )
-    content_type = response_api.headers["content-type"]
-    if "image" in content_type:
-        temp_file_name = "screencapture.png"
-        with open(temp_file_name, "wb") as file:
-            for chunk in response_api.iter_content(chunk_size=128):
-                file.write(chunk)
-        try:
-            await url.client.send_file(
-                url.chat_id,
-                temp_file_name,
-                caption=input_str,
-                force_document=True,
-                reply_to=url.message.reply_to_msg_id,
-            )
-            await url.delete()
-        except BaseException:
-            await url.edit(response_api.text)
-        os.remove(temp_file_name)
+    link_match = match(r'\bhttps?://.*\.\S+', input_str)
+    if link_match:
+        link = link_match.group()
     else:
-        await url.edit(response_api.text)
-
+        return await url.edit("`I need a valid link to take screenshots from.`")
+    driver.get(link)
+    height = driver.execute_script(
+        "return Math.max(document.body.scrollHeight, document.body.offsetHeight, "
+        "document.documentElement.clientHeight, document.documentElement.scrollHeight, "
+        "document.documentElement.offsetHeight);"
+    )
+    width = driver.execute_script(
+        "return Math.max(document.body.scrollWidth, document.body.offsetWidth, "
+        "document.documentElement.clientWidth, document.documentElement.scrollWidth, "
+        "document.documentElement.offsetWidth);"
+    )
+    driver.set_window_size(width + 125, height + 125)
+    wait_for = height / 1000
+    await url.edit(
+        "`Generating screenshot of the page...`"
+        f"\n`Height of page = {height}px`"
+        f"\n`Width of page = {width}px`"
+        f"\n`Waiting ({int(wait_for)}s) for the page to load.`")
+    await sleep(int(wait_for))
+    im_png = driver.get_screenshot_as_png()
+    # saves screenshot of entire page
+    driver.quit()
+    message_id = url.message.id
+    if url.reply_to_msg_id:
+        message_id = url.reply_to_msg_id
+    with io.BytesIO(im_png) as out_file:
+        out_file.name = "screencapture.png"
+        await url.edit("`Uploading screenshot as file..`")
+        await url.client.send_file(url.chat_id,
+                                   out_file,
+                                   caption=input_str,
+                                   force_document=True,
+                                   reply_to=message_id)
+        await url.delete()
 
 CMD_HELP.update({
     "ss":
-    ".ss <url>\n"
-    "Usage: Take a screenshot of a website and send the screenshot."
+    ".ss <url>\
+    \nUsage: Takes a screenshot of a website and sends the screenshot.\
+    \nExample of a valid URL : `https://www.google.com`"
 })
