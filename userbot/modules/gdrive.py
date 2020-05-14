@@ -22,7 +22,7 @@ from userbot.events import register
 from mimetypes import guess_type
 import httplib2
 import subprocess
-from userbot.modules.upload_download import progress, humanbytes, time_formatter
+from userbot.utils import progress, humanbytes, time_formatter
 
 # Path to token json file, it should be in same directory as script
 G_DRIVE_TOKEN_FILE = "./auth_token.txt"
