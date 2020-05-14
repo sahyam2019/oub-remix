@@ -495,6 +495,7 @@ BYESTR = [
     "`I'm off!`",
     "`Great to see you,bye`",
     "`See you soon`",
+    "`Farewell!`",
 ]
 
 GDNIGHT = [
