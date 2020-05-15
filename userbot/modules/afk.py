@@ -11,9 +11,10 @@ from random import choice, randint
 from asyncio import sleep
 
 from telethon.events import StopPropagation
+from telethon.tl.functions.account import UpdateProfileRequest
 
 from userbot import (AFKREASON, COUNT_MSG, CMD_HELP, ISAFK, BOTLOG,
-                     BOTLOG_CHATID, USERS, PM_AUTO_BAN)
+                     BOTLOG_CHATID, USERS, PM_AUTO_BAN, bot)
 from userbot.events import register
 
 # ========================= CONSTANTS ============================
@@ -47,6 +48,7 @@ global USER_AFK  # pylint:disable=E0602
 global afk_time  # pylint:disable=E0602
 global afk_start
 global afk_end
+user = await bot.get_me()
 USER_AFK = {}
 afk_time = None
 afk_start = {}
@@ -75,6 +77,8 @@ async def set_afk(afk_e):
         \nReason: `{string}`")
     else:
         await afk_e.edit("Going AFK!")
+    await afk_e.client(
+        UpdateProfileRequest(first_name=user.first_name, last_name=user.last_name + " [ OFFLINE ]"))    
     if BOTLOG:
         await afk_e.client.send_message(BOTLOG_CHATID, "#AFK\nYou went AFK!")
     ISAFK = True
@@ -93,6 +97,9 @@ async def type_afk_is_not_true(notafk):
     global afk_time  # pylint:disable=E0602
     global afk_start
     global afk_end
+    user = await bot.get_me()
+    last = user.last_name
+    last1 = last[:-12]
     back_alive = datetime.now()
     afk_end = back_alive.replace(microsecond=0)
     if ISAFK:
@@ -100,6 +107,7 @@ async def type_afk_is_not_true(notafk):
         msg = await notafk.respond("I'm no longer AFK.")
         time.sleep(3)
         await msg.delete()
+        await notafk.client(UpdateProfileRequest(first_name=user.first_name, last_name=last1))
         if BOTLOG:
             await notafk.client.send_message(
                 BOTLOG_CHATID,
@@ -129,6 +137,7 @@ async def mention_afk(mention):
     global afk_time  # pylint:disable=E0602
     global afk_start
     global afk_end
+    user = await bot.get_me()
     back_alivee = datetime.now()
     afk_end = back_alivee.replace(microsecond=0)
     afk_since = "a while ago"
@@ -156,11 +165,11 @@ async def mention_afk(mention):
                     wday = now + datetime.timedelta(days=-days)
                     afk_since = wday.strftime('%A')
             elif hours > 1:
-                afk_since = f"`{int(hours)}h{int(minutes)}m` ago"
+                afk_since = f"`{int(hours)}h {int(minutes)}m`"
             elif minutes > 0:
-                afk_since = f"`{int(minutes)}m{int(seconds)}s` ago"
+                afk_since = f"`{int(minutes)}m {int(seconds)}s`"
             else:
-                afk_since = f"`{int(seconds)}s` ago"
+                afk_since = f"`{int(seconds)}s`"
             if mention.sender_id not in USERS:
                 if AFKREASON:
                     await mention.reply(f"I'm AFK since {afk_since}.\
@@ -196,6 +205,7 @@ async def afk_on_pm(sender):
     global afk_time  # pylint:disable=E0602
     global afk_start
     global afk_end
+    user = await bot.get_me()
     back_alivee = datetime.now()
     afk_end = back_alivee.replace(microsecond=0)
     afk_since = "a while ago"
@@ -232,11 +242,11 @@ async def afk_on_pm(sender):
                     wday = now + datetime.timedelta(days=-days)
                     afk_since = wday.strftime('%A')
             elif hours > 1:
-                afk_since = f"`{int(hours)}h{int(minutes)}m` ago"
+                afk_since = f"`{int(hours)}h {int(minutes)}m`"
             elif minutes > 0:
-                afk_since = f"`{int(minutes)}m{int(seconds)}s` ago"
+                afk_since = f"`{int(minutes)}m {int(seconds)}s`"
             else:
-                afk_since = f"`{int(seconds)}s` ago"
+                afk_since = f"`{int(seconds)}s`"
             if sender.sender_id not in USERS:
                 if AFKREASON:
                     await sender.reply(f"I'm AFK since {afk_since}.\
