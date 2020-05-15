@@ -59,6 +59,6 @@ async def gbun(event):
     await event.delete()
     
 CMD_HELP.update({
-"fakegban": ".fgban\
+"fakegban": "`.fgban`\
     \nUsage: Type .fgban or Reply .fgban reason and see it yourself. "
 })

@@ -42,43 +42,8 @@ async def lastname(steal):
           else: 
              await steal.edit(f"{response.message.message}")
 
-
-
-
-@register(outgoing=True, pattern="^.fakemail(?: |$)(.*)")
-async def pembohong(fake):
-    if fake.fwd_from:
-        return 
-    if not fake.reply_to_msg_id:
-       await fake.edit("```Reply to any user message.```")
-       return
-    reply_message = await fake.get_reply_message() 
-    if not reply_message.text:
-       await fake.edit("```reply to text message```")
-       return
-    chat = "@fakemailbot"
-    sender = reply_message.sender
-    if reply_message.sender.bot:
-       await fake.edit("```Reply to actual users message.```")
-       return
-    await fake.edit("```Sit tight while I sending some data from Microsoft```")
-    async with bot.conversation(chat) as conv:
-          try:     
-              response = conv.wait_event(events.NewMessage(incoming=True,from_users=177914997))
-              await bot.forward_messages(chat, reply_message)
-              response = await response 
-          except YouBlockedUserError: 
-              await fake.reply("```Please unblock @fakemailbot and try again```")
-              return
-          if response.text.startswith("send"):
-             await fake.edit("```can you kindly disable your forward privacy settings for good?```")
-          else: 
-             await fake.edit(f"{response.message.message}")
-
 CMD_HELP.update({
         "sangmata": 
-        ".sm \
-          \nUsage: Steal ur or friend name.\
-          \n\n.fakemail\
-          \nUsage: Fake an email to ur friends or someone."
-    })
+        "`.sm`\
+          \nUsage: Steal ur or friend name."
+})

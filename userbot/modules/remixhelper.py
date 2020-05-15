@@ -36,8 +36,8 @@ async def var(m):
     
 CMD_HELP.update({
     "remixhelper":
-    ".remixhelp\
+    "`.remixhelp`\
 \nUsage: Provide links to update repo guides while you keep your changes on the floor.\
-\n.remixvar\
+\n`.remixvar`\
 \nUsage: Provide vars to cross check for you."
 })

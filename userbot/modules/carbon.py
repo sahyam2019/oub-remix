@@ -52,7 +52,7 @@ async def setlang(prog):
     CARBONLANG = prog.pattern_match.group(1)
     await prog.edit(f"Language for carbon.now.sh set to {CARBONLANG}")
 
-@register(outgoing=True, pattern="^.karbon1")
+@register(outgoing=True, pattern="^.carbon1")
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
     await e.edit("`Processing..`")
@@ -118,7 +118,7 @@ async def carbon_api(e):
     await e.delete()  # Deleting msg
     
 
-@register(outgoing=True, pattern="^.karbon2")
+@register(outgoing=True, pattern="^.carbon2")
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
     await e.edit("`Processing..`")
@@ -184,7 +184,7 @@ async def carbon_api(e):
     await e.delete()  # Deleting msg
     
 
-@register(outgoing=True, pattern="^.karbon3")
+@register(outgoing=True, pattern="^.carbon3")
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
     await e.edit("`Processing..`")
@@ -250,7 +250,7 @@ async def carbon_api(e):
     await e.delete()  # Deleting msg
     
     
-@register(outgoing=True, pattern="^.karbon4")
+@register(outgoing=True, pattern="^.carbon4")
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
     await e.edit("`Processing..`")
@@ -316,7 +316,7 @@ async def carbon_api(e):
     await e.delete()  # Deleting msg
     
 
-@register(outgoing=True, pattern="^.karbon5")
+@register(outgoing=True, pattern="^.carbon5")
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
     await e.edit("`Processing..`")
@@ -383,31 +383,7 @@ async def carbon_api(e):
  
     
 CMD_HELP.update({
-    'karbon1':
-    '.karbon1 <text> [or reply]\
-        \nUsage: Beautify your text'
-})
-
-    
-CMD_HELP.update({
-    'karbon2':
-    '.karbon2 <text> [or reply]\
-        \nUsage: Beautify your TXT.'
-})
-
-    
-CMD_HELP.update({
-    'karbon3':
-    '.karbon3 <text> [or reply]\
-        \nUsage: Beautify your text.'
-})
-CMD_HELP.update({
-    'karbon4':
-    '.karbon4 <text> [or reply]\
-        \nUsage: Beautify your text.'
-})
-CMD_HELP.update({
-    'karbon5':
-    '.karbon5 <text> [or reply]\
-        \nUsage: Beautify your text.'
+    "carbon":
+    "`.carbon` value <values=1,2,3,4,5>\
+        \nUsage:reply or type .carbon value and beautify your text."
 })

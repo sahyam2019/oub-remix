@@ -22,7 +22,6 @@ GITHUB = 'https://github.com'
 DEVICES_DATA = 'https://raw.githubusercontent.com/androidtrackers/' \
                'certified-android-devices/master/devices.json'
 
-
 @register(outgoing=True, pattern="^.magisk$")
 async def magisk(request):
     """ magisk latest releases """
@@ -43,8 +42,7 @@ async def magisk(request):
                     f'[APK v{data["app"]["version"]}]({data["app"]["link"]}) | ' \
                     f'[Uninstaller]({data["uninstaller"]["link"]})\n'
     await request.edit(releases)
-    
-    
+
 @register(outgoing=True, pattern="^.pixeldl(?: |$)(.*)")
 async def download_api(dl):
     await dl.edit("`Collecting information...`")
@@ -178,6 +176,69 @@ async def device_info(request):
         reply = f"`Couldn't find info about {codename}!`\n"
     await request.edit(reply)
 
+@register(outgoing=True, pattern=r"^.codename(?: |)([\S]*)(?: |)([\s\S]*)")
+async def codename_info(request):
+    """ search for android codename """
+    textx = await request.get_reply_message()
+    brand = request.pattern_match.group(1).lower()
+    device = request.pattern_match.group(2).lower()
+
+    if brand and device:
+        pass
+    elif textx:
+        brand = textx.text.split(' ')[0]
+        device = ' '.join(textx.text.split(' ')[1:])
+    else:
+        await request.edit("`Usage: .codename <brand> <device>`")
+        return
+
+    data = json.loads(
+        get("https://raw.githubusercontent.com/androidtrackers/"
+            "certified-android-devices/master/by_brand.json").text)
+    devices_lower = {k.lower(): v
+                     for k, v in data.items()}  # Lower brand names in JSON
+    devices = devices_lower.get(brand)
+    results = [
+        i for i in devices if i["name"].lower() == device.lower()
+        or i["model"].lower() == device.lower()
+    ]
+    if results:
+        reply = f"**Search results for {brand} {device}**:\n\n"
+        if len(results) > 8:
+            results = results[:8]
+        for item in results:
+            reply += f"**Device**: {item['device']}\n" \
+                     f"**Name**: {item['name']}\n" \
+                     f"**Model**: {item['model']}\n\n"
+    else:
+        reply = f"`Couldn't find {device} codename!`\n"
+    await request.edit(reply)
+
+@register(outgoing=True, pattern=r"^.device(?: |$)(\S*)")
+async def device_info(request):
+    """ get android device basic info from its codename """
+    textx = await request.get_reply_message()
+    codename = request.pattern_match.group(1)
+    if codename:
+        pass
+    elif textx:
+        codename = textx.text
+    else:
+        await request.edit("`Usage: .device <codename> / <model>`")
+        return
+    data = json.loads(
+        get("https://raw.githubusercontent.com/androidtrackers/"
+            "certified-android-devices/master/by_device.json").text)
+    results = data.get(codename)
+    if results:
+        reply = f"**Search results for {codename}**:\n\n"
+        for item in results:
+            reply += f"**Brand**: {item['brand']}\n" \
+                     f"**Name**: {item['name']}\n" \
+                     f"**Model**: {item['model']}\n\n"
+    else:
+        reply = f"`Couldn't find info about {codename}!`\n"
+    await request.edit(reply)
 
 @register(outgoing=True, pattern=r"^.codename(?: |)([\S]*)(?: |)([\s\S]*)")
 async def codename_info(request):
@@ -217,8 +278,7 @@ async def codename_info(request):
         reply = f"`Couldn't find {device} codename!`\n"
     await request.edit(reply)
 
-
-@register(outgoing=True, pattern=r"^.specs(?: |)([\S]*)(?: |)([\s\S]*)")
+@register(outgoing=True, pattern=r"^.spec(?: |)([\S]*)(?: |)([\s\S]*)")
 async def devices_specifications(request):
     """ Mobile devices specifications """
     textx = await request.get_reply_message()
@@ -230,7 +290,7 @@ async def devices_specifications(request):
         brand = textx.text.split(' ')[0]
         device = ' '.join(textx.text.split(' ')[1:])
     else:
-        await request.edit("`Usage: .specs <brand> <device>`")
+        await request.edit("`Usage: .spec <brand> <device>`")
         return
     all_brands = BeautifulSoup(
         get('https://www.devicespecifications.com/en/brand-more').content,
@@ -270,7 +330,6 @@ async def devices_specifications(request):
             reply += f'**{title}**: {data}\n'
     await request.edit(reply)
 
-
 @register(outgoing=True, pattern=r"^.twrp(?: |$)(\S*)")
 async def twrp(request):
     """ get android device twrp """
@@ -299,19 +358,18 @@ async def twrp(request):
         f'**Updated:** __{date}__\n'
     await request.edit(reply)
 
-
 CMD_HELP.update({
     "android":
-    ".magisk\
+    "`.magisk`\
 \nGet latest Magisk releases\
-\n\n.device <codename>\
+\n\n`.device` <codename>\
 \nUsage: Get info about android device codename or model.\
-\n\n.codename <brand> <device>\
+\n\n`.codename` <brand> <device>\
 \nUsage: Search for android device codename.\
-\n\n.specs <brand> <device>\
+\n\n`.spec` <brand> <device>\
 \nUsage: Get device specifications info.\
-\n\n.pixeldl **<download.pixelexperience.org>**\
+\n\n`.pixeldl` **<download.pixelexperience.org>**\
 \nUsage: Download pixel experience ROM into your userbot server.\
-\n\n.twrp <codename>\
+\n\n`.twrp` <codename>\
 \nUsage: Get latest twrp download for android device."
 })

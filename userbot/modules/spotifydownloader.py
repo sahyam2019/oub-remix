@@ -33,5 +33,5 @@ async def _(event):
 
 CMD_HELP.update({
 "spd":
-".spd <song tittle> \
+"`.spd` <song tittle> \
 \nUsage: Download music from Spotify\n"})

@@ -66,5 +66,5 @@ async def waifu(animu):
 
 CMD_HELP.update(
     {"waifu":
-    ".waifu  text\
+    "`.waifu`  text\
     \nUsage:for custom stickers."})

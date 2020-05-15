@@ -3168,67 +3168,67 @@ async def _(event):
 		
 CMD_HELP.update({
     "remixmemes":
-    ".eye\
+    "`.eye`\
 \nUsage: see it yourself.\
-\n\n.earth\
+\n\n`.earth`\
 \nusage: spins like earth 🌎🌎\
-\n\n.bombs\
+\n\n`.bombs`\
 \nUsage: For bombing tg 🤣🤣\
-\n\n.think\
+\n\n`.think`\
 \nUsage: hmmm\
-\n\n.gotm or .gott\
+\n\n`.gotm` or `.gott`\
 \nUsage: got sucks🤣\
-\n\n.snake\
+\n\n`.snake`\
 \nUsage: See it yourself\
-\n\n.call\
+\n\n`.call`\
 \nUsage: call tg owner\
-\n\n.belo\
+\n\n`.belo`\
 \nUsage: logical af\
-\n\n.admeme\
+\n\n`.admeme`\
 \nUsage: spammy af\
-\n\n.qs\
+\n\n`.qs`\
 \nUsage: start conversation\
-\n\n.wtf\
+\n\n`.wtf`\
 \nUsage: See it yourself\
-\n\n.load,.up,.square,.round,.heart,.monkey,.anim,.hand,.fnl,.cnt\
+\n\n`.load`,`.up`,`.square`,`.round`,`.heart`,`.monkey`,`.anim`,`.hand`,`.fnl`,`.cnt`\
 \nUsage: See it yourself\
-\n\n.human\
+\n\n`.human`\
 \nUsage: Nothing interesting\
-\n\n.wupload\
+\n\n`.wupload`\
 \nUsage: meh\
-\n\n.music\
+\n\n`.music`\
 \nUsage: gey music player\
-\n\n.fleave\
+\n\n`.fleave`\
 \nUsage: fake leaving\
-\n\n.fadmin\
+\n\n`.fadmin`\
 \nUsage: Fake admin  🤣🤣\
-\n\n.gift\
+\n\n`.gift`\
 \nUsage: Well it's a gift i can't say what's inside 😁😁!\
-\n\n.police\
+\n\n`.police`\
 \nUsage: Time to go to jail 😔😔.\
-\n\n.kill\
+\n\n`.kill`\
 \nUsage: For killing your enemies 🔫🔫 !!\
-\n\n.os\
+\n\n`.os`\
 \nUsage: see it yourself 🤐🤐.\
-\n\n.isro\
+\n\n`.isro`\
 \nUsage: For calling aliens 👽👽 :P\
-\n\n.gangstar\
+\n\n`.gangstar`\
 \nUsage:U becum gengstar 🤠🤠.\
-\n\n.hack\
+\n\n`.hack`\
 \nUsage: For hacking telegram🖥️🖥️.\
-\n\n.dump\
+\n\n`.dump`\
 \nUsage: For throwing waste xD\
-\n\n.hypno\
+\n\n`.hypno`\
 \nUsage: Oh fek my eyes 👀\
-\n\n.whatsapp\
+\n\n`.whatsapp`\
 \nUsage: Now you can hack whatsapp too 😂😂 \
-\n\n.solar\
+\n\n`.solar`\
 \nUsage: Our beautiful solar system 🌞🌞\
-\n\n.quickheal or .sqh or .vquickheal\
+\n\n`.quickheal` or `.sqh` or `.vquickheal`\
 \nUsage: Virus found ...Remove it using this 😂😂.\
-\n\n.plane\
+\n\n`.plane`\
 \nUsage: For travelling from one place to another ✈️✈️\
-\n\n.jio\
+\n\n`.jio`\
 \nUsage: Your network slow?? Boost it using this 🤣🤣\
 \n\n\nWARNING⚠️⚠️: All this cmds will spam group recents.\nUse it in OT groups/Spam groups OR GET YOU A** KICKED😂😂."
 })		

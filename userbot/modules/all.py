@@ -19,8 +19,7 @@ from userbot import CMD_HELP, bot
 from userbot.events import register
 from userbot.modules.admin import get_user_from_event
 
-# @borg.on(events.NewMessage(pattern=r"\.all", outgoing=True))
-#@borg.on(admin_cmd("all"))
+
 @register(outgoing=True, pattern="^.all$")
 async def all(event):
     if event.fwd_from:

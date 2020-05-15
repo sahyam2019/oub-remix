@@ -15,7 +15,7 @@ from userbot.events import register
 from userbot import CMD_HELP, bot
 
 
-@register(outgoing=True, pattern="^.un(?: |$)(.*)")
+@register(outgoing=True, pattern="^.cs(?: |$)(.*)")
 async def sticklet(event):
     R = random.randint(0,256)
     G = random.randint(0,256)
@@ -50,7 +50,7 @@ async def sticklet(event):
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
 
     image_stream = io.BytesIO()
-    image_stream.name = "@oub.webp"
+    image_stream.name = "@remix.webp"
     image.save(image_stream, "WebP")
     image_stream.seek(0)
 
@@ -82,6 +82,6 @@ async def get_font_file(client, channel_id):
     return await client.download_media(font_file_message)
     
 CMD_HELP.update({
-"createsticker": ".un\
-    \nUsage: Type .un text and generate rgb sticker. "
+"createsticker": "`.cs`\
+    \nUsage: Type .cs text and generate rgb sticker. "
 })    

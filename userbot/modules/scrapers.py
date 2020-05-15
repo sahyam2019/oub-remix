@@ -62,7 +62,7 @@ async def setlang(prog):
     CARBONLANG = prog.pattern_match.group(1)
     await prog.edit(f"Language for carbon.now.sh set to {CARBONLANG}")
 
-@register(outgoing=True, pattern="^.carbon")
+@register(outgoing=True, pattern="^.karbon")
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
     await e.edit("`Processing..`")
@@ -694,45 +694,27 @@ def deEmojify(inputString):
 
 
 CMD_HELP.update({
-    'img':
-    '.img <search_query>\
-        \nUsage: Does an image search on Google and shows 5 images.'
-})
-CMD_HELP.update({
-    'currency':
-    '.currency <amount> <from> <to>\
-        \nUsage: Converts various currencies for you.'
-})
-CMD_HELP.update({
-    'carbon':
-    '.carbon <text> [or reply]\
-        \nUsage: Beautify your code using carbon.now.sh\nUse .crblang <text> to set language for your code.'
-})
-CMD_HELP.update(
-    {'google': '.google <query>\
-        \nUsage: Does a search on Google.'})
-CMD_HELP.update(
-    {'wiki': '.wiki <query>\
-        \nUsage: Does a search on Wikipedia.'})
-CMD_HELP.update(
-    {'ud': '.ud <query>\
-        \nUsage: Does a search on Urban Dictionary.'})
-CMD_HELP.update({
-    'tts':
-    '.tts <text> [or reply]\
-        \nUsage: Translates text to speech for the language which is set.\nUse .lang tts <language code> to set language for tts. (Default is English.)'
-})
-CMD_HELP.update({
-    'trt':
-    '.trt <text> [or reply]\
-        \nUsage: Translates text to the language which is set.\nUse .lang trt <language code> to set language for trt. (Default is English)'
-})
-CMD_HELP.update({'yt': '.yt <text>\
-        \nUsage: Does a YouTube search.'})
-CMD_HELP.update(
-    {"imdb": ".imdb <movie-name>\nShows movie info and other stuff."})
-CMD_HELP.update({
-    'rip':
-    '.ripaudio <url> or ripvideo <url>\
-        \nUsage: Download videos and songs from YouTube (and [many other sites](https://ytdl-org.github.io/youtube-dl/supportedsites.html)).'
-})
+    "scrappers":
+    "`.img` <search_query>\
+\nUsage: Does an image search on Google and shows 5 images.\
+\n\n`.currency` <amount> <from> <to>\
+\nUsage: Converts various currencies for you.\
+\n\n`.carbon` <text> [or reply]\
+\nUsage: Beautify your code using carbon.now.sh\nUse .crblang <text> to set language for your code.\
+\n\n`.google` <query>\
+\nUsage: Does a search on Google.\
+\n\n`.wiki` <query>\
+\nUsage: Does a search on Wikipedia.\
+\n\n`.ud` <query>\
+\nUsage: Usage: Does a search on Urban Dictionary.\
+\n\n`.tts` <text> [or reply]\
+\nUsage:Translates text to speech for the language which is set.\nUse .lang tts <language code> to set language for tts. (Default is English.)\
+\n\n`.trt` <text> [or reply]\
+\nUsage: Translates text to the language which is set.\nUse .lang trt <language code> to set language for trt. (Default is English)\
+\n\n`.yt` <text>\
+\nUsage: Does a YouTube search.\
+\n\n`.imdb` <movie-name>\
+\nUsage:Shows movie info and other stuff.\
+\n\n`.ripaudio` <url> or ripvideo <url>\
+\nUsage: Download videos and songs from YouTube (and [many other sites](https://ytdl-org.github.io/youtube-dl/supportedsites.html))."
+})  

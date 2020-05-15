@@ -17,11 +17,23 @@ import json
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, GIT_REPO_NAME, ALIVE_NAME
 from userbot.events import register
 from userbot.utils import time_formatter
+import urllib
+from urllib.request import urlopen
+import requests
+from bs4 import BeautifulSoup
+import re
+from telethon.tl.types import MessageMediaPhoto
+from PIL import Image
+
 
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 # ============================================
+
+opener = urllib.request.build_opener()
+useragent = 'Mozilla/5.0 (Linux; Android 9; SM-G960F Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.70 Mobile Safari/537.36'
+opener.addheaders = [('User-agent', useragent)]
 
 
 @register(outgoing=True, pattern="^.random")
@@ -164,31 +176,149 @@ async def raw(event):
             reply_to=reply_to_id,
             caption="`Here's the decoded message data !!`")
 
+@register(outgoing=True, pattern=r"^.reverse(?: |$)(\d*)")
+async def okgoogle(img):
+    """ For .reverse command, Google search images and stickers. """
+    if os.path.isfile("okgoogle.png"):
+        os.remove("okgoogle.png")
+
+    message = await img.get_reply_message()
+    if message and message.media:
+        photo = io.BytesIO()
+        await bot.download_media(message, photo)
+    else:
+        await img.edit("`Reply to photo or sticker nigger.`")
+        return
+
+    if photo:
+        await img.edit("`Processing...`")
+        try:
+            image = Image.open(photo)
+        except OSError:
+            await img.edit('`Unsupported sexuality, most likely.`')
+            return
+        name = "okgoogle.png"
+        image.save(name, "PNG")
+        image.close()
+        # https://stackoverflow.com/questions/23270175/google-reverse-image-search-using-post-request#28792943
+        searchUrl = 'https://www.google.com/searchbyimage/upload'
+        multipart = {
+            'encoded_image': (name, open(name, 'rb')),
+            'image_content': ''
+        }
+        response = requests.post(searchUrl,
+                                 files=multipart,
+                                 allow_redirects=False)
+        fetchUrl = response.headers['Location']
+
+        if response != 400:
+            await img.edit("`Image successfully uploaded to Google. Maybe.`"
+                           "\n`Parsing source now. Maybe.`")
+        else:
+            await img.edit("`Google told me to fuck off.`")
+            return
+
+        os.remove(name)
+        match = await ParseSauce(fetchUrl +
+                                 "&preferences?hl=en&fg=1#languages")
+        guess = match['best_guess']
+        imgspage = match['similar_images']
+
+        if guess and imgspage:
+            await img.edit(f"[{guess}]({fetchUrl})\n\n`Looking for images...`")
+        else:
+            await img.edit("`Couldn't find anything for your uglyass.`")
+            return
+
+        if img.pattern_match.group(1):
+            lim = img.pattern_match.group(1)
+        else:
+            lim = 3
+        images = await scam(match, lim)
+        yeet = []
+        for i in images:
+            k = requests.get(i)
+            yeet.append(k.content)
+        try:
+            await img.client.send_file(entity=await
+                                       img.client.get_input_entity(img.chat_id
+                                                                   ),
+                                       file=yeet,
+                                       reply_to=img)
+        except TypeError:
+            pass
+        await img.edit(
+            f"[{guess}]({fetchUrl})\n\n[Visually similar images]({imgspage})")
+
+
+async def ParseSauce(googleurl):
+    """Parse/Scrape the HTML code for the info we want."""
+
+    source = opener.open(googleurl).read()
+    soup = BeautifulSoup(source, 'html.parser')
+
+    results = {'similar_images': '', 'best_guess': ''}
+
+    try:
+        for similar_image in soup.findAll('input', {'class': 'gLFyf'}):
+            url = 'https://www.google.com/search?tbm=isch&q=' + \
+                urllib.parse.quote_plus(similar_image.get('value'))
+            results['similar_images'] = url
+    except BaseException:
+        pass
+
+    for best_guess in soup.findAll('div', attrs={'class': 'r5a77d'}):
+        results['best_guess'] = best_guess.get_text()
+
+    return results
+
+
+async def scam(results, lim):
+
+    single = opener.open(results['similar_images']).read()
+    decoded = single.decode('utf-8')
+
+    imglinks = []
+    counter = 0
+
+    pattern = r'^,\[\"(.*[.png|.jpg|.jpeg])\",[0-9]+,[0-9]+\]$'
+    oboi = re.findall(pattern, decoded, re.I | re.M)
+
+    for imglink in oboi:
+        counter += 1
+        if not counter >= int(lim):
+            imglinks.append(imglink)
+        else:
+            break
+
+    return imglinks
 
 CMD_HELP.update({
     "misc":
-    ".random <item1> <item2> ... <itemN>\
+    "`.random` <item1> <item2> ... <itemN>\
 \nUsage: Get a random item from the list of items.\
-\n\n.sleep <seconds>\
+\n\n`.sleep` <seconds>\
 \nusage:Userbots get tired too. Let yours snooze for a few seconds.\
-\n\n.shutdown\
+\n\n`.shutdown`\
 \nUsage: Shutdowns the bot temporarily\
-\n\n.support\
+\n\n`.support`\
 \nUsage: if you need help, use this command\
-\n\n.community\
+\n\n`.community`\
 \nUsage: Join the awesome OpenUserBot community !!\
-\n\n.repo\
+\n\n`.repo`\
 \nUsage: If you are curious what makes the userbot work, this is what you need !!\
-\n\n.myrepo\
+\n\n`.myrepo`\
 \nUsage: If you are curious which is your personal repo, this is what you have.\
-\n\n.readme\
+\n\n`.readme`\
 \nUsage: Provide links to setup the userbot and it's modules.\
-\n\n.creator\
+\n\n`.creator`\
 \nUsage: Know who created this awesome userbot !!\
-\n\n.repeat <no.> <text>\
+\n\n`.repeat` <no.> <text>\
 \nUsage: Repeats the text for a number of times. Don't confuse this with spam tho.\
-\n\n.restart\
+\n\n`.restart`\
 \nUsage: Restarts the bot !!\
-\n\n.raw\
-\nUsage: Get detailed JSON-like formatted data about replied message."
+\n\n`.raw`\
+\nUsage: Get detailed JSON-like formatted data about replied message.\
+\n\n`.reverse`\
+\nUsage: Reply to a pic/sticker to revers-search it on Google Images !!"    
 })

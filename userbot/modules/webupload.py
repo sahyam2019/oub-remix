@@ -44,6 +44,6 @@ async def _(event):
     
 CMD_HELP.update({
         "webupload": 
-        "\n.webupload --(anonfiles|transfer|filebin|anonymousfiles|megaupload|bayfiles)\
-         \nUsage: reply .webupload --anonfiles or .webupload --filebin and the file will be uploaded to that website. "
+        "\n`.webupload --`(`anonfiles`|`transfer`|`filebin`|`anonymousfiles`|`megaupload`|`bayfiles`)\
+         \nUsage: reply `.webupload --anonfiles` or `.webupload --filebin` and the file will be uploaded to that website. "
     })

@@ -67,5 +67,5 @@ async def terminal_runner(w3m):
         )
  
 CMD_HELP.update(
-    {"w3m": ".w3m google.com\nUsage: Browse the internet with w3m on your server.\nPut your device into landscape mode for better preview."})
+    {"w3m": "`.w3m google.com`\nUsage: Browse the internet with w3m on your server.\nPut your device into landscape mode for better preview."})
  

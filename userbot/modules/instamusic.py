@@ -55,7 +55,7 @@ async def _(event):
     
 CMD_HELP.update({
         "instamusic": 
-        ".song <songname>"
+        "`.song` <songname>"
         "\nUsage: For searching songs.\n"
     })
 

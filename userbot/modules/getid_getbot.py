@@ -51,9 +51,9 @@ async def _(event):
     
 CMD_HELP.update({
     "getid":
-    ".getid\
+    "`.getid`\
 \nUsage: Get ID of any Telegram media, or any user\
-\n.getbot\
+\n`.getbot`\
 \nUsage: Get the Bots in any chat\
 "
 })
