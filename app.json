@@ -40,7 +40,7 @@
       "description": "Client Access Token from https://genius.com/api-clients.",
       "required": false
     },
-    "MONGO_DB_URI": {
+    "MONGO_URI": {
             "description": "Your MongoDB Atlas URL, Get your guide from https://telegra.ph/Mongo-DB-12-24.",
             "required": false 
     },
