@@ -261,9 +261,8 @@ async def amireallyalive(alive):
                      f"`Bot Version🤘: Remix 2.0` \n"
                      f"------------------------------------ \n"
                      
-                     f"User 👨‍🚀:{DEFAULTUSER} \n"
-                     f"Maintainer 🏄‍♂️: @heyworld \n"
-                     f"Admin 👑: {DEFAULTUSER}"
+                     f"User 👨‍🚀: {DEFAULTUSER} \n"
+                     f"Maintainer 🏄‍♂️: @heyworld"
                      )
                          
 
