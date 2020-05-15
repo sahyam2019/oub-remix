@@ -234,5 +234,5 @@ CMD_HELP.update({
         ".chatinfo [optional: <reply/tag/chat id/invite link>]\
             \nUsage: Gets info of a chat. Some info might be limited due to missing permissions.\
             \n\n.invite\
-            \nUsage:Invites user go a private chat,not in a private message."
+            \nUsage:Invites users to a chat, not to a private message."
 })
