@@ -806,7 +806,7 @@ async def lists(gdrive):
     return
 
 
-@register(pattern="^.gdf (mkdir|rm|chck) (.*)", outgoing=True)
+@register(pattern="^.gdf (mkdir|rm|check) (.*)", outgoing=True)
 async def google_drive_managers(gdrive):
     """ - Google Drive folder/file management - """
     await gdrive.edit("`Sending information...`")
@@ -908,7 +908,7 @@ async def google_drive_managers(gdrive):
                     f"`{name}`\n"
                     "`Status` : **OK**\n\n"
                 )
-        elif exe == "chck":
+        elif exe == "check":
             """ - Check file/folder if exists - """
             try:
                 f = result.get('files', [])[0]
@@ -1304,9 +1304,9 @@ CMD_HELP.update({
     "\nUse flags `-p parents-folder_id` for lists given folder in gdrive."
     "\n\n.gdf mkdir"
     "\nUsage: Create gdrive folder."
-    "\n\n.gdf chck"
+    "\n\n.gdf check"
     "\nUsage: Check file/folder in gdrive."
-    "\n\n.gdf rm"
+    "\n\n.gdf rm<file/folder>name"
     "\nUsage: Delete files/folders in gdrive."
     "\nCan't be undone, this method skipping file trash, so be caution..."
     "\n\n.gdfset put"
