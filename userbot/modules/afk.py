@@ -79,8 +79,7 @@ async def set_afk(afk_e):
         \nReason: `{string}`")
     else:
         await afk_e.edit("**Going AFK!**")
-    await afk_e.client(
-        UpdateProfileRequest(first_name=user.first_name, last_name=user.last_name + " [ OFFLINE ]"))    
+    await afk_e.client(UpdateProfileRequest(first_name=user.first_name, last_name=user.last_name + " [ OFFLINE ]"))
     if BOTLOG:
         await afk_e.client.send_message(BOTLOG_CHATID, "#AFK\nYou went AFK!")
     ISAFK = True
@@ -210,7 +209,7 @@ async def afk_on_pm(sender):
     user = await bot.get_me()
     back_alivee = datetime.now()
     afk_end = back_alivee.replace(microsecond=0)
-    afk_since = "**a while ago*"
+    afk_since = "**a while ago**"
     if sender.is_private and sender.sender_id != 777000 and not (
             await sender.get_sender()).bot:
         if PM_AUTO_BAN:
