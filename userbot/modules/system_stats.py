@@ -263,7 +263,7 @@ async def amireallyalive(alive):
                      
                      f"User 👨‍🚀:{DEFAULTUSER} \n"
                      f"Maintainer 🏄‍♂️:@heyworld \n"
-                     f"Admin👑:{DEFAULTUSER}"
+                     f"Admin 👑:{DEFAULTUSER}"
                      )
                          
 
