@@ -172,7 +172,7 @@ CMD_HELP.update({
 \nUsage: Shows system information using neofetch.\
 \n\n`.botver`\
 \nUsage: Shows the userbot version.\
-n\n`.pip` <module(s)>\
+\n\n`.pip` <module(s)>\
 \nUsage: Does a search of pip modules(s).\
 \n\n`.alive`\
 \nUsage: Type .alive to see wether your bot is working or not.\
