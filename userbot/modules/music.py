@@ -1,15 +1,19 @@
 # Originally from Bothub
 # Port to UserBot by @heyworld
+#Copyright (C) 2020 azrim.
 
 from telethon import events
 import subprocess
 from telethon.errors import MessageEmptyError, MessageTooLongError, MessageNotModifiedError
 import io
 import asyncio
+import datetime
 import time
 #from userbot.utils import admin_cmd
 from userbot.events import register 
 from userbot import bot, CMD_HELP
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl.functions.account import UpdateNotifySettingsRequest
 import glob
 import os
 try:
@@ -52,11 +56,33 @@ async def _(event):
             )
     os.system("rm -rf *.mp3")
     subprocess.check_output("rm -rf *.mp3",shell=True)
+
+@register(outgoing=True, pattern="^.spd(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    link = event.pattern_match.group(1)
+    chat = "@SpotifyMusicDownloaderBot"
+    await event.edit("```Getting Your Music```")
+    async with bot.conversation(chat) as conv:
+          await asyncio.sleep(2)
+          await event.edit("`Downloading music taking some times,  Stay Tuned.....`")
+          try:
+              response = conv.wait_event(events.NewMessage(incoming=True,from_users=752979930))
+              await bot.send_message(chat, link)
+              respond = await response
+          except YouBlockedUserError:
+              await event.reply("```Please unblock @SpotifyMusicDownloaderBot and try again```")
+              return
+          await event.delete()
+          await bot.forward_messages(event.chat_id, respond.message)
     
 CMD_HELP.update({
-        "instamusic": 
-        "`.song` <songname>"
-        "\nUsage: For searching songs.\n"
-    })
+        "music":
+        ".song <search title>\
+            \nUsage: For searching songs.\
+            \n\n.spd\
+            \nUsage:For searching songs from Spotify."
+})
 
 
