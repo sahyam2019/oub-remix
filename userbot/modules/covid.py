@@ -1,71 +1,38 @@
-# TG-UserBot - A modular Telegram UserBot script for Python.
-# Copyright (C) 2019  Kandarp <https://github.com/kandnub>
+# Copyright (C) 2019 The Raphielscape Company LLC.
 #
-# TG-UserBot is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# Licensed under the Raphielscape Public License, Version 1.d (the "License");
+# you may not use this file except in compliance with the License.
 #
-# TG-UserBot is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with TG-UserBot.  If not, see <https://www.gnu.org/licenses/>.
 
+
+from datetime import datetime
 from covid import Covid
 from userbot import CMD_HELP
 from userbot.events import register
 
-
-plugin_category = "pandemic"
-covid_str = f"""`{'Confirmed':<9}:`  **%(confirmed)s**
-`{'Active':<9}:`  **%(active)s**
-`{'Recovered':<9}:`  **%(recovered)s**
-`{'Deaths':<9}:`  **%(deaths)s**"""
-critical_str = f"\n`{'Critical':<9}:`  **%(critical)s**"
-
-
 @register(outgoing=True, pattern="^.covid (.*)")
 async def corona(event):
-    """Get the current COVID-19 stats for a specific country or overall."""
-    covid = Covid(source="worldometers")
-    match = event.matches[0].group(1)
-    if match:
-        strings = []
-        failed = []
-        args, _ = await event.parse_arguments(match)
-        if match.lower() == "countries":
-            strings = sorted(covid.list_countries())
-        else:
-            for c in args:
-                try:
-                    country = covid.get_status_by_country_name(c)
-                    string = f"**COVID-19** __({country['country']})__\n"
-                    string += covid_str % country
-                    if country['critical']:
-                        string += critical_str % country
-                    strings.append(string)
-                except ValueError:
-                    failed.append(c)
-                    continue
-        if strings:
-            await event.reply('\n\n'.join(strings))
-        if failed:
-            string = "`Couldn't find the following countries:` "
-            string += ', '.join([f'`{x}`' for x in failed])
-            await event.reply(string, reply=True)
+    await event.edit("`Processing...`")
+    country = event.pattern_match.group(1)
+    covid = Covid()
+    country_data = covid.get_status_by_country_name(country)
+    if country_data:
+        output_text =  f"`⚠️Confirmed   : {country_data['confirmed']}`\n"
+        output_text += f"`☢️Active      : {country_data['active']}`\n"
+        output_text += f"`⚰️Deaths      : {country_data['deaths']}`\n"
+        output_text += f"`♥️Recovered   : {country_data['recovered']}`\n"
+        output_text += (
+            "`Last update : "
+            f"{datetime.utcfromtimestamp(country_data['last_update'] // 1000).strftime('%Y-%m-%d %H:%M:%S')}`\n"
+        )
+        output_text += f"Data provided by [john hopkins university](https://coronavirus.jhu.edu/map.html)"
     else:
-        active = covid.get_total_active_cases()
-        confirmed = covid.get_total_confirmed_cases()
-        recovered = covid.get_total_recovered()
-        deaths = covid.get_total_deaths()
-        string = f"**COVID-19** __(Worldwide)__\n"
-        string += covid_str % {
-            'active': active,
-            'confirmed': confirmed,
-            'recovered': recovered,
-            'deaths': deaths
-        }
-        await event.reply(string)
+        output_text = "No information yet about this country!"
+    await event.edit(f"Corona Virus Info in {country}:\n\n{output_text}")
+
+
+CMD_HELP.update({
+        "covid": 
+        ".covid <country>"
+        "\nUsage: Get an information about data covid-19 in your country.\n"
+    })
