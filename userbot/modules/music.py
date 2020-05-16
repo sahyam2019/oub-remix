@@ -79,9 +79,9 @@ async def _(event):
     
 CMD_HELP.update({
         "music":
-        ".song <search title>\
+        "`.song` <search title>\
             \nUsage: For searching songs.\
-            \n\n.spd\
+            \n\n`.spd`\
             \nUsage:For searching songs from Spotify."
 })
 
