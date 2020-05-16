@@ -103,7 +103,10 @@ async def type_afk_is_not_true(notafk):
     global afk_end
     user = await bot.get_me()
     last = user.last_name
-    last1 = last[:-12]
+    if last and last.endswith(" [ OFFLINE ]"):
+        last1 = last[:-12]
+    else:
+        last1 = ""
     back_alive = datetime.now()
     afk_end = back_alive.replace(microsecond=0)
     if ISAFK:
