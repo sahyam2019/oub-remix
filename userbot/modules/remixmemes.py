@@ -3164,6 +3164,16 @@ async def _(event):
         await event.edit("`\"I demand a trial by combat!\"`")
     if x==40:
         await event.edit("`\"I wish I was the monster you think I am!\"`")
+
+@register(outgoing=True, pattern="^.kiss(?: |$)(.*)")
+async def _(event):
+	if event.fwd_from:
+		return
+	deq = deque(list("😗😙😚😚😘💋♥️"))
+	for _ in range(48):
+		await asyncio.sleep(0.1)
+		await event.edit("".join(deq))
+		deq.rotate(1)
 		
 		
 CMD_HELP.update({
@@ -3190,7 +3200,7 @@ CMD_HELP.update({
 \nUsage: start conversation\
 \n\n`.wtf`\
 \nUsage: See it yourself\
-\n\n`.load`,`.up`,`.square`,`.round`,`.heart`,`.monkey`,`.anim`,`.hand`,`.fnl`,`.cnt`\
+\n\n`.load`,`.up`,`.square`,`.round`,`.heart`,`.monkey`,`.anim`,`.hand`,`.fnl`,`.cnt`,`.kiss`\
 \nUsage: See it yourself\
 \n\n`.human`\
 \nUsage: Nothing interesting\
