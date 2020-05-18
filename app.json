@@ -44,6 +44,14 @@
             "description": "Your MongoDB Atlas URL, Get your guide from https://telegra.ph/Mongo-DB-12-24.",
             "required": false 
     },
+    "NC_LOG_P_M_S": {
+      "description": "set to True if you want to log PMs to your PM_LOGGR_BOT_API_ID",
+      "required": false
+    },
+    "PM_LOGGR_BOT_API_ID": {
+      "description": "send .getid in any channel to forward all your NEW PMs to this group",
+      "required": false
+    },
     "GENIUS": {
       "description": "Get this value from https://genius.com/developers., basically same as GENIUS_API_TOKEN.",
       "value": "0"
