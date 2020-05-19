@@ -11,8 +11,10 @@ import os
 import time
 import asyncio
 import shutil
+import json
 from bs4 import BeautifulSoup
 import re
+from youtube_search import YoutubeSearch
 import emoji
 from googletrans import Translator
 from time import sleep
@@ -487,68 +489,17 @@ async def lang(value):
             BOTLOG_CHATID,
             f"`Language for {scraper} changed to {LANG.title()}.`")
 
-
-@register(outgoing=True, pattern="^.yt (.*)")
+@register(outgoing=True, pattern="^\.yt (.*)")
 async def yt_search(video_q):
     """ For .yt command, do a YouTube search from Telegram. """
     query = video_q.pattern_match.group(1)
-    result = ''
-
-    if not YOUTUBE_API_KEY:
-        await video_q.edit(
-            "`Error: YouTube API key missing! Add it to environment vars or config.env.`"
-        )
-        return
-
-    await video_q.edit("```Processing...```")
-
-    full_response = await youtube_search(query)
-    videos_json = full_response[1]
-
-    for video in videos_json:
-        title = f"{unescape(video['snippet']['title'])}"
-        link = f"https://youtu.be/{video['id']['videoId']}"
-        result += f"{title}\n{link}\n\n"
-
-    reply_text = f"**Search Query:**\n`{query}`\n\n**Results:**\n\n{result}"
-
-    await video_q.edit(reply_text)
-
-
-async def youtube_search(query,
-                         order="relevance",
-                         token=None,
-                         location=None,
-                         location_radius=None):
-    """ Do a YouTube search. """
-    youtube = build('youtube',
-                    'v3',
-                    developerKey=YOUTUBE_API_KEY,
-                    cache_discovery=False)
-    search_response = youtube.search().list(
-        q=query,
-        type="video",
-        pageToken=token,
-        order=order,
-        part="id,snippet",
-        maxResults=10,
-        location=location,
-        locationRadius=location_radius).execute()
-
-    videos = []
-
-    for search_result in search_response.get("items", []):
-        if search_result["id"]["kind"] == "youtube#video":
-            videos.append(search_result)
-    try:
-        nexttok = search_response["nextPageToken"]
-        return (nexttok, videos)
-    except HttpError:
-        nexttok = "last_page"
-        return (nexttok, videos)
-    except KeyError:
-        nexttok = "KeyError, try again."
-        return (nexttok, videos)
+    if not query:
+         await video_q.edit("`Enter a search query.`")
+    results = json.loads(YoutubeSearch(str(args), max_results=8).to_json())
+    text = ""
+    for i in results["videos"]:
+           text += f"<i>◍ {i['title']}</i>\nhttps://www.youtube.com{i['link']}\n\n"
+    await video_q.edit(text)
 
 
 @register(outgoing=True, pattern=r".rip(audio|video) (.*)")
