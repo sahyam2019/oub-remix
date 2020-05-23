@@ -31,7 +31,7 @@ async def _(event):
             G_BAN_LOGGER_GROUP,
             "/gban [user](tg://user?id={}) {}".format(r_from_id, reason)
         )
-    await event.delete()
+    await event.reply(f"user gbanned by @{DEFAULTUSER}")
 
 
 @register(outgoing=True, pattern="^.ungban(?: |$)(.*)")
@@ -49,7 +49,7 @@ async def _(event):
             G_BAN_LOGGER_GROUP,
             "/ungban [user](tg://user?id={}) {}".format(r_from_id, reason)
         )
-    await event.reply(f"user gbanned by @{DEFAULTUSER}")
+    await event.reply(f"user ungbanned by @{DEFAULTUSER}")
 CMD_HELP.update({
     "gban": "\
 `.gban reason`\
