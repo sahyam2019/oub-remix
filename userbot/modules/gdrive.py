@@ -439,7 +439,7 @@ async def download_gdrive(gdrive, service, uri):
                         f"`ETA` -> {time_formatter(eta)}"
                     )
                     if round(
-                      diff % 10.00) == 0 and (display_message
+                      diff % 15.00) == 0 and (display_message
                                               != current_message) or (
                       downloaded == file_size):
                         await gdrive.edit(current_message)
@@ -484,7 +484,9 @@ async def download_gdrive(gdrive, service, uri):
                         f" @ {humanbytes(speed)}`\n"
                         f"`ETA` -> {time_formatter(eta)}"
                     )
-                    if display_message != current_message or (
+                    if round(
+                      diff % 15.00) == 0 and (display_message
+                                              != current_message) or (
                       downloaded == file_size):
                         await gdrive.edit(current_message)
                         display_message = current_message
@@ -642,7 +644,8 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
                 f"@ {humanbytes(speed)}`\n"
                 f"`ETA` -> {time_formatter(eta)}"
             )
-            if display_message != current_message or (
+            if round(diff % 15.00) == 0 and (
+              display_message != current_message) or (
               uploaded == file_size):
                 await gdrive.edit(current_message)
                 display_message = current_message
@@ -806,7 +809,7 @@ async def lists(gdrive):
     return
 
 
-@register(pattern="^.gdf (mkdir|rm|check) (.*)", outgoing=True)
+@register(pattern="^.gdf (mkdir|rm|chck) (.*)", outgoing=True)
 async def google_drive_managers(gdrive):
     """ - Google Drive folder/file management - """
     await gdrive.edit("`Sending information...`")
@@ -908,7 +911,7 @@ async def google_drive_managers(gdrive):
                     f"`{name}`\n"
                     "`Status` : **OK**\n\n"
                 )
-        elif exe == "check":
+        elif exe == "chck":
             """ - Check file/folder if exists - """
             try:
                 f = result.get('files', [])[0]
@@ -1265,7 +1268,7 @@ async def check_progress_for_dl(gdrive, gid, previous):
                     msg = previous
             else:
                 await gdrive.edit(f"`{msg}`")
-            await asyncio.sleep(5)
+            await asyncio.sleep(15)
             await check_progress_for_dl(gdrive, gid, previous)
             file = aria2.get_download(gid)
             complete = file.is_complete
