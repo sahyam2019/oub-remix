@@ -76,8 +76,8 @@ LOGSPAMMER = sb(os.environ.get("LOGSPAMMER", "False"))
 PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
 
 # Send .chatid in any group with all your administration bots (added)
-    G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP", None)
-    if G_BAN_LOGGER_GROUP:
+G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP", None)
+if G_BAN_LOGGER_GROUP:
         G_BAN_LOGGER_GROUP = int(G_BAN_LOGGER_GROUP)
 
 # Heroku Credentials for updater.
