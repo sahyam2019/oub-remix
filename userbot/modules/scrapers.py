@@ -418,7 +418,7 @@ async def imdb(e):
     except IndexError:
         await e.edit("Plox enter **Valid movie name** kthx")
 
-@register(outgoing=True, pattern="^.tr(?: |$)(.*)")
+@register(outgoing=True, pattern="^.trt(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -429,11 +429,11 @@ async def _(event):
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         text = previous_message.message
-        lan = input_str or "ml"
+        lan = input_str or "en"
     elif "|" in input_str:
         lan, text = input_str.split("|")
     else:
-        await event.edit("`.tr LanguageCode` as reply to a message")
+        await event.edit("`.trt LanguageCode` as reply to a message")
         return
     text = emoji.demojize(text.strip())
     lan = lan.strip()
