@@ -2574,7 +2574,7 @@ async def _(event):
 
            
 
-            "__**...BOY oh BOY! i feel like a wamen....**__"
+            "__**Cool Down man !!**__"
 
         ]
 
