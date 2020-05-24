@@ -1,8 +1,9 @@
+try:
+    from userbot.modules.sql_helper import SESSION, BASE
+except ImportError:
+    raise AttributeError
 import threading
-
 from sqlalchemy import Integer, Column, String, UnicodeText, func, distinct, Boolean
-
-from userbot.modules.sql_helper import SESSION, BASE
 
 
 class Warns(BASE):
