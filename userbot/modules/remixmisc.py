@@ -607,7 +607,6 @@ def get_provider(url):
     return url
 
 @register(outgoing=True, pattern="^.watch(?: |$)(.*)")
-async def gbun(event):)
 async def _(event):
     if event.fwd_from:
         return
