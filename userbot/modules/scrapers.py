@@ -494,8 +494,8 @@ async def yt_search(video_q):
     """ For .yt command, do a YouTube search from Telegram. """
     query = video_q.pattern_match.group(1)
     if not query:
-         await video_q.edit("`Enter a search query.`")
-    results = json.loads(YoutubeSearch(str(args), max_results=8).to_json())
+         await video_q.edit("`Enter a search query.`")   
+    results = json.loads(YoutubeSearch('search terms', max_results=8).to_json())
     text = ""
     for i in results["videos"]:
            text += f"<i>◍ {i['title']}</i>\nhttps://www.youtube.com{i['link']}\n\n"
