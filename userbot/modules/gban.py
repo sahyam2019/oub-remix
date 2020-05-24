@@ -53,6 +53,8 @@ async def _(event):
             "/ungban [user](tg://user?id={}) {}".format(r_from_id, reason)
         )
     await event.delete()
+    await event.reply("ungbanning...")
+    asyncio.sleep(3.5)
     await event.reply(f"user ungbanned by @{DEFAULTUSER}")
     
 CMD_HELP.update({
