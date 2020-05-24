@@ -7,28 +7,42 @@
 
 from datetime import datetime
 from covid import Covid
+from telethon import events
 from userbot import CMD_HELP
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl.functions.account import UpdateNotifySettingsRequest
 from userbot.events import register
 
 @register(outgoing=True, pattern="^.covid (.*)")
-async def corona(event):
-    await event.edit("`Processing...`")
-    country = event.pattern_match.group(1)
-    covid = Covid()
-    country_data = covid.get_status_by_country_name(country)
-    if country_data:
-        output_text =  f"`⚠️Confirmed   : {country_data['confirmed']}`\n"
-        output_text += f"`☢️Active      : {country_data['active']}`\n"
-        output_text += f"`⚰️Deaths      : {country_data['deaths']}`\n"
-        output_text += f"`♥️Recovered   : {country_data['recovered']}`\n"
-        output_text += (
-            "`Last update : "
-            f"{datetime.utcfromtimestamp(country_data['last_update'] // 1000).strftime('%Y-%m-%d %H:%M:%S')}`\n"
-        )
-        output_text += f"Data provided by [john hopkins university](https://coronavirus.jhu.edu/map.html)"
-    else:
-        output_text = "No information yet about this country!"
-    await event.edit(f"Corona Virus Info in {country}:\n\n{output_text}")
+async def _(event):
+    if event.fwd_from:
+        return 
+    if not event.reply_to_msg_id:
+       await event.edit("```Reply to any user message.```")
+       return
+    reply_message = await event.get_reply_message() 
+    if not reply_message.text:
+       await event.edit("```Reply to text message```")
+       return
+    chat = '@NovelCoronaBot'
+    sender = reply_message.sender
+    if reply_message.sender.bot:
+       await event.edit("```Reply to actual users message.```")
+       return
+    await event.edit("```Checking...```")
+    async with event.client.conversation(chat) as conv:
+          try:     
+              response = conv.wait_event(events.NewMessage(incoming=True,from_users=1124136160))
+              await event.client.forward_messages(chat, reply_message)
+              response = await response 
+          except YouBlockedUserError: 
+              await event.reply("```Please unblock me (@NovelCoronaBot) u Nigga```")
+              return
+          if response.text.startswith("Country"):
+             await event.edit("Something Went Wrong Check [This Post](https://t.me/TechnoAyanBoT/22?single)")
+          else: 
+             await event.delete()
+             await event.client.send_message(event.chat_id, response.message)
 
 
 CMD_HELP.update({
