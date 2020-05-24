@@ -31,8 +31,10 @@ async def _(event):
             G_BAN_LOGGER_GROUP,
             "/gban [user](tg://user?id={}) {}".format(r_from_id, reason)
         )
-    await event.delete()    
-    await event.reply(f"user gbanned by @{DEFAULTUSER}")
+    await event.delete()
+    await event.reply("gbanning...")
+    asyncio.sleep(3.5)
+    await event.reply(f"user [user](tg://user?id={} gbanned by @{DEFAULTUSER}")
 
 
 @register(outgoing=True, pattern="^.ungban(?: |$)(.*)")
