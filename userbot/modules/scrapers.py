@@ -495,6 +495,7 @@ async def yt_search(video_q):
     query = video_q.pattern_match.group(1)
     if not query:
          await video_q.edit("`Enter a search query.`")
+    search_args = (str(match), int(page))    
     results = json.loads(YoutubeSearch(str(search_args), max_results=8).to_json())
     text = ""
     for i in results["videos"]:
