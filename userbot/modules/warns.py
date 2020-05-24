@@ -16,17 +16,17 @@ async def _(event):
     if event.fwd_from:
         return
     warn_reason = event.pattern_match.group(1)
-    logger= None
+    logger = logging.getLogger(__name__)
     reply_message = await event.get_reply_message()
     limit, soft_warn = sql.get_warn_setting(event.chat_id)
     num_warns, reasons = sql.warn_user(reply_message.from_id, event.chat_id, warn_reason)
     if num_warns >= limit:
         sql.reset_warns(reply_message.from_id, event.chat_id)
         if soft_warn:
-            logger.info("TODO: kick user")
+            logger.exception("TODO: kick user")
             reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been kicked!".format(limit, reply_message.from_id)
         else:
-            logger.info("TODO: ban user")
+            logger.exception("TODO: ban user")
             reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been banned!".format(limit, reply_message.from_id)
     else:
         reply = "<u><a href='tg://user?id={}'>user</a></u> has {}/{} warnings... watch out!".format(reply_message.from_id, num_warns, limit)
