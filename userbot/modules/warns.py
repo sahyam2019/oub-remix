@@ -15,6 +15,7 @@ async def _(event):
     if event.fwd_from:
         return
     warn_reason = event.pattern_match.group(1)
+    logger= None
     reply_message = await event.get_reply_message()
     limit, soft_warn = sql.get_warn_setting(event.chat_id)
     num_warns, reasons = sql.warn_user(reply_message.from_id, event.chat_id, warn_reason)
