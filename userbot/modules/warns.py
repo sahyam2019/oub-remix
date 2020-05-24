@@ -40,6 +40,7 @@ async def _(event):
     if event.fwd_from:
         return
     reply_message = await event.get_reply_message()
+    logger= None
     result = sql.get_warns(reply_message.from_id, event.chat_id)
     if result and result[0] != 0:
         num_warns, reasons = result
