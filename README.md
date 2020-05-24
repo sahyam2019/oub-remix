@@ -40,12 +40,11 @@ For discussion, bug reporting, and help, you can join [OpenUserBot Support Group
 Thanks for all : 
 * [RaphielGang](https://github.com/RaphielGang) - Telegram-Paperplane
 * [AvinashReddy3108](https://github.com/AvinashReddy3108) - PaperplaneExtended
+* [Mkaraniya](https://github.com/mkaraniya) - OpenUserBot
+* [DevPatel](https://github.com/Devp73) - OpenUserBot
 * [kandnub](https://github.com/kandnub) - TG-UserBot
 * [༺αиυвιѕ༻](https://github.com/Dark-Princ3) - X-tra-Telegram
 * [MoveAngel](https://github.com/MoveAngel) - One4uBot
-* [Mkaraniya](https://github.com/mkaraniya) - OpenUserBot
-* [DevPatel](https://github.com/Devp73) - OpenUserBot
-
 and many more people who aren't mentioned here, but may be found in [Contributors](https://github.com/sahyam2019/oub-remix/graphs/contributors).
 
 ## License
