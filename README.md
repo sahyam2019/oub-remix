@@ -38,7 +38,7 @@ For discussion, bug reporting, and help, you can join [OpenUserBot Support Group
 ## Credits
 
 Thanks for all : 
-* [RaphielGang](https://github.com/RaphielGang) - Telegram-Paperplane
+* [Baalajimaestro](https://github.com/RaphielGang) - Telegram-Paperplane
 * [AvinashReddy3108](https://github.com/AvinashReddy3108) - PaperplaneExtended
 * [Mkaraniya](https://github.com/mkaraniya) - OpenUserBot
 * [DevPatel](https://github.com/Devp73) - OpenUserBot
