@@ -34,7 +34,7 @@ async def _(event):
     await event.delete()
     await event.reply("gbanning...")
     asyncio.sleep(3.5)
-    await event.reply(f"user [user](tg://user?id={} gbanned by @{DEFAULTUSER}")
+    await event.reply(f"user gbanned by @{DEFAULTUSER}")
 
 
 @register(outgoing=True, pattern="^.ungban(?: |$)(.*)")
