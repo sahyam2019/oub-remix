@@ -277,8 +277,8 @@ with bot:
         bot.loop.run_until_complete(check_botlog_chatid())
     except:
         LOGS.info(
-            "BOTLOG_CHATID environment variable isn't a "
-            "valid entity. Check your environment variables/config.env file.")
+            "BOTLOG_CHATID environment variable isn't valid"
+            "Please generate proper group id and set.You can ask in @PPE_Support if you need help")
         quit(1)
 
 # Global Variables
