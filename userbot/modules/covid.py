@@ -5,13 +5,13 @@
 #
 
 
-from datetime import datetime
-from covid import Covid
+import datetime
 from telethon import events
-from userbot import CMD_HELP
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.account import UpdateNotifySettingsRequest
 from userbot.events import register
+from userbot import CMD_HELP
+
 
 @register(outgoing=True, pattern="^.corona (.*)")
 async def _(event):
@@ -24,20 +24,17 @@ async def _(event):
     async with event.client.conversation(chat) as conv:
           try:     
               response = conv.wait_event(events.NewMessage(incoming=True,from_users=1124136160))
-              await event.client.forward_messages(chat, reply_message)
+              await event.client.send_message(chat, "{}".format(input_str))
               response = await response 
           except YouBlockedUserError: 
-              await event.reply("```Please unblock me (@NovelCoronaBot) u Nigga```")
+              await event.reply("```Unblock (@NovelCoronaBot)```")
               return
           if response.text.startswith("Country"):
-             await event.edit("Something Went Wrong Check [This Post](https://t.me/TechnoAyanBoT/22?single)")
+             await event.edit("😐**Country Not Found**😐")
           else: 
              await event.delete()
              await event.client.send_message(event.chat_id, response.message)
 
-
-CMD_HELP.update({
-        "covid": 
-        "`.covid`<country>"
-        "\nUsage:corona virus stats xD.\n"
-    })
+CMD_HELP.update(
+    {"corona": ".corona [country]\n"
+     "Usage: Corona Virus stats."})
