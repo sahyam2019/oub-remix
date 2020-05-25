@@ -79,7 +79,7 @@ async def _(event):
              await event.delete()   
              await bot.forward_messages(event.chat_id, response.message)
 @register(outgoing=True, pattern="^.pch(?: |$)(.*)")
-    async def quotecmd(message):  # noqa: C901
+async def quotecmd(message):  # noqa: C901
         """Quote a message.
         Usage: .pch [template]
         If template is missing, possible templates are fetched."""
