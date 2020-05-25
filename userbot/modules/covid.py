@@ -13,22 +13,13 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.account import UpdateNotifySettingsRequest
 from userbot.events import register
 
-@register(outgoing=True, pattern="^.covid (.*)")
+@register(outgoing=True, pattern="^.corona (.*)")
 async def _(event):
     if event.fwd_from:
         return 
-    if not event.reply_to_msg_id:
-       await event.edit("```Reply to any user message.```")
-       return
-    reply_message = await event.get_reply_message() 
-    if not reply_message.text:
-       await event.edit("```Reply to text message```")
-       return
-    chat = '@NovelCoronaBot'
-    sender = reply_message.sender
-    if reply_message.sender.bot:
-       await event.edit("```Reply to actual users message.```")
-       return
+    input_str = event.pattern_match.group(1)
+    reply_message = await event.get_reply_message()
+    chat = "@NovelCoronaBot"
     await event.edit("```Checking...```")
     async with event.client.conversation(chat) as conv:
           try:     
@@ -47,6 +38,6 @@ async def _(event):
 
 CMD_HELP.update({
         "covid": 
-        ".covid <country>"
-        "\nUsage: Get an information about data covid-19 in your country.\n"
+        "`.covid`"
+        "\nUsage:First type country name then reply with covid.\n"
     })

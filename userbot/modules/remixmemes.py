@@ -3165,6 +3165,218 @@ async def _(event):
     if x==40:
         await event.edit("`\"I wish I was the monster you think I am!\"`")
 
+@register(outgoing=True, pattern="^.hp(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    x=(random.randrange(1,76)) 
+    if (x==1):
+      await event.edit("**Crucio**")
+    if (x==2):
+      await event.edit("**Sectumsempra**")
+    if (x==3):
+      await event.edit("**Morsmordre**")
+    if (x==4):
+      await event.edit("**Tarantallegra**")
+    if (x==5):
+      await event.edit("*Fiendfyre Curse**")
+    if (x==6):
+      await event.edit("**Petrificus Totalus**")
+    if (x==7):
+      await event.edit("**Furnunculus**")
+    if (x==8):
+      await event.edit("**Rictusempra**")
+    if (x==9):
+      await event.edit("**Deletrius**")
+    if (x==10):
+      await event.edit("*Incarcarous**")
+    if (x==11):
+      await event.edit("**Confringo**")
+    if (x==12):
+      await event.edit("**Densaugeo**")
+    if (x==13):
+      await event.edit("**Mobilicorpus**")
+    if (x==14):
+      await event.edit("**Liberacorpus**")
+    if (x==15):
+      await event.edit("**Levicorpus**")
+    if (x==16):
+      await event.edit("**Deprimo**")
+    if (x==17):
+      await event.edit("**Sonorus**")
+    if (x==18):
+      await event.edit("**Duro**")
+    if (x==19):
+      await event.edit("**Legilimens**")
+    if (x==20):
+      await event.edit("**Expulso**")
+    if (x==21):
+      await event.edit("**Oppugno**")
+    if (x==22):
+      await event.edit("**Fidelius**")
+    if (x==23):
+      await event.edit("**Imperio**")
+    if (x==24):
+      await event.edit("**Piertotum Locomotor**")
+    if (x==25):
+      await event.edit("**Aparecium**")
+    if (x==26):
+      await event.edit("**Defodio**")
+    if (x==27):
+      await event.edit("**Descendo**")
+    if (x==28):
+      await event.edit("**Specialis Revelio**")
+    if (x==29):
+      await event.edit("**Protego Totalum**")
+    if (x==30):
+      await event.edit("**Meteolojinx Recanto**")
+    if (x==31):
+      await event.edit("**Cave Inimicum**")
+    if (x==32):
+      await event.edit("**Impedimenta**")
+    if (x==33):
+      await event.edit("**Obscuro**")
+    if (x==34):
+      await event.edit("**Reducto**")
+    if (x==35):
+      await event.edit("**Anapneo**")
+    if (x==36):
+      await event.edit("**Locomotor Mortis**")
+    if (x==37):
+      await event.edit("**Geminio**")
+    if (x==38):
+      await event.edit("** Aguamenti**")
+    if (x==39):
+      await event.edit("**Avada Kedavra**")
+    if (x==40):
+      await event.edit("**Repelo Muggletum**")
+    if (x==41):
+      await event.edit("**Stupefy**")
+    if (x==42):
+      await event.edit("**Diffindo**")
+    if (x==43):
+      await event.edit("**Erecto**")
+    if (x==44):
+      await event.edit("**Finite Incantatem**")
+    if (x==45):
+      await event.edit("**Prior Incantato**")
+    if (x==46):
+      await event.edit("**Expulso**")
+    if (x==47):
+      await event.edit("**Incendio**")
+    if (x==48):
+      await event.edit("**Nox**")
+    if (x==49):
+      await event.edit("**Colloportus**")
+    if (x==50):
+      await event.edit("**Evanesco**")
+    if (x==51):
+      await event.edit("**Ferula**")
+    if (x==52):
+      await event.edit("**Expecto Patronum**")
+    if (x==53):
+      await event.edit("**Confundo**")
+    if (x==54):
+      await event.edit("**Relashio**")
+    if (x==55):
+      await event.edit("**Tergeo**")
+    if (x==56):
+      await event.edit("**Episkey**")
+    if (x==57):
+      await event.edit("**Oblivate**")
+    if (x==58):
+      await event.edit("**Expelliarmus**")
+    if (x==59):
+      await event.edit("*Silencio**")
+    if (x==60):
+      await event.edit("**Muffliato**")
+    if (x==61):
+      await event.edit("**Protego**")
+    if (x==62):
+      await event.edit("**Expulso**")
+    if (x==63):
+      await event.edit("**Riddikulus**")
+    if (x==64):
+      await event.edit("**Pack**")
+    if (x==65):
+      await event.edit("**Reducio**")
+    if (x==66):
+      await event.edit("**Reparo**")
+    if (x==67):
+      await event.edit("**Lumos**")
+    if (x==68):
+      await event.edit("**Orchideous**")
+    if (x==69):
+      await event.edit("**Portus**")
+    if (x==70):
+      await event.edit("**Scourgify**")
+    if (x==71):
+      await event.edit("**Wingardium Leviosa**")
+    if (x==71):
+      await event.edit("**Impervius**")
+    if (x==73):
+      await event.edit("**Engorgio**")
+    if (x==74):
+      await event.edit("**Glisseo**")
+    if (x==75):
+      await event.edit("**Accio**")
+
+@register(outgoing=True, pattern="^.suits(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    await event.edit("Typing...")
+    await asyncio.sleep(2)
+    x=(random.randrange(1,24))
+    if x==1:
+        await event.edit("`\"The only time success comes before work is in the dictionary.\"`")
+    if x==2:
+        await event.edit("`\"That’s the difference between you and me, you wanna lose small, I wanna win big.\"`")
+    if x==3:
+        await event.edit("`\"When you are backed against the wall, break the goddamn thing down.\"`")
+    if x==4:
+        await event.edit("`\"If they think you care, they’ll walk all over you.\"`")
+    if x==5:
+        await event.edit("`\"I don’t have dreams, I have goals.\"`")
+    if x==6:
+        await event.edit("`\"It’s going to happen, because I am going to make it happen.\"`")
+    if x==7:
+        await event.edit("`\"Ever loved someone so much, you would do anything for them? Yeah, well make that someone yourself and do whatever the hell you want.\"`")    
+    if x==8:
+        await event.edit("`\"I like to smile at people who don’t like me.\"`")
+    if x==9:
+        await event.edit("`\"Don’t raise your voice, improve your argument.\"`")
+    if x==10:
+        await event.edit("`\"You want to change your life? Change the way you think.\"`")
+    if x==11:
+        await event.edit("`\"Have goals so big you get uncomfortable telling small minded people.\"`")
+    if x==12:
+        await event.edit("`\"Kill them with success. Bury them with a smile.\"`")
+    if x==13:
+        await event.edit("`\"Winners don’t make excuses.\"`")
+    if x==14:
+        await event.edit("`\"When you are backed against the wall, break the goddamn thing down..\"`")
+    if x==15:
+        await event.edit("`\"I don’t play the odds I play the man.\"`")
+    if x==16:
+        await event.edit("`\"You always have a choice.\"`")
+    if x==17:
+        await event.edit("`\"Sorry, I can’t hear you over the sound of how awesome I am.\"`")
+    if x==18:
+        await event.edit("`\"Anyone can do my job, but no one can be me.\"`")    
+    if x==19:
+        await event.edit("`\"I believe in work, I don’t fuck with luck.\"`")
+    if x==20:
+        await event.edit("`\"It’s not bragging if it’s true.\"`")
+    if x==21:
+        await event.edit("`\Win a no win situation by rewriting the rules.\"`")
+    if x==22:
+        await event.edit("`\"Let them hate, just make sure they spell your name right.\"`")
+    if x==23:
+        await event.edit("`\"That’s the difference between you and me. You wanna lose small, I wanna win big.\"`")
+
+
+
 @register(outgoing=True, pattern="^.kiss(?: |$)(.*)")
 async def _(event):
 	if event.fwd_from:
@@ -3192,8 +3404,8 @@ CMD_HELP.update({
 \nUsage: See it yourself\
 \n\n`.call`\
 \nUsage: call tg owner\
-\n\n`.belo`\
-\nUsage: logical af\
+\n\n`.belo` or `.hp` or `.suits`\
+\nUsage: kinda interesting\
 \n\n`.admeme`\
 \nUsage: spammy af\
 \n\n`.qs`\

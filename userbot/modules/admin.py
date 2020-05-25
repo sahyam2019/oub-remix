@@ -8,6 +8,14 @@ Userbot module to help you manage a group
 
 from asyncio import sleep
 from os import remove
+import asyncio
+import io
+import re
+import userbot.modules.sql_helper.blacklist_sql as sql
+import html
+import logging
+import userbot.modules.sql_helper.warns_sql as sql
+from telethon import events, utils
 
 from telethon.errors import (BadRequestError, ChatAdminRequiredError,
                              ImageProcessFailedError, PhotoCropSizeSmallError,
@@ -24,6 +32,7 @@ from telethon.tl.types import (PeerChannel, ChannelParticipantsAdmins,
                                ChannelParticipantsBots)
 
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from telethon.tl import types, functions
 from userbot.events import register
 
 # =================== CONSTANT ===================
@@ -878,44 +887,6 @@ async def get_userdel_from_id(user, event):
 
     return user_obj
 
-@register(outgoing=True, pattern="^.bots$", groups_only=True)
-async def get_bots(show):
-    """ For .bots command, list all of the bots of the chat. """
-    info = await show.client.get_entity(show.chat_id)
-    title = info.title if info.title else "this chat"
-    mentions = f'<b>Bots in {title}:</b>\n'
-    try:
-       # if isinstance(message.to_id, PeerChat):
-        #    await show.edit("`I heard that only Supergroups can have bots.`")
-         #   return
-       # else:
-            async for user in show.client.iter_participants(
-                    show.chat_id, filter=ChannelParticipantsBots):
-                if not user.deleted:
-                    link = f"<a href=\"tg://user?id={user.id}\">{user.first_name}</a>"
-                    userid = f"<code>{user.id}</code>"
-                    mentions += f"\n{link} {userid}"
-                else:
-                    mentions += f"\nDeleted Bot <code>{user.id}</code>"
-    except ChatAdminRequiredError as err:
-        mentions += " " + str(err) + "\n"
-    try:
-        await show.edit(mentions, parse_mode="html")
-    except MessageTooLongError:
-        await show.edit(
-            "Damn, too many bots here. Uploading bots list as file.")
-        file = open("botlist.txt", "w+")
-        file.write(mentions)
-        file.close()
-        await show.client.send_file(
-            show.chat_id,
-            "botlist.txt",
-            caption='Bots in {}'.format(title),
-            reply_to=show.id,
-        )
-        remove("botlist.txt")
-
-
 @register(outgoing=True, pattern=r"^.lock ?(.*)")
 async def locks(event):
     input_str = event.pattern_match.group(1).lower()
@@ -1091,6 +1062,124 @@ async def rem_locks(event):
             f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
         return
 
+@register(outgoing=True, pattern="^.warn(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    warn_reason = event.pattern_match.group(1)
+    reply_message = await event.get_reply_message()
+    limit, soft_warn = sql.get_warn_setting(event.chat_id)
+    num_warns, reasons = sql.warn_user(reply_message.from_id, event.chat_id, warn_reason)
+    if num_warns >= limit:
+        sql.reset_warns(reply_message.from_id, event.chat_id)
+        if soft_warn:
+            logging.info("TODO: kick user")
+            reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been kicked!".format(limit, reply_message.from_id)
+        else:
+            logging.info("TODO: ban user")
+            reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been banned!".format(limit, reply_message.from_id)
+    else:
+        reply = "<u><a href='tg://user?id={}'>user</a></u> has {}/{} warnings... watch out!".format(reply_message.from_id, num_warns, limit)
+        if warn_reason:
+            reply += "\nReason for last warn:\n{}".format(html.escape(warn_reason))
+    #
+    await event.edit(reply, parse_mode="html")
+
+
+@register(outgoing=True, pattern="^.getwarns(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    reply_message = await event.get_reply_message()
+    logger= None
+    result = sql.get_warns(reply_message.from_id, event.chat_id)
+    if result and result[0] != 0:
+        num_warns, reasons = result
+        limit, soft_warn = sql.get_warn_setting(event.chat_id)
+        if reasons:
+            text = "This user has {}/{} warnings, for the following reasons:".format(num_warns, limit)
+            text += "\r\n"
+            text += reasons
+            await event.edit(text)
+        else:
+            await event.edit("This user has {} / {} warning, but no reasons for any of them.".format(num_warns, limit))
+    else:
+        await event.edit("This user hasn't got any warnings!")
+
+
+@register(outgoing=True, pattern="^.resetwarns(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    reply_message = await event.get_reply_message()
+    sql.reset_warns(reply_message.from_id, event.chat_id)
+    await event.edit("Warnings have been reset!") 
+
+@register(incoming=True, disable_edited=True, disable_errors=True)
+async def on_new_message(event):
+    # TODO: exempt admins from locks
+    name = event.raw_text
+    snips = sql.get_chat_blacklist(event.chat_id)
+    for snip in snips:
+        pattern = r"( |^|[^\w])" + re.escape(snip) + r"( |$|[^\w])"
+        if re.search(pattern, name, flags=re.IGNORECASE):
+            try:
+                await event.delete()
+            except Exception as e:
+                await event.reply("I do not have DELETE permission in this chat")
+                await sleep(1)
+                await reply.delete()
+                sql.rm_from_blacklist(event.chat_id, snip.lower())
+            break
+        pass
+
+
+@register(outgoing=True, pattern="^.addbl(?: |$)(.*)")
+async def on_add_black_list(addbl):
+    text = addbl.pattern_match.group(1)
+    to_blacklist = list(set(trigger.strip() for trigger in text.split("\n") if trigger.strip()))
+    for trigger in to_blacklist:
+        sql.add_to_blacklist(addbl.chat_id, trigger.lower())
+    await addbl.edit("`Added` **{}** `to the blacklist in the current chat`".format(text))
+
+
+@register(outgoing=True, pattern="^.listbl(?: |$)(.*)")
+async def on_view_blacklist(listbl):
+    all_blacklisted = sql.get_chat_blacklist(listbl.chat_id)
+    OUT_STR = "Blacklists in the Current Chat:\n"
+    if len(all_blacklisted) > 0:
+        for trigger in all_blacklisted:
+            OUT_STR += f"`{trigger}`\n"
+    else:
+        OUT_STR = "`There are no blacklist in current chat.`"
+    if len(OUT_STR) > 4096:
+        with io.BytesIO(str.encode(OUT_STR)) as out_file:
+            out_file.name = "blacklist.text"
+            await listbl.client.send_file(
+                listbl.chat_id,
+                out_file,
+                force_document=True,
+                allow_cache=False,
+                caption="BlackLists in the Current Chat",
+                reply_to=listbl
+            )
+            await listbl.delete()
+    else:
+        await listbl.edit(OUT_STR)
+
+
+@register(outgoing=True, pattern="^.rmbl(?: |$)(.*)")
+async def on_delete_blacklist(rmbl):
+    text = rmbl.pattern_match.group(1)
+    to_unblacklist = list(set(trigger.strip() for trigger in text.split("\n") if trigger.strip()))
+    successful = 0
+    for trigger in to_unblacklist:
+        if sql.rm_from_blacklist(rmbl.chat_id, trigger.lower()):
+            successful += 1
+    if not successful:
+        await rmbl.edit("`Blacklist` **{}** `doesn't exist.`".format(text))
+    else:
+        await rmbl.edit("`Blacklist` **{}** `was deleted successfully`".format(text))
 
 CMD_HELP.update({
     "admin":
@@ -1114,10 +1203,22 @@ CMD_HELP.update({
 \nUsage: Searches for deleted accounts in a group. Use .zombies clean to remove deleted accounts from the group.\
 \n\n`.admins`\
 \nUsage: Retrieves a list of admins in the chat.\
-\n\n`.bots`\
-\nUsage: Retrieves a list of bots in the chat.\
+\n\n`.kick`\
+\nUsage: kick users from groups.\
 \n\n`.users` or `.users` <name of member>\
 \nUsage: Retrieves all (or queried) users in the chat.\
 \n\n`.setgppic` <reply to image>\
-\nUsage: Changes the group's display picture."
+\nUsage: Changes the group's display picture.\
+\n\n`.warn reason`\
+\nUsage: warns users.\
+\n\n`.resetwarns`\
+\nUsage: Reset user's warns.\
+\n\n`.getwarns` <reply to image>\
+\nUsage: Shows the reason of warning.\
+\n\n`.listbl`\
+\nUsage: Lists all active userbot blacklist in a chat.\
+\n\n`.addbl <keyword>`\
+\nUsage: Saves the message to the 'blacklist keyword.\n\nThe bot will delete to the message whenever 'blacklist keyword' is mentioned.\
+\n\n`.rmbl <keyword>`\
+\nUsage: Stops the specified blacklist."                
 })
