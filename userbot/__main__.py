@@ -29,7 +29,7 @@ for module_name in ALL_MODULES:
 LOGS.info("You are running oub-remix [v2.0]")
 
 LOGS.info(
-    "Congratulations, your userbot is now running !! Test it by typing .alive/.ping in any chat."
+    "Congratulations, your userbot is now running !! Test it by typing .start/.ping in any chat."
     "\nIf you need assistance, head to https://t.me/PPE_Support")
     
     
