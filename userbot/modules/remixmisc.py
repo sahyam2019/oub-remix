@@ -828,5 +828,5 @@ CMD_HELP.update({
 \n\n`.weeb` <text>\
 \nUsage:weebify a text\
 \n\nIt contains (`.bold <text>`,`.cur <text>`,`.curbold <text>`,`.medi <text>`,`.medibold <text>`,`.doublestruck <text>`)\
-\nUsage:make your text <bold,cursive,cursivebold,medival,medivalbold,gayishbold>"
+\nUsage:makes your text <bold,cursive,cursivebold,medival,medivalbold,gayishbold>"
 })
