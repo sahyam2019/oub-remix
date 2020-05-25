@@ -3169,7 +3169,9 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    x=(random.randrange(1,76)) 
+    await event.edit("Casting spell...")
+    await asyncio.sleep(2)
+    x=(random.randrange(1,76))
     if (x==1):
       await event.edit("**Crucio**")
     if (x==2):
