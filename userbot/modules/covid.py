@@ -38,6 +38,6 @@ async def _(event):
 
 CMD_HELP.update({
         "covid": 
-        "`.covid`"
-        "\nUsage:First type country name then reply with covid.\n"
+        "`.covid`<country>"
+        "\nUsage:corona virus stats xD.\n"
     })
