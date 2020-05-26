@@ -148,7 +148,7 @@ async def terminal_runner(term):
         return
 
     if not command:
-        await term.edit("``` Give a command or use .help term for \
+        await term.edit("``` Give a command or use .help hacker for \
             an example.```")
         return
 
