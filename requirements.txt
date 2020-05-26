@@ -10,7 +10,7 @@ cffi>=1.0.0
 dnspython3>=1.15.0
 emoji
 PyPDF2
-cryptg>=0.2.post1
+cryptg
 patool
 gitpython>=3.1.2
 asyncurban>=0.3.3
