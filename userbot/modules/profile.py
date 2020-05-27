@@ -26,7 +26,7 @@ from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 from telethon.utils import get_input_location
 
-from userbot import bot, CMD_HELP
+from userbot import bot, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 # ====================== CONSTANT ===============================
@@ -310,7 +310,7 @@ async def fetch_info(replied_user, event):
     return photo, caption
 
 CMD_HELP.update({
-    "pp":
+    "profile":
     "`.username` <new_username>\
 \nUsage: Changes your Telegram username.\
 \n\n`.name` <firstname> or `.name` <firstname> <lastname>\

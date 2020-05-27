@@ -35,6 +35,9 @@ if you want new features, or announcements, you can follow our [OpenUserBot Chan
 
 For discussion, bug reporting, and help, you can join [OpenUserBot Support Group](https://t.me/PPE_Support).
 
+## How to setup Google Drive
+[![SetGDRIVE](https://telegra.ph/file/06d423da0229ae44a4d1a.jpg)](https://telegra.ph/How-To-Setup-Google-Drive-04-03)
+
 ## Credits
 
 Thanks for all : 

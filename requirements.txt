@@ -76,3 +76,4 @@ pymongo>=3.10.1
 pymongo[srv]
 youtube_search
 justwatch
+instalooter
