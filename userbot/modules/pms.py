@@ -439,9 +439,9 @@ CMD_HELP.update({
 \nUsage: Clears/Disables any notifications of unapproved PMs.\
 \n\n`.notifon`\
 \nUsage: Allows notifications for unapproved PMs.\
-\n\n`.pmute\
+\n\n`.pmute`\
 \nUsage: Reply .pmute and it will mute that person in pm<can be used in group also>.\
-\n\n``punmute``\
+\n\n`punmute`\
 \nUsage: Reply .punmute and it will unmute that person in pm.\
 \n\n`logpms`\
 \nUsage: If you don't want chat logs than use `.nolog` , for opposite use `.log`. Default is .log enabled\nThis will now log chat msgs to your PM_LOGGR_BOT_API_ID.\
