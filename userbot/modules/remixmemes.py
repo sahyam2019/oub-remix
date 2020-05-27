@@ -3329,7 +3329,7 @@ async def _(event):
         return
     await event.edit("Typing...")
     await asyncio.sleep(2)
-    x=(random.randrange(1,24))
+    x=(random.randrange(1,43))
     if x==1:
         await event.edit("`\"The only time success comes before work is in the dictionary.\"`")
     if x==2:
@@ -3357,7 +3357,7 @@ async def _(event):
     if x==13:
         await event.edit("`\"Winners don’t make excuses.\"`")
     if x==14:
-        await event.edit("`\"When you are backed against the wall, break the goddamn thing down..\"`")
+        await event.edit("`\"It's not a problem if you always win.\"`")
     if x==15:
         await event.edit("`\"I don’t play the odds I play the man.\"`")
     if x==16:
@@ -3371,11 +3371,49 @@ async def _(event):
     if x==20:
         await event.edit("`\"It’s not bragging if it’s true.\"`")
     if x==21:
-        await event.edit("`\Win a no win situation by rewriting the rules.\"`")
+        await event.edit("`\"Win a no win situation by rewriting the rules.\"`")
     if x==22:
         await event.edit("`\"Let them hate, just make sure they spell your name right.\"`")
     if x==23:
         await event.edit("`\"That’s the difference between you and me. You wanna lose small, I wanna win big.\"`")
+    if x==24:
+        await event.edit("`\"Oh you have no idea how Donna I am.\"`")
+    if x==25:
+        await event.edit("`\"It is so much easier to criticize someone else than it is to acknowledge your own shortcomings.\"`")
+    if x==26:
+        await event.edit("`\"And if you think I'm smarter than you? You're damn right I do. But if you think that means I can't kick your ass up and down this floor, take a swing. See what happens.\"`")
+    if x==27:
+        await event.edit("`\"If they had did it once, they will do it again.\"`")
+    if x==28:
+        await event.edit("`\"He goes, I go.\"`")
+    if x==29:
+        await event.edit("`\"First impressions last. You start behind the eight ball, you'll never get in front.\"`")
+    if x==30:
+        await event.edit("`\"I don't respond to threats. I make them.\"`")
+    if x==31:
+        await event.edit("`\"Nobody does anything as a courtesy. They sent you where they want you to look. Listen, being a lawyer is a lot like being a doctor.\"`")
+    if x==32:
+        await event.edit("`\"Sometimes I like to hangout with people that aren't that bright. You know, just to see how the other halves live.\"`")    
+    if x==33:
+        await event.edit("`\"Never destroy anyone in public when you can accomplish the same result in private.\"`")
+    if x==34:
+        await event.edit("`\"You don’t send a puppy to clean up its own mess.\"`")
+    if x==35:
+        await event.edit("`\"Gloating is fine, you just not have to suck at it.\"`")
+    if x==36:
+        await event.edit("`\"It's not bragging if it's true.\"`")
+    if x==37:
+        await event.edit("`\"Sometimes good guys gotta do bad things to make the bad guys pay.\"`")
+    if x==38:
+        await event.edit("`\"I don't pave the way for people,people pave the way for me.\"`")
+    if x==39:
+        await event.edit("`\"My respect isn't demanded, it's earnt.\"`")
+    if x==40:
+        await event.edit("`\"I don't get lucky, I make my own luck.\"`")
+    if x==41:
+        await event.edit("`\"This isn't elementary school. This is hard work, long hours, high pressure. I need a grown godamn man.\nYou give me this, and I'll work as hard as it takes to school those Harvard douches and become the best lawyer you have ever seen.\"`")
+    if x==42:
+        await event.edit("`\"Love is a terrifying thing\nIt’s not safe. Because when you love someone, you have to face the fact that you can lose them.\nSometimes life throws an unexpected wrench in your way. It might be that you’re in jeopardy of losing your career, your freedom, or worst of all, you might even find out that a loved one has died\nThese things make you realize how precious life is, how important every second we have on this earth is, and how important the people we care about are to us.\"`")
 
 
 
