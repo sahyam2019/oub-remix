@@ -148,8 +148,8 @@
       "description": "When a new person joins, the old welcome message is deleted.",
       "value": "True"
     },
-    "G_DRIVE_CLIENT_ID": {
-      "description": "Enter Your Client ID for Google Drive.",
+    "G_DRIVE_FOLDER_ID": {
+      "description": "Create a folder and put that folder's id here.check folder link for id.",
       "required": false
     },
     "LASTFM_API": {
@@ -181,12 +181,8 @@
       "description": "Name to show in .alive message",
       "required": false
     },
-    "G_DRIVE_CLIENT_SECRET": {
-      "description": "Enter Your Client Secret for Google Drive.",
-      "required": false
-    },
-    "G_DRIVE_AUTH_TOKEN_DATA": {
-      "description": "Enter the Google Drive authentication data, as a JSON structure.",
+    "G_BAN_LOGGER_GROUP": {
+      "description": "Add all sudo bots in your group and type id of that group.",
       "required": false
     },
     "G_DRIVE_DATA": {
