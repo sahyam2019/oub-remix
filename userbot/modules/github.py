@@ -56,7 +56,7 @@ async def github(event):
 CMD_HELP.update({
     "hergit":
     "`.git`\
-\nUsage: Like .whois but for GitHub usernames.\
+\nUsage: Like .data but for GitHub usernames.\
 \n\n\"`.gcommit`\
 \n\nUsage: GITHUB File Uploader Plugin for userbot. Heroku Automation should be Enabled. Else u r not that lazy , For lazy people\
 \n\nInstructions:- Set GITHUB_ACCESS_TOKEN and GIT_REPO_NAME Variables in Heroku vars First\
