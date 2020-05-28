@@ -1551,7 +1551,7 @@ CMD_HELP.update({
 \nUsage: Says goodnight and  godmorning\
 \n\n`.mock`\
 \nUsage: Do it and find the real fun.\
-\n\n Memefied contains<.love, .iff , .nou, .hey, .gey, gay, .bot,\n.sayhi, .taco, .fag, .nih, .stfu, .lul, .lol, .fail, .lols>\
+\n\n Memefied contains<`.love`, `.iff` , `.nou`, `.hey`, `.gey`, `.gay`, `.bot`,\n`.sayhi`, `.taco`, `.fag`, `.nih`, `.stfu`, `.lul`, `.lol`, `.fail`, `.lols`>\
 \n\nUsage: Enjoiii\
 \n\n`.clap`\
 \nUsage: Praise people!\
