@@ -61,7 +61,6 @@ if CONFIG_CHECK:
 API_KEY = os.environ.get("API_KEY", None)
 API_HASH = os.environ.get("API_HASH", None)
 
-
 # Userbot Session String
 STRING_SESSION = os.environ.get("STRING_SESSION", None)
 
@@ -103,7 +102,6 @@ CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 # SQL Database URI
 DB_URI = os.environ.get("DATABASE_URL", None)
 
-
 # OCR API key
 OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
 
@@ -126,12 +124,8 @@ WEATHER_DEFCITY = os.environ.get("WEATHER_DEFCITY", None)
 # Lydia API
 LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
 
-# Telegraph 
-TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", None)
-
 # For MONGO based DataBase
 MONGO_URI = os.environ.get("MONGO_URI", None)
-
 
 # set blacklist_chats where you do not want userbot's features
 UB_BLACK_LIST_CHAT = os.environ.get("UB_BLACK_LIST_CHAT", "")
@@ -277,8 +271,8 @@ with bot:
         bot.loop.run_until_complete(check_botlog_chatid())
     except:
         LOGS.info(
-            "BOTLOG_CHATID environment variable isn't a "
-            "valid entity. Check your environment variables/config.env file.")
+            "BOTLOG_CHATID environment variable isn't valid"
+            "Please generate proper group id and set.You can ask in @PPE_Support if you need help")
         quit(1)
 
 # Global Variables

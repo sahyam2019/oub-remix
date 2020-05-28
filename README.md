@@ -14,7 +14,7 @@
     and you ended up in a Finale Battle with Telegram and at the end
     Telegram Team deleted your account?
     And after that, then you pointed your fingers at us
-    for getting your acoount deleted?
+    for getting your account deleted?
     I will be rolling on the floor laughing at you.
     No presonal support will be provided. If you need help ask in 
     support group mentioned below.
@@ -34,6 +34,9 @@ Deploy to Heroku:
 if you want new features, or announcements, you can follow our [OpenUserBot Channel](https://t.me/PaperplaneExtended_news).
 
 For discussion, bug reporting, and help, you can join [OpenUserBot Support Group](https://t.me/PPE_Support).
+
+## How to setup Google Drive
+[![SetGDRIVE](https://telegra.ph/file/fde15d05e4bde3448b01a.png)](https://telegra.ph/How-To-Setup-Google-Drive-04-03)
 
 ## Credits
 

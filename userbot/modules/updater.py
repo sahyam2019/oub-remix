@@ -170,7 +170,7 @@ async def upstream(ups):
             repo.__del__()
             return
         await ups.edit('`Successfully Updated!\n'
-                       'Restarting, please wait for 3-4 mins. Type `.alive` to check if bot is working or not `')
+                       'Restarting, please wait for 3-4 mins. Type `.start` to check if bot is working or not `')
     else:
         # Classic Updater, pretty straightforward.
         try:

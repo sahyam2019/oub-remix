@@ -86,9 +86,3 @@ async def git_commit(file_name,mone):
         return await mone.edit("`Committed Suicide`")
         
         
-CMD_HELP.update({
-    "gcommit": 
-    "`.gcommit`\
-    \n\nUsage: GITHUB File Uploader Plugin for userbot. Heroku Automation should be Enabled. Else u r not that lazy , For lazy people\
-\n\nInstructions:- Set GITHUB_ACCESS_TOKEN and GIT_REPO_NAME Variables in Heroku vars First\
-\n\n.gcommit reply_to_any_plugin can be any type of file too. but for plugin must be in .py ."})

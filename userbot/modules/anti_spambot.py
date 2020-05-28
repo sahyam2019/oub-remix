@@ -177,10 +177,4 @@ async def ANTI_SPAMBOT(welcm):
     except ValueError:
         pass
 
-
-CMD_HELP.update({
-    'anti_spambot':
-    "If enabled in config.env or env var,\
-        \nthis module will ban(or inform the admins of the group about) the\
-        \nspammer(s) if they match the userbot's anti-spam algorithm."
-})
+#you don't need help modules. if you need spam should enable it in config vars.

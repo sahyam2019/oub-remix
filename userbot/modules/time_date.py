@@ -168,16 +168,10 @@ async def date_func(dat):
 
 
 CMD_HELP.update({
-    "time":
-    "`.time` <country name/code> <timezone number>"
-    "\nUsage: Get the time of a country. If a country has "
-    "multiple timezones, it will list all of them "
-    "and let you select one."
-})
-CMD_HELP.update({
-    "date":
-    "`.date` <country name/code> <timezone number>"
-    "\nUsage: Get the date of a country. If a country has "
-    "multiple timezones, it will list all of them "
-    "and let you select one."
-})
+    "timedate":
+    "`.time` <country name/code> <timezone number>\
+\nUsage: Usage: Get the time of a country. If a country has multiple timezones, it will list all of them and let you select one.\
+\n\n`.date` <country name/code> <timezone number>\
+\nUsage: Get the date of a country. If a country has multiple timezones, it will list all of them and let you select one."
+})    
+

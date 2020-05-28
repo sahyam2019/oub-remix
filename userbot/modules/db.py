@@ -32,14 +32,12 @@ async def amireallydbs(dbs):
         db = "Redis Cache seems to be failing!"
     else:
         db = "Databases functioning normally!"
-    await dbs.edit("`"
-                     f"User: {DEFAULTUSER} \n"
-                     f"Database status: {db}\n"
-                     f"OUB-REMIX: v2.0"
-                     "`")
+    await dbs.edit(""
+                     f"`User:` {DEFAULTUSER} \n"
+                     f"`Database status: {db}\n`"
+                     f"`OUB-REMIX: v2.0`"
+                     "")
                      
                      
                      
-CMD_HELP.update(
-    {"db": "`.dbs`\n"
-     "Usage: Shows database related info."})
+
