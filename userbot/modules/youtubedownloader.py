@@ -22,7 +22,7 @@ thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 if not os.path.isdir(out_folder):
     os.makedirs(out_folder)
 
-@register(outgoing=True, pattern="^.tg (a|v)$")
+@register(outgoing=True, pattern="^.ytdl (a|v)$")
 async def download_video(v_url):
     """ For .ytdl command, download media from YouTube and many other sites. """
     url = v_url.pattern_match.group(2)
