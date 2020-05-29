@@ -67,25 +67,3 @@ def human_to_bytes(size: str) -> int:
         size = re.sub(r'([KMGT])', r' \1', size)
     number, unit = [string.strip() for string in size.split()]
     return int(float(number)*units[unit])
-
-async def is_ffmpeg_there():
-    cmd = await asyncio.create_subprocess_shell('ffmpeg -version',
-                                                stdout=asyncio.subprocess.PIPE,
-                                                stderr=asyncio.subprocess.PIPE)
-    await cmd.communicate()
-    return True if cmd.returncode == 0 else False
-
-
-class ProgressCallback():
-    """Custom class to handle upload and download progress."""
-    def __init__(self, event, start=None, filen='unamed', update=5):
-        self.event = event
-        self.start = start or time.time()
-        self.last_upload_edit = None
-        self.last_download_edit = None
-        self.filen = filen
-        self.upload_finished = False
-        self.download_finished = False
-        self._uploaded = 0
-        self._downloaded = 0
-        self.update = update    
