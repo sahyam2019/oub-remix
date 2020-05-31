@@ -99,9 +99,9 @@ async def mega_downloader(megadl):
         estimated_total_time = round(downloader.get_eta())
         progress_str = "`{0}` | [{1}{2}] `{3}%`".format(
             status,
-            ''.join(["■" for i in range(
+            ''.join(["●" for i in range(
                     math.floor(percentage / 10))]),
-            ''.join(["▨" for i in range(
+            ''.join(["○" for i in range(
                     10 - math.floor(percentage / 10))]),
             round(percentage, 2))
         diff = time.time() - start
@@ -141,7 +141,7 @@ async def mega_downloader(megadl):
         else:
             return await megadl.edit(
                 f"`{file_name}`\n\n"
-                f"Successfully downloaded in: `{file_path}`.\n"
+                f"Successfully downloaded in: `'{file_path}'`.\n"
                 f"Download took: {time_formatter(download_time)}.")
     else:
         await megadl.edit("`Failed to download, "

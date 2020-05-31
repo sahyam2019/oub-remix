@@ -16,7 +16,7 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 @register(outgoing=True, pattern="^.gban(?: |$)(.*)")
 async def _(event):
     if G_BAN_LOGGER_GROUP is None:
-        await event.edit("ENV VAR is not set. This module will not work.")
+        await event.edit("Set G_BAN_LOGGER_GROUP in vars otherwise module won't work.")
         return
     if event.fwd_from:
         return
@@ -32,15 +32,15 @@ async def _(event):
             "/gban [user](tg://user?id={}) {}".format(r_from_id, reason)
         )
     await event.delete()
-    await event.reply("gbanning...")
+    await event.reply("**gbanning...**")
     asyncio.sleep(3.5)
-    await event.reply(f"user gbanned by @{DEFAULTUSER}")
+    await event.reply(f"**User gbanned by {DEFAULTUSER}**")
 
 
 @register(outgoing=True, pattern="^.ungban(?: |$)(.*)")
 async def _(event):
     if G_BAN_LOGGER_GROUP is None:
-        await event.edit("ENV VAR is not set. This module will not work.")
+        await event.edit("Set G_BAN_LOGGER_GROUP in vars otherwise module won't work.")
         return
     if event.fwd_from:
         return
@@ -53,9 +53,9 @@ async def _(event):
             "/ungban [user](tg://user?id={}) {}".format(r_from_id, reason)
         )
     await event.delete()
-    await event.reply("ungbanning...")
+    await event.reply("**ungbanning...**")
     asyncio.sleep(3.5)
-    await event.reply(f"user ungbanned by @{DEFAULTUSER}")
+    await event.reply(f"**User ungbanned by {DEFAULTUSER}**")
     
 CMD_HELP.update({
     "gban": "\
