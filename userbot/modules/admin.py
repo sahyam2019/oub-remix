@@ -1207,7 +1207,7 @@ CMD_HELP.update({
 \nUsage: kick users from groups.\
 \n\n`.users` or `.users` <name of member>\
 \nUsage: Retrieves all (or queried) users in the chat.\
-\n\n`.setgppic` <reply to image>\
+\n\n`.setgpic` <reply to image>\
 \nUsage: Changes the group's display picture.\
 \n\n`.warn reason`\
 \nUsage: warns users.\
