@@ -1062,26 +1062,33 @@ async def rem_locks(event):
         await event.edit(
             f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
         return
-
-#imported by @heyworld from @uniborg 
+#imported from uniborg by @heyworld
 @register(outgoing=True, pattern="^.warn(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
+    chat = await event.get_chat()
+    admin = chat.admin_rights
+    creator = chat.creator
     warn_reason = event.pattern_match.group(1)
     reply_message = await event.get_reply_message()
+    
+    if not admin and not creator:
+        await event.edit("`Bruh I Am Not Admin Here`")
+        return
+    
     if await is_admin(event.chat_id, reply_message.from_id):
         return await event.edit("`User is an admin`")
+
     limit, soft_warn = sql.get_warn_setting(event.chat_id)
     num_warns, reasons = sql.warn_user(reply_message.from_id, event.chat_id, warn_reason)
     if num_warns >= limit:
-        sql.reset_warns(reply_message.from_id, event.chat_id)
+        await event.client.edit_permissions(chat, reply_message.from_id, until_date=None, view_messages=False)
         if soft_warn:
-            await bot(EditBannedRequest(event.chat_id, reply_message.from_id, BANNED_RIGHTS))
             reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been kicked!".format(limit, reply_message.from_id)
-            await bot(EditBannedRequest(event.chat_id, reply_message.from_id, UNBAN_RIGHTS))
+            await event.client.kick_participant(event.chat_id, reply_message.from_id)
         else:
-            await bot(EditBannedRequest(event.chat_id, reply_message.from_id, BANNED_RIGHTS))
+            await event.client.edit_permissions(chat, reply_message.from_id, until_date=None, view_messages=False)
             reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been banned!".format(limit, reply_message.from_id)
     else:
         reply = "<u><a href='tg://user?id={}'>user</a></u> has {}/{} warnings... watch out!".format(reply_message.from_id, num_warns, limit)
@@ -1095,7 +1102,6 @@ async def _(event):
     if event.fwd_from:
         return
     reply_message = await event.get_reply_message()
-    logger= None
     result = sql.get_warns(reply_message.from_id, event.chat_id)
     if result and result[0] != 0:
         num_warns, reasons = result
@@ -1110,6 +1116,62 @@ async def _(event):
     else:
         await event.edit("This user hasn't got any warnings!")
 
+@register(outgoing=True, pattern="^.strongwarn(?: |$)(.*)")
+async def set_warn_strength(event):
+    chat = await event.get_chat()
+    admin = chat.admin_rights
+    creator = chat.creator
+    args = event.pattern_match.group(1)
+
+    if not admin and not creator:
+        await event.edit("`Bruh I Am Not Admin Here`")
+        return
+
+    if args:
+        if args in ("on", "yes"):
+            sql.set_warn_strength(event.chat_id, False)
+            await event.edit("Warn Strength Set To Ban User.")
+            return
+
+        elif args in ("off", "no"):
+            sql.set_warn_strength(event.chat_id, True)
+            await event.edit("Warn Strength Set To Kick User.")
+            return
+       
+        else:
+            await event.edit("`Please send Correct Arg!`")
+    else:
+        limit, soft_warn = sql.get_warn_setting(event.chat_id)
+        if soft_warn:
+            await event.edit("I Am **kicking** User's For Now.")
+        else:
+            await event.edit("I Am **Baning** User's For Now.")
+    return ""
+
+@register(outgoing=True, pattern="^.setwarn(?: |$)(.*)")
+async def set_warn_limit(event):
+    chat = await event.get_chat()
+    admin = chat.admin_rights
+    creator = chat.creator
+    input_str = event.pattern_match.group(1)
+
+    if not admin and not creator:
+        await event.edit("`Bruh I Am Not Admin Here`")
+        return
+    
+    if input_str:
+        if int(input_str) < 3:
+            await event.edit("`The minimum warn limit is 3!`")
+        else:
+            sql.set_warn_limit(event.chat_id, int(input_str))
+            await event.edit("`Updated the warn limit to` {}".format(input_str))
+            return
+        
+    else:
+        limit, soft_warn = sql.get_warn_setting(event.chat_id)
+        await event.edit("`The current warn limit is {}`".format(limit))
+    return ""        
+
 
 @register(outgoing=True, pattern="^.resetwarns(?: |$)(.*)")
 async def _(event):
@@ -1121,7 +1183,7 @@ async def _(event):
 
 @register(incoming=True, disable_edited=True, disable_errors=True)
 async def on_new_message(event):
-    if await is_admin(even.chat_id, event.from_id):
+    if await is_admin(event.client, even.chat_id, event.from_id):
         return
     if bot.me.id == event.from_id:
         return
@@ -1231,5 +1293,9 @@ CMD_HELP.update({
 \n\n`.rmbl <keyword>`\
 \nUsage: Stops the specified blacklist.\
 \n\n`.setflood` value.\
-\nUsage:Set flood limit in the current chat."                
+\nUsage:Set flood limit in the current chat.\
+\n\n`.strongwarn` <yes/on or no/off>.\
+\nUsage:set group's warn mode i.e <strong warn:bans user, soft warn: kicks user.\
+\n\n`.setwarn` value.\
+\nUsage:sets warn limit."
 })
