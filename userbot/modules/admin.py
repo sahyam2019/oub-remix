@@ -1071,7 +1071,7 @@ async def _(event):
     warn_reason = event.pattern_match.group(1)
     reply_message = await event.get_reply_message()
     if await is_admin(event.chat_id, reply_message.from_id):
-        return
+        return await event.edit("`User is an admin`")
     limit, soft_warn = sql.get_warn_setting(event.chat_id)
     num_warns, reasons = sql.warn_user(reply_message.from_id, event.chat_id, warn_reason)
     if num_warns >= limit:
