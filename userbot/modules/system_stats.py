@@ -79,7 +79,7 @@ async def bot_ver(event):
                              "`")
         else:
             await event.edit(
-                "Shame that you don't have git, you're running - 'v2.0' anyway!"
+                "Shame that you don't have git, you're running - 'v2.5' anyway!"
             )
 
 
@@ -136,7 +136,7 @@ async def amireallyalive(alive):
                      f"`🤖 STATUS: Working Sexy AF ✅` \n"
                      f"Telethon version:{version.__version__} \n"
                      f"Python version🐍:{python_version()} \n"
-                     f"`Bot Version🤘: Remix 2.0` \n"
+                     f"`Bot Version🤘: Remix 2.5` \n"
                      f"------------------------------------ \n"
                      
                      f"User 👨‍🚀: {DEFAULTUSER} \n"
