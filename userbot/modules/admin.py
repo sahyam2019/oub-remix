@@ -16,6 +16,7 @@ import html
 import logging
 import userbot.modules.sql_helper.warns_sql as sql
 from telethon import events, utils
+from userbot.utils.tools import is_admin
 
 from telethon.errors import (BadRequestError, ChatAdminRequiredError,
                              ImageProcessFailedError, PhotoCropSizeSmallError,
@@ -1062,21 +1063,25 @@ async def rem_locks(event):
             f"`Do I have proper rights for that ??`\n**Error:** {str(e)}")
         return
 
+#imported by @heyworld from @uniborg 
 @register(outgoing=True, pattern="^.warn(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
     warn_reason = event.pattern_match.group(1)
     reply_message = await event.get_reply_message()
+    if await is_admin(event.chat_id, reply_message.from_id):
+        return
     limit, soft_warn = sql.get_warn_setting(event.chat_id)
     num_warns, reasons = sql.warn_user(reply_message.from_id, event.chat_id, warn_reason)
     if num_warns >= limit:
         sql.reset_warns(reply_message.from_id, event.chat_id)
         if soft_warn:
-            logging.info("TODO: kick user")
+            await bot(EditBannedRequest(event.chat_id, reply_message.from_id, BANNED_RIGHTS))
             reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been kicked!".format(limit, reply_message.from_id)
+            await bot(EditBannedRequest(event.chat_id, reply_message.from_id, UNBAN_RIGHTS))
         else:
-            logging.info("TODO: ban user")
+            await bot(EditBannedRequest(event.chat_id, reply_message.from_id, BANNED_RIGHTS))
             reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been banned!".format(limit, reply_message.from_id)
     else:
         reply = "<u><a href='tg://user?id={}'>user</a></u> has {}/{} warnings... watch out!".format(reply_message.from_id, num_warns, limit)
@@ -1084,7 +1089,6 @@ async def _(event):
             reply += "\nReason for last warn:\n{}".format(html.escape(warn_reason))
     #
     await event.edit(reply, parse_mode="html")
-
 
 @register(outgoing=True, pattern="^.getwarns(?: |$)(.*)")
 async def _(event):
@@ -1117,7 +1121,10 @@ async def _(event):
 
 @register(incoming=True, disable_edited=True, disable_errors=True)
 async def on_new_message(event):
-    # TODO: exempt admins from locks
+    if await is_admin(even.chat_id, event.from_id):
+        return
+    if bot.me.id == event.from_id:
+        return
     name = event.raw_text
     snips = sql.get_chat_blacklist(event.chat_id)
     for snip in snips:
@@ -1132,6 +1139,8 @@ async def on_new_message(event):
                 sql.rm_from_blacklist(event.chat_id, snip.lower())
             break
         pass
+
+
 
 
 @register(outgoing=True, pattern="^.addbl(?: |$)(.*)")
@@ -1207,18 +1216,20 @@ CMD_HELP.update({
 \nUsage: kick users from groups.\
 \n\n`.users` or `.users` <name of member>\
 \nUsage: Retrieves all (or queried) users in the chat.\
-\n\n`.setgpic` <reply to image>\
+\n\n`.setgppic` <reply to image>\
 \nUsage: Changes the group's display picture.\
 \n\n`.warn reason`\
 \nUsage: warns users.\
 \n\n`.resetwarns`\
 \nUsage: Reset user's warns.\
-\n\n`.getwarns` <reply to image>\
+\n\n`.getwarns`\
 \nUsage: Shows the reason of warning.\
 \n\n`.listbl`\
 \nUsage: Lists all active userbot blacklist in a chat.\
 \n\n`.addbl <keyword>`\
 \nUsage: Saves the message to the 'blacklist keyword.\n\nThe bot will delete to the message whenever 'blacklist keyword' is mentioned.\
 \n\n`.rmbl <keyword>`\
-\nUsage: Stops the specified blacklist."                
+\nUsage: Stops the specified blacklist.\
+\n\n`.setflood` value.\
+\nUsage:Set flood limit in the current chat."                
 })
