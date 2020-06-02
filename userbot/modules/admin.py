@@ -1293,9 +1293,9 @@ CMD_HELP.update({
 \n\n`.rmbl <keyword>`\
 \nUsage: Stops the specified blacklist.\
 \n\n`.setflood` value.\
-\nUsage:Set flood limit in the current chat.\
+\nUsage:Sets flood limit in the current chat.\
 \n\n`.strongwarn` <yes/on or no/off>.\
-\nUsage:set group's warn mode i.e <strong warn:bans user, soft warn: kicks user.\
+\nUsage:sets warn mode i.e <strong warn:bans user, soft warn: kicks user.\
 \n\n`.setwarn` value.\
 \nUsage:sets warn limit."
 })
