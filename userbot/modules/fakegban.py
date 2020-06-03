@@ -38,14 +38,14 @@ async def gbun(event):
         else:
             jnl=("`Warning!!`"
                   "[{}](tg://user?id={})"
-                  f"` 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By` @{DEFAULTUSER}\n\n"
+                  f"` 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By` {DEFAULTUSER}\n\n"
                   "**Name: ** __{}__\n"
                   "**ID : ** `{}`\n"
                 ).format(firstname, idd, firstname, idd)
             if usname == None:
                 jnl += "**Username: ** `Doesn't own a username!`\n"
             elif usname != "None":
-                jnl += "**Username** : @{}\n".format(usname)
+                jnl += "**Username** : {}\n".format(usname)
             if len(gbunVar) > 0:
                 gbunm = "`{}`".format(gbunVar)
                 gbunr = "**Reason: **"+gbunm
@@ -54,7 +54,7 @@ async def gbun(event):
                 jnl += no_reason
             await reply_message.reply(jnl)
     else:
-        mention = (f"Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By @{DEFAULTUSER} \nReason: No Reason Given. ")
+        mention = (f"Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By {DEFAULTUSER} \nReason: No Reason Given. ")
         await event.reply(mention)
     await event.delete()
     
