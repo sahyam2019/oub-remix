@@ -18,7 +18,7 @@ async def gbun(event):
         return
     gbunVar = event.text
     gbunVar = gbunVar[6:]
-    mentions = f"`Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By` @{DEFAULTUSER}\n"
+    mentions = f"`Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By` {DEFAULTUSER}\n"
     no_reason = "No Reason Given "
     await event.edit("**Summoning out the mighty gban hammer ☠️**")
     asyncio.sleep(3.5)
