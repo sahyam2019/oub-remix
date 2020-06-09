@@ -79,7 +79,7 @@ async def bot_ver(event):
                              "`")
         else:
             await event.edit(
-                "Shame that you don't have git, you're running - 'v2.0' anyway!"
+                "Shame that you don't have git, you're running - 'v2.5' anyway!"
             )
 
 
@@ -130,6 +130,7 @@ async def pipcheck(pip):
 @register(outgoing=True, pattern="^.start$")
 async def amireallyalive(alive):
     """ For .alive command, check if the bot is running.  """
+<<<<<<< HEAD
     await alive.edit("`"
                      "EDITH is online. \n"
                      " \n"
@@ -141,6 +142,20 @@ async def amireallyalive(alive):
                      f"Sohan'z Bot: E.D.I.T.H. \n"
                      f"Even Dead, I'm The Hero! 😎 "
                      "`")
+=======
+    await alive.edit(
+                     
+                      
+                     f"`🤖 STATUS: Working Sexy AF ✅` \n"
+                     f"Telethon version:{version.__version__} \n"
+                     f"Python version🐍:{python_version()} \n"
+                     f"`Bot Version🤘: Remix 2.5` \n"
+                     f"------------------------------------ \n"
+                     
+                     f"User 👨‍🚀: {DEFAULTUSER} \n"
+                     f"Maintainer 🏄‍♂️: @heyworld"
+                     )
+>>>>>>> 612d896fe854d81f5adfdf1a0c24da4a30204158
                          
 
 
