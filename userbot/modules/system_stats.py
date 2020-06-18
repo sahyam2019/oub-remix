@@ -12,7 +12,7 @@ from shutil import which
 from os import remove
 from telethon import version
 
-from userbot import CMD_HELP, ALIVE_NAME
+from userbot import CMD_HELP, ALIVE_NAME, BOT_VER
 from userbot.events import register
 
 # ================= CONSTANT =================
@@ -79,7 +79,7 @@ async def bot_ver(event):
                              "`")
         else:
             await event.edit(
-                "Shame that you don't have git, you're running - 'v2.5' anyway!"
+                f"Shame that you don't have git, you're running - '{BOT_VER}' anyway!"
             )
 
 
@@ -136,7 +136,7 @@ async def amireallyalive(alive):
                      f"`🤖 STATUS: Working Sexy AF ✅` \n"
                      f"Telethon version:{version.__version__} \n"
                      f"Python version🐍:{python_version()} \n"
-                     f"`Bot Version🤘: Remix 2.5` \n"
+                     f"`Bot Version🤘: Remix {BOT_VER}` \n"
                      f"------------------------------------ \n"
                      
                      f"User 👨‍🚀: {DEFAULTUSER} \n"
