@@ -326,7 +326,5 @@ CMD_HELP.update({
 \n\n`.count`\
 \nUsage: Counts your groups, chats, bots etc...\
 \n\n`.data` <username> or reply to someones text with `.data`\
-\nUsage: Gets info of an user\
-\n\n`randpp`\
-\nusage: selects random profile pic and changes. It will automatically after 2 hours\n To stop this module just restart the bot."         
+\nUsage: Gets info of an user."
 })
