@@ -11,7 +11,6 @@ from os import remove
 import asyncio
 import io
 import re
-import userbot.modules.sql_helper.blacklist_sql as sql
 import html
 import logging
 import userbot.modules.sql_helper.warns_sql as sql
@@ -1217,12 +1216,6 @@ CMD_HELP.update({
 \nUsage: Reset user's warns.\
 \n\n`.getwarns`\
 \nUsage: Shows the reason of warning.\
-\n\n`.listbl`\
-\nUsage: Lists all active userbot blacklist in a chat.\
-\n\n`.addbl <keyword>`\
-\nUsage: Saves the message to the 'blacklist keyword.\n\nThe bot will delete to the message whenever 'blacklist keyword' is mentioned.\
-\n\n`.rmbl <keyword>`\
-\nUsage: Stops the specified blacklist.\
 \n\n`.setflood` value.\
 \nUsage:Sets flood limit in the current chat.\
 \n\n`.strongwarn` <yes/on or no/off>.\
