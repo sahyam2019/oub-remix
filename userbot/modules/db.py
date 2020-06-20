@@ -13,7 +13,7 @@ from shutil import which
 
 from telethon import version
 
-from userbot import CMD_HELP, is_mongo_alive, is_redis_alive, ALIVE_NAME
+from userbot import CMD_HELP, is_mongo_alive, is_redis_alive, ALIVE_NAME, BOT_VER
 from userbot.events import register
 
 # ================= CONSTANT =================
@@ -22,7 +22,7 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 
 
 
-@register(outgoing=True, pattern="^.dbs$")
+@register(outgoing=True, pattern="^.db$")
 async def amireallydbs(dbs):
     if not is_mongo_alive() and not is_redis_alive():
         db = "Both Mongo and Redis Database seems to be failing!"
@@ -35,7 +35,7 @@ async def amireallydbs(dbs):
     await dbs.edit(""
                      f"`User:` {DEFAULTUSER} \n"
                      f"`Database status: {db}\n`"
-                     f"`OUB-REMIX: v2.0`"
+                     f"`OUB-REMIX: {BOT_VER}`"
                      "")
                      
                      
