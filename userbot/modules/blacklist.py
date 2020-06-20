@@ -76,3 +76,14 @@ async def on_delete_blacklist(rmbl):
             successful += 1
     await rmbl.edit(f"Removed {successful} / {len(to_unblacklist)} from the blacklist")
     
+CMD_HELP.update({
+    "blacklist":
+    ".listbl\
+    \nUsage: Lists all active userbot blacklist in a chat.\
+    \n\n.addbl <keyword>\
+    \nUsage: Saves the message to the 'blacklist keyword'.\
+    \nThe bot will delete to the message whenever 'blacklist keyword' is mentioned.\
+    \n\n.rmbl <keyword>\
+    \nUsage: Stops the specified blacklist.\
+	\n btw you need permissions **Delete Messages** of admin."
+})
