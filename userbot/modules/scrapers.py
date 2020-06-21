@@ -233,7 +233,7 @@ async def moni(event):
         return
 
 
-@register(outgoing=True, pattern=r"^.google (.*)")
+@register(outgoing=True, pattern=r"^\.google (.*)")
 async def gsearch(q_event):
     """ For .google command, do a Google search. """
     match = q_event.pattern_match.group(1)
@@ -248,7 +248,7 @@ async def gsearch(q_event):
     gsearch = GoogleSearch()
     gresults = await gsearch.async_search(*search_args)
     msg = ""
-    for i in range(10):
+    for i in range(len(gresults["links"])):
         try:
             title = gresults["titles"][i]
             link = gresults["links"][i]
