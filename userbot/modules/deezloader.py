@@ -154,11 +154,3 @@ async def upload_track(track_location, message):
         attributes=document_attributes,
     )
     os.remove(track_location)
-
-CMD_HELP.update({
-    "deezload":
-        "`.deezload` <spotify/deezer link> <Format>"
-        "\nUsage: Download music from deezer."
-        "\n\n Well deezer is not available in India so create an deezer account using vpn.\nVideo guide of arl token: [here](https://www.youtube.com/watch?v=O6PRT47_yds&feature=youtu.be) or read [this](https://notabug.org/RemixDevs/DeezloaderRemix/wiki/Login+via+userToken)"
-        "\n\n *Format= `FLAC`, `MP3_320`, `MP3_256`, `MP3_128`."
-})
