@@ -234,42 +234,38 @@ async def moni(event):
         return
 
 
-@register(outgoing=True, pattern=r"^.google(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^.google (.*)")
 async def gsearch(q_event):
     """ For .google command, do a Google search. """
-    textx = await q_event.get_reply_message()
-    query = q_event.pattern_match.group(1)
-
-    if query:
-        pass
-    elif textx:
-        query = textx.text
-    else:
-        await q_event.edit("`Pass a query as an argument or reply "
-                           "to a message for Google search!`")
-        return
-
-    q_event.edit("`Searching...`")
-
-    search_args = (str(query), 1)
-    googsearch = GoogleSearch()
-    gresults = await googsearch.async_search(cache=False, *search_args)
+    match = q_event.pattern_match.group(1)
+    page = findall(r"page=\d+", match)
+    try:
+        page = page[0]
+        page = page.replace("page=", "")
+        match = match.replace("page=" + page[0], "")
+    except IndexError:
+        page = 1
+    search_args = (str(match), int(page))
+    gsearch = GoogleSearch()
+    # bypass search engine cache
+    gresults = await gsearch.async_search(cache=False, *search_args)
     msg = ""
-    for i in range(1, 6):
+    for i in range(7):
         try:
             title = gresults["titles"][i]
             link = gresults["links"][i]
             desc = gresults["descriptions"][i]
-            msg += f"{i}. [{title}]({link})\n`{desc}`\n\n"
+            msg += f"[{title}]({link})\n`{desc}`\n\n"
         except IndexError:
             break
-    await q_event.edit("**Search Query:**\n`" + query + "`\n\n**Results:**\n" +
+    await q_event.edit("**Search Query:**\n`" + match + "`\n\n**Results:**\n" +
                        msg,
                        link_preview=False)
+
     if BOTLOG:
         await q_event.client.send_message(
             BOTLOG_CHATID,
-            "Google Search query `" + query + "` was executed successfully",
+            "Google Search query `" + match + "` was executed successfully",
         )
 
 
