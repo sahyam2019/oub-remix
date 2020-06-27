@@ -247,7 +247,7 @@ async def kang(args):
         await args.edit(f"`kanged successfully!`\
                         \nClick [here](t.me/addstickers/{packname})",
                         parse_mode='md')
-
+        await args.delete()
 
 async def resize_photo(photo):
     """ Resize the given photo to 512x512 """
