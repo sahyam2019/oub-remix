@@ -888,7 +888,7 @@ async def get_userdel_from_id(user, event):
 
     return user_obj
 
-@register(outgoing=True, pattern=r"^\.lock ?(.*)") 
+@register(outgoing=True, pattern=r"^\.lock ?(.*)")
 async def locks(event):
     input_str = event.pattern_match.group(1).lower()
     peer_id = event.chat_id
