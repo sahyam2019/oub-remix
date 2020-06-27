@@ -247,8 +247,8 @@ async def gsearch(q_event):
         page = 1
     search_args = (str(match), int(page))
     gsearch = GoogleSearch()
-    # bypass search engine cache
-    gresults = await gsearch.async_search(cache=False, *search_args)
+    gsearch.clear_cache()
+    gresults = await gsearch.search(*search_args)
     msg = ""
     for i in range(7):
         try:
