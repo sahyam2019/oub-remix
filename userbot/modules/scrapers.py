@@ -42,7 +42,7 @@ from wikipedia.exceptions import DisambiguationError, PageError
 from urbandict import define
 from requests import get
 from requests import get, post, exceptions
-from search_engine_parser.core.engines.google import Search as GoogleSearch
+from search_engine_parser import GoogleSearch
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googletrans import LANGUAGES, Translator
@@ -247,7 +247,7 @@ async def gsearch(q_event):
         page = 1
     search_args = (str(match), int(page))
     gsearch = GoogleSearch()
-    gresults = await gsearch.search(*search_args, cache=False)
+    gresults = await gsearch.async_search(*search_args, cache=False)
     msg = ""
     for i in range(7):
         try:
