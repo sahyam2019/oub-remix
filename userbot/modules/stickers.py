@@ -11,6 +11,7 @@ import urllib.request
 from os import remove
 from PIL import Image
 import random
+import asyncio
 from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
 from userbot import bot, CMD_HELP
 from userbot.events import register
@@ -247,6 +248,7 @@ async def kang(args):
         await args.edit(f"`kanged successfully!`\
                         \nClick [here](t.me/addstickers/{packname})",
                         parse_mode='md')
+        asyncio.sleep(7.5)                
         await args.delete()
 
 async def resize_photo(photo):
