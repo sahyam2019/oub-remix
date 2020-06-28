@@ -1335,7 +1335,7 @@ CMD_HELP.update({
 \n\n`.tts` <text> [or reply]\
 \nUsage:Translates text to speech for the language which is set.\nUse .lang tts <language code> to set language for tts. (Default is English.)\
 \n\n`.tr` <text> [or reply]\
-\nUsage: Translates text to the language which is set.\nUse .lang tr <language code> to set language for trt. (Default is English)\
+\nUsage: Translates text to the language which is set.\nUse .lang tr <language code> to set language for tr. (Default is English)\
 \n\n`.yt` <text>\
 \nUsage: Does a YouTube search.\
 \n\n`.ripaudio` <url> or ripvideo <url>\
