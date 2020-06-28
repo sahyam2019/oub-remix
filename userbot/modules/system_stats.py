@@ -131,12 +131,13 @@ async def pipcheck(pip):
 async def amireallyalive(alive):
     """ For .start command, check if the bot is running.  """
     logo = ALIVE_LOGO
-    output = (f"`oub-remix` is running on `{UPSTREAM_REPO_BRANCH}`\n"
-             f"`Telethon version`:{version.__version__} \n"
-             f"`Python version🐍`:{python_version()} \n"
+    output = (f"`🤖 STATUS: Remix is running ✅`\n"
+             f"`Telethon version`: {version.__version__} \n"
+             f"`Python version🐍`: {python_version()} \n"
              f"`Bot Version🤘: Remix {BOT_VER}` \n"
              f"==================================== \n"
              f"User 👨‍🚀: {DEFAULTUSER} \n"
+             f"Maintainer 🏄‍♂️: @heyworld \n"
              f"====================================\n")
     await bot.send_file(alive.chat_id, logo, caption=output)
     await alive.delete()
