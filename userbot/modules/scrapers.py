@@ -416,11 +416,11 @@ async def _(event):
 
 
 
-@register(pattern=".lang (trt|tts) (.*)", outgoing=True)
+@register(pattern=".lang (tr|tts) (.*)", outgoing=True)
 async def lang(value):
     """ For .lang command, change the default langauge of userbot scrapers. """
     util = value.pattern_match.group(1).lower()
-    if util == "trt":
+    if util == "tr":
         scraper = "Translator"
         global TRT_LANG
         arg = value.pattern_match.group(2).lower()
@@ -1334,8 +1334,8 @@ CMD_HELP.update({
 \nUsage: Usage: Does a search on Urban Dictionary.\
 \n\n`.tts` <text> [or reply]\
 \nUsage:Translates text to speech for the language which is set.\nUse .lang tts <language code> to set language for tts. (Default is English.)\
-\n\n`.trt` <text> [or reply]\
-\nUsage: Translates text to the language which is set.\nUse .lang trt <language code> to set language for trt. (Default is English)\
+\n\n`.tr` <text> [or reply]\
+\nUsage: Translates text to the language which is set.\nUse .lang tr <language code> to set language for trt. (Default is English)\
 \n\n`.yt` <text>\
 \nUsage: Does a YouTube search.\
 \n\n`.ripaudio` <url> or ripvideo <url>\
