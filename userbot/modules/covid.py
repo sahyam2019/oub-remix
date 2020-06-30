@@ -1,40 +1,32 @@
-# Copyright (C) 2019 The Raphielscape Company LLC.
-#
-# Licensed under the Raphielscape Public License, Version 1.d (the "License");
-# you may not use this file except in compliance with the License.
-#
 
-
-import datetime
-from telethon import events
-from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.functions.account import UpdateNotifySettingsRequest
+from covid import Covid
+from userbot import CMD_HELP, bot
 from userbot.events import register
-from userbot import CMD_HELP
 
 
+
+#@borg.on(admin_cmd(pattern="coronavirus (.*)"))
+#async def _(event):
 @register(outgoing=True, pattern="^.corona (.*)")
-async def _(event):
-    if event.fwd_from:
-        return 
-    input_str = event.pattern_match.group(1)
-    reply_message = await event.get_reply_message()
-    chat = "@NovelCoronaBot"
-    await event.edit("```Checking...```")
-    async with event.client.conversation(chat) as conv:
-          try:     
-              response = conv.wait_event(events.NewMessage(incoming=True,from_users=1124136160))
-              await event.client.send_message(chat, "{}".format(input_str))
-              response = await response 
-          except YouBlockedUserError: 
-              await event.reply("```Unblock (@NovelCoronaBot)```")
-              return
-          if response.text.startswith("Country"):
-             await event.edit("😐**Country Not Found**😐")
-          else: 
-             await event.delete()
-             await event.client.send_message(event.chat_id, response.message)
+async def cv(event):
+    covid = Covid()
+    data = covid.get_data()
+    country = event.pattern_match.group(1)
+    country_data = get_country_data(country, data)
+    output_text = "" 
+    for name, value in country_data.items():
+        output_text += "`{}`: `{}`\n".format(str(name), str(value))
+    await event.edit("**CoronaVirus Info in {}**:\n\n{}".format(country.capitalize(), output_text))
 
-CMD_HELP.update(
-    {"corona": ".corona [country]\n"
-     "Usage: Corona Virus stats."})
+def get_country_data(country, world):
+    for country_data in world:
+        if country_data["country"].lower() == country.lower():
+            return country_data
+    return {"Status": "No information yet about this country!"}
+    
+    
+CMD_HELP.update({
+    "corona":
+    ".corona <country> \
+    \nUsage: CoronaVirus LookUp for specified country if available."
+})
