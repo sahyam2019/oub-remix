@@ -11,6 +11,7 @@ import urllib.request
 from os import remove
 from PIL import Image
 import random
+import asyncio
 from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
 from userbot import bot, CMD_HELP
 from userbot.events import register
@@ -88,7 +89,7 @@ async def kang(args):
     if photo:
         splat = args.text.split()
         if not emojibypass:
-            emoji = "🤔"
+            emoji = "😃"
         pack = 1
         if len(splat) == 3:
             pack = splat[2]  # User sent both
@@ -247,7 +248,8 @@ async def kang(args):
         await args.edit(f"`kanged successfully!`\
                         \nClick [here](t.me/addstickers/{packname})",
                         parse_mode='md')
-
+        await asyncio.sleep(7.5)                
+        await args.delete()
 
 async def resize_photo(photo):
     """ Resize the given photo to 512x512 """
@@ -353,7 +355,7 @@ CMD_HELP.update({
 \n\n`.kang` [emoji('s)]\
 \nUsage: Works just like .kang but uses the emoji('s) you picked.\
 \n\n`.kang` [number]\
-\nUsage: Kang's the sticker/image to the specified pack but uses 🤔 as emoji.\
+\nUsage: Kang's the sticker/image to the specified pack but uses 😃 as emoji.\
 \n\n`.kang` [emoji('s)] [number]\
 \nUsage: Kang's the sticker/image to the specified pack and uses the emoji('s) you picked.\
 \n\n`.stkrinfo`\

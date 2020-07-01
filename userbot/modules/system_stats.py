@@ -12,7 +12,7 @@ from shutil import which
 from os import remove
 from telethon import version
 
-from userbot import CMD_HELP, ALIVE_NAME
+from userbot import CMD_HELP, ALIVE_NAME, BOT_VER, UPSTREAM_REPO_BRANCH, ALIVE_LOGO, bot
 from userbot.events import register
 
 # ================= CONSTANT =================
@@ -79,7 +79,7 @@ async def bot_ver(event):
                              "`")
         else:
             await event.edit(
-                "Shame that you don't have git, you're running - 'v2.5' anyway!"
+                f"Shame that you don't have git, you're running - '{BOT_VER}' anyway!"
             )
 
 
@@ -129,6 +129,7 @@ async def pipcheck(pip):
 
 @register(outgoing=True, pattern="^.start$")
 async def amireallyalive(alive):
+<<<<<<< HEAD
     """ For .alive command, check if the bot is running.  """
     await alive.edit("`"
                      "EDITH is online. \n"
@@ -141,6 +142,20 @@ async def amireallyalive(alive):
                      f"Sohan'z Bot: E.D.I.T.H. \n"
                      f"Even Dead, I'm The Hero! 😎 "
                      "`")
+=======
+    """ For .start command, check if the bot is running.  """
+    logo = ALIVE_LOGO
+    output = (f"`🤖 STATUS: Remix is running ✅`\n"
+             f"`Telethon version`: {version.__version__} \n"
+             f"`Python version🐍`: {python_version()} \n"
+             f"`Bot Version🤘: Remix {BOT_VER}` \n"
+             f"==================================== \n"
+             f"User 👨‍🚀: {DEFAULTUSER} \n"
+             f"Maintainer 🏄‍♂️: @heyworld \n"
+             f"====================================\n")
+    await bot.send_file(alive.chat_id, logo, caption=output)
+    await alive.delete()
+>>>>>>> f0f5ce67b456e024dc35324ec39bbcfdb3470aeb
                          
 
 

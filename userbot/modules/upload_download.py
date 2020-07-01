@@ -6,8 +6,8 @@
 # The entire source code is OSSRPL except
 # 'download, uploadir, uploadas, upload' which is MPL
 # License: MPL and OSSRPL
-""" Userbot module which contains everything related to \
-    downloading/uploading from/to the server. """
+""" Userbot module which contains everything related to
+     downloading/uploading from/to the server. """
 
 import json
 import os
@@ -57,10 +57,10 @@ async def download(target_file):
             percentage = downloader.get_progress() * 100
             speed = downloader.get_speed()
             progress_str = "[{0}{1}] `{2}%`".format(
-                ''.join(["■" for i in range(
-                    math.floor(percentage / 10))]),
-                ''.join(["▨" for i in range(
-                    10 - math.floor(percentage / 10))]),
+                ''.join(["●" for i in range(
+                        math.floor(percentage / 10))]),
+                ''.join(["○" for i in range(
+                        10 - math.floor(percentage / 10))]),
                 round(percentage, 2))
             estimated_total_time = downloader.get_eta(human=True)
             try:
@@ -349,8 +349,8 @@ async def uploadas(uas_event):
 
 CMD_HELP.update({
     "download":
-    "`.download` <link|filename> or reply to media\
-\nUsage: Downloads file to the server.\
-\n\n`.upload` <path in server>\
-\nUsage: Uploads a locally stored file to the chat."
+    ">`.download <link|filename> or reply to media`"
+    "\nUsage: Downloads file to the server."
+    "\n\n>`.upload <path in server>`"
+    "\nUsage: Uploads a locally stored file to the chat."
 })

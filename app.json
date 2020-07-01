@@ -1,7 +1,7 @@
 {
   "name": "OPEN USERBOT REMIX",
   "description": "[OUB-REMIX] A modular Telegram userbot running on Python 3.7+ with an sqlalchemy database, which can be coupled up with Mongo DB and a Redis backend",
-  "logo": "https://telegra.ph/file/90b4e03927ad8d90825ea.jpg",
+  "logo": "https://telegra.ph/file/d201a0cc4d7d5f420c419.jpg",
   "keywords": [
     "telegram",
     "userbot",
@@ -189,6 +189,11 @@
       "description": "Enter the Google Drive authentication data, as a JSON structure.",
       "required": false
     },
+    "BITLY_TOKEN": {
+      "description": "Your Bit.ly API key, get it from 'https://bitly.com/a/sign_up'",
+      "value": "YOUR TOKEN",
+      "required": false
+    },
     "UB_BLACK_LIST_CHAT": {
       "description": "haha",
       "value": "-1001376711460 -1001232530981 -1001460242671 -1001255383765 -1001476589953 -1001298140471 -1001089118458 -1001224245343 -1001287976326 -1001377256951 -1001329042156 -1001202504432 -1001148103952 -1001063463715 -1001455478060 -1001251236870 -1001462536556 -1001120290128 -1001485556805 -1001220993104 -1001109500936 -1001305313195 -1001329980174",
@@ -205,6 +210,10 @@
     "LOGSPAMMER": {
       "description": "Set this to True in case you want the error logs to be stored in the userbot log group, instead of spitting out the file in the current chat, requires a valid BOTLOG_CHATID to be set.",
       "value": "True"
+    },
+    "DEEZER_ARL_TOKEN": {
+      "description": "Input your DEEZER ARL TOKEN https://notabug.org/RemixDevs/DeezloaderRemix/wiki/Login+via+userToken",
+      "required": false
     }
   },
   "addons": [
