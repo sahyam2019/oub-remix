@@ -1,4 +1,5 @@
 #credits to the respective owner xD
+#imported by @heyworld 
 import requests , re , random 
 
 import urllib , os 
@@ -109,7 +110,7 @@ async def animepp():
 
 async def main(event):
 
-    await event.edit("**changing your Profile Pic...\n\nDone !!! Check Your DP in 10 seconds.")
+    await event.edit("**changing your Profile Pic...**\n\nDone !!! Check Your DP in 10 seconds.")
 
     while True:
 
