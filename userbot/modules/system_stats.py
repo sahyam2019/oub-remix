@@ -129,7 +129,7 @@ async def pipcheck(pip):
 
 @register(outgoing=True, pattern="^.start$")
 async def amireallyalive(alive):
-<<<<<<< HEAD
+
     """ For .alive command, check if the bot is running.  """
     await alive.edit("`"
                      "EDITH is online. \n"
@@ -142,20 +142,7 @@ async def amireallyalive(alive):
                      f"Sohan'z Bot: E.D.I.T.H. \n"
                      f"Even Dead, I'm The Hero! 😎 "
                      "`")
-=======
-    """ For .start command, check if the bot is running.  """
-    logo = ALIVE_LOGO
-    output = (f"`🤖 STATUS: Remix is running ✅`\n"
-             f"`Telethon version`: {version.__version__} \n"
-             f"`Python version🐍`: {python_version()} \n"
-             f"`Bot Version🤘: Remix {BOT_VER}` \n"
-             f"==================================== \n"
-             f"User 👨‍🚀: {DEFAULTUSER} \n"
-             f"Maintainer 🏄‍♂️: @heyworld \n"
-             f"====================================\n")
-    await bot.send_file(alive.chat_id, logo, caption=output)
-    await alive.delete()
->>>>>>> f0f5ce67b456e024dc35324ec39bbcfdb3470aeb
+
                          
 
 
