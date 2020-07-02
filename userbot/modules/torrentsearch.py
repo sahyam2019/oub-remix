@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup as bs 
 import requests
-import asyncio
 import json
 from userbot.events import register 
 
