@@ -99,9 +99,9 @@ async def addzip(add):
 @register(outgoing=True, pattern=r"^\.upzip(?: |$)(.*)")
 async def upload_zip(up):
     if not os.path.isdir(ZIP_DOWNLOAD_DIRECTORY):
-        await up.edit(f"`Files not found`")
+        await up.edit("`Files not found`")
         return
-    await up.edit(f"`Uploading.......`")
+    await up.edit("`Uploading.......`")
     input_str = up.pattern_match.group(1)
     curdate = today.strftime("%m%d%y")
     title = str(input_str) if input_str else "zipfile" + f"{curdate}"
@@ -121,7 +121,7 @@ async def upload_zip(up):
 @register(outgoing=True, pattern=r"^\.rmzip(?: |$)(.*)")
 async def remove_dir(rm):
     if not os.path.isdir(ZIP_DOWNLOAD_DIRECTORY):
-        await rm.edit(f"`Directory not found`")
+        await rm.edit("`Directory not found`")
         return
     os.rmdir(ZIP_DOWNLOAD_DIRECTORY)
     await rm.edit("`Zip list removed`")
