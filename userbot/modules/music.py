@@ -3,21 +3,14 @@
 #Copyright (C) 2020 azrim.
 
 from telethon import events
-import subprocess
-from telethon.errors import MessageEmptyError, MessageTooLongError, MessageNotModifiedError
-import io
 import asyncio
-import datetime
-import time
 #from userbot.utils import admin_cmd
 from userbot.events import register 
 from userbot import bot, CMD_HELP
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.functions.account import UpdateNotifySettingsRequest
-import glob
 import os
 try:
- import instantmusic , subprocess
+ import subprocess
 except:
  os.system("pip install instantmusic")
  

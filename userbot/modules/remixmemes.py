@@ -9,8 +9,6 @@ from userbot.events import register
 from userbot import  CMD_HELP, bot, ALIVE_NAME
 from collections import deque
 from telethon.errors.rpcerrorlist import MessageIdInvalidError
-from random import choice, getrandbits, randint
-from re import sub
 from random import randint
 import random
 
