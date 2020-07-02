@@ -238,5 +238,7 @@ CMD_HELP.update({
     \n\n`.aclear`\
     \nUsage: Clears the download queue, deleting all on-going downloads.\
     \n\n`.ashow`\
-    \nUsage: Shows progress of the on-going downloads."
+    \nUsage: Shows progress of the on-going downloads.\
+    \n\n`.tsearch <query>`\
+    \nUsage: Searches torrent."
 })

@@ -1147,7 +1147,7 @@ async def metoo(hahayes):
     await hahayes.edit(choice(METOOSTR))
 
 
-@register(outgoing=True, pattern="^.Oof$")
+@register(outgoing=True, pattern="^.oof$")
 async def Oof(e):
     t = "Oof"
     for j in range(16):
@@ -1161,18 +1161,6 @@ async def Oem(e):
     for j in range(16):
         t = t[:-1] + "em"
         await e.edit(t)
-
-
-
-
-@register(outgoing=True, pattern="^.Oem$")
-async def Oem(e):
-    t = "Oem"
-    for j in range(16):
-        t = t[:-1] + "em"
-        await e.edit(t)
-
-
 
 @register(outgoing=True, pattern="^.10iq$")
 async def iqless(e):
@@ -1598,9 +1586,9 @@ CMD_HELP.update({
 \nUsage: You retard !!\
 \n\n`.zal`\
 \nUsage: Invoke the feeling of chaos.\
-\n\nOem\
+\n\n`.oem`\
 \nUsage: Oeeeem\
-\n\n.Oof or .bigoof\
+\n\n.oof or .bigoof\
 \nUsage: Ooooof\
 \n\n`.fp`\
 \nUsage: Facepalm :P\
