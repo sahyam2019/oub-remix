@@ -809,5 +809,7 @@ CMD_HELP.update({
 \n\nIt contains (`.bold <text>`,`.cur <text>`,`.curbold <text>`,`.medi <text>`,`.medibold <text>`,`.doublestruck <text>`)\
 \nUsage:makes your text <bold,cursive,cursivebold,medival,medivalbold,gayishbold>\
 \n\n`.randompp`\
-\nUsage:Automatically changes your profile picture after one hour. To stop this use .restart."       
+\nUsage:Automatically changes your profile picture after one hour. To stop this use .restart.\
+\n\n`.gps` <location name>.\
+\nUsage:Sends you the given location name."   
 })
