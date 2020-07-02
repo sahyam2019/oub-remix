@@ -128,6 +128,26 @@ async def _(event):
              await event.delete()
              await bot.forward_messages(event.chat_id, response.message)
 
+@register(outgoing=True, pattern="^.eu(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    link = event.pattern_match.group(1)
+    chat = "@XiaomiGeeksBot"
+    xiaomieu = "eu"
+    await event.edit("```Processing```")
+    async with bot.conversation("@XiaomiGeeksBot") as conv:
+          try:
+              response = conv.wait_event(events.NewMessage(incoming=True,from_users=774181428))
+              await conv.send_message(f'/{eu} {link}')
+              response = await response
+          except YouBlockedUserError:
+              await event.reply("```Unblock @XiaomiGeeksBot plox```")
+              return
+          else:
+             await event.delete()
+             await bot.forward_messages(event.chat_id, response.message)             
+
 CMD_HELP.update({
 "xiaomi":
 "For Xiaomeme devices only!\
@@ -141,5 +161,7 @@ CMD_HELP.update({
      \nUsage : Get latest fastboot MIUI\
 \n\n`.recovery` (codename)\
      \nUsage : Get latest recovery MIUI\
+\n\n`.eu` (codename)\
+    \nUsage: Get latest xiaomi.eu rom\
 \n\n`.of` (codename)\
      \nUsage : Get latest ORangeFox Recovery"})
