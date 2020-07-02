@@ -16,8 +16,11 @@
     And after that, then you pointed your fingers at us
     for getting your account deleted?
     I will be rolling on the floor laughing at you.
-    No presonal support will be provided. If you need help ask in 
-    support group mentioned below.
+    No personal support will be provided/I won't spoonfeed. If you need help ask in 
+    support group mentioned below or ask your friend.
+    Open issues if you think there's a bug/problem.
+    Open pr if you think you can improve the existing code.
+    #stayremixed
 /**
 ```
 
