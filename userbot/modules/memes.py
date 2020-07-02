@@ -1630,7 +1630,7 @@ CMD_HELP.update({
 \nUsage: Pay Respects.\
 \n\n`.bt`\
 \nUsage: Believe me, you will find this useful.\
-\n\n`.type`\
+\n\n`.type` or `.shout` <text>\
 \nUsage: Just a small command to make your keyboard become a typewriter!\
 \n\n`.gi` <query>\
 \nUsage: Let me Google that for you real quick !!\
