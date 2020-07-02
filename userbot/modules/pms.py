@@ -360,7 +360,7 @@ async def startmute(event):
                 return await event.edit("`You can't mute a person if you dont have delete messages permission. ಥ﹏ಥ`")
         elif "creator" in vars(chat):
             pass
-        elif private == True:
+        elif private is True:
             pass
         else:
             return await event.edit("`You can't mute a person without admin rights niqq.` ಥ﹏ಥ  ")
