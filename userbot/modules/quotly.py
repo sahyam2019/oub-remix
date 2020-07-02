@@ -43,10 +43,10 @@ if 1 == 1:
         "channel": "Channel"
     }
 
-    config = dict({"api_url": "http://api.antiddos.systems",
+    config = {"api_url": "http://api.antiddos.systems",
                                           "username_colors": ["#fb6169", "#faa357", "#b48bf2", "#85de85",
                                                               "#62d4e3", "#65bdf3", "#ff5694"],
-                                          "default_username_color": "#b48bf2"})
+                                          "default_username_color": "#b48bf2"}
 
 @register(outgoing=True, pattern="^.q(?: |$)(.*)")
 async def _(event):
