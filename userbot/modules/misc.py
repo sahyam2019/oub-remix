@@ -13,16 +13,13 @@ import sys
 import os
 import io
 import sys
-import json
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, GIT_REPO_NAME, ALIVE_NAME
 from userbot.events import register
 from userbot.utils import time_formatter
 import urllib
-from urllib.request import urlopen
 import requests
 from bs4 import BeautifulSoup
 import re
-from telethon.tl.types import MessageMediaPhoto
 from PIL import Image
 
 

@@ -5,19 +5,15 @@
 #
 # Port From UniBorg to UserBot by MoveAngel
 
-import datetime
-import logging
 import requests
 import base64
 import json
-import os
 import telethon
 
 from PIL import Image
 from io import BytesIO
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.functions.account import UpdateNotifySettingsRequest
 from userbot import bot, CMD_HELP, QUOTES_API_TOKEN
 from userbot.events import register
 

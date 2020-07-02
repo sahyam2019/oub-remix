@@ -12,7 +12,7 @@ import shutil
 import time
 
 from userbot.events import register
-from userbot import CMD_HELP, DEEZER_ARL_TOKEN, TEMP_DOWNLOAD_DIRECTORY
+from userbot import DEEZER_ARL_TOKEN, TEMP_DOWNLOAD_DIRECTORY
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from telethon.tl.types import DocumentAttributeAudio
