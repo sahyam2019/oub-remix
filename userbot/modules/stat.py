@@ -29,8 +29,6 @@ async def stats(event: NewMessage.Event) -> None:  # pylint: disable = R0912, R0
     creator_in_channels = 0
     unread_mentions = 0
     unread = 0
-    largest_group_member_count = 0
-    largest_group_with_admin = 0
     dialog: Dialog
     async for dialog in event.client.iter_dialogs():
         entity = dialog.entity
