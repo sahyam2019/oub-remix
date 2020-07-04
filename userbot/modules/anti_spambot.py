@@ -3,7 +3,7 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
-''' A module for helping ban group join spammers. '''
+"""A module for helping ban group join spammers."""
 
 from asyncio import sleep
 from requests import get
@@ -11,14 +11,13 @@ from requests import get
 from telethon.events import ChatAction
 from telethon.tl.types import ChannelParticipantsAdmins, Message
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, ANTI_SPAMBOT, ANTI_SPAMBOT_SHOUT, bot
+from userbot import BOTLOG, BOTLOG_CHATID, ANTI_SPAMBOT, ANTI_SPAMBOT_SHOUT, bot
 
 
 @bot.on(ChatAction)
 async def ANTI_SPAMBOT(welcm):
+    """Ban a recently joined user if it matches the spammer checking algorithm."""
     try:
-        ''' Ban a recently joined user if it
-           matches the spammer checking algorithm. '''
         if not ANTI_SPAMBOT:
             return
         if welcm.user_joined or welcm.user_added:
@@ -83,13 +82,11 @@ async def ANTI_SPAMBOT(welcm):
                     ##############################################
 
                     try:
-                        cas_url = f"https://combot.org/api/cas/check?user_id={check_user.id}"
+                        cas_url = f"https://api.cas.chat/check?user_id={check_user.id}" # https://t.me/combotnews/283
                         r = get(cas_url, timeout=3)
                         data = r.json()
                     except BaseException:
-                        print(
-                            "CAS check failed, falling back to legacy anti_spambot behaviour."
-                        )
+                        print("CAS check failed, falling back to legacy anti_spambot behaviour.")
                         data = None
                         pass
 
@@ -114,8 +111,8 @@ async def ANTI_SPAMBOT(welcm):
                     else:
                         if check_user.first_name in ("Bitmex", "Promotion",
                                                      "Information", "Dex",
-                                                     "Announcements", "Info"):
-                            if user.last_name == "Bot":
+                                                     "Announcements", "Info", "Bitcoin", "N-95", "Seller"):
+                            if users.last_name == "Bot":
                                 reason = "Known spambot"
                                 spambot = True
 
@@ -159,7 +156,7 @@ async def ANTI_SPAMBOT(welcm):
                             await welcm.reply(
                                 "@admins\n"
                                 "`ANTI SPAMBOT DETECTOR!\n"
-                                "THIS USER SEEMS A SPAMMER AND MATCHES MY PRO BOT'S ALGORITHM. @admins check it!`"
+                                "THIS USER MATCHES MY ALGORITHMS AS A SPAMBOT!`"
                                 f"REASON: {reason}")
                             kicked = False
                             reported = True
@@ -168,7 +165,7 @@ async def ANTI_SPAMBOT(welcm):
                     if kicked or reported:
                         await welcm.client.send_message(
                             BOTLOG_CHATID, "#ANTI_SPAMBOT REPORT\n"
-                            f"USER: [{user.first_name}](tg://user?id={check_user.id})\n"
+                            f"USER: [{check_user.first_name}](tg://user?id={check_user.id})\n"
                             f"USER ID: `{check_user.id}`\n"
                             f"CHAT: {welcm.chat.title}\n"
                             f"CHAT ID: `{welcm.chat_id}`\n"

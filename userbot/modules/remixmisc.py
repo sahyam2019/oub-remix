@@ -2,44 +2,23 @@
 #please don't nuke my credits 😓
 import requests
 import bs4 
-import re
 import os
-import math
 import asyncio
-import zipfile
 import time
 import html
-import patoolib
-import shutil
-import subprocess
-from io import BytesIO
 from justwatch import JustWatch
-from PyPDF2 import PdfFileWriter, PdfFileReader
 from telethon import *
 from userbot.events import register 
-from pySmartDL import SmartDL
 from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY
 from telethon import events
 from telethon.tl import functions, types
 from urllib.parse import quote
-from datetime import datetime, timedelta
-from telethon.tl.types import DocumentAttributeVideo
-from telethon.tl.types import UserStatusEmpty, UserStatusLastMonth, UserStatusLastWeek, UserStatusOffline, UserStatusOnline, UserStatusRecently, ChannelParticipantsKicked, ChatBannedRights
-from time import sleep
-from telethon.tl.functions.photos import GetUserPhotosRequest
+from datetime import datetime
+from telethon.tl.types import UserStatusEmpty, UserStatusLastMonth, UserStatusLastWeek, UserStatusOffline, UserStatusOnline, UserStatusRecently, ChatBannedRights
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
-from telethon.utils import get_input_location
-from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
-from telethon.tl.types import DocumentAttributeFilename
-from userbot.utils import progress, humanbytes, time_formatter
-from hachoir.metadata import extractMetadata
-from hachoir.parser import createParser
-from telethon.errors import PhotoInvalidDimensionsError
+from telethon.tl.types import DocumentAttributeVideo
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.functions.account import UpdateNotifySettingsRequest
-
-from telethon.tl.functions.messages import SendMediaRequest
 
 
 import logging
@@ -830,5 +809,7 @@ CMD_HELP.update({
 \n\nIt contains (`.bold <text>`,`.cur <text>`,`.curbold <text>`,`.medi <text>`,`.medibold <text>`,`.doublestruck <text>`)\
 \nUsage:makes your text <bold,cursive,cursivebold,medival,medivalbold,gayishbold>\
 \n\n`.randompp`\
-\nUsage:Automatically changes your profile picture after one hour. To stop this use .restart."       
+\nUsage:Automatically changes your profile picture after one hour. To stop this use .restart.\
+\n\n`.gps` <location name>.\
+\nUsage:Sends you the given location name."   
 })

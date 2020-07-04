@@ -217,7 +217,7 @@ async def download_api(dl):
     return
 
 
-@register(outgoing=True, pattern=r"^.specs(?: |)([\S]*)(?: |)([\s\S]*)")
+@register(outgoing=True, pattern=r"^.spec(?: |)([\S]*)(?: |)([\s\S]*)")
 async def devices_specifications(request):
     """ Mobile devices specifications """
     textx = await request.get_reply_message()
@@ -306,7 +306,7 @@ CMD_HELP.update({
 \nUsage: Search for android device codename.\
 \n\n`.pixeldl` **<download.pixelexperience.org>**\
 \nUsage: Download pixel experience ROM into your userbot server.\
-\n\n`.specs <brand> <device>`\
+\n\n`.spec <brand> <device>`\
 \nUsage: Get device specifications info.\
 \n\n`.twrp <codename>`\
 \nUsage: Get latest twrp download for android device."

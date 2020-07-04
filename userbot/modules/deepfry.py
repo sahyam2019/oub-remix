@@ -79,4 +79,6 @@ CMD_HELP.update({
     "`.df` or `.df` [level(1-8)]"
     "\nUsage: deepfry image/sticker from the reply."
     "\n@image_deepfrybot"
+    "\n`.deepfry [level(1-5)]`"
+    "\nUsage: Deepfry image"
 })

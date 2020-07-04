@@ -12,7 +12,6 @@ import textwrap
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import InputMessagesFilterDocument
 from userbot.events import register 
-from userbot import CMD_HELP, bot
 
 
 @register(outgoing=True, pattern="^.cs(?: |$)(.*)")

@@ -1,6 +1,12 @@
 
+<<<<<<< HEAD
 from covid import Covid
 from userbot import CMD_HELP, bot
+=======
+
+from telethon import events
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+>>>>>>> 1232fecb9ce3b49f28de56ce037be86ff7ce7782
 from userbot.events import register
 
 
