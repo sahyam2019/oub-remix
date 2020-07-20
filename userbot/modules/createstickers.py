@@ -1,6 +1,6 @@
 # Random RGB Sticklet by @PhycoNinja13b
 # modified by @UniBorg
-# ported to userbot by @heyworld
+# ported to userbot by @heyworld & thanks to @Xcruzhd2 for Fonts
 
 
 
@@ -37,7 +37,7 @@ async def sticklet(event):
     draw = ImageDraw.Draw(image)
     fontsize = 230
 
-    FONT_FILE = await get_font_file(event.client, "@FontRes")
+    FONT_FILE = await get_font_file(event.client, "@xcruzfont")
 
     font = ImageFont.truetype(FONT_FILE, size=fontsize)
 
