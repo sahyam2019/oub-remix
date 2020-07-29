@@ -9,9 +9,11 @@
    Heroku manager for your userbot
 """
 
+import codecs
 import heroku3
 import aiohttp
 import math
+import os
 import requests
 
 from userbot import (HEROKU_APP_NAME, HEROKU_API_KEY, BOTLOG, BOTLOG_CHATID)
