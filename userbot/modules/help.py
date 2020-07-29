@@ -22,7 +22,7 @@ async def help(event):
         await event.edit("**All modules are listed below**\
             \nUsage: Type `.help <module name>` to know how it works")
         string = ""
-        for i in CMD_HELP:
+        for i in sorted(CMD_HELP):
             string += "`" + str(i)
             string += "`  -  "
         await event.reply(string)

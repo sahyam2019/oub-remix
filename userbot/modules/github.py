@@ -71,4 +71,6 @@ CMD_HELP.update({
 "\n\n`.del var` <VAR>"
 "\nUsage: delete existing variable"
 "\n!!! WARNING !!!, after deleting variable the bot will restarted"
+"\nUsage:`.logs`"
+"\nUsage: Get heroku dyno logs"
 })

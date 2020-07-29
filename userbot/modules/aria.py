@@ -1,8 +1,3 @@
-# Copyright (C) 2019 The Raphielscape Company LLC.
-#
-# Licensed under the Raphielscape Public License, Version 1.d (the "License");
-# you may not use this file except in compliance with the License.
-
 import os
 import aria2p
 import math
@@ -33,7 +28,7 @@ trackers = f"[{trackers_list}]"
 cmd = f"aria2c \
 --enable-rpc \
 --rpc-listen-all=false \
---rpc-listen-port 6800 \
+--rpc-listen-port 8210 \
 --max-connection-per-server=10 \
 --rpc-max-request-size=1024M \
 --seed-time=0.01 \
@@ -51,7 +46,7 @@ if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
     os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
 download_path = os.getcwd() + TEMP_DOWNLOAD_DIRECTORY.strip('.')
 
-aria2 = aria2p.API(aria2p.Client(host="http://localhost", port=6800,
+aria2 = aria2p.API(aria2p.Client(host="http://localhost", port=8210,
                                  secret=""))
 
 aria2.set_global_options({'dir': download_path})
@@ -199,8 +194,7 @@ async def check_progress_for_dl(gid, event, previous):
                     f"{prog_str}\n"
                     f"`{humanbytes(downloaded)} of {file.total_length_string()}"
                     f" @ {file.download_speed_string()}`\n"
-                    f"`ETA` -> {file.eta_string()}\n"
-                )
+                    f"`ETA` -> {file.eta_string()}\n")
                 if msg != previous:
                     await event.edit(msg)
                     msg = previous
@@ -227,7 +221,6 @@ async def check_progress_for_dl(gid, event, previous):
                 await event.edit(
                     "Download Auto Canceled :\n`{}`\nYour Torrent/Link is Dead."
                     .format(file.name))
-
 
 CMD_HELP.update({
     "aria":

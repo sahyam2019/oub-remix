@@ -3,36 +3,39 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
+# Port to UserBot by @MoveAngel
 
-
-from telethon import events
-from telethon.errors.rpcerrorlist import YouBlockedUserError
-from userbot.events import register
+from covid import Covid
 from userbot import CMD_HELP
+from userbot.events import register
 
 
-@register(outgoing=True, pattern="^.corona (.*)")
-async def _(event):
-    if event.fwd_from:
-        return 
-    input_str = event.pattern_match.group(1)
-    reply_message = await event.get_reply_message()
-    chat = "@NovelCoronaBot"
-    await event.edit("```Checking...```")
-    async with event.client.conversation(chat) as conv:
-          try:     
-              response = conv.wait_event(events.NewMessage(incoming=True,from_users=1124136160))
-              await event.client.send_message(chat, "{}".format(input_str))
-              response = await response 
-          except YouBlockedUserError: 
-              await event.reply("```Unblock (@NovelCoronaBot)```")
-              return
-          if response.text.startswith("Country"):
-             await event.edit("😐**Country Not Found**😐")
-          else: 
-             await event.delete()
-             await event.client.send_message(event.chat_id, response.message)
+@register(outgoing=True, pattern="^.covid (.*)")
+async def corona(event):
+    await event.edit("`Processing...`")
+    country = event.pattern_match.group(1)
+    covid = Covid(source="worldometers")
+    try:
+        country_data = covid.get_status_by_country_name(country)
+        output_text = (
+            f"`Confirmed   : {country_data['confirmed']}`\n" +
+            f"`Active      : {country_data['active']}`\n" +
+            f"`Deaths      : {country_data['deaths']}`\n" +
+            f"`Recovered   : {country_data['recovered']}`\n\n" +
+            f"`New Cases   : {country_data['new_cases']}`\n" +
+            f"`New Deaths  : {country_data['new_deaths']}`\n" +
+            f"`Critical    : {country_data['critical']}`\n" +
+            f"`Total Tests : {country_data['total_tests']}`\n\n" +
+            f"Data provided by [Worldometer](https://www.worldometers.info/coronavirus/country/{country})")
+        await event.edit(f"Corona Virus Info in {country}:\n\n{output_text}")
+    except ValueError:
+        await event.edit(
+            f"No information found for: {country}!\nCheck your spelling and try again."
+        )
 
-CMD_HELP.update(
-    {"corona": ".corona [country]\n"
-     "Usage: Corona Virus stats."})
+
+CMD_HELP.update({
+    "covid":
+        "`.covid` <country>"
+        "\nUsage: Get an information about data covid-19 in your country.\n"
+})

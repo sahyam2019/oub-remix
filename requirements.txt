@@ -23,7 +23,10 @@ gTTS>=2.1.1
 gTTS-token>=1.1.3
 hachoir>=3.0a5
 REPO_LINK
-heroku3>=3.4.0	
+heroku3>=3.4.0
+html_telegraph_poster
+jikanpy
+pendulum==2.0.5	
 httplib2>=0.18.0
 humanize 
 lxml
@@ -39,10 +42,10 @@ python-dotenv
 pytz
 qrcode
 requests>=2.18.4
-search-engine-parser
+search-engine-parser>=0.6.1
 speedtest-cli>=2.0.2
 sqlalchemy>=1.2
-telethon>=1.14.0 
+telethon>=1.15.0 
 telethon-session-sqlalchemy>=0.2.6
 urbandict>=0.5
 wikipedia>=1.4.0
@@ -58,7 +61,7 @@ beautifulsoup4>=4.8.1
 youtube-dl>=2019.9.28
 PyGithub
 bs4
-covid>=2.2.9
+covid>=2.3.0
 base
 pip>=19.2.3
 setuptools>=28.8.0
@@ -80,3 +83,4 @@ deezloader
 zipfile38
 bitlyshortener
 geopy
+validators
