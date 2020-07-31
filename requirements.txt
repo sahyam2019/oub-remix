@@ -52,7 +52,7 @@ wikipedia>=1.4.0
 coffeehouse>=2.1.0
 git+https://github.com/johnwmillr/LyricsGenius.git
 git+https://github.com/voins/google-images-download.git@2cd68173c961324a2c41c61e8b6f40a49663ce60
-
+ git+https://github.com/LonamiWebs/Telethon
 lyricsgenius
 redis>=3.3.10
 PyDrive2
