@@ -8,6 +8,7 @@
 from userbot import CMD_HELP
 from userbot.events import register
 
+ modules = CMD_HELP
 
 @register(outgoing=True, pattern="^.help(?: |$)(.*)")
 async def help(event):
@@ -19,8 +20,9 @@ async def help(event):
         else:
             await event.edit("**Module doesn't exist or Module name is invalid**")
     else:
-        await event.edit("**All modules are listed below**\
-            \nUsage: Type `.help <module name>` to know how it works")
+        await event.edit(f"**All modules are listed below**\
+            \nUsage: Type `.help <module name>` to know how it works\
+            \nModules loaded:{len(modules)}")
         string = ""
         for i in sorted(CMD_HELP):
             string += "`" + str(i)
