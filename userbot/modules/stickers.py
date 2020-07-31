@@ -33,7 +33,7 @@ async def kang(event):
     pack_username = ''
     if not user.username:
         try:
-            user.first_name.decode('ascii')
+            user.first_name.encode('utf-8').decode('ascii')
             pack_username = user.first_name
         except UnicodeDecodeError: # User's first name isn't ASCII, use ID instead
             pack_username = user.id
