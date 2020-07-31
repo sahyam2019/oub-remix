@@ -8,7 +8,7 @@
 from userbot import CMD_HELP
 from userbot.events import register
 
- modules = CMD_HELP
+modules = CMD_HELP
 
 @register(outgoing=True, pattern="^.help(?: |$)(.*)")
 async def help(event):
