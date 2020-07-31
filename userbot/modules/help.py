@@ -22,7 +22,7 @@ async def help(event):
     else:
         await event.edit(f"**All modules are listed below**\
             \nUsage: Type `.help <module name>` to know how it works\
-            \nModules loaded:{len(modules)}")
+            \nModules loaded: {len(modules)}")
         string = ""
         for i in sorted(CMD_HELP):
             string += "`" + str(i)
