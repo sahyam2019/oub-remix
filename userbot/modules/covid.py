@@ -1,9 +1,8 @@
-# Copyright (C) 2019 The Raphielscape Company LLC.
+# Copyright (C) 2020 The Raphielscape Company LLC.
 #
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 
-from datetime import datetime
 from covid import Covid
 from userbot import CMD_HELP
 from userbot.events import register
@@ -22,7 +21,7 @@ async def corona(event):
         output_text += f"`⚰️Deaths      : {country_data['deaths']} (+{country_data['new_deaths']})`\n"
         output_text += f"`😔New Cases   : {country_data['new_cases']}`\n"
         output_text += f"`😇Recovered   : {country_data['recovered']}`\n"
-        output_text += f"`🧪Total tests : {country_data['total_tests']}`\n"
+        output_text += "`🧪Total tests : {country_data['total_tests']}`\n\n"
         output_text += f"Data provided by [Worldometer](https://www.worldometers.info/coronavirus/country/{country})"
     else:
         output_text = "No information yet about this country!"
@@ -43,7 +42,7 @@ async def corona(event):
         output_text += f"`⚰️Deaths      : {country_data['deaths']} (+{country_data['new_deaths']})`\n"
         output_text += f"`😔New Cases   : {country_data['new_cases']}`\n"
         output_text += f"`😇Recovered   : {country_data['recovered']}`\n"
-        output_text += f"`🧪Total tests : N/A`\n"
+        output_text += "`🧪Total tests : N/A`\n\n"
         output_text += f"Data provided by [Worldometer](https://www.worldometers.info/coronavirus/country/{country})"
     else:
         output_text = "No information yet about this country!"
