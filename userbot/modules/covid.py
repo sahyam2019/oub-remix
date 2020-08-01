@@ -21,7 +21,7 @@ async def corona(event):
         output_text += f"`⚰️Deaths      : {country_data['deaths']} (+{country_data['new_deaths']})`\n"
         output_text += f"`😔New Cases   : {country_data['new_cases']}`\n"
         output_text += f"`😇Recovered   : {country_data['recovered']}`\n"
-        output_text += "`🧪Total tests : {country_data['total_tests']}`\n\n"
+        output_text += f"`🧪Total tests : {country_data['total_tests']}`\n\n"
         output_text += f"Data provided by [Worldometer](https://www.worldometers.info/coronavirus/country/{country})"
     else:
         output_text = "No information yet about this country!"
