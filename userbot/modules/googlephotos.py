@@ -120,7 +120,7 @@ async def check_creds(token_file, event):
     return False, None
 
 
-@register(outgoing=True, pattern=r"^\.gpupload( -- (.*))?")
+@register(outgoing=True, pattern=r"^\.gp( -- (.*))?")
 async def upload_google_photos(event):
     if event.fwd_from:
         return

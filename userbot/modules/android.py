@@ -312,7 +312,7 @@ CMD_HELP.update({
 \nUsage: Get latest twrp download for android device.\
 \n\n`.gpsetup` <Try this in botlog group only>\
 \nUsage: Setup auth for Google Photos.\
-\n\n`.gpupload` Reply to photo or video.\
+\n\n`.gp` Reply to photo or video.\
 \nUsage: Upload photo or video to Google.\
 \n\nYou need G_PHOTOS_CLIENT_ID and G_PHOTOS_CLIENT_SECRET.\nGet it from [here](https://j.mp/39lWQQm)"
 })
