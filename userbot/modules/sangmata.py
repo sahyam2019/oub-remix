@@ -9,7 +9,7 @@ from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from userbot import bot, CMD_HELP
 from userbot.events import register
- from asyncio.exceptions import TimeoutError
+from asyncio.exceptions import TimeoutError
 
 @register(outgoing=True, pattern=r"^\.sm(?: |$)(.*)")
 async def lastname(steal):
