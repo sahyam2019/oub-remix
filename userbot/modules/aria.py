@@ -232,6 +232,8 @@ CMD_HELP.update({
     \nUsage: Clears the download queue, deleting all on-going downloads.\
     \n\n`.ashow`\
     \nUsage: Shows progress of the on-going downloads.\
-    \n\n`.tsearch <query>`\
-    \nUsage: Searches torrent."
+    \n\n`.ts` Search query\
+    \nUsage: Search for torrent query and post to dogbin.\
+    \n\n`.tos` Search query.\
+    \nUsage: Search for torrent magnet from query."
 })

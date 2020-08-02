@@ -189,6 +189,14 @@
       "description": "Enter the Google Drive authentication data, as a JSON structure.",
       "required": false
     },
+    "G_PHOTOS_CLIENT_ID": {
+      "description": "get the client id from https://j.mp/39lWQQm",
+      "required": false
+    },
+    "G_PHOTOS_CLIENT_SECRET": {
+      "description": "get the client secret from https://j.mp/39lWQQm",
+      "required": false
+    },
     "BITLY_TOKEN": {
       "description": "Your Bit.ly API key, get it from 'https://bitly.com/a/sign_up'",
       "value": "YOUR TOKEN",
