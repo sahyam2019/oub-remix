@@ -50,7 +50,7 @@ REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob"
 #
 PHOTOS_BASE_URI = "https://photoslibrary.googleapis.com"
 
-TOKEN_FILE_NAME = "GP_DCLXVI.json"
+TOKEN_FILE_NAME = "GP_REMIX.json"
 
 
 @register(outgoing=True, pattern=r"^\.gpsetup")
@@ -130,7 +130,7 @@ async def upload_google_photos(event):
 
     if not event.reply_to_msg_id and not input_str:
         await event.edit(
-            "©️ <b>[DCLXVI]</b>\nNo one gonna help you 🤣🤣🤣🤣", parse_mode="html"
+            "©️ <b>[REMIX]</b>\nNo one gonna help you 🤣🤣🤣🤣", parse_mode="html"
         )
         return
 
