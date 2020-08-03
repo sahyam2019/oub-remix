@@ -62,10 +62,18 @@ async def waifu(animu):
     animus = [6, 8, 12, 20, 30, 32, 33, 38, 40, 41, 42, 51, 58, 59]
     sticcers = await bot.inline_query(
         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}")
-    await sticcers[0].click(animu.chat_id,
-                            reply_to=animu.reply_to_msg_id,
-                            silent=True if animu.is_reply else False,
-                            hide_via=True)
+    try:
+        await sticcers[0].click(
+            animu.chat_id,
+            reply_to=animu.reply_to_msg_id,
+            silent=True if animu.is_reply else False,
+            hide_via=True,
+        )
+    except Exception:
+        return await animu.edit(
+            "`You cannot send inline results in this chat (caused by SendInlineBotResultRequest)`"
+        )
+    await sleep(5)
     await animu.delete()
 
 @register(outgoing=True, pattern=r'^.hz(:? |$)(.*)?')

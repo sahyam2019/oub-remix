@@ -221,31 +221,4 @@ async def nekobot(cat):
     await cat.delete()
     await purge()
 
-@register(outgoing=True, pattern=r"\.tweet(?: |$)(.*)")
-async def tweet(event):
-    text = event.pattern_match.group(1)
-    text = re.sub("&", "", text)
-    reply_to_id = event.message
-    if event.reply_to_msg_id:
-        reply_to_id = await event.get_reply_message()
-    if not text:
-        if event.is_reply:
-            if not reply_to_id.media:
-                text = reply_to_id.message
-            else:
-                await event.edit("`What should i tweet? Give your username and tweet!`")
-                return
-        else:
-            await event.edit("What should i tweet? Give your username and tweet!`")
-            return
-    if "." in text:
-        username, text = text.split(".")
-    else:
-        await event.edit("`What should i tweet? Give your username and tweet!`")
-    await event.edit(f"`Requesting {username} to tweet...`")
-    text = deEmojify(text)
-    img = await tweets(text, username)
-    await event.client.send_file(event.chat_id, img, reply_to=reply_to_id)
-    await event.delete()
-    await purge()
 
