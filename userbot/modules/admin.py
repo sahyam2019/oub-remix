@@ -35,6 +35,7 @@ from telethon.tl.types import (PeerChannel, ChannelParticipantsAdmins,
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from telethon.tl import types, functions
 from userbot.events import register
+from telethon.tl.functions.messages import EditChatDefaultBannedRightsRequest
 
 # =================== CONSTANT ===================
 PP_TOO_SMOL = "`The image is too small`"
