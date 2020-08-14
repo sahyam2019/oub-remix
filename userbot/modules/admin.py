@@ -1191,6 +1191,11 @@ CMD_HELP.update({
 \nUsage: Revokes the person's admin permissions in the chat.\
 \n\n`.ban` <username/reply> <reason (optional)>\
 \nUsage: Bans the person off your chat.\
+\n.lock <all (or) type(s)> or .unlock <all (or) type(s)>\
+\nUsage: Allows you to lock/unlock some common message types in the chat.\
+[NOTE: Requires proper admin rights in the chat !!]\
+\n\nAvailable message types to lock/unlock are: \
+\n`all, msg, media, sticker, gif, game, inline, poll, invite, pin, info`\
 \n\n`.unban` <username/reply>\
 \nUsage: Removes the ban from the person in the chat.\
 \n\n`.mute` <username/reply> <reason (optional)>\
