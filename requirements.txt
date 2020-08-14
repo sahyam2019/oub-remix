@@ -48,7 +48,8 @@ requests>=2.18.4
 search-engine-parser>=0.6.1
 speedtest-cli>=2.0.2
 sqlalchemy>=1.2
-telethon==1.15.0 
+telethon >= 1.16.1
+glitch_this
 telethon-session-sqlalchemy>=0.2.6
 urbandict>=0.5
 wikipedia>=1.4.0

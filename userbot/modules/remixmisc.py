@@ -9,7 +9,7 @@ import html
 from justwatch import JustWatch
 from telethon import *
 from userbot.events import register 
-from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY
+from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY, DEFAULT_BIO, ALIVE_NAME
 from telethon import events
 from telethon.tl import functions, types
 from urllib.parse import quote
@@ -779,8 +779,19 @@ async def xcursive(cursivelite):
             cursivecharacter = cursive[normiefont.index(normiecharacter)]
             string = string.replace(normiecharacter, cursivecharacter)
     await cursivelite.edit(string)
-            
-            
+
+    
+@register(outgoing=True, pattern="^.rclone(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    name = f"{ALIVE_NAME}"
+    bio = f"{DEFAULT_BIO}"
+    n = 1
+    await bot(functions.photos.DeletePhotosRequest(await event.client.get_profile_photos("me", limit= n)))
+    await bot(functions.account.UpdateProfileRequest(about=bio))
+    await bot(functions.account.UpdateProfileRequest(first_name=name))
+    await event.edit("succesfully reverted to your account back")
             
 CMD_HELP.update({
     "remixmisc":
@@ -798,7 +809,7 @@ CMD_HELP.update({
 \nUsage:replay .grab or .grab <count> to grab profile picture.\
 \n\n`.rnupload` filename.extenstion\
 \nUsage:reply to a sticker and type .rnupload xyz.jpg\
-\n\n`.clone` @username\
+\n\n`.clone` @username and '.rclone' for reverting\
 \nUsage: clone you whole freking account except username so stay safe\
 \n\n`.res`\
 \nUsage: type account,channel,group or bot username and reply with .res and check restriction\
