@@ -25,15 +25,13 @@ DEVICES_DATA = 'https://raw.githubusercontent.com/wulan17/' \
 
 @register(outgoing=True, pattern="^.magisk$")
 async def magisk(request):
-    """ magisk latest releases """
+    """magisk latest releases"""
     magisk_dict = {
         "Stable":
         "https://raw.githubusercontent.com/topjohnwu/magisk_files/master/stable.json",
         "Beta":
         "https://raw.githubusercontent.com/topjohnwu/magisk_files/master/beta.json",
-        "Canary (Release)":
-        "https://raw.githubusercontent.com/topjohnwu/magisk_files/canary/release.json",
-        "Canary (Debug)":
+        "Canary":
         "https://raw.githubusercontent.com/topjohnwu/magisk_files/canary/debug.json"
     }
     releases = 'Latest Magisk Releases:\n'
