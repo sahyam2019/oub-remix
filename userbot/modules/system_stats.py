@@ -15,7 +15,7 @@ import platform
 import sys
 from datetime import datetime
 import psutil
-
+import asyncio
 from userbot import CMD_HELP, ALIVE_NAME, BOT_VER, ALIVE_LOGO, bot
 from userbot.events import register
 
@@ -210,7 +210,8 @@ async def amireallyalive(alive):
                              "\nMake sure the link is directed to the logo picture`")
     else:
         await alive.edit(output)
-                         
+        await asyncio.sleep(25)
+        await alive.delete()                
 
 
 
