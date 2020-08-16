@@ -81,7 +81,7 @@ async def _(event):
     else:
         if photo:
             await event.edit("now, Uploading to Telegram ...")
-            if photo.endswith((".mp4" ,".MP4")):
+            if photo.endswith((".mp4" ,".MP4",".gif",".GIF")):
                 #https://t.me/tgbetachat/324694
                 size = os.stat(photo).st_size
                 if size > 2097152:

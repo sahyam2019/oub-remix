@@ -171,10 +171,6 @@
       "description": "Name to show in .alive message",
       "required": false
     },
-    "G_BAN_LOGGER_GROUP": {
-      "description": "Add all sudo bots in your group and type id of that group.",
-      "required": false
-    },
     "G_DRIVE_DATA": {
       "description": "Enter the Google Drive authentication data, as a JSON structure.",
       "required": false
