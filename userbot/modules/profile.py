@@ -6,6 +6,7 @@
 """ Userbot module for changing your Telegram profile details+ now u can steal personal details of user. """
 
 import os
+import logging
 
 from telethon.errors import ImageProcessFailedError, PhotoCropSizeSmallError
 
@@ -71,31 +72,49 @@ async def update_name(name):
 
 
 @register(outgoing=True, pattern="^.setpfp$")
-async def set_profilepic(propic):
-    """ For .profilepic command, change your profile picture in Telegram. """
-    replymsg = await propic.get_reply_message()
+async def _(event):
+    if event.fwd_from:
+        return
+    reply_message = await event.get_reply_message()
+    await event.edit("Downloading Profile Picture to my local ...")
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):  # pylint:disable=E0602
+        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)  # pylint:disable=E0602
     photo = None
-    if replymsg.media:
-        if isinstance(replymsg.media, MessageMediaPhoto):
-            photo = await propic.client.download_media(message=replymsg.photo)
-        elif "image" in replymsg.media.document.mime_type.split('/'):
-            photo = await propic.client.download_file(replymsg.media.document)
-        else:
-            await propic.edit(INVALID_MEDIA)
-
-    if photo:
-        try:
-            await propic.client(
-                UploadProfilePhotoRequest(await
-                                          propic.client.upload_file(photo)))
-            os.remove(photo)
-            await propic.edit(PP_CHANGED)
-        except PhotoCropSizeSmallError:
-            await propic.edit(PP_TOO_SMOL)
-        except ImageProcessFailedError:
-            await propic.edit(PP_ERROR)
-        except PhotoExtInvalidError:
-            await propic.edit(INVALID_MEDIA)
+    try:
+        photo = await bot.download_media(  # pylint:disable=E0602
+            reply_message,
+            TEMP_DOWNLOAD_DIRECTORY  # pylint:disable=E0602
+        )
+    except Exception as e:  # pylint:disable=C0103,W0703
+        await event.edit(str(e))
+    else:
+        if photo:
+            await event.edit("now, Uploading to Telegram ...")
+            if photo.endswith((".mp4" ,".MP4")):
+                #https://t.me/tgbetachat/324694
+                size = os.stat(photo).st_size
+                if size > 2097152:
+                    await event.edit("size must be less than 2 mb")
+                    os.remove(photo)
+                    return
+                catpic = None
+                catvideo = await bot.upload_file(photo)
+            else:
+                catpic = await bot.upload_file(photo)  # pylint:disable=E0602
+                catvideo = None
+            try:
+                await bot(functions.photos.UploadProfilePhotoRequest(
+                    file = catpic,
+                    video = catvideo,
+                    video_start_ts =  0.01               ))
+            except Exception as e:  # pylint:disable=C0103,W0703
+                await event.edit(str(e))
+            else:
+                await event.edit("My profile picture was succesfully changed")
+    try:
+        os.remove(photo)
+    except Exception as e:  # pylint:disable=C0103,W0703
+        logging.warn(str(e))  # pylint:
 
 
 @register(outgoing=True, pattern="^.setbio (.*)")

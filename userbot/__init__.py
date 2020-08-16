@@ -7,7 +7,7 @@
 
 import os
 import re
-
+import time
 from sys import version_info
 from logging import basicConfig, getLogger, INFO, DEBUG
 from distutils.util import strtobool as sb
@@ -308,6 +308,8 @@ with bot:
             "BOTLOG_CHATID environment variable isn't valid"
             "Please generate proper group id and set.You can ask in @PPE_Support if you need help")
         quit(1)
+
+StartTime = time.time()        
 
 # Global Variables
 COUNT_MSG = 0
