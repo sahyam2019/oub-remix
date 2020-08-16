@@ -8,6 +8,7 @@
 import os
 import logging
 
+from telethon.tl import functions
 from telethon.errors import ImageProcessFailedError, PhotoCropSizeSmallError
 
 from telethon.errors.rpcerrorlist import (PhotoExtInvalidError,

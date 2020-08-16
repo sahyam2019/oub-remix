@@ -16,7 +16,6 @@ import sys
 import time
 from datetime import datetime
 import psutil
-import asyncio
 from userbot import CMD_HELP, ALIVE_NAME, BOT_VER, ALIVE_LOGO, bot, StartTime
 from userbot.events import register
 

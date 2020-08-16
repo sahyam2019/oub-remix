@@ -1,19 +1,7 @@
 import os
-import re
-import time
 import shlex
 import asyncio
-import requests 
-import subprocess
-from PIL import Image
-from asyncio import sleep
-from random import choice
-from telethon import events
 from os.path import basename
-from bs4 import BeautifulSoup
-from validators.url import url
-from emoji import get_emoji_regexp
-from telethon.tl.types import Channel
 from typing import Tuple, List, Optional
 
 #For using gif , animated stickers and videos in some parts , this function takes  take a screenshot and stores ported from userge
