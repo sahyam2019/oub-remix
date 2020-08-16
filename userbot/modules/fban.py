@@ -210,15 +210,15 @@ async def delf(event):
     await event.edit("**Disconnected from all connected federations!**")
 
 
-CMD_HELP.update({"fban": ".fban <id/username> <reason>"
+CMD_HELP.update({"fban": "`.fban` <id/username> <reason>"
                  "\nUsage: Bans user from connected federations."
                  "\nYou can reply to the user whom you want to fban or manually pass the username/id."
-                 "\n\n.unfban <id/username> <reason>"
+                 "\n\n`.unfban` <id/username> <reason>"
                  "\nUsage: Same as fban but unbans the user"
-                 "\n\n.addf <name>"
+                 "\n\n`.addf` <name>"
                  "\nUsage: Adds current group and stores it as <name> in connected federations."
                  "\nAdding one group is enough for one federation."
-                 "\n\n.delf"
+                 "\n\n`.delf`"
                  "\nUsage: Removes current group from connected federations."
-                 "\n\n.listf"
+                 "\n\n`.listf`"
                  "\nUsage: Lists all connected federations by specified name."})
