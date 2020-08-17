@@ -241,7 +241,7 @@ async def amireallyalive(alive):
                              "\nMake sure the link is directed to the logo picture`")
     else:
         await alive.edit(output)
-        await asyncio.sleep(25)
+        asyncio.sleep(25)
         await alive.delete()
 
 @register(outgoing=True, pattern="^.aliveu")
