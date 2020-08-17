@@ -230,7 +230,7 @@ async def amireallyalive(alive):
              f"`User 👨‍🚀`: {DEFAULTUSER} \n"
              f"`Maintainer 🏄‍♂️`: @heyworld \n"
              f"`Bot Uptime ⏱️`: {uptime} \n"
-             f"====================================\n")
+             f"`†Developed by Akash using OUB project.†`")
     if ALIVE_LOGO:
         try:
             logo = ALIVE_LOGO
