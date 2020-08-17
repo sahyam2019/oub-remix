@@ -234,6 +234,7 @@ async def amireallyalive(alive):
     if ALIVE_LOGO:
         try:
             logo = ALIVE_LOGO
+            await alive.delete()
             pic_alive = await bot.send_file(alive.chat_id, logo, caption=output)
             await asyncio.sleep(25)
             await pic_alive.delete()
