@@ -831,7 +831,5 @@ CMD_HELP.update({
 \nExample:`.hc scorpio`\
 \nUsage:Gets your horoscope.\
 \n\n`.tweet` <username>.<tweet>\
-\nUsage:Create tweet with custom username.\
-\n\n`.twt` **username**\
-\nUsage:Scrap latest tweet from someone."
+\nUsage:Create tweet with custom username."
 })
