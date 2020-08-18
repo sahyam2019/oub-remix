@@ -226,8 +226,8 @@ async def disapprovepm(disapprvpm):
         aname = await disapprvpm.client.get_entity(disapprvpm.chat_id)
         name0 = str(aname.first_name)
 
-   await disapprvpm.edit(
-       f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Disaproved to PM!`")
+    # await disapprvpm.edit(
+    #   f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Disaproved to PM!`")
    await disapprvpm.delete()
 
     if BOTLOG:
