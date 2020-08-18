@@ -10,6 +10,7 @@ import sys
 from asyncio import create_subprocess_shell as asyncsubshell
 from asyncio import subprocess as asyncsub
 from os import remove
+import asyncio
 from time import gmtime, strftime
 from traceback import format_exc
 
@@ -150,6 +151,9 @@ def register(**args):
                             "`Sorry,userbot has crashed.\
                         \nCheck botlog group for error logs.`"
                         )
+                        await asyncio.sleep(3.5)
+                        await check.delete()
+
 
                     await check.client.send_file(send_to,
                                                  "error.log",
