@@ -147,12 +147,12 @@ def register(**args):
                         file.write(ftext)
 
                     if LOGSPAMMER:
-                        await check.respond(
+                        sorry_msg = await check.respond(
                             "`Sorry,userbot has crashed.\
                         \nCheck botlog group for error logs.`"
                         )
                         await asyncio.sleep(3.5)
-                        await check.delete()
+                        await sorry_msg.delete()
 
 
                     await check.client.send_file(send_to,
