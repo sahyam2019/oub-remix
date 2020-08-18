@@ -227,7 +227,7 @@ async def devices_specifications(request):
         brand = textx.text.split(' ')[0]
         device = ' '.join(textx.text.split(' ')[1:])
     else:
-        return await request.edit("`Usage: .specs <brand> <device>`")
+        return await request.edit("`Usage: .spec <brand> <device>`")
     all_brands = BeautifulSoup(
         get('https://www.devicespecifications.com/en/brand-more').content,
         'lxml').find('div', {
