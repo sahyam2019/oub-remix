@@ -26,7 +26,7 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 UNAPPROVED_MSG = (
-"`Hello, I'm Akash's userbot. You aren't approved to PM yet.\n\nBeing an unapproved user, I can allow you to send only 3 messages to Akash, if you exceed this limit, you will be considered as spammer and I will block you (on behalf of Akash).`/n /n∆ auto-generated message ∆ \n")
+"`Hello, I'm Akash's userbot. You aren't approved to PM yet.\n\nBeing an unapproved user, I can allow you to send only 3 messages to Akash, if you exceed this limit, you will be considered as spammer and I will block you (on behalf of Akash).`\n\n∆ auto-generated message ∆ \n")
 # =================================================================
 
 NO_PM_LOG_USERS = []
