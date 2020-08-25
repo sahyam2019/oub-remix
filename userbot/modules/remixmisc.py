@@ -831,5 +831,8 @@ CMD_HELP.update({
 \nExample:`.hc scorpio`\
 \nUsage:Gets your horoscope.\
 \n\n`.tweet` <username>.<tweet>\
-\nUsage:Create tweet with custom username."
+\nUsage:Create tweet with custom username.\
+\n\nmention: Mention users with a custom name.\
+\nUsage:`Hi @ender1324[bluid boi]`\
+\nResult:Hi [bluid boi](tg://resolve?domain=ender1324)."
 })

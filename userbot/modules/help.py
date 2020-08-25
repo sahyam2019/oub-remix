@@ -7,6 +7,7 @@
 
 from userbot import CMD_HELP
 from userbot.events import register
+import asyncio
 
 modules = CMD_HELP
 
@@ -28,3 +29,5 @@ async def help(event):
             string += "`" + str(i)
             string += "`  -  "
         await event.reply(string)
+        await asyncio.sleep(300)
+        await event.delete()
