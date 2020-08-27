@@ -268,6 +268,20 @@ CONGOSTR = [
     "`Congratulations and best wishes for your next adventure!”`",
     "`So pleased to see you accomplishing great things.`",
     "`Feeling so much joy for you today. What an impressive achievement!`",
+    "`Congrats! This is not a new surprise for us to see your success. Success is all your right from day one when you started achieving.`",
+    "`Congratulations for your fabulous victory. You deserve it every bit.`",
+    "`Congratulations on your success.`",
+    "`Congratulations for making your dreams come true.`",
+    "`Congratulations for achieving so much on your own steam.`",
+    "`A well earned promotion to a well deserved person Congratulations.`",
+    "`Congrats Am in awe of you for the rest of my life.`",
+    "`May this moment last forever Congratulations.`",
+    "`Congratulations for now and bright future.`",
+    "`Your success deserves celebration and a big congratulation.`",
+    "`You deserve the biggest congratulation for all your hard works!`",
+    "`Congratulations Wishing you all the excitement and very happiness.`",
+    "`You’re doing amazing Congrats!`",
+    "`Congrats This calls for a huge celebration!`",
 ]
 
 GDNOON = [
