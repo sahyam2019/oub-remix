@@ -98,13 +98,3 @@ async def glitch(event):
         if files and os.path.exists(files):
             os.remove(files)
 
-CMD_HELP.update({
-    "glitch":
-    "**SYNTAX : **`.glitch` reply to media file\
-    \n**USAGE :** glitches the given mediafile(gif , stickers , image, videos) to a gif and glitch range is from 1 to 8.\
-    If nothing is mentioned then by default it is 2\
-    \n\n**SYNTAX : **`.glitchs` reply to media file\
-    \n**USAGE :** glitches the given mediafile(gif , stickers , image, videos) to a sticker and glitch range is from 1 to 8.\
-    If nothing is mentioned then by default it is 2\
-    "
-})

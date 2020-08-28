@@ -834,5 +834,11 @@ CMD_HELP.update({
 \nUsage:Create tweet with custom username.\
 \n\nmention: Mention users with a custom name.\
 \nUsage:`Hi @ender1324[bluid boi]`\
-\nResult:Hi [bluid boi](tg://resolve?domain=ender1324)."
+\nResult:Hi [bluid boi](tg://resolve?domain=ender1324).\
+\n\n`.glitch` reply to media file\
+\nUsage:glitches the given mediafile(gif , stickers , image, videos) to a gif and glitch range is from 1 to 8.\
+If nothing is mentioned then by default it is 2\
+\n\n`.glitchs` reply to media file\
+\nUsage:glitches the given mediafile(gif , stickers , image, videos) to a sticker and glitch range is from 1 to 8.\
+If nothing is mentioned then by default it is 2."     
 })
