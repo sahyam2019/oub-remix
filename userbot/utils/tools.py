@@ -14,7 +14,7 @@ import math
 import os.path
 import sys
 import time
-from typing import Tuple, Union
+from typing import Tuple, Union, Optional
 from userbot import bot
 
 from telethon import errors
