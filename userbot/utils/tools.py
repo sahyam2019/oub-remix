@@ -7,15 +7,17 @@
 import re
 import hashlib
 import asyncio
+import shlex
 import datetime
 import logging
 import os
+from os.path import basename
 import math
 import os.path
 import sys
 import time
 from typing import Tuple, Union, Optional
-from userbot import bot
+from userbot import bot, LOGS
 
 from telethon import errors
 from telethon.tl import types
@@ -98,11 +100,11 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
 
 async def take_screen_shot(video_file: str, duration: int, path: str = '') -> Optional[str]:
     """ take a screenshot """
-    _LOG.info('[[[Extracting a frame from %s ||| Video duration => %s]]]', video_file, duration)
+    LOGS.info('[[[Extracting a frame from %s ||| Video duration => %s]]]', video_file, duration)
     ttl = duration // 2
-    thumb_image_path = path or os.path.join(userge.Config.DOWN_PATH, f"{basename(video_file)}.jpg")
+    thumb_image_path = path or os.path.join("./temp/", f"{basename(video_file)}.jpg")
     command = f"ffmpeg -ss {ttl} -i '{video_file}' -vframes 1 '{thumb_image_path}'"
     err = (await runcmd(command))[1]
     if err:
-        _LOG.error(err)
+        LOGS.error(err)
     return thumb_image_path if os.path.exists(thumb_image_path) else None

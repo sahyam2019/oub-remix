@@ -9,7 +9,7 @@ import os
 from PIL import Image
 from userbot.utils import take_screen_shot, runcmd
 from glitch_this import ImageGlitcher
-from userbot import bot, CMD_HELP
+from userbot import bot, CMD_HELP, LOGS
 from userbot.events import register
 
 @register(pattern="^.(glitch|glitchs)(?: |$)(.*)", outgoing=True)
