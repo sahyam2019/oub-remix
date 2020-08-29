@@ -12,7 +12,6 @@ dnspython
 emoji
 PyPDF2
 cryptg
-patool
 gitpython
 asyncurban
 google-api-python-client
@@ -34,7 +33,6 @@ humanize
 lxml
 oauth2client
 Pillow
-regex
 psycopg2
 psycopg2-binary
 pybase64
@@ -59,8 +57,6 @@ git+https://github.com/voins/google-images-download.git@2cd68173c961324a2c41c61e
  git+https://github.com/LonamiWebs/Telethon
 lyricsgenius
 redis
-PyDrive2
-pyDownload
 beautifulsoup4
 youtube-dl
 PyGithub
@@ -75,10 +71,6 @@ selenium
 telegraph
 python-dateutil
 pyfiglet   
-jotquote
-csvfaker
-git+https://github.com/ahupp/python-magic
-pytube
 pymongo[srv]
 youtube_search
 justwatch
@@ -88,5 +80,4 @@ bitlyshortener
 geopy
 validators
 twitter_scraper
-pyaztro
 glitch_this
