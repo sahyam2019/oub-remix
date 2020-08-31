@@ -80,6 +80,7 @@ justwatch
 deezloader
 zipfile38
 bitlyshortener
+validators
 geopy
 glitch_this
 twitter_scraper
