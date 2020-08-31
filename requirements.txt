@@ -63,7 +63,6 @@ PyGithub
 bs4
 covid
 base
-pip
 selenium
 # SpeechRecognition>=3.4.6
 # wheel>=0.30.0a0
