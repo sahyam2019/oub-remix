@@ -83,3 +83,4 @@ geopy
 glitch_this
 twitter_scraper
 pyaztro
+jikanpy
