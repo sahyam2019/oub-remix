@@ -171,6 +171,8 @@ async def upstream(event):
         await event.edit(
             f'\n`{TERM_ALIAS} is` **updated-af🤘🤘**\n`BRANCH:`**{UPSTREAM_REPO_BRANCH}**\n')
         return repo.__del__()
+        await asyncio.sleep(7.5)
+        await event.delete()
 
     if conf is None and force_update is False:
         changelog_str = f'**New UPDATE available for [{ac_br}]:\n\nCHANGELOG:**\n`{changelog}`'
