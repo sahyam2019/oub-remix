@@ -28,6 +28,7 @@ httplib2>=0.18.0
 humanize 
 lxml
 oauth2client
+pendulum
 Pillow>=6.0.0
 psycopg2
 psycopg2-binary
