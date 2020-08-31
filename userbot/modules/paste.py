@@ -19,7 +19,7 @@ from requests import exceptions, get, post
 from userbot.events import register
 
 def progress(current, total):
-    logger.info("Downloaded {} of {}\nCompleted {}".format(current, total, (current / total) * 100))
+    logging.info("Downloaded {} of {}\nCompleted {}".format(current, total, (current / total) * 100))
     
 
 
@@ -214,7 +214,7 @@ async def _(event):
 
 
 
-@register(outgoing=True, pattern=r"^.paster(?: |$)([\s\S]*)")
+@register(outgoing=True, pattern="^.paster(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -277,6 +277,5 @@ CMD_HELP.update({
 \n\n`.iffuci` <text/reply>\
 \nUsage: Create a paste or a shortened url using iffuci\
 \n\n`.paster` <text/reply>\
-\nUsage: Create a instant view or a paste it in telegraph file\
-  "
+\nUsage: Create a instant view or a paste it in telegraph file."
 })  
