@@ -62,7 +62,6 @@ youtube-dl
 PyGithub
 bs4
 covid
-base
 selenium
 # SpeechRecognition>=3.4.6
 # wheel>=0.30.0a0
