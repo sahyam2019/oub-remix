@@ -84,4 +84,3 @@ glitch_this
 twitter_scraper
 pyaztro
 jikanpy
-pendulum
