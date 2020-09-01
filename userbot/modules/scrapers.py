@@ -14,7 +14,6 @@ import shutil
 import json
 import requests
 from os import popen
-from userbot.utils import chrome, options
 import urllib.parse
 import logging
 from bs4 import BeautifulSoup
@@ -27,7 +26,6 @@ import qrcode
 import barcode
 from barcode.writer import ImageWriter
 import emoji
-from googletrans import Translator
 from time import sleep
 from html import unescape
 from re import findall
@@ -40,7 +38,6 @@ from telethon import events
 from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
 from urbandict import define
-from requests import get
 from requests import get, post, exceptions
 from search_engine_parser import GoogleSearch
 from googleapiclient.discovery import build
@@ -61,7 +58,7 @@ from asyncio import sleep
 from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, YOUTUBE_API_KEY, CHROME_DRIVER, GOOGLE_CHROME_BIN, bot, REM_BG_API_KEY, TEMP_DOWNLOAD_DIRECTORY, OCR_SPACE_API_KEY, LOGS
 from userbot.events import register
 from telethon.tl.types import DocumentAttributeAudio
-from userbot.utils import progress, humanbytes, time_formatter, chrome, googleimagesdownload
+from userbot.utils import progress, humanbytes, time_formatter, chrome, options, googleimagesdownload
 import subprocess
 from datetime import datetime
 import asyncurban
