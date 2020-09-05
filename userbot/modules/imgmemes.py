@@ -1,7 +1,7 @@
 #imported from catuserbot by @RoyalBoyPriyanshu and @DeletedUser420 also thanks  @AbhinavShinde
 """  Some Modules Imported by @Nitesh_231 :) & again @heyworld roks *_* """
 
-import os, requests, re, nekos, pybase64, random, asyncio
+import os, requests, re, pybase64, random, asyncio
 from random import choice
 from bs4 import BeautifulSoup
 from re import sub
