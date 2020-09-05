@@ -1,14 +1,14 @@
-#imported from github.com/ravana69/PornHub to userbot by @heyworld 
+#imported from github.com/ravana69/PornHub to userbot by @heyworld
 #please don't nuke my credits 😓
 import requests
-import bs4 
+import bs4
 import os
 import asyncio
 import time
 import html
 from justwatch import JustWatch
 from telethon import *
-from userbot.events import register 
+from userbot.events import register
 from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY, DEFAULT_BIO, ALIVE_NAME
 from telethon import events
 from telethon.tl import functions, types
@@ -70,7 +70,7 @@ async def apk(e):
         await e.edit("Exception Occured:- "+str(err))
 
 
-        
+
 @register(outgoing=True, pattern="^.undlt(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
@@ -84,7 +84,7 @@ async def _(event):
         await event.edit("You need administrative permissions in order to do this command")
         await asyncio.sleep(3)
         await event.delete()
-        
+
 @register(outgoing=True, pattern="^.calc(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
@@ -117,7 +117,7 @@ async def _(event):
         await event.edit("Solution -->\n" + exp + "\n" + str(final_term1 % final_term2))
     else:
         await event.edit("use .calc help")
-        
+
 @register(outgoing=True, pattern="^.xcd(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
@@ -163,8 +163,8 @@ Year: {}""".format(img, input_str, xkcd_link, safe_title, alt, day, month, year)
         await event.edit(output_str, link_preview=True)
     else:
         await event.edit("xkcd n.{} not found!".format(xkcd_id))
-        
-        
+
+
 @register(outgoing=True, pattern="^.remove(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
@@ -311,8 +311,8 @@ async def ban_user(chat_id, i, rights):
         return True, None
     except Exception as exc:
         return False, str(exc)
-    
-    
+
+
 @register(outgoing=True, pattern="^.rnupload(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
@@ -356,8 +356,8 @@ async def _(event):
     else:
         await event.edit("Syntax // .rnupload filename.extension as reply to a Telegram media")
 
-    
-       
+
+
 @register(outgoing=True, pattern="^.grab(?: |$)(.*)")
 async def potocmd(event):
         """Gets the profile photos of replied users, channels or chats"""
@@ -398,7 +398,7 @@ async def _(event):
     if not event.reply_to_msg_id:
        await event.edit("```Reply to a Link.```")
        return
-    reply_message = await event.get_reply_message() 
+    reply_message = await event.get_reply_message()
     if not reply_message.text:
        await event.edit("```Reply to a Link```")
        return
@@ -406,20 +406,20 @@ async def _(event):
     sender = reply_message.sender
     await event.edit("```Processing```")
     async with event.client.conversation(chat) as conv:
-          try:     
+          try:
               response = conv.wait_event(events.NewMessage(incoming=True,from_users=894227130))
               await event.client.forward_messages(chat, reply_message)
-              response = await response 
-          except YouBlockedUserError: 
+              response = await response
+          except YouBlockedUserError:
               await event.reply("`RIP Check Your Blacklist Boss`")
               return
           if response.text.startswith(""):
              await event.edit("Am I Dumb Or Am I Dumb?")
-          else: 
+          else:
              await event.delete()
              await event.client.send_message(event.chat_id, response.message)
-            
-            
+
+
 @register(outgoing=True, pattern="^.clone(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
@@ -531,7 +531,7 @@ async def get_full_user(event):
                 return replied_user, None
             except Exception as e:
                 return None, e
-            
+
 
 def get_stream_data(query):
     stream_data = {}
@@ -564,7 +564,7 @@ def get_stream_data(query):
     for provider in movie['offers']:
         provider_ = get_provider(provider['urls']['standard_web'])
         available_streams[provider_] = provider['urls']['standard_web']
-    
+
     stream_data['providers'] = available_streams
 
     scoring = {}
@@ -607,12 +607,12 @@ async def _(event):
         imdb_score = scores['imdb']
     except KeyError:
         imdb_score = None
-    
+
     try:
         tmdb_score = scores['tmdb']
     except KeyError:
         tmdb_score = None
-        
+
     stream_providers = streams['providers']
     if release_date is None:
         release_date = release_year
@@ -628,12 +628,12 @@ async def _(event):
         if 'sonyliv' in link:
             link = link.replace(" ","%20")
         output_ += f"[{pretty(provider)}]({link})\n"
-    
+
     await bot.send_file(event.chat_id, caption=output_, file=thumb_link,force_document=False,allow_cache=False, silent=True)
     await event.delete()
 
 #credits:
-#Ported from Saitama Bot. 
+#Ported from Saitama Bot.
 #By :- @PhycoNinja13b
 #Modified by :- @kirito6969,@deleteduser420
 @register(outgoing=True, pattern="^.weeb(?: |$)(.*)")
@@ -642,7 +642,7 @@ async def weebify(event):
     args = event.pattern_match.group(1)
     if not args:
         get = await event.get_reply_message()
-        args = get.text   
+        args = get.text
     if not args:
         await event.edit("`What I am Supposed to Weebify U Dumb`")
         return
@@ -652,18 +652,18 @@ async def weebify(event):
             weebycharacter = weebyfont[normiefont.index(normiecharacter)]
             string = string.replace(normiecharacter, weebycharacter)
     await event.edit(string)
-   
+
 
 boldfont = ['𝗮', '𝗯', '𝗰', '𝗱', '𝗲', '𝗳', '𝗴', '𝗵', '𝗶', '𝗷', '𝗸', '𝗹', '𝗺', '𝗻', '𝗼', '𝗽', '𝗾', '𝗿', '𝘀', '𝘁', '𝘂',
               '𝘃', '𝘄', '𝘅', '𝘆', '𝘇']
-   
+
 @register(outgoing=True, pattern="^.bold(?: |$)(.*)")
 async def thicc(bolded):
 
     args = bolded.pattern_match.group(1)
     if not args:
         get = await bolded.get_reply_message()
-        args = get.text   
+        args = get.text
     if not args:
         await bolded.edit("`What I am Supposed to bold for U Dumb`")
         return
@@ -673,18 +673,18 @@ async def thicc(bolded):
             boldcharacter = boldfont[normiefont.index(normiecharacter)]
             string = string.replace(normiecharacter, boldcharacter)
     await bolded.edit(string)
-    
-    
+
+
 medievalbold = ['𝖆', '𝖇', '𝖈', '𝖉', '𝖊', '𝖋', '𝖌', '𝖍', '𝖎', '𝖏', '𝖐', '𝖑', '𝖒', '𝖓', '𝖔', '𝖕', '𝖖', '𝖗', '𝖘', '𝖙', '𝖚',
                 '𝖛', '𝖜', '𝖝', '𝖞', '𝖟']
-   
+
 @register(outgoing=True, pattern="^.medibold(?: |$)(.*)")
 async def mediv(medievalx):
 
     args = medievalx.pattern_match.group(1)
     if not args:
         get = await medievalx.get_reply_message()
-        args = get.text   
+        args = get.text
     if not args:
         await medievalx.edit("`What I am Supposed to medieval bold for U Dumb`")
         return
@@ -694,18 +694,18 @@ async def mediv(medievalx):
             medievalcharacter = medievalbold[normiefont.index(normiecharacter)]
             string = string.replace(normiecharacter, medievalcharacter)
     await medievalx.edit(string)
-    
-    
+
+
 doublestruckt = ['𝕒', '𝕓', '𝕔', '𝕕', '𝕖', '𝕗', '𝕘', '𝕙', '𝕚', '𝕛', '𝕜', '𝕝', '𝕞', '𝕟', '𝕠', '𝕡', '𝕢', '𝕣', '𝕤', '𝕥', '𝕦',
                 '𝕧', '𝕨', '𝕩', '𝕪', '𝕫']
-   
+
 @register(outgoing=True, pattern="^.doublestruck(?: |$)(.*)")
 async def doublex(doublestrucktx):
 
     args = doublestrucktx.pattern_match.group(1)
     if not args:
         get = await doublestrucktx.get_reply_message()
-        args = get.text   
+        args = get.text
     if not args:
         await doublestrucktx.edit("`What I am Supposed to double struck for U Dumb`")
         return
@@ -715,18 +715,18 @@ async def doublex(doublestrucktx):
             strucktcharacter = doublestruckt[normiefont.index(normiecharacter)]
             string = string.replace(normiecharacter, strucktcharacter)
     await doublestrucktx.edit(string)
-    
-    
+
+
 cursiveboldx = ['𝓪', '𝓫', '𝓬', '𝓭', '𝓮', '𝓯', '𝓰', '𝓱', '𝓲', '𝓳', '𝓴', '𝓵', '𝓶', '𝓷', '𝓸', '𝓹', '𝓺', '𝓻', '𝓼', '𝓽', '𝓾',
-                '𝓿', '𝔀', '𝔁', '𝔂', '𝔃']  
-   
+                '𝓿', '𝔀', '𝔁', '𝔂', '𝔃']
+
 @register(outgoing=True, pattern="^.curbold(?: |$)(.*)")
 async def cursive2(cursivebolded):
 
     args = cursivebolded.pattern_match.group(1)
     if not args:
         get = await cursivebolded.get_reply_message()
-        args = get.text   
+        args = get.text
     if not args:
         await cursivebolded.edit("`What I am Supposed to cursive bold for U Dumb`")
         return
@@ -736,18 +736,18 @@ async def cursive2(cursivebolded):
             cursiveboldcharacter = cursiveboldx[normiefont.index(normiecharacter)]
             string = string.replace(normiecharacter, cursiveboldcharacter)
     await cursivebolded.edit(string)
-    
-    
+
+
 medival2 = ['𝔞', '𝔟', '𝔠', '𝔡', '𝔢', '𝔣', '𝔤', '𝔥', '𝔦', '𝔧', '𝔨', '𝔩', '𝔪', '𝔫', '𝔬', '𝔭', '𝔮', '𝔯', '𝔰', '𝔱', '𝔲',
             '𝔳', '𝔴', '𝔵', '𝔶', '𝔷']
-   
+
 @register(outgoing=True, pattern="^.medi(?: |$)(.*)")
 async def medival22(medivallite):
 
     args = medivallite.pattern_match.group(1)
     if not args:
         get = await medivallite.get_reply_message()
-        args = get.text   
+        args = get.text
     if not args:
         await medivallite.edit("`What I am Supposed to medival for U Dumb`")
         return
@@ -757,19 +757,19 @@ async def medival22(medivallite):
             medivalxxcharacter = medival2[normiefont.index(normiecharacter)]
             string = string.replace(normiecharacter, medivalxxcharacter)
     await medivallite.edit(string)
-    
-    
-    
+
+
+
 cursive = ['𝒶', '𝒷', '𝒸', '𝒹', '𝑒', '𝒻', '𝑔', '𝒽', '𝒾', '𝒿', '𝓀', '𝓁', '𝓂', '𝓃', '𝑜', '𝓅', '𝓆', '𝓇', '𝓈', '𝓉', '𝓊',
            '𝓋', '𝓌', '𝓍', '𝓎', '𝓏']
-   
+
 @register(outgoing=True, pattern="^.cur(?: |$)(.*)")
 async def xcursive(cursivelite):
 
     args = cursivelite.pattern_match.group(1)
     if not args:
         get = await cursivelite.get_reply_message()
-        args = get.text   
+        args = get.text
     if not args:
         await cursivelite.edit("`What I am Supposed to cursive for U Dumb`")
         return
@@ -780,7 +780,7 @@ async def xcursive(cursivelite):
             string = string.replace(normiecharacter, cursivecharacter)
     await cursivelite.edit(string)
 
-    
+
 @register(outgoing=True, pattern="^.rclone(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
@@ -792,7 +792,7 @@ async def _(event):
     await bot(functions.account.UpdateProfileRequest(about=bio))
     await bot(functions.account.UpdateProfileRequest(first_name=name))
     await event.edit("succesfully reverted to your account back")
-            
+
 CMD_HELP.update({
     "remixmisc":
     "`.app`\
@@ -826,7 +826,9 @@ CMD_HELP.update({
 \n\n`.ls` <directory>.\
 \nUsage:Get list file inside directory.\
 \n\n<`.modi` or `.trump` or `.cmm` or `.kanna`> <text>\
-\n\nUsage: just for fun.\
+\nUsage: Just for Fun.\
+\n\n<`.ph` or `.threat` or `.trash` or `.trap` >\
+\nUsage: Reply to image or sticker and see magik.\
 \n\n`.hc` **sign**\
 \nExample:`.hc scorpio`\
 \nUsage:Gets your horoscope.\
@@ -840,5 +842,5 @@ CMD_HELP.update({
 If nothing is mentioned then by default it is 2\
 \n\n`.glitchs` reply to media file\
 \nUsage:glitches the given mediafile(gif , stickers , image, videos) to a sticker and glitch range is from 1 to 8.\
-If nothing is mentioned then by default it is 2."     
+If nothing is mentioned then by default it is 2."
 })
