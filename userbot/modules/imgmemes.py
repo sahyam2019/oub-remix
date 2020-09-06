@@ -460,7 +460,7 @@ async def phub(event):
     if "|" in input_str:
         username, text = input_str.split("|")
     else:
-        await event.edit(" Usage: reply to image or sticker with `.phub (username)|(text in comment)`")
+        await event.edit(" Usage: reply to image or sticker with `.ph (username)|(text in comment)`")
         return
     replied = await event.get_reply_message()
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
