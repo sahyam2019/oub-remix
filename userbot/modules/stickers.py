@@ -28,7 +28,7 @@ PACK_DOESNT_EXIST = "  A <strong>Telegram</strong> user has created the <strong>
 @register(outgoing=True, pattern="^.kang($| )?((?![0-9]).+?)? ?([0-9]*)?")
 async def kang(event):
     """ Function for .kang command, create a sticker pack and add stickers. """
-    await event.edit('`Kanging...`')
+    await event.edit('`Hold on..stealing the quoted sticker`😅')
     user = await bot.get_me()
     pack_username = ''
     if not user.username:
@@ -70,11 +70,12 @@ async def kang(event):
         if message.file.emoji: # ...but the sticker has one
             emoji = message.file.emoji
         else: # ...and the sticker doesn't have one either
-            emoji = "🤔"
+            emoji = "😶"
 
     packname = f"a{user.id}_by_{pack_username}_{number}{'_anim' if is_anim else ''}"
-    packtitle = (f"@{user.username or user.first_name}'s remix Pack "
-                f"{number}{' animated' if is_anim else ''}")
+    packtitle = (f"Eloquent{' animated' if is_anim else ''}" 
+                 f"Stickers - Vol.{number}"
+                 f" By @{user.username or user.first_name}")
     response = urllib.request.urlopen(
             urllib.request.Request(f'http://t.me/addstickers/{packname}'))
     htmlstr = response.read().decode("utf8").split('\n')
@@ -111,8 +112,9 @@ async def kang(event):
                 # Switch to a new pack, create one if it doesn't exist
                 number += 1
                 packname = f"a{user.id}_by_{pack_username}_{number}{'_anim' if is_anim else ''}"
-                packtitle = (f"@{user.username or user.first_name}'s remix Pack "
-                            f"{number}{' animated' if is_anim else ''}")
+                packtitle = (f"Eloquent{' animated' if is_anim else ''}" 
+                             f"Stickers - Vol.{number}"
+                             f" By @{user.username or user.first_name}")
 
                 await event.edit(
                     f"`Switching to Pack {number} due to insufficient space in Pack {number-1}.`"
