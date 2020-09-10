@@ -74,7 +74,7 @@ async def kang(event):
 
     packname = f"a{user.id}_by_{pack_username}_{number}{'_anim' if is_anim else ''}"
     packtitle = (f"Eloquent{' animated' if is_anim else ''}" 
-                 f"Stickers - Vol.{number}"
+                 f" Stickers - Vol.{number}"
                  f" By @{user.username or user.first_name}")
     response = urllib.request.urlopen(
             urllib.request.Request(f'http://t.me/addstickers/{packname}'))
@@ -91,7 +91,7 @@ async def kang(event):
             "`remix couldn't mute the Stickers bot, beware of notification spam.`")
 
     if new_pack:
-        await event.edit("`This remix Sticker Pack doesn't exist! Creating a new pack...`")
+        await event.edit("`Sticker Pack doesn't exist! Creating a new pack...`")
         await newpack(is_anim, sticker, emoji, packtitle, packname)
     else:
         async with bot.conversation('t.me/Stickers') as conv:
@@ -113,7 +113,7 @@ async def kang(event):
                 number += 1
                 packname = f"a{user.id}_by_{pack_username}_{number}{'_anim' if is_anim else ''}"
                 packtitle = (f"Eloquent{' animated' if is_anim else ''}" 
-                             f"Stickers - Vol.{number}"
+                             f" Stickers - Vol.{number}"
                              f" By @{user.username or user.first_name}")
 
                 await event.edit(
