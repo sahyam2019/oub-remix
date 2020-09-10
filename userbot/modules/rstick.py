@@ -142,3 +142,12 @@ async def rollstick(tem):
         )
     await sleep(5)
     await tem.delete()
+
+CMD_HELP.update({
+    "rstick":
+    "\
+`.rst` <text or reply>\
+\nUsage: generates random sticker out of text\
+\n\n`.hsb` <text or reply>\
+\nUsage: generates animated rolling sticker out of text"
+})
