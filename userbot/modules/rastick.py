@@ -123,9 +123,9 @@ async def rollstick(tem):
         if tem.is_reply:
             text = (await tem.get_reply_message()).message
         else:
-            await tem.answer("`No text given, hence no stickers.`")
+            await tem.edit("`No text given, hence no stickers.`")
             return
-    
+
     fries = await bot.inline_query(
         "honka_says_bot", f"{(deEmojify(text))}.."
     )
@@ -140,5 +140,5 @@ async def rollstick(tem):
         return await tem.edit(
             "`You cannot send inline results in this chat (caused by SendInlineBotResultRequest)`"
         )
-    await sleep(5)
+    await sleep(2)
     await tem.delete()
