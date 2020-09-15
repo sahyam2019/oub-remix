@@ -627,7 +627,7 @@ async def get_admin(show):
 async def getadmin(event):
     if event.fwd_from:
         return
-    mentions = "**Admins in this Channel**: \n"
+    mentions = "**Admins in this Group**: \n"
     should_mention_admins = False
     reply_message = None
     pattern_match_str = event.pattern_match.group(1)
@@ -641,7 +641,7 @@ async def getadmin(event):
     if not input_str:
         chat = to_write_chat
     else:
-        mentions_heading = "Admins in {} channel: \n".format(input_str)
+        mentions_heading = "Admins in {} : \n".format(input_str)
         mentions = mentions_heading
         try:
             chat = await event.client.get_entity(input_str)
