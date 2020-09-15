@@ -603,27 +603,7 @@ async def rm_deletedacc(show):
             \nCHAT: {show.chat.title}(`{show.chat_id}`)")
 
 
-
-@register(outgoing=True, pattern="^.admins$")
-async def get_admin(show):
-    """ For .admins command, list all of the admins of the chat. """
-    info = await show.client.get_entity(show.chat_id)
-    title = info.title if info.title else "this chat"
-    mentions = f'<b>Admins in {title}:</b> \n'
-    try:
-        async for user in show.client.iter_participants(
-                show.chat_id, filter=ChannelParticipantsAdmins):
-            if not user.deleted:
-                link = f"<a href=\"tg://user?id={user.id}\">{user.first_name}</a>"
-                userid = f"<code>{user.id}</code>"
-                mentions += f"\n{link} {userid}"
-            else:
-                mentions += f"\nDeleted Account <code>{user.id}</code>"
-    except ChatAdminRequiredError as err:
-        mentions += " " + str(err) + "\n"
-    await show.edit(mentions, parse_mode="html")
-
-@register(outgoing=True, pattern="^.getadmins(?: |$)(.*)")
+@register(outgoing=True, pattern="^.admins(?: |$)(.*)")
 async def getadmin(event):
     if event.fwd_from:
         return
@@ -652,12 +632,12 @@ async def getadmin(event):
         async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
             if not x.deleted:
                 if isinstance(x.participant, ChannelParticipantCreator):
-                    mentions += "\n 👑 [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
+                    mentions += "\n [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
         mentions += "\n"
         async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
             if not x.deleted:
                 if isinstance(x.participant, ChannelParticipantAdmin):
-                    mentions += "\n ⚜️ [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
+                    mentions += "\n [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
             else:
                 mentions += "\n `{}`".format(x.id)
     except Exception as e:
@@ -1259,9 +1239,8 @@ CMD_HELP.update({
 \n\n`.zombies`\
 \nUsage: Searches for deleted accounts in a group. Use .zombies clean to remove deleted accounts from the group.\
 \n\n`.admins`\
-\nUsage: Retrieves a list of admins in the chat.\
-\n\n`.getadmins` <group link/use in chat>\
-\nUsage: Get admin list.`.getadmins @PPE_Support`\
+\nUsage: Retrieves a list of admins in the chat. <group link/use in chat (optional)>\
+\nUse `.admins` or `.admins @PPE_Support`\
 \n\n`.kick`\
 \nUsage: kick users from groups.\
 \n\n`.users` or `.users` <name of member>\
