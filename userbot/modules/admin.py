@@ -1261,7 +1261,7 @@ CMD_HELP.update({
 \n\n`.admins`\
 \nUsage: Retrieves a list of admins in the chat.\
 \n\n`.getadmins` <group link/use in chat>\
-\nUsage: Get admin list.`getadmins @PPE_Support`\
+\nUsage: Get admin list.`.getadmins @PPE_Support`\
 \n\n`.kick`\
 \nUsage: kick users from groups.\
 \n\n`.users` or `.users` <name of member>\
