@@ -36,6 +36,7 @@ from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from telethon.tl import types, functions
 from userbot.events import register
 from telethon.tl.functions.messages import EditChatDefaultBannedRightsRequest
+from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
 
 # =================== CONSTANT ===================
 PP_TOO_SMOL = "`The image is too small`"
@@ -548,7 +549,7 @@ async def rm_deletedacc(show):
                 await sleep(1)
         if del_u > 0:
             del_status = f"`Found` **{del_u}** `ghost/deleted/zombie account(s) in this group,\
-            \nclean them by using .zombies clean`"
+            \nclean them by using` `.zombies clean`"
         await show.edit(del_status)
         return
 
@@ -621,6 +622,54 @@ async def get_admin(show):
     except ChatAdminRequiredError as err:
         mentions += " " + str(err) + "\n"
     await show.edit(mentions, parse_mode="html")
+
+@register(outgoing=True, pattern="^.getadmins(?: |$)(.*)")
+async def getadmin(event):
+    if event.fwd_from:
+        return
+    mentions = "**Admins in this Channel**: \n"
+    should_mention_admins = False
+    reply_message = None
+    pattern_match_str = event.pattern_match.group(1)
+    if "m" in pattern_match_str:
+        should_mention_admins = True
+        if event.reply_to_msg_id:
+            reply_message = await event.get_reply_message()
+    input_str = event.pattern_match.group(1)
+    to_write_chat = await event.get_input_chat()
+    chat = None
+    if not input_str:
+        chat = to_write_chat
+    else:
+        mentions_heading = "Admins in {} channel: \n".format(input_str)
+        mentions = mentions_heading
+        try:
+            chat = await event.client.get_entity(input_str)
+        except Exception as e:
+            await event.edit(str(e))
+            return None
+    try:
+        async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
+            if not x.deleted:
+                if isinstance(x.participant, ChannelParticipantCreator):
+                    mentions += "\n 👑 [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
+        mentions += "\n"
+        async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
+            if not x.deleted:
+                if isinstance(x.participant, ChannelParticipantAdmin):
+                    mentions += "\n ⚜️ [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
+            else:
+                mentions += "\n `{}`".format(x.id)
+    except Exception as e:
+        mentions += " " + str(e) + "\n"
+    if should_mention_admins:
+        if reply_message:
+            await reply_message.reply(mentions)
+        else:
+            await event.reply(mentions)
+        await event.delete()
+    else:
+        await event.edit(mentions)
 
 
 @register(outgoing=True, pattern="^.pin(?: |$)(.*)")
@@ -1211,6 +1260,8 @@ CMD_HELP.update({
 \nUsage: Searches for deleted accounts in a group. Use .zombies clean to remove deleted accounts from the group.\
 \n\n`.admins`\
 \nUsage: Retrieves a list of admins in the chat.\
+\n\n`.getadmins` <group link/use in chat>\
+\nUsage: Get admin list.`getadmins @PPE_Support`\
 \n\n`.kick`\
 \nUsage: kick users from groups.\
 \n\n`.users` or `.users` <name of member>\
