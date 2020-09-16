@@ -602,6 +602,22 @@ async def rm_deletedacc(show):
             f"Cleaned **{del_u}** deleted account(s) !!\
             \nCHAT: {show.chat.title}(`{show.chat_id}`)")
 
+@register(outgoing=True, pattern="^.report(?: |$)(.*)")
+async def admin(event):
+    if event.fwd_from:
+        return
+    mentions = "@admin"
+    chat = await event.get_input_chat()
+    async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
+        mentions += f"[\u2063](tg://user?id={x.id})"
+    reply_message = None
+    if event.reply_to_msg_id:
+        reply_message = await event.get_reply_message()
+        await reply_message.reply(mentions)
+    else:
+        await event.reply(mentions)
+    await event.delete()
+    
 
 @register(outgoing=True, pattern="^.admins(?: |$)(.*)")
 async def getadmin(event):
@@ -1241,6 +1257,8 @@ CMD_HELP.update({
 \n\n`.admins`\
 \nUsage: Retrieves a list of admins in the chat. <group link/use in chat (optional)>\
 \nUse `.admins` or `.admins @PPE_Support`\
+\n\n`.report`\
+\nUsage: Report massage to admin.\
 \n\n`.kick`\
 \nUsage: kick users from groups.\
 \n\n`.users` or `.users` <name of member>\
