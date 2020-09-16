@@ -1257,6 +1257,8 @@ CMD_HELP.update({
 \n\n`.admins`\
 \nUsage: Retrieves a list of admins in the chat. <group link/use in chat (optional)>\
 \nUse `.admins` or `.admins @PPE_Support`\
+\n\n`.report`\
+\nUsage: Report massage to admin.\
 \n\n`.kick`\
 \nUsage: kick users from groups.\
 \n\n`.users` or `.users` <name of member>\
