@@ -1278,7 +1278,7 @@ async def imdb(e):
 
 
 CMD_HELP.update({
-    "scrappers":
+    "scrapers":
     "`.img` <search_query>\
 \nUsage: Does an image search on Google and shows 5 images.\
 \n\n`.currency` <amount> <from> <to>\
