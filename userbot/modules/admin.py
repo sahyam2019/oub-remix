@@ -36,6 +36,7 @@ from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from telethon.tl import types, functions
 from userbot.events import register
 from telethon.tl.functions.messages import EditChatDefaultBannedRightsRequest
+from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
 
 # =================== CONSTANT ===================
 PP_TOO_SMOL = "`The image is too small`"
@@ -548,7 +549,7 @@ async def rm_deletedacc(show):
                 await sleep(1)
         if del_u > 0:
             del_status = f"`Found` **{del_u}** `ghost/deleted/zombie account(s) in this group,\
-            \nclean them by using .zombies clean`"
+            \nclean them by using``.zombies clean`"
         await show.edit(del_status)
         return
 
@@ -601,26 +602,70 @@ async def rm_deletedacc(show):
             f"Cleaned **{del_u}** deleted account(s) !!\
             \nCHAT: {show.chat.title}(`{show.chat_id}`)")
 
+@register(outgoing=True, pattern="^.report(?: |$)(.*)")
+async def admin(event):
+    if event.fwd_from:
+        return
+    mentions = "@admin"
+    chat = await event.get_input_chat()
+    async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
+        mentions += f"[\u2063](tg://user?id={x.id})"
+    reply_message = None
+    if event.reply_to_msg_id:
+        reply_message = await event.get_reply_message()
+        await reply_message.reply(mentions)
+    else:
+        await event.reply(mentions)
+    await event.delete()
+    
 
-
-@register(outgoing=True, pattern="^.admins$")
-async def get_admin(show):
-    """ For .admins command, list all of the admins of the chat. """
-    info = await show.client.get_entity(show.chat_id)
-    title = info.title if info.title else "this chat"
-    mentions = f'<b>Admins in {title}:</b> \n'
+@register(outgoing=True, pattern="^.admins(?: |$)(.*)")
+async def getadmin(event):
+    if event.fwd_from:
+        return
+    mentions = "**Admins in this Group**: \n"
+    should_mention_admins = False
+    reply_message = None
+    pattern_match_str = event.pattern_match.group(1)
+    if "m" in pattern_match_str:
+        should_mention_admins = True
+        if event.reply_to_msg_id:
+            reply_message = await event.get_reply_message()
+    input_str = event.pattern_match.group(1)
+    to_write_chat = await event.get_input_chat()
+    chat = None
+    if not input_str:
+        chat = to_write_chat
+    else:
+        mentions_heading = "Admins in {} : \n".format(input_str)
+        mentions = mentions_heading
+        try:
+            chat = await event.client.get_entity(input_str)
+        except Exception as e:
+            await event.edit(str(e))
+            return None
     try:
-        async for user in show.client.iter_participants(
-                show.chat_id, filter=ChannelParticipantsAdmins):
-            if not user.deleted:
-                link = f"<a href=\"tg://user?id={user.id}\">{user.first_name}</a>"
-                userid = f"<code>{user.id}</code>"
-                mentions += f"\n{link} {userid}"
+        async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
+            if not x.deleted:
+                if isinstance(x.participant, ChannelParticipantCreator):
+                    mentions += "\n [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
+        mentions += "\n"
+        async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
+            if not x.deleted:
+                if isinstance(x.participant, ChannelParticipantAdmin):
+                    mentions += "\n [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
             else:
-                mentions += f"\nDeleted Account <code>{user.id}</code>"
-    except ChatAdminRequiredError as err:
-        mentions += " " + str(err) + "\n"
-    await show.edit(mentions, parse_mode="html")
+                mentions += "\n `{}`".format(x.id)
+    except Exception as e:
+        mentions += " " + str(e) + "\n"
+    if should_mention_admins:
+        if reply_message:
+            await reply_message.reply(mentions)
+        else:
+            await event.reply(mentions)
+        await event.delete()
+    else:
+        await event.edit(mentions)
 
 
 @register(outgoing=True, pattern="^.pin(?: |$)(.*)")
@@ -1210,7 +1255,10 @@ CMD_HELP.update({
 \n\n`.zombies`\
 \nUsage: Searches for deleted accounts in a group. Use .zombies clean to remove deleted accounts from the group.\
 \n\n`.admins`\
-\nUsage: Retrieves a list of admins in the chat.\
+\nUsage: Retrieves a list of admins in the chat. <group link/use in chat (optional)>\
+\nUse `.admins` or `.admins @PPE_Support`\
+\n\n`.report`\
+\nUsage: Report massage to admin.\
 \n\n`.kick`\
 \nUsage: kick users from groups.\
 \n\n`.users` or `.users` <name of member>\
