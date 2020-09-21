@@ -382,12 +382,6 @@ with bot:
                     buttons=buttons,
                     link_preview=False,
                 )
-            elif query.startswith("tb_btn"):
-                result = builder.article(
-                    "oubremix Helper",
-                    text="List of Modules",
-                    buttons=[],
-                    link_preview=True)
             else:
                 result = builder.article(
                     "oubremix",
