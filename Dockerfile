@@ -8,4 +8,7 @@ RUN git clone -b sql-extended https://github.com/sahyam2019/oub-remix /root/user
 RUN mkdir /root/userbot/.bin
 WORKDIR /root/userbot
 
+#Install python requirements
+RUN pip3 install -r https://raw.githubusercontent.com/sahyam2019/oub-remix/sql-extended/requirements.txt
+
 CMD ["python3","-m","userbot"]
