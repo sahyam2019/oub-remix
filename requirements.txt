@@ -30,6 +30,7 @@ humanize
 lxml
 oauth2client
 Pillow>=6.0.0
+fontTools
 psycopg2
 psycopg2-binary
 pybase64>=0.4.0
@@ -50,7 +51,6 @@ wikipedia>=1.4.0
 coffeehouse>=2.1.0
 git+https://github.com/johnwmillr/LyricsGenius.git
 git+https://github.com/voins/google-images-download.git@2cd68173c961324a2c41c61e8b6f40a49663ce60
-
 lyricsgenius
 redis>=3.3.10
 PyDrive2
@@ -64,8 +64,6 @@ base
 pip>=19.2.3
 setuptools>=28.8.0
 selenium>=3.141.0 
-# SpeechRecognition>=3.4.6
-# wheel>=0.30.0a0
 telegraph
 python-dateutil
 pyfiglet   
