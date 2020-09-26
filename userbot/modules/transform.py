@@ -131,7 +131,7 @@ CMD_HELP.update(
         "\n\n`.frame` or `.frame range` or `.frame range ; fill`"
         "\nUsage:Make a frame for your media file"
         "\nFill: This defines the pixel fill value or color value to be applied.\nThe default value is 0 which means the color is black."
-        "\n\n`.mmf toptext ; bottomtext` or `.mms/.mms2 toptext ; bottomtext`"
-        "\nUsage:mmf creates a image meme with give text at specific locations and sends.\nmms &mms2 Creates a sticker meme with give text at specific locations and sends."
+        "\n\n`.mmf toptext ; bottomtext` or `.mms/.mmss toptext ; bottomtext`"
+        "\nUsage:mmf creates a image meme with give text at specific locations and sends.\nmms &mmss Creates a sticker meme with give text at specific locations and sends."
     }
 )
