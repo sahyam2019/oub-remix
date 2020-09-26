@@ -335,7 +335,7 @@ async def DeezLoader(Deezlod):
     
 CMD_HELP.update({
         "music":
-        ".spd`<Artist - Song Title>\
+        "`.spd`<Artist - Song Title>\
             \nUsage:For searching songs from Spotify.\
             \n\n`.song` or `.vsong`\
             \nUsage:for downloading music\
