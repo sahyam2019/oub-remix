@@ -110,7 +110,7 @@ async def rotate(event):
 
 CMD_HELP.update(
     {
-        "transform": ">`.ghost`"
+        "transform": "`.ghost`"
         "\nUsage: Enchance your image to become a ghost!."
         "\n\n`.flip`"
         "\nUsage: To flip your image"
@@ -127,9 +127,9 @@ CMD_HELP.update(
         "\n\n`.solarize`"
         "\nUsage:Watch sun buring ur media file"
         "\n\n`.zoom` or `.zoom range`"
-        "\nUsage:*zooms your media file"
+        "\nUsage:Zooms your media file"
         "\n\n`.frame` or `.frame range` or `.frame range ; fill`"
-        "\nUsage:*make a frame for your media file"
-        "\nfill: This defines the pixel fill value or color value to be applied.\nThe default value is 0 which means the color is black."
+        "\n\n`.mmf toptext ; bottomtext` or `.mms toptext ; bottomtext`"
+        "\nUsage:mmf creates a image meme with give text at specific locations and sends.\nmms Creates a sticker meme with give text at specific locations and sends."
     }
 )
