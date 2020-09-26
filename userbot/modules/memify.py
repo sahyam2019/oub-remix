@@ -509,4 +509,8 @@ async def memes(event):
             os.remove(files)
 
 
-
+ CMD_HELP.update({
+    "memify":
+    "`.mmf` or `.mms` [text on top] ; [text on bottom] as a reply.\
+\nUsage: Reply to pic or sticker"
+})
