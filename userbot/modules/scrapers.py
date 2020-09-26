@@ -400,13 +400,14 @@ async def _(event):
     try:
         translated = translator.translate(text, dest=lan)
         after_tr_text = translated.text
+        mono_tr_text = (("`{}`").format(after_tr_text))
         # TODO: emojify the :
         # either here, or before translation
         output_str = """**TRANSLATED** from {} to {}
 {}""".format(
             translated.src,
             lan,
-            after_tr_text
+            mono_tr_text
         )
         await event.edit(output_str)
     except Exception as exc:
@@ -1151,7 +1152,13 @@ async def capture(url):
     if link_match:
         link = link_match.group()
     else:
-        return await url.edit("`I need a valid link to take screenshots from.`")
+        prefix_str = 'http://'
+        complete_link = (("{}{}").format(prefix_str, input_str))
+        link_match = match(r'\bhttps?://.*\.\S+', complete_link)
+        if link_match:
+            link = link_match.group()
+        else:
+            return await url.edit("`I need a valid link to take screenshots from.`")
     driver.get(link)
     height = driver.execute_script(
         "return Math.max(document.body.scrollHeight, document.body.offsetHeight, "
@@ -1308,7 +1315,7 @@ CMD_HELP.update({
 \n\nSupported Urls: `Google Drive` - `Cloud Mail` - `Yandex.Disk` - `AFH` - `ZippyShare` - `MediaFire` - `SourceForge` - `OSDN` - `GitHub`\
 \n\n`.ss <url>`\
 \nUsage: Takes a screenshot of a website and sends the screenshot.\
-\nExample of a valid URL : `https://www.google.com`\
+\nExample of a valid URL : `google.com` or `https://www.google.com`\
 \n\n`.imdb` movie/series name\
 \nUsage:scrap movie/series information."
 })

@@ -6,7 +6,7 @@ import os
 import asyncio
 import time
 import html
-from justwatch import JustWatch
+from justwatch import JustWatch, justwatchapi
 from telethon import *
 from userbot.events import register
 from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY, DEFAULT_BIO, ALIVE_NAME
@@ -40,6 +40,9 @@ if 1 == 1:
     client = bot
 
 
+justwatchapi.__dict__["HEADER"] = {
+    "User-Agent": "JustWatch client (github.com/dawoudt/JustWatchAPI)"
+}
 
 @register(outgoing=True, pattern="^.app(?: |$)(.*)")
 async def apk(e):
@@ -597,7 +600,10 @@ async def _(event):
         return
     query = event.pattern_match.group(1)
     await event.edit("Finding Sites...")
-    streams = get_stream_data(query)
+    try:
+        streams = get_stream_data(query)
+    except Exception as e:
+        return await event.edit(f"**Error :** `{str(e)}`")
     title = streams['title']
     thumb_link = streams['movie_thumb']
     release_year = streams['release_year']

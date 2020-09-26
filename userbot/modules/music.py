@@ -1,29 +1,261 @@
 # Originally from Bothub
 # Port to UserBot by @heyworld
 #Copyright (C) 2020 azrim.
+#imported .song and .vsong form catuserbot
 
 from telethon import events
 import asyncio
-#from userbot.utils import admin_cmd
+import glob
+import shutil
 from userbot.events import register 
-from userbot import bot, CMD_HELP
+from userbot import bot, CMD_HELP, GOOGLE_CHROME_BIN, TEMP_DOWNLOAD_DIRECTORY, bot
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 import os
-try:
- import subprocess
-except:
- os.system("pip install instantmusic")
- 
+import subprocess
+import time
+from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+from asyncio.exceptions import TimeoutError
+from hachoir.metadata import extractMetadata
+from hachoir.parser import createParser
+from pylast import User
+from selenium import webdriver
+from telethon import events
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
+from userbot.utils import progress
+import pybase64
+
+async def catmusic(cat, QUALITY, hello):
+    search = cat
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--test-type")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.binary_location = GOOGLE_CHROME_BIN
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver.get("https://www.youtube.com/results?search_query=" + search)
+    user_data = driver.find_elements_by_xpath('//*[@id="video-title"]')
+    for i in user_data:
+        video_link = i.get_attribute("href")
+        break
+    if not os.path.isdir("./temp/"):
+        os.makedirs("./temp/")
+    if not video_link:
+        await hello.edit(f"Sorry. I can't find that song `{search}`")
+        return
+    try:
+        command = (
+            'youtube-dl -o "./temp/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality '
+            + QUALITY
+            + " "
+            + video_link
+        )
+        os.system(command)
+    except Exception as e:
+        return await hello.edit(f"`Error:\n {e}`")
+    try:
+        thumb = (
+            'youtube-dl -o "./temp/%(title)s.%(ext)s" --write-thumbnail --skip-download '
+            + video_link
+        )
+        os.system(thumb)
+    except Exception as e:
+        return await hello.edit(f"`Error:\n {e}`")
 
 
-os.system("rm -rf *.mp3")
+
+@register(outgoing=True, pattern="^.song(?: |$)(.*)")
+async def _(event):
+    reply_to_id = event.message.id
+    if event.reply_to_msg_id:
+        reply_to_id = event.reply_to_msg_id
+    reply = await event.get_reply_message()
+    if event.pattern_match.group(1):
+        query = event.pattern_match.group(1)
+    elif reply:
+        if reply.message:
+            query = reply.messag
+    else:
+        event = await event.edit("`What I am Supposed to find `")
+        return
+    event = await event.edit("`wi8..! I am finding your song....`")
+    try:
+        cat = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        cat = Get(cat)
+        await event.client(cat)
+    except BaseException:
+        pass
+    await catmusic(str(query), "128k", event)
+    l = glob.glob("./temp/*.mp3")
+    if l:
+        await event.edit("yeah..! i found something wi8..🥰")
+    else:
+        await event.edit(f"Sorry..! i can't find anything with `{query}`")
+        return
+    thumbcat = glob.glob("./temp/*.jpg") + glob.glob("./temp/*.webp")
+    if thumbcat:
+        catthumb = thumbcat[0]
+    else:
+        catthumb = None
+    loa = l[0]
+    await bot.send_file(
+        event.chat_id,
+        loa,
+        force_document=False,
+        allow_cache=False,
+        caption=query,
+        thumb=catthumb,
+        supports_streaming=True,
+        reply_to=reply_to_id,
+    )
+    await event.delete()
+    os.system("rm -rf ./temp/*.mp3")
+    os.system("rm -rf ./temp/*.jpg")
+    os.system("rm -rf ./temp/*.webp")
 
 
-def bruh(name):
-    
-    os.system("instantmusic -q -s "+name)
-    
+@register(outgoing=True, pattern="^.song360(?: |$)(.*)")
+async def _(event):
+    reply_to_id = event.message.id
+    if event.reply_to_msg_id:
+        reply_to_id = event.reply_to_msg_id
+    reply = await event.get_reply_message()
+    if event.pattern_match.group(1):
+        query = event.pattern_match.group(1)
+    elif reply:
+        if reply.message:
+            query = reply.message
+    else:
+        event = await event.edit("`What I am Supposed to find `")
+        return
+    event = await event.edit("`wi8..! I am finding your song....`")
+    try:
+        cat = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        cat = Get(cat)
+        await event.client(cat)
+    except BaseException:
+        pass
+    await catmusic(str(query), "320k", event)
+    l = glob.glob("./temp/*.mp3")
+    if l:
+        await event.edit("yeah..! i found something wi8..🥰")
+    else:
+        await event.edit(f"Sorry..! i can't find anything with `{query}`")
+        return
+    thumbcat = glob.glob("./temp/*.jpg") + glob.glob("./temp/*.webp")
+    if thumbcat:
+        catthumb = thumbcat[0]
+    else:
+        catthumb = None
+    loa = l[0]
+    await bot.send_file(
+        event.chat_id,
+        loa,
+        force_document=False,
+        allow_cache=False,
+        caption=query,
+        thumb=catthumb,
+        supports_streaming=True,
+        reply_to=reply_to_id,
+    )
+    await event.delete()
+    os.system("rm -rf ./temp/*.mp3")
+    os.system("rm -rf ./temp/*.jpg")
+    os.system("rm -rf ./temp/*.webp")
 
+async def getmusicvideo(cat):
+    video_link = ""
+    search = cat
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--test-type")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.binary_location = GOOGLE_CHROME_BIN
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver.get("https://www.youtube.com/results?search_query=" + search)
+    user_data = driver.find_elements_by_xpath('//*[@id="video-title"]')
+    for i in user_data:
+        video_link = i.get_attribute("href")
+        break
+    command = 'youtube-dl -f "[filesize<50M]" --merge-output-format mp4 ' + video_link
+    os.system(command)
+
+
+@register(outgoing=True, pattern=r"^\.vsong(?: |$)(.*)")
+async def _(event):
+    reply_to_id = event.message.id
+    if event.reply_to_msg_id:
+        reply_to_id = event.reply_to_msg_id
+    reply = await event.get_reply_message()
+    if event.pattern_match.group(1):
+        query = event.pattern_match.group(1)
+        await event.edit("`Wait..! I am finding your videosong..`")
+    elif reply:
+        query = str(reply.message)
+        await event.edit("`Wait..! I am finding your videosong..`")
+    else:
+        await event.edit("`What I am Supposed to find?`")
+        return
+    await getmusicvideo(query)
+    l = glob.glob(("*.mp4")) + glob.glob(("*.mkv")) + glob.glob(("*.webm"))
+    if l:
+        await event.edit("`Yeah..! i found something..`")
+    else:
+        await event.edit(f"`Sorry..! i can't find anything with` **{query}**")
+        return
+    try:
+        loa = l[0]
+        metadata = extractMetadata(createParser(loa))
+        duration = 0
+        width = 0
+        height = 0
+        if metadata.has("duration"):
+            duration = metadata.get("duration").seconds
+        if metadata.has("width"):
+            width = metadata.get("width")
+        if metadata.has("height"):
+            height = metadata.get("height")
+        os.system("cp *mp4 thumb.mp4")
+        os.system("ffmpeg -i thumb.mp4 -vframes 1 -an -s 480x360 -ss 5 thumb.jpg")
+        thumb_image = "thumb.jpg"
+        c_time = time.time()
+        await event.client.send_file(
+            event.chat_id,
+            loa,
+            force_document=False,
+            thumb=thumb_image,
+            allow_cache=False,
+            caption=query,
+            supports_streaming=True,
+            reply_to=reply_to_id,
+            attributes=[
+                DocumentAttributeVideo(
+                    duration=duration,
+                    w=width,
+                    h=height,
+                    round_message=False,
+                    supports_streaming=True,
+                )
+            ],
+            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+                progress(d, t, event, c_time, "[UPLOAD]", loa)
+            ),
+        )
+        await event.edit(f"**{query}** `Uploaded Successfully..!`")
+        os.remove(thumb_image)
+        os.system("rm -rf *.mkv")
+        os.system("rm -rf *.mp4")
+        os.system("rm -rf *.webm")
+    except BaseException:
+        os.remove(thumb_image)
+        os.system("rm -rf *.mkv")
+        os.system("rm -rf *.mp4")
+        os.system("rm -rf *.webm")
+        return
 
 @register(outgoing=True, pattern="^.spd(?: |$)(.*)")
 async def _(event):
@@ -105,6 +337,8 @@ CMD_HELP.update({
         "music":
         ".spd`<Artist - Song Title>\
             \nUsage:For searching songs from Spotify.\
+            \n\n`.song` or `.vsong`\
+            \nUsage:for downloading music\
             \n\n`.netease` <Artist - Song Title>\
             \nUsage:Download music with @WooMaiBot\
             \n\n`.dzd` <Spotify/Deezer Link>\

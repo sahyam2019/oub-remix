@@ -59,7 +59,7 @@ async def waifu(animu):
         else:
             await animu.answer("`No text given, hence the waifu ran away.`")
             return
-    animus = [6, 8, 12, 20, 30, 32, 33, 38, 40, 41, 42, 51, 58, 59]
+    animus = [15, 30, 32, 33, 40, 41, 42, 48, 55, 58]
     sticcers = await bot.inline_query(
         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}")
     try:
@@ -152,5 +152,7 @@ CMD_HELP.update({
 \n\n`.hz` or `.hz [flip, x2, rotate (degree), background (number), black]`\
 \nUsage: Reply to a image / sticker to suit up!.\
 \n\n`.rst`\
-\nUsage: To stickerize your text with random sticker templates."    
-})    
+\nUsage: To stickerize your text with random sticker templates.\
+\n\n`.hsb` <text or reply>\
+\nUsage: generates animated rolling sticker out of text."
+})

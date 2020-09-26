@@ -115,3 +115,30 @@ async def rastick(animu):
         )
     await sleep(5)
     await animu.delete()
+
+@register(outgoing=True, pattern=r"^\.hsb(?: |$)(.*)")
+async def rollstick(tem):
+    text = tem.pattern_match.group(1)
+    if not text:
+        if tem.is_reply:
+            text = (await tem.get_reply_message()).message
+        else:
+            await tem.edit("`No text given, hence no stickers.`")
+            return
+
+    fries = await bot.inline_query(
+        "honka_says_bot", f"{(deEmojify(text))}.."
+    )
+    try:
+        await fries[0].click(
+            tem.chat_id,
+            reply_to=tem.reply_to_msg_id,
+            silent=True if tem.is_reply else False,
+            hide_via=True,
+        )
+    except Exception:
+        return await tem.edit(
+            "`You cannot send inline results in this chat (caused by SendInlineBotResultRequest)`"
+        )
+    await sleep(2)
+    await tem.delete()
