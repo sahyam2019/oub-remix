@@ -26,7 +26,7 @@ from telethon.utils import get_display_name
 from telethon import events
 from telethon.tl.functions.messages import GetPeerDialogsRequest
 from telethon.tl.functions.channels import GetParticipantRequest
-from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator, DocumentAttributeFilename, channel, PollAnswer
+from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator, DocumentAttributeFilename, PollAnswer
 
 from PIL import Image, ImageDraw, ImageFont
 import PIL.ImageOps
