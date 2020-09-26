@@ -574,18 +574,19 @@ async def anime(message):
 
 CMD_HELP.update({
     "anime":
-    "`.anime` <anime>\
+    "`.anime` <anime> or `.anilist` <anime>\
     \nUsage: Returns with Anime information.\
-    \n\n`.manga` <manga name>\
+    \n\n`.manga` <manga name> or `.animanga` <manga name>\
     \nUsage: Returns with the Manga information.\
     \n\n`.akaizoku` or `.akayo` <anime name>\
     \nUsage: Returns with the Anime Download link.\
-    \n\n`.char` <character name>\
+    \n\n`.char` <character name> or `anichar` <character name>\
     \nUsage: Return with character information.\
-    \n\n`.upcoming`\
+    \n\n`.upcoming` or `airing` <anime name>\
     \nUsage: Returns with Upcoming Anime information.\
     \n\n`.scanime` <anime> or .sanime <anime>\
     \nUsage: Search anime.\
     \n\n`.smanga` <manga>\
     \nUsage: Search manga."
+
 })
