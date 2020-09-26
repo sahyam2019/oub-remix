@@ -6,7 +6,7 @@ from telethon.errors.rpcerrorlist import PollOptionInvalidError
 from telethon.tl.types import InputMediaPoll, Poll
 
 from userbot import CMD_HELP, bot
-from userbot.event import register
+from userbot.events import register
 from userbot.utils.tools import Build_Poll
 
 @register(outgoing=True, pattern="^.poll(?: |$)(.*)")
