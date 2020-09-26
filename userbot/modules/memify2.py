@@ -18,7 +18,7 @@ from userbot.utils.tools import check_media
 THUMB_IMAGE_PATH = "./thumb_image.jpg"
 
 
-@register(outgoing=True, pattern=r"^\.mmss(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.mmf(?: |$)(.*)")
 async def mim(event):
     if not event.reply_to_msg_id:
         await event.edit(
