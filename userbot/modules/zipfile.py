@@ -14,11 +14,6 @@ from datetime import date
 import time
 import os
 from userbot import TEMP_DOWNLOAD_DIRECTORY, ZIP_DOWNLOAD_DIRECTORY, bot, CMD_HELP
-import asyncio
-import os
-import time
-import zipfile
-
 from telethon.tl.types import DocumentAttributeVideo
 from userbot.utils import progress
 from datetime import datetime
