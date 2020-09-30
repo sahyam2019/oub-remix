@@ -4,7 +4,7 @@ FROM sahyam/docker:groovy
 #
 # Clone repo and prepare working directory
 #
-RUN git clone -b sql-extended https://github.com/sahyam2019/oub-remix /root/userbot
+RUN git clone -b sql-extended https://github.com/Maxpayne7000/OUB-remix
 RUN mkdir /root/userbot/.bin
 WORKDIR /root/userbot
 
