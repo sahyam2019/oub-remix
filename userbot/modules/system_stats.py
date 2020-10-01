@@ -228,7 +228,7 @@ async def amireallyalive(alive):
              f"`Bot Version: Remix {BOT_VER}` \n"
              f"`User`: {DEFAULTUSER} \n"
              f"`Maintainer`: @Maxpayne7000 \n"
-             f"`Bot Uptime`: {uptime} \n"
+             f"`Bot Uptime`: {uptime} \n")
     if ALIVE_LOGO:
         try:
             logo = ALIVE_LOGO
