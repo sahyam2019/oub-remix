@@ -26,7 +26,7 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 UNAPPROVED_MSG = (
-    "`Hhey! don't spam. you texted me without permission. \nMessage remaining:1 \n\n`")
+    "`hey! don't spam. you texted me without permission. \n\n`")
 # =================================================================
 
 NO_PM_LOG_USERS = []
