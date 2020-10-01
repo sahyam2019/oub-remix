@@ -103,7 +103,7 @@ async def permitpm(event):
                             BOTLOG_CHATID,
                             "[" + name0 + "](tg://user?id=" +
                             str(event.chat_id) + ")" +
-                            " was just another retarded nibba",
+                            " was just another retard",
                         )
 
 
@@ -251,7 +251,7 @@ async def blockpm(block):
     else:
         await block.client(BlockRequest(block.chat_id))
         aname = await block.client.get_entity(block.chat_id)
-        await block.edit("`You've been blocked 😡!`")
+        await block.edit("`You've been blocked!`")
         name0 = str(aname.first_name)
         uid = block.chat_id
 
@@ -397,13 +397,13 @@ async def endmute(event):
             return await event.edit("Please reply to a user or add their userid into the command to unmute them.")
         chat_id = event.chat_id
         if not is_muted(userid, chat_id):
-            return await event.edit("__This user is not muted in this chat__\n（ ^_^）o自自o（^_^ ）")
+            return await event.edit("This user is not muted in this chat")
         try:
             unmute(userid, chat_id)
         except Exception as e:
             await event.edit("Error occured!\nError is " + str(e))
         else:
-            await event.edit("Successfully unmuted that person\n乁( ◔ ౪◔)「    ┑(￣Д ￣)┍")
+            await event.edit("Successfully unmuted that person")
 
 @register(incoming=True)
 async def watcher(event):
