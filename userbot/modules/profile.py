@@ -194,7 +194,7 @@ async def remove_profilepic(delpfp):
 async def who(event):
 
     await event.edit(
-        "`Hacking into @durov's account and stealing data 😂...`")
+        "`Hacking into your account and stealing data...`")
 
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
