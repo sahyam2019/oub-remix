@@ -39,7 +39,7 @@ from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
 from urbandict import define
 from requests import get, post, exceptions
-from search_engine_parser import GoogleSearch
+from search_engine_parser import YahooSearch
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googletrans import LANGUAGES, Translator
@@ -244,7 +244,7 @@ async def gsearch(q_event):
     except IndexError:
         page = 1
     search_args = (str(match), int(page))
-    gsearch = GoogleSearch()
+    gsearch = YahooSearch()
     gresults = await gsearch.async_search(*search_args)
     msg = ""
     for i in range(7):
