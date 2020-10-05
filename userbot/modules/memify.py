@@ -22,7 +22,7 @@ THUMB_IMAGE_PATH = "./thumb_image.jpg"
 async def mim(event):
     if not event.reply_to_msg_id:
         await event.edit(
-            "`Syntax: reply to an image with .mms2` 'text on top' ; 'text on bottom' "
+            "`Syntax: reply to an image with .mmf` 'text on top' ; 'text on bottom' "
         )
         return
     reply_message = await event.get_reply_message()

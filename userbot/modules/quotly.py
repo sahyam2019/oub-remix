@@ -1,49 +1,18 @@
-# Copyright (C) 2019 The Raphielscape Company LLC.
+# Copyright (C) 2020 The Raphielscape Company LLC.
 #
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
 # Port From UniBorg to UserBot by MoveAngel
 
-import requests
-import base64
-import json
 import telethon
 from asyncio.exceptions import TimeoutError
 
-from PIL import Image
-from io import BytesIO
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from userbot import bot, CMD_HELP, QUOTES_API_TOKEN
+from userbot import bot, CMD_HELP
 from userbot.events import register
 
-if 1 == 1:
-    strings = {
-        "name": "Quotes",
-        "api_token_cfg_doc": "API Key/Token for Quotes.",
-        "api_url_cfg_doc": "API URL for Quotes.",
-        "colors_cfg_doc": "Username colors",
-        "default_username_color_cfg_doc": "Default color for the username.",
-        "no_reply": "You didn't reply to a message.",
-        "no_template": "You didn't specify the template.",
-        "delimiter": "</code>, <code>",
-        "server_error": "Server error. Please report to developer.",
-        "invalid_token": "You've set an invalid token, get it from `http://antiddos.systems`.",
-        "unauthorized": "You're unauthorized to do this.",
-        "not_enough_permissions": "Wrong template. You can use only the default one.",
-        "templates": "Available Templates: <code>{}</code>",
-        "cannot_send_stickers": "You cannot send stickers in this chat.",
-        "admin": "admin",
-        "creator": "creator",
-        "hidden": "hidden",
-        "channel": "Channel"
-    }
-
-    config = {"api_url": "http://api.antiddos.systems",
-                                          "username_colors": ["#fb6169", "#faa357", "#b48bf2", "#85de85",
-                                                              "#62d4e3", "#65bdf3", "#ff5694"],
-                                          "default_username_color": "#b48bf2"}
 
 @register(outgoing=True, pattern=r"^\.q")
 async def quotess(qotli):
@@ -88,5 +57,5 @@ CMD_HELP.update({
     "`.q`\
 \nUsage: Enhance ur text to sticker.\
 \n\n`.pch`\
-\nUsage: Better than quotly."    
-})    
+\nUsage: Better than quotly."
+})
