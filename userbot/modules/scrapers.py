@@ -39,7 +39,7 @@ from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
 from urbandict import define
 from requests import get, post, exceptions
-from search_engine_parser import GoogleSearch
+from search_engine_parser.core.engines.google import Search as GoogleSearch
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googletrans import LANGUAGES, Translator

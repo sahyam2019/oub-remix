@@ -7,13 +7,12 @@ from telethon import events
 import asyncio
 import glob
 import shutil
-from userbot.events import register 
+from userbot.events import register
 from userbot import bot, CMD_HELP, GOOGLE_CHROME_BIN, TEMP_DOWNLOAD_DIRECTORY, bot
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 import os
 import subprocess
 import time
-from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from asyncio.exceptions import TimeoutError
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -81,12 +80,6 @@ async def _(event):
         event = await event.edit("`What I am Supposed to find `")
         return
     event = await event.edit("`wi8..! I am finding your song....`")
-    try:
-        cat = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
-        cat = Get(cat)
-        await event.client(cat)
-    except BaseException:
-        pass
     await catmusic(str(query), "128k", event)
     l = glob.glob("./temp/*.mp3")
     if l:
@@ -131,12 +124,6 @@ async def _(event):
         event = await event.edit("`What I am Supposed to find `")
         return
     event = await event.edit("`wi8..! I am finding your song....`")
-    try:
-        cat = pybase64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
-        cat = Get(cat)
-        await event.client(cat)
-    except BaseException:
-        pass
     await catmusic(str(query), "320k", event)
     l = glob.glob("./temp/*.mp3")
     if l:
@@ -331,8 +318,8 @@ async def DeezLoader(Deezlod):
           await bot.send_file(Deezlod.chat_id, song, caption=details.text)
           await Deezlod.client.delete_messages(conv.chat_id,
                                              [msg_start.id, response.id, r.id, msg.id, details.id, song.id])
-          await Deezlod.delete()          
-    
+          await Deezlod.delete()
+
 CMD_HELP.update({
         "music":
         "`.spd`<Artist - Song Title>\
