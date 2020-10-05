@@ -25,10 +25,10 @@ from userbot import CMD_HELP, bot
 from userbot.events import register
 
 KANGING_STR = [
-    "`Stealing this sticker...`",
-    "`Plagiarising hehe...`",
-    "`Inviting this sticker over to my pack...`",
-    "`Kanging this sticker...`",
+    "Stealing this sticker...",
+    "Plagiarising hehe...",
+    "Inviting this sticker over to my pack...",
+    "Kanging this sticker...",
 ]
 
 @register(outgoing=True, pattern="^.kang")
