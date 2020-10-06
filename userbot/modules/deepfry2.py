@@ -77,9 +77,7 @@ async def deepfryer(event):
     fried_io.seek(0)
 
     await event.reply(file=fried_io)
-    os.system("rm -rf *.mp4")
-    os.system("rm -rf *.tgs")
-    os.system("rm -rf *.png")
+    os.system("rm *.mp4 *.tgs *.png")
     await event.delete()
 
 
