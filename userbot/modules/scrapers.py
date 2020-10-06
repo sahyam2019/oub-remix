@@ -39,7 +39,7 @@ from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
 from urbandict import define
 from requests import get, post, exceptions
-from search_engine_parser import GoogleSearch
+from search_engine_parser import YahooSearch  # GoogleSearch
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googletrans import LANGUAGES, Translator
@@ -99,7 +99,7 @@ async def ocr_space_file(filename,
         )
     return r.json()
 
-DOGBIN_URL = "https://del.dog/"    
+DOGBIN_URL = "https://del.dog/"
 
 @register(outgoing=True, pattern="^.crblang (.*)")
 async def setlang(prog):
@@ -171,8 +171,8 @@ async def carbon_api(e):
     driver.quit()
     # Removing carbon.png after uploading
     await e.delete()  # Deleting msg
-    
-    
+
+
 @register(outgoing=True, pattern="^.img (.*)")
 async def img_sampler(event):
     """ For .img command, search and return images matching the query. """
@@ -244,7 +244,7 @@ async def gsearch(q_event):
     except IndexError:
         page = 1
     search_args = (str(match), int(page))
-    gsearch = GoogleSearch()
+    gsearch = YahooSearch()
     gresults = await gsearch.async_search(*search_args)
     msg = ""
     for i in range(7):
