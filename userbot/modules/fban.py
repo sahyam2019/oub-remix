@@ -53,7 +53,7 @@ async def fban(event):
         try:
             async with bot.conversation(chat) as conv:
                 await conv.send_message(
-                    f"/fban [{fban_id}](tg://user?id={fban_id}) {reason}")
+                    f"/ban [{fban_id}](tg://user?id={fban_id}) {reason}")
                 reply = await conv.get_response()
                 await bot.send_read_acknowledge(conv.chat_id,
                                                 message=reply,
@@ -119,7 +119,7 @@ async def unfban(event):
         try:
             async with bot.conversation(chat) as conv:
                 await conv.send_message(
-                    f"/unfban [{unfban_id}](tg://user?id={unfban_id}) {reason}"
+                    f"/unban [{unfban_id}](tg://user?id={unfban_id}) {reason}"
                 )
                 reply = await conv.get_response()
                 await bot.send_read_acknowledge(conv.chat_id,
