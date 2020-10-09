@@ -26,7 +26,7 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 UNAPPROVED_MSG = (
-    "`hey there, this is an automated message. if you wanna talk to me, \nask permission in group else you'll be reported as spam.` \n\n`")
+    "`hey there, this is an automated message. if you wanna talk to me, \nask permission in group else you'll be reported as spam. \n\n`")
 # =================================================================
 
 NO_PM_LOG_USERS = []
@@ -77,8 +77,8 @@ async def permitpm(event):
 
                 if COUNT_PM[event.chat_id] > 2:
                     await event.respond(
-                        "𝗬𝗼𝘂 𝘄𝗲𝗿𝗲 𝘀𝗽𝗮𝗺𝗺𝗶𝗻𝗴 𝗺𝘆 𝗽𝗺 𝗱𝘂𝗱𝗲.\n"
-                        "𝘆𝗼𝘂'𝗿𝗲 𝗯𝗹𝗼𝗰𝗸𝗲𝗱 𝗮𝗻𝗱 𝗿𝗲𝗽𝗼𝗿𝘁𝗲𝗱."
+                        "`𝗬𝗼𝘂 𝘄𝗲𝗿𝗲 𝘀𝗽𝗮𝗺𝗺𝗶𝗻𝗴 𝗺𝘆 𝗽𝗺 𝗱𝘂𝗱𝗲.`\n"
+                        "`𝘆𝗼𝘂'𝗿𝗲 𝗯𝗹𝗼𝗰𝗸𝗲𝗱 𝗮𝗻𝗱 𝗿𝗲𝗽𝗼𝗿𝘁𝗲𝗱.`"
                     )
 
                     try:
