@@ -75,15 +75,9 @@ async def ascii(event):
             reply_to=event.reply_to_msg_id,
         )
         await event.delete()
-        os.system("rm *.png")
-        os.system("rm *.webp")
-        os.system("rm *.mp4")
-        os.system("rm *.tgs")
+        os.system("rm *.png *.webp *.mp4 *.tgs")
     except BaseException as e:
-        os.system("rm *.png")
-        os.system("rm *.webp")
-        os.system("rm *.mp4")
-        os.system("rm *.tgs")
+        os.system("rm *.png *.webp *.mp4 *.png")
         return await event.edit(str(e))
 
 

@@ -192,8 +192,7 @@ async def get_user_from_event(event):
 
 async def purge():
     try:
-        os.system("rm -rf *.png")
-        os.system("rm -rf *.webp")
+        os.system("rm *.png *.webp")
     except OSError:
         pass
 
@@ -451,7 +450,7 @@ async def nekobot(e):
 @register(outgoing=True, pattern=r"^\.ph(?: |$)(.*)")
 async def phcomment(event):
     try:
-        await event.edit("`Proccessing..`")
+        await event.edit("`Processing..`")
         text = event.pattern_match.group(1)
         reply = await event.get_reply_message()
         if reply:
