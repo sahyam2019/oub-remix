@@ -68,7 +68,7 @@ async def fban(event):
     reason = reason if reason else "Not specified."
 
     if failed:
-        status = f"Failed to fban in {len(failed)} feds.\n"
+        status = f"Banned in following groups {len(failed)} feds.\n"
         for i in failed:
             status += "• " + i + "\n"
     else:
