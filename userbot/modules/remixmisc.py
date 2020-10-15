@@ -831,10 +831,6 @@ CMD_HELP.update({
 \nUsage:Sends you the given location name.\
 \n\n`.ls` <directory>.\
 \nUsage:Get list file inside directory.\
-\n\n<`.modi` or `.trump` or `.cmm` or `.kanna`> <text>\
-\nUsage: Just for Fun.\
-\n\n<`.ph` or `.threat` or `.trash` or `.trap` >\
-\nUsage: Reply to image or sticker and see magik.\
 \n\n`.hc` **sign**\
 \nExample:`.hc scorpio`\
 \nUsage:Gets your horoscope.\

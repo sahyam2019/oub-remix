@@ -11,7 +11,7 @@ from telegraph import exceptions
 from telegraph import upload_file
 from validators.url import url
 
-from userbot import bot
+from userbot import bot, CMD_HELP
 from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
@@ -493,3 +493,14 @@ async def phcomment(event):
         return await event.edit("`Reply message has no text!`")
     await event.delete()
     await purge()
+
+CMD_HELP.update({
+    "imgmemes":
+    "`.fgs`\
+\nUsage: Get a user-customised google search meme!\
+\n`.fgs` [UpperText] ; [LowerText]\
+\n\n<`.modi` or `.trump` or `.cmm` or `.kanna`> <text>\
+\nUsage: Just for Fun.\
+\n\n<`.ph` or `.threat` or `.trash` or `.trap` >\
+\nUsage: Reply to image or sticker and see magik."
+})
