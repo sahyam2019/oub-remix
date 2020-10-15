@@ -44,7 +44,7 @@ async def FakeGoogleSearch(event):
     await event.delete()
     reply_id = event.pattern_match.group(3) if reply else None
     await event.client.send_file(
-        event.chat.id,
+        event.chat_id,
         'downloads/test.jpg',
         reply_to_message_id=reply_id)
     os.remove('downloads/test.jpg')
