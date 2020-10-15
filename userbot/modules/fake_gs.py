@@ -5,14 +5,12 @@
 # Ported for OUB by @AshSTR
 
 import asyncio
-import os 
+import os
 from PIL import Image, ImageDraw, ImageFont
-from telethon.tl.types import DocumentAttributeFilename
 from wget import download
 
-from userbot import CMD_HELP, bot
+from userbot import CMD_HELP
 from userbot.events import register
-from userbot.utils import googleimagesdownload
 
 @register(outgoing=True, pattern="^.fgs ((.*) ; (.*))")
 async def FakeGoogleSearch(event):
