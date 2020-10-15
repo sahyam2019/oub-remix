@@ -9,7 +9,6 @@ import os
 from PIL import Image, ImageDraw, ImageFont
 from wget import download
 
-from userbot import CMD_HELP
 from userbot.events import register
 
 @register(outgoing=True, pattern="^.fgs ((.*) ; (.*))")
@@ -47,10 +46,3 @@ async def FakeGoogleSearch(event):
         reply_to_message_id=reply_id)
     os.remove('downloads/test.jpg')
 
-    CMD_HELP.update(
-    {
-        "fake_google_search": "`.fgs`\n"
-        "Usage: Get a user-customised google search meme!\n\n"
-        "`.fgs [UpperText] ; [LowerText]`\n"
-    }
-)
