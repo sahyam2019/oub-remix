@@ -106,7 +106,7 @@ def register(**args):
                     date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 
                     text = "**REMIX ERROR REPORT**\n"
-                    link = "[OUB REMIX](https://t.me/PPE_SUPPORT)"
+                    link = "[OUB REMIX](https://t.me/remixsupport)"
                     text += "If you want to, you can report it"
                     text += f"- just forward this message to {link}.\n"
                     text += "Nothing is logged except the fact of error and date\n"
