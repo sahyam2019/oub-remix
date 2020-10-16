@@ -34,9 +34,7 @@ Deploy to Heroku:
 
 ## Groups and support
 
-if you want new features, or announcements, you can follow our [OpenUserBot Channel](https://t.me/PaperplaneExtended_news).
-
-For discussion, bug reporting, and help, you can join [OpenUserBot Support Group](https://t.me/PPE_Support).
+For discussion, bug reporting, and help, you can join [oub-remix support Group](https://t.me/remixsupport).
 
 ## How to setup Google Drive
 [![SetGDRIVE](https://telegra.ph/file/fde15d05e4bde3448b01a.png)](https://telegra.ph/How-To-Setup-Google-Drive-04-03)
