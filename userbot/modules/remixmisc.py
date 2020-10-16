@@ -831,10 +831,6 @@ CMD_HELP.update({
 \nUsage:Sends you the given location name.\
 \n\n`.ls` <directory>.\
 \nUsage:Get list file inside directory.\
-\n\n<`.modi` or `.trump` or `.cmm` or `.kanna`> <text>\
-\nUsage: Just for Fun.\
-\n\n<`.ph` or `.threat` or `.trash` or `.trap` >\
-\nUsage: Reply to image or sticker and see magik.\
 \n\n`.hc` **sign**\
 \nExample:`.hc scorpio`\
 \nUsage:Gets your horoscope.\
@@ -848,5 +844,8 @@ CMD_HELP.update({
 If nothing is mentioned then by default it is 2\
 \n\n`.glitchs` reply to media file\
 \nUsage:glitches the given mediafile(gif , stickers , image, videos) to a sticker and glitch range is from 1 to 8.\
-If nothing is mentioned then by default it is 2."
+If nothing is mentioned then by default it is 2.\
+\n\n`.ssvideo` <grid>\
+\nUsage: Capture video frames by <grid> x <grid>.\
+\nMax grid is 10."
 })

@@ -85,6 +85,7 @@ glitch_this
 twitter_scraper
 pyaztro
 jikanpy
+vcsi
 lottie
 wand
 colour
