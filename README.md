@@ -34,6 +34,8 @@ Deploy to Heroku:
 
 ## Groups and support
 
+If you want new features, or announcements, you can follow our [oub-remix Channel](https://t.me/oubremix).
+
 For discussion, bug reporting, and help, you can join [oub-remix support Group](https://t.me/remixsupport).
 
 ## How to setup Google Drive
