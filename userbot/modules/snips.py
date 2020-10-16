@@ -91,9 +91,9 @@ async def on_snip_list(event):
     for a_snip in all_snips:
         if message == "`No snips available right now.`":
             message = "Available snips:\n"
-            message += f"``${a_snip.snip}``\n"
+            message += f"`${a_snip.snip}`\n"
         else:
-            message += f"``${a_snip.snip}``\n"
+            message += f"`${a_snip.snip}`\n"
 
     await event.edit(message)
 
