@@ -54,15 +54,15 @@ async def quotess(qotli):
 
 
 CMD_HELP.update({
-
-    "quotly":
-
-    "`.q`\
-
+"quotly":
+"`.q`\  
 \nUsage: Enhance ur text to sticker.\
-
-\n\n`.pch`\
-
+\n\n`.pch`\  
 \nUsage: Better than quotly."
-
 })
+
+
+
+
+
+
