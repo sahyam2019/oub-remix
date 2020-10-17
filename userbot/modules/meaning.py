@@ -1,6 +1,6 @@
 from userbot import CMD_HELP
 from userbot.events import register
-from PyDictionary import PyDictionary
+from PyDictionary
 
 @register(outgoing=True, pattern=r"^\.meaning(?: |$)(.*)")
 async def _(event):
