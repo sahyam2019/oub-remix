@@ -847,5 +847,7 @@ If nothing is mentioned then by default it is 2\
 If nothing is mentioned then by default it is 2.\
 \n\n`.ssvideo` <grid>\
 \nUsage: Capture video frames by <grid> x <grid>.\
-\nMax grid is 10."
+\nMax grid is 10.\
+\n\n`.confs`\
+\n\nUsage:Counts number of files in chat."
 })
