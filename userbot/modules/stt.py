@@ -52,8 +52,17 @@ async def quotess(qotli):
     except TimeoutError:
         await qotli.edit()
 
+
 CMD_HELP.update({
-    "voicetotext":
-    "`.stt`\
+
+    "quotly":
+
+    "`.q`\
+
 \nUsage: Enhance ur text to sticker.\
+
+\n\n`.pch`\
+
+\nUsage: Better than quotly."
+
 })
