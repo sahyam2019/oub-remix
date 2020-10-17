@@ -60,9 +60,3 @@ CMD_HELP.update({
 \n\n`.pch`\  
 \nUsage: Better than quotly."
 })
-
-
-
-
-
-
