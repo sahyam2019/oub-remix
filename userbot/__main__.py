@@ -30,7 +30,7 @@ LOGS.info(f"You are running oub-remix [{BOT_VER}]")
 
 LOGS.info(
     "Congratulations, your userbot is now running !! Test it by typing .start/.ping in any chat."
-    "\nIf you need assistance, head to https://t.me/PPE_Support")
+    "\nIf you need assistance, head to https://t.me/remixsupport")
     
     
 

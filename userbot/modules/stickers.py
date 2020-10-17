@@ -176,7 +176,7 @@ async def kang(args):
                         await bot.send_read_acknowledge(conv.chat_id)
                         await args.edit(
                             f"`Sticker added in a Different Pack !\
-                            \nThis Pack is Newly created!\
+                            \nThis Pack is Newly created!`\
                             \nYour pack can be found [here](t.me/addstickers/{packname})",
                             parse_mode="md",
                         )

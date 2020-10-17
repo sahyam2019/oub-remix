@@ -301,7 +301,7 @@ with bot:
     except:
         LOGS.info(
             "BOTLOG_CHATID environment variable isn't valid"
-            "Please generate proper group id and set.You can ask in @PPE_Support if you need help")
+            "Please generate proper group id and set.You can ask in @remixsupport if you need help")
         quit(1)
 
 StartTime = time.time()        
@@ -399,7 +399,7 @@ with bot:
                                 "https://github.com/sahyam2019/oub-remix"),
                             custom.Button.url(
                                 "Support",
-                                "https://t.me/PPE_Support")],
+                                "https://t.me/remixsupport")],
                     ],
                     link_preview=False,
                 )
