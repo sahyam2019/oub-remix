@@ -23,14 +23,32 @@ GITHUB = "https://github.com"
 
 @register(outgoing=True, pattern=r"^\.magisk$")
 async def magisk(request):
+    magisk_repo = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
     magisk_dict = {
-        "Stable": "https://raw.githubusercontent.com/topjohnwu/magisk_files/master/stable.json",
-        "Beta": "https://raw.githubusercontent.com/topjohnwu/magisk_files/master/beta.json",
-        "Canary": "https://raw.githubusercontent.com/topjohnwu/magisk_files/canary/debug.json",
+        "⦁ **Stable**":
+        magisk_repo + "master/stable.json",
+        "⦁ **Beta**":
+        magisk_repo + "master/beta.json",
+        "⦁ **Canary**":
+        magisk_repo + "canary/canary.json"
     }
-    releases = "Latest Magisk Releases:\n"
+    releases = "**Latest Magisk Release**\n\n"
     for name, release_url in magisk_dict.items():
         data = get(release_url).json()
+        if "canary" in release_url:
+            data['app']['link'] = (
+                magisk_repo +
+                "canary/" + data['app']['link']
+            )
+            data['magisk']['link'] = (
+                magisk_repo +
+                "canary/" + data['magisk']['link']
+            )
+            data['uninstaller']['link'] = (
+                magisk_repo +
+                "canary/" + data['uninstaller']['link']
+            )
+
         releases += (
             f'{name}: [ZIP v{data["magisk"]["version"]}]({data["magisk"]["link"]}) | '
             f'[APK v{data["app"]["version"]}]({data["app"]["link"]}) | '
