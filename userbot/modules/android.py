@@ -25,14 +25,14 @@ GITHUB = "https://github.com"
 async def magisk(request):
     magisk_repo = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
     magisk_dict = {
-        "⦁ 𝗦𝘁𝗮𝗯𝗹𝗲":
+        "⦁ **Stable**":
         magisk_repo + "master/stable.json",
-        "⦁ 𝗕𝗲𝘁𝗮":
+        "⦁ **Beta**":
         magisk_repo + "master/beta.json",
-        "⦁ 𝗖𝗮𝗻𝗮𝗿𝘆":
+        "⦁ **Canary**":
         magisk_repo + "canary/canary.json"
     }
-    releases = "<code><i>𝗟𝗮𝘁𝗲𝘀𝘁 𝗠𝗮𝗴𝗶𝘀𝗸 𝗥𝗲𝗹𝗲𝗮𝘀𝗲:</i></code>\n\n"
+    releases = "**Latest Magisk Release**\n\n"
     for name, release_url in magisk_dict.items():
         data = get(release_url).json()
         if "canary" in release_url:
