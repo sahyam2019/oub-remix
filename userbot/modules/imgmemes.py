@@ -502,7 +502,5 @@ CMD_HELP.update({
 \n\n<`.modi` or `.trump` or `.cmm` or `.kanna`> <text>\
 \nUsage: Just for Fun.\
 \n\n<`.ph` or `.threat` or `.trash` or `.trap` >\
-\nUsage: Reply to image or sticker and see magik.\
-\n\n`.wc`\
-\n\nUsage: Create wordcloud art from media."
+\nUsage: Reply to image or sticker and see magik."
 })

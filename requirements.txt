@@ -89,5 +89,3 @@ vcsi
 lottie
 wand
 colour
-scipy
-wordcloud
