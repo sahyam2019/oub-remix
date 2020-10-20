@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/sahyam2019/oub-remix.svg?branch=sql-extended)](https://travis-ci.com/sahyam2019/oub-remix) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/38fee611df7c4312be63a15cad64a50a)](https://www.codacy.com/manual/sahyam2019/oub-remix?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sahyam2019/oub-remix&amp;utm_campaign=Badge_Grade) ![Last Commit](https://img.shields.io/github/last-commit/sahyam2019/oub-remix) ![Contributers](https://img.shields.io/github/contributors/sahyam2019/oub-remix) ![Forks](https://img.shields.io/github/forks/sahyam2019/oub-remix)     
 # Project OpenUserBot Remix
 
-![logo](https://telegra.ph/file/12fd39f968f0892ae1a7e.jpg)
+![logo](https://telegra.ph/file/b17eb811d1666426e7f3b.jpg)
 
 ```
 #include <std/disclaimer.h>
@@ -48,11 +48,10 @@ Thanks for all :
 * [AvinashReddy3108](https://github.com/AvinashReddy3108) - PaperplaneExtended
 * [Mkaraniya](https://github.com/mkaraniya) - OpenUserBot
 * [DevPatel](https://github.com/Devp73) - OpenUserBot
-* [kandnub](https://github.com/kandnub) - TG-UserBot
 * [༺αиυвιѕ༻](https://github.com/Dark-Princ3) - X-tra-Telegram
 * [MoveAngel](https://github.com/MoveAngel) - One4uBot
 * [keselekpermen69](https://github.com/keselekpermen69) - UserButt
-* [GengKapak](https://github.com/GengKapak) - DCLXVI
+
 and many more people who aren't mentioned here, but may be found in [Contributors](https://github.com/sahyam2019/oub-remix/graphs/contributors).
 
 ## License
