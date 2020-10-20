@@ -26,7 +26,7 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 UNAPPROVED_MSG = (
-    "`hey there, this is an automated message. if you wanna talk to me, \nask permission in group else you'll be reported as spam. \n\n`")
+    "`heyy, you reached Max's inbox. Leave a message after this beep. \nbeeeeeeeeep......... \n\n`")
 # =================================================================
 
 NO_PM_LOG_USERS = []
