@@ -91,3 +91,4 @@ wand
 colour
 wordcloud
 scipy
+PyDictionary
