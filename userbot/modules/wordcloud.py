@@ -70,10 +70,10 @@ async def _(event):
         )
         image_mask[edges > 0.08] = 300
         wc = WordCloud(
-            max_words=5000,
+            max_words=1000,
             mask=image_mask,
-            max_font_size=20,
-            random_state=48,
+            max_font_size=50,
+            random_state=20,
             relative_scaling=0,
         )
         wc.generate(text)
@@ -92,4 +92,4 @@ async def _(event):
         return await event.edit(str(e))
 
 
-CMD_HELP.update({"wordcloud": ">`.wc`\n" "Usage: create wordcloud art from media\n\n"})
+CMD_HELP.updatqe({"wordcloud": ">`.wc`\n" "Usage: create wordcloud art from media\n\n"})
