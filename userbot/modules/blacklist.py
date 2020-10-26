@@ -30,7 +30,8 @@ async def on_new_message(event):
             try:
                 await event.delete()
             except Exception as e:
-                await event.reply("I do not have DELETE permission in this chat")
+                await event.reply(
+                    "I do not have DELETE permission in this chat")
                 sql.rm_from_blacklist(event.chat_id, snip.lower())
             break
 
@@ -39,16 +40,14 @@ async def on_new_message(event):
 async def on_add_black_list(addbl):
     text = addbl.pattern_match.group(1)
     to_blacklist = list(
-        {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
-    )
+        {trigger.strip()
+         for trigger in text.split("\n") if trigger.strip()})
 
     for trigger in to_blacklist:
         sql.add_to_blacklist(addbl.chat_id, trigger.lower())
     await addbl.edit(
         "Added {} triggers to the blacklist in the current chat".format(
-            len(to_blacklist)
-        )
-    )
+            len(to_blacklist)))
 
 
 @register(outgoing=True, pattern="^.listbl(?: |$)(.*)")
@@ -80,21 +79,19 @@ async def on_view_blacklist(listbl):
 async def on_delete_blacklist(rmbl):
     text = rmbl.pattern_match.group(1)
     to_unblacklist = list(
-        {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
-    )
+        {trigger.strip()
+         for trigger in text.split("\n") if trigger.strip()})
 
-    successful = sum(
-        1
-        for trigger in to_unblacklist
-        if sql.rm_from_blacklist(rmbl.chat_id, trigger.lower())
-    )
+    successful = sum(1 for trigger in to_unblacklist
+                     if sql.rm_from_blacklist(rmbl.chat_id, trigger.lower()))
 
-    await rmbl.edit(f"Removed {successful} / {len(to_unblacklist)} from the blacklist")
+    await rmbl.edit(
+        f"Removed {successful} / {len(to_unblacklist)} from the blacklist")
 
 
-CMD_HELP.update(
-    {
-        "blacklist": ".listbl\
+CMD_HELP.update({
+    "blacklist":
+    ".listbl\
     \nUsage: Lists all active userbot blacklist in a chat.\
     \n\n.addbl <keyword>\
     \nUsage: Saves the message to the 'blacklist keyword'.\
@@ -102,5 +99,4 @@ CMD_HELP.update(
     \n\n.rmbl <keyword>\
     \nUsage: Stops the specified blacklist.\
 	\n btw you need permissions **Delete Messages** of admin."
-    }
-)
+})

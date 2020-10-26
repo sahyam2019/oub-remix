@@ -68,7 +68,8 @@ async def update_name(name):
         firstname = namesplit[0]
         lastname = namesplit[1]
 
-    await name.client(UpdateProfileRequest(first_name=firstname, last_name=lastname))
+    await name.client(
+        UpdateProfileRequest(first_name=firstname, last_name=lastname))
     await name.edit(NAME_OK)
 
 
@@ -83,7 +84,8 @@ async def _(event):
     photo = None
     try:
         photo = await bot.download_media(  # pylint:disable=E0602
-            reply_message, TEMP_DOWNLOAD_DIRECTORY  # pylint:disable=E0602
+            reply_message,
+            TEMP_DOWNLOAD_DIRECTORY  # pylint:disable=E0602
         )
     except Exception as e:  # pylint:disable=C0103,W0703
         await event.edit(str(e))
@@ -105,9 +107,7 @@ async def _(event):
             try:
                 await bot(
                     functions.photos.UploadProfilePhotoRequest(
-                        file=catpic, video=catvideo, video_start_ts=0.01
-                    )
-                )
+                        file=catpic, video=catvideo, video_start_ts=0.01))
             except Exception as e:  # pylint:disable=C0103,W0703
                 await event.edit(str(e))
             else:
@@ -186,19 +186,21 @@ async def remove_profilepic(delpfp):
         lim = 1
 
     pfplist = await delpfp.client(
-        GetUserPhotosRequest(user_id=delpfp.from_id, offset=0, max_id=0, limit=lim)
-    )
+        GetUserPhotosRequest(user_id=delpfp.from_id,
+                             offset=0,
+                             max_id=0,
+                             limit=lim))
     input_photos = [
         InputPhoto(
             id=sep.id,
             access_hash=sep.access_hash,
             file_reference=sep.file_reference,
-        )
-        for sep in pfplist.photos
+        ) for sep in pfplist.photos
     ]
 
     await delpfp.client(DeletePhotosRequest(id=input_photos))
-    await delpfp.edit(f"`Successfully deleted {len(input_photos)} profile picture(s).`")
+    await delpfp.edit(
+        f"`Successfully deleted {len(input_photos)} profile picture(s).`")
 
 
 @register(pattern=".data(?: |$)(.*)", outgoing=True)
@@ -245,7 +247,8 @@ async def get_user(event):
     """ Get the user from argument or replied message. """
     if event.reply_to_msg_id and not event.pattern_match.group(1):
         previous_message = await event.get_reply_message()
-        replied_user = await event.client(GetFullUserRequest(previous_message.from_id))
+        replied_user = await event.client(
+            GetFullUserRequest(previous_message.from_id))
     else:
         user = event.pattern_match.group(1)
 
@@ -259,13 +262,15 @@ async def get_user(event):
         if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
 
-            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
+            if isinstance(probable_user_mention_entity,
+                          MessageEntityMentionName):
                 user_id = probable_user_mention_entity.user_id
                 replied_user = await event.client(GetFullUserRequest(user_id))
                 return replied_user
         try:
             user_object = await event.client.get_entity(user)
-            replied_user = await event.client(GetFullUserRequest(user_object.id))
+            replied_user = await event.client(
+                GetFullUserRequest(user_object.id))
         except (TypeError, ValueError) as err:
             await event.edit(str(err))
             return None
@@ -276,10 +281,10 @@ async def get_user(event):
 async def fetch_info(replied_user, event):
     """ Get details from the User object. """
     replied_user_profile_photos = await event.client(
-        GetUserPhotosRequest(
-            user_id=replied_user.user.id, offset=42, max_id=0, limit=80
-        )
-    )
+        GetUserPhotosRequest(user_id=replied_user.user.id,
+                             offset=42,
+                             max_id=0,
+                             limit=80))
     replied_user_profile_photos_count = "This gay has no pic."
     try:
         replied_user_profile_photos_count = replied_user_profile_photos.count
@@ -299,18 +304,16 @@ async def fetch_info(replied_user, event):
     is_bot = replied_user.user.bot
     restricted = replied_user.user.restricted
     verified = replied_user.user.verified
-    photo = await event.client.download_profile_photo(
-        user_id, TEMP_DOWNLOAD_DIRECTORY + str(user_id) + ".jpg", download_big=True
-    )
-    first_name = (
-        first_name.replace("\u2060", "")
-        if first_name
-        else ("This User has no First Name")
-    )
-    last_name = (
-        last_name.replace("\u2060", "") if last_name else ("This User has no Last Name")
-    )
-    username = "@{}".format(username) if username else ("This User has no Username")
+    photo = await event.client.download_profile_photo(user_id,
+                                                      TEMP_DOWNLOAD_DIRECTORY +
+                                                      str(user_id) + ".jpg",
+                                                      download_big=True)
+    first_name = (first_name.replace("\u2060", "") if first_name else
+                  ("This User has no First Name"))
+    last_name = (last_name.replace("\u2060", "") if last_name else
+                 ("This User has no Last Name"))
+    username = "@{}".format(username) if username else (
+        "This User has no Username")
     user_bio = "This User has no About" if not user_bio else user_bio
 
     caption = "<b>USER INFO:</b>\n\n"
@@ -331,9 +334,9 @@ async def fetch_info(replied_user, event):
     return photo, caption
 
 
-CMD_HELP.update(
-    {
-        "profile": "`.username` <new_username>\
+CMD_HELP.update({
+    "profile":
+    "`.username` <new_username>\
 \nUsage: Changes your Telegram username.\
 \n\n`.name` <firstname> or `.name` <firstname> <lastname>\
 \nUsage: Changes your Telegram name.(First and last name will get split by the first space)\
@@ -349,5 +352,4 @@ CMD_HELP.update(
 \nUsage: Counts your groups, chats, bots etc...\
 \n\n`.data` <username> or reply to someones text with `.data`\
 \nUsage: Gets info of an user."
-    }
-)
+})

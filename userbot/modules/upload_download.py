@@ -41,7 +41,8 @@ async def download(target_file):
         # https://stackoverflow.com/a/761825/4723940
         file_name = file_name.strip()
         head, tail = os.path.split(file_name)
-        if head and not os.path.isdir(os.path.join(TEMP_DOWNLOAD_DIRECTORY, head)):
+        if head and not os.path.isdir(
+                os.path.join(TEMP_DOWNLOAD_DIRECTORY, head)):
             os.makedirs(os.path.join(TEMP_DOWNLOAD_DIRECTORY, head))
             file_name = os.path.join(head, tail)
         downloaded_file_name = TEMP_DOWNLOAD_DIRECTORY + "/" + file_name
@@ -59,7 +60,8 @@ async def download(target_file):
             speed = downloader.get_speed()
             progress_str = "[{0}{1}] `{2}%`".format(
                 "".join(["■" for i in range(math.floor(percentage / 10))]),
-                "".join(["▨" for i in range(10 - math.floor(percentage / 10))]),
+                "".join(["▨"
+                         for i in range(10 - math.floor(percentage / 10))]),
                 round(percentage, 2),
             )
             estimated_total_time = downloader.get_eta(human=True)
@@ -70,18 +72,17 @@ async def download(target_file):
                     f"\n**{status}**... | {progress_str}"
                     f"\n{humanbytes(downloaded)} of {humanbytes(total_length)}"
                     f" @ {speed}"
-                    f"\n`ETA` -> {estimated_total_time}"
-                )
+                    f"\n`ETA` -> {estimated_total_time}")
 
-                if round(diff % 10.00) == 0 and current_message != display_message:
+                if round(diff %
+                         10.00) == 0 and current_message != display_message:
                     await target_file.edit(current_message)
                     display_message = current_message
             except Exception as e:
                 LOGS.info(str(e))
         if downloader.isSuccessful():
-            await target_file.edit(
-                "Downloaded to `{}` successfully !!".format(downloaded_file_name)
-            )
+            await target_file.edit("Downloaded to `{}` successfully !!".format(
+                downloaded_file_name))
         else:
             await target_file.edit("Incorrect URL\n{}".format(url))
     elif target_file.reply_to_msg_id:
@@ -90,18 +91,17 @@ async def download(target_file):
             downloaded_file_name = await target_file.client.download_media(
                 await target_file.get_reply_message(),
                 TEMP_DOWNLOAD_DIRECTORY,
-                progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                    progress(d, t, target_file, c_time, "[DOWNLOAD]")
-                ),
+                progress_callback=lambda d, t: asyncio.get_event_loop().
+                create_task(progress(d, t, target_file, c_time, "[DOWNLOAD]")),
             )
         except Exception as e:  # pylint:disable=C0103,W0703
             await target_file.edit(str(e))
         else:
-            await target_file.edit(
-                "Downloaded to `{}` successfully !!".format(downloaded_file_name)
-            )
+            await target_file.edit("Downloaded to `{}` successfully !!".format(
+                downloaded_file_name))
     else:
-        await target_file.edit("Reply to a message to download to my local server.")
+        await target_file.edit(
+            "Reply to a message to download to my local server.")
 
 
 @register(pattern=r".uploadir (.*)", outgoing=True)
@@ -120,9 +120,7 @@ async def uploadir(udir_event):
         uploaded = 0
         await udir_event.edit(
             "Found {} files. Uploading will start soon. Please wait!".format(
-                len(lst_of_files)
-            )
-        )
+                len(lst_of_files)))
         for single_file in lst_of_files:
             if os.path.exists(single_file):
                 # https://stackoverflow.com/a/678242/4723940
@@ -136,9 +134,10 @@ async def uploadir(udir_event):
                         force_document=False,
                         allow_cache=False,
                         reply_to=udir_event.message.id,
-                        progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                            progress(d, t, udir_event, c_time, "[UPLOAD]", single_file)
-                        ),
+                        progress_callback=lambda d, t: asyncio.get_event_loop(
+                        ).create_task(
+                            progress(d, t, udir_event, c_time, "[UPLOAD]",
+                                     single_file)),
                     )
                 else:
                     thumb_image = os.path.join(input_str, "thumb.jpg")
@@ -170,13 +169,15 @@ async def uploadir(udir_event):
                                 supports_streaming=True,
                             )
                         ],
-                        progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                            progress(d, t, udir_event, c_time, "[UPLOAD]", single_file)
-                        ),
+                        progress_callback=lambda d, t: asyncio.get_event_loop(
+                        ).create_task(
+                            progress(d, t, udir_event, c_time, "[UPLOAD]",
+                                     single_file)),
                     )
                 os.remove(single_file)
                 uploaded += 1
-        await udir_event.edit("Uploaded {} files successfully !!".format(uploaded))
+        await udir_event.edit(
+            "Uploaded {} files successfully !!".format(uploaded))
     else:
         await udir_event.edit("404: Directory Not Found")
 
@@ -187,7 +188,8 @@ async def upload(u_event):
     await u_event.edit("Processing ...")
     input_str = u_event.pattern_match.group(1)
     if input_str in ("userbot.session", "config.env"):
-        return await u_event.edit("`That's a dangerous operation! Not Permitted!`")
+        return await u_event.edit(
+            "`That's a dangerous operation! Not Permitted!`")
     if os.path.exists(input_str):
         c_time = time.time()
         await u_event.client.send_file(
@@ -196,9 +198,9 @@ async def upload(u_event):
             force_document=True,
             allow_cache=False,
             reply_to=u_event.message.id,
-            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(d, t, u_event, c_time, "[UPLOAD]", input_str)
-            ),
+            progress_callback=lambda d, t: asyncio.get_event_loop(
+            ).create_task(
+                progress(d, t, u_event, c_time, "[UPLOAD]", input_str)),
         )
         await u_event.edit("Uploaded successfully !!")
     else:
@@ -215,8 +217,8 @@ def get_video_thumb(file, output=None, width=90):
             file,
             "-ss",
             str(
-                int((0, metadata.get("duration").seconds)[metadata.has("duration")] / 2)
-            ),
+                int((0, metadata.get("duration").seconds
+                     )[metadata.has("duration")] / 2)),
             "-filter:v",
             "scale={}:-1".format(width),
             "-vframes",
@@ -246,7 +248,8 @@ def extract_w_h(file):
     ]
     # https://stackoverflow.com/a/11236144/4723940
     try:
-        t_response = subprocess.check_output(command_to_run, stderr=subprocess.STDOUT)
+        t_response = subprocess.check_output(command_to_run,
+                                             stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as exc:
         LOGS.warning(exc)
     else:
@@ -313,9 +316,10 @@ async def uploadas(uas_event):
                             supports_streaming=True,
                         )
                     ],
-                    progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                        progress(d, t, uas_event, c_time, "[UPLOAD]", file_name)
-                    ),
+                    progress_callback=lambda d, t: asyncio.get_event_loop().
+                    create_task(
+                        progress(d, t, uas_event, c_time, "[UPLOAD]", file_name
+                                 )),
                 )
             elif round_message:
                 c_time = time.time()
@@ -335,9 +339,10 @@ async def uploadas(uas_event):
                             supports_streaming=True,
                         )
                     ],
-                    progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                        progress(d, t, uas_event, c_time, "[UPLOAD]", file_name)
-                    ),
+                    progress_callback=lambda d, t: asyncio.get_event_loop().
+                    create_task(
+                        progress(d, t, uas_event, c_time, "[UPLOAD]", file_name
+                                 )),
                 )
             elif spam_big_messages:
                 return await uas_event.edit("TBD: Not (yet) Implemented")
@@ -349,11 +354,10 @@ async def uploadas(uas_event):
         await uas_event.edit("404: File Not Found")
 
 
-CMD_HELP.update(
-    {
-        "download": "`.download` <link|filename> or reply to media\
+CMD_HELP.update({
+    "download":
+    "`.download` <link|filename> or reply to media\
 \nUsage: Downloads file to the server.\
 \n\n`.upload` <path in server>\
 \nUsage: Uploads a locally stored file to the chat."
-    }
-)
+})

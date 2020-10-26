@@ -19,6 +19,8 @@ from userbot.events import register
 # from uniborg.util import admin_cmd, humanbytes, progress, time_formatter
 
 GIT_TEMP_DIR = "./userbot/temp/"
+
+
 # @borg.on(admin_cmd(pattern="commit ?(.*)", allow_sudo=True))
 @register(outgoing=True, pattern="^.gcommit(?: |$)(.*)")
 # @register(pattern=r".commit (.*)", outgoing=True)
@@ -29,7 +31,8 @@ async def download(event):
         await event.edit("`Please ADD Proper Access Token from github.com`")
         return
     if GIT_REPO_NAME is None:
-        await event.edit("`Please ADD Proper Github Repo Name of your userbot`")
+        await event.edit("`Please ADD Proper Github Repo Name of your userbot`"
+                         )
         return
     mone = await event.reply("Processing ...")
     if not os.path.isdir(GIT_TEMP_DIR):
@@ -40,17 +43,15 @@ async def download(event):
         c_time = time.time()
         print("Downloading to TEMP directory")
         downloaded_file_name = await bot.download_media(
-            reply_message.media, GIT_TEMP_DIR
-        )
+            reply_message.media, GIT_TEMP_DIR)
     except Exception as e:
         await mone.edit(str(e))
     else:
         end = datetime.now()
         ms = (end - start).seconds
         await event.delete()
-        await mone.edit(
-            "Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms)
-        )
+        await mone.edit("Downloaded to `{}` in {} seconds.".format(
+            downloaded_file_name, ms))
         await mone.edit("Committing to Github....")
         await git_commit(downloaded_file_name, mone)
 
@@ -77,9 +78,10 @@ async def git_commit(file_name, mone):
         file_name = file_name.replace("./userbot/temp/", "")
         print(file_name)
         try:
-            repo.create_file(
-                file_name, "Uploaded New Plugin", commit_data, branch="sql-extended"
-            )
+            repo.create_file(file_name,
+                             "Uploaded New Plugin",
+                             commit_data,
+                             branch="sql-extended")
             print("Committed File")
             ccess = GIT_REPO_NAME
             ccess = ccess.strip()

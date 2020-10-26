@@ -74,9 +74,8 @@ async def _(event):
             pass
 
 
-CMD_HELP.update(
-    {
-        "emojigames": "`.dice` 1-6 or `.dart`1-6 or `.bb`1-5 or `.fb`1-5\
+CMD_HELP.update({
+    "emojigames":
+    "`.dice` 1-6 or `.dart`1-6 or `.bb`1-5 or `.fb`1-5\
 \nUsage: hahaha just a magic.\nWarning:`Don't use any other values or bot will crash`"
-    }
-)
+})

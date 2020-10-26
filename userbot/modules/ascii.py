@@ -34,10 +34,8 @@ async def ascii(event):
             reply_message,
             "ascii.png",
         )
-    elif (
-        DocumentAttributeFilename(file_name="AnimatedSticker.tgs")
-        in reply_message.media.document.attributes
-    ):
+    elif (DocumentAttributeFilename(file_name="AnimatedSticker.tgs") in
+          reply_message.media.document.attributes):
         await bot.download_media(
             reply_message,
             "ASCII.tgs",
@@ -50,7 +48,8 @@ async def ascii(event):
             "ascii.mp4",
         )
         extractMetadata(createParser(video))
-        os.system("ffmpeg -i ascii.mp4 -vframes 1 -an -s 480x360 -ss 1 ascii.png")
+        os.system(
+            "ffmpeg -i ascii.mp4 -vframes 1 -an -s 480x360 -ss 1 ascii.png")
         IMG = "ascii.png"
     else:
         IMG = await bot.download_media(
@@ -96,8 +95,9 @@ async def asciiart(IMG, color1, color2, bgcolor):
     img = img.resize(S)
     img = np.sum(np.asarray(img), axis=2)
     img -= img.min()
-    img = (1.0 - img / img.max()) ** 2.2 * (chars.size - 1)
-    lines = ("\n".join(("".join(r) for r in chars[img.astype(int)]))).split("\n")
+    img = (1.0 - img / img.max())**2.2 * (chars.size - 1)
+    lines = ("\n".join(
+        ("".join(r) for r in chars[img.astype(int)]))).split("\n")
     nbins = len(lines)
     colorRange = list(Color(color1).range_to(Color(color2), nbins))
     newImg_width = letter_width * widthByLetter
@@ -135,13 +135,12 @@ async def _(event):
     await event.edit(f"`Successfully set bg of ascii to` **{BG}**")
 
 
-CMD_HELP.update(
-    {
-        "ascii": "`.ascii`\n"
-        "Usage: create ascii art from media\n\n"
-        "`.asciis`\n"
-        "Usage: same but upload the result as sticker\n\n"
-        "`.asciibg <color>`\n"
-        "Usage: to change background color of this ascii module"
-    }
-)
+CMD_HELP.update({
+    "ascii":
+    "`.ascii`\n"
+    "Usage: create ascii art from media\n\n"
+    "`.asciis`\n"
+    "Usage: same but upload the result as sticker\n\n"
+    "`.asciibg <color>`\n"
+    "Usage: to change background color of this ascii module"
+})

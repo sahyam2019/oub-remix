@@ -44,8 +44,8 @@ async def fastpurger(purg):
 
     if BOTLOG:
         await purg.client.send_message(
-            BOTLOG_CHATID, "Purge of " + str(count) + " messages done successfully."
-        )
+            BOTLOG_CHATID,
+            "Purge of " + str(count) + " messages done successfully.")
     await sleep(2)
     await done.delete()
 
@@ -57,7 +57,8 @@ async def purgeme(delme):
     count = int(message[9:])
     i = 1
 
-    async for message in delme.client.iter_messages(delme.chat_id, from_user="me"):
+    async for message in delme.client.iter_messages(delme.chat_id,
+                                                    from_user="me"):
         if i > count + 1:
             break
         i += 1
@@ -69,8 +70,8 @@ async def purgeme(delme):
     )
     if BOTLOG:
         await delme.client.send_message(
-            BOTLOG_CHATID, "Purge of " + str(count) + " messages done successfully."
-        )
+            BOTLOG_CHATID,
+            "Purge of " + str(count) + " messages done successfully.")
     await sleep(2)
     i = 1
     await smsg.delete()
@@ -86,13 +87,11 @@ async def delete_it(delme):
             await delme.delete()
             if BOTLOG:
                 await delme.client.send_message(
-                    BOTLOG_CHATID, "Deletion of message was successful"
-                )
+                    BOTLOG_CHATID, "Deletion of message was successful")
         except rpcbaseerrors.BadRequestError:
             if BOTLOG:
                 await delme.client.send_message(
-                    BOTLOG_CHATID, "Well, I can't delete a message"
-                )
+                    BOTLOG_CHATID, "Well, I can't delete a message")
 
 
 @register(outgoing=True, pattern="^.edit")
@@ -110,9 +109,8 @@ async def editer(edit):
             break
         i += 1
     if BOTLOG:
-        await edit.client.send_message(
-            BOTLOG_CHATID, "Edit query was executed successfully"
-        )
+        await edit.client.send_message(BOTLOG_CHATID,
+                                       "Edit query was executed successfully")
 
 
 @register(outgoing=True, pattern="^.sd")
@@ -126,12 +124,13 @@ async def selfdestruct(destroy):
     await sleep(counter)
     await smsg.delete()
     if BOTLOG:
-        await destroy.client.send_message(BOTLOG_CHATID, "sd query done successfully")
+        await destroy.client.send_message(BOTLOG_CHATID,
+                                          "sd query done successfully")
 
 
-CMD_HELP.update(
-    {
-        "messages": "`.purge`\
+CMD_HELP.update({
+    "messages":
+    "`.purge`\
 \nUsage: Purges all messages starting from the reply.\
 \n\n`.purgeme` <x>\
 \nusage: Deletes x amount of your latest messages..\
@@ -142,5 +141,4 @@ CMD_HELP.update(
 \n\n`.sd `<x> <message>\
 \nUsage: Creates a message that selfdestructs in x seconds.\
 \nKeep the seconds under 100 since it puts your bot to sleep"
-    }
-)
+})

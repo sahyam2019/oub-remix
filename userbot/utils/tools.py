@@ -49,7 +49,7 @@ def humanbytes(size: int) -> str:
     if size is None or isinstance(size, str):
         return ""
 
-    power = 2 ** 10
+    power = 2**10
     raised_to_pow = 0
     dict_power_n = {0: "", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
     while size > power:
@@ -62,23 +62,21 @@ def time_formatter(seconds: int) -> str:
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
-    tmp = (
-        ((str(days) + " day(s), ") if days else "")
-        + ((str(hours) + " hour(s), ") if hours else "")
-        + ((str(minutes) + " minute(s), ") if minutes else "")
-        + ((str(seconds) + " second(s), ") if seconds else "")
-    )
+    tmp = (((str(days) + " day(s), ") if days else "") +
+           ((str(hours) + " hour(s), ") if hours else "") +
+           ((str(minutes) + " minute(s), ") if minutes else "") +
+           ((str(seconds) + " second(s), ") if seconds else ""))
     return tmp[:-2]
 
 
 def human_to_bytes(size: str) -> int:
     units = {
-        "M": 2 ** 20,
-        "MB": 2 ** 20,
-        "G": 2 ** 30,
-        "GB": 2 ** 30,
-        "T": 2 ** 40,
-        "TB": 2 ** 40,
+        "M": 2**20,
+        "MB": 2**20,
+        "G": 2**30,
+        "GB": 2**30,
+        "T": 2**40,
+        "TB": 2**40,
     }
 
     size = size.upper()
@@ -91,17 +89,16 @@ def human_to_bytes(size: str) -> int:
 async def is_admin(chat_id, user_id):
     req_jo = await bot(GetParticipantRequest(channel=chat_id, user_id=user_id))
     chat_participant = req_jo.participant
-    return isinstance(chat_participant, ChannelParticipantCreator) or isinstance(
-        chat_participant, ChannelParticipantAdmin
-    )
+    return isinstance(chat_participant,
+                      ChannelParticipantCreator) or isinstance(
+                          chat_participant, ChannelParticipantAdmin)
 
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     """ run command in terminal """
     args = shlex.split(cmd)
     process = await asyncio.create_subprocess_exec(
-        *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
-    )
+        *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
     stdout, stderr = await process.communicate()
     return (
         stdout.decode("utf-8", "replace").strip(),
@@ -111,9 +108,8 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     )
 
 
-async def take_screen_shot(
-    video_file: str, duration: int, path: str = ""
-) -> Optional[str]:
+async def take_screen_shot(video_file: str, duration: int,
+                           path: str = "") -> Optional[str]:
     """ take a screenshot """
     LOGS.info(
         "[[[Extracting a frame from %s ||| Video duration => %s]]]",
@@ -121,7 +117,8 @@ async def take_screen_shot(
         duration,
     )
     ttl = duration // 2
-    thumb_image_path = path or os.path.join("./temp/", f"{basename(video_file)}.jpg")
+    thumb_image_path = path or os.path.join("./temp/",
+                                            f"{basename(video_file)}.jpg")
     command = f"ffmpeg -ss {ttl} -i '{video_file}' -vframes 1 '{thumb_image_path}'"
     err = (await runcmd(command))[1]
     if err:
@@ -134,17 +131,11 @@ async def check_media(reply_message):
         if reply_message.photo:
             data = reply_message.photo
         elif reply_message.document:
-            if (
-                DocumentAttributeFilename(file_name="AnimatedSticker.tgs")
-                in reply_message.media.document.attributes
-            ):
+            if (DocumentAttributeFilename(file_name="AnimatedSticker.tgs") in
+                    reply_message.media.document.attributes):
                 return False
-            if (
-                reply_message.gif
-                or reply_message.video
-                or reply_message.audio
-                or reply_message.voice
-            ):
+            if (reply_message.gif or reply_message.video or reply_message.audio
+                    or reply_message.voice):
                 return False
             data = reply_message.media.document
         else:
@@ -162,7 +153,11 @@ def parse_pre(text):
     text = text.strip()
     return (
         text,
-        [MessageEntityPre(offset=0, length=len(add_surrogate(text)), language="")],
+        [
+            MessageEntityPre(offset=0,
+                             length=len(add_surrogate(text)),
+                             language="")
+        ],
     )
 
 
@@ -212,9 +207,8 @@ def yaml_format(obj, indent=0, max_str_len=256, max_byte_len=64):
         if all(0x20 <= c < 0x7F for c in obj):
             return repr(obj)
         else:
-            return (
-                "<…>" if len(obj) > max_byte_len else " ".join(f"{b:02X}" for b in obj)
-            )
+            return ("<…>" if len(obj) > max_byte_len else " ".join(
+                f"{b:02X}" for b in obj))
     elif isinstance(obj, datetime.datetime):
         # ISO-8601 without timezone offset (telethon dates are always UTC)
         return obj.strftime("%Y-%m-%d %H:%M:%S")

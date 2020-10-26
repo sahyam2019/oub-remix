@@ -33,7 +33,8 @@ def getsubitems(obj, itemkey, islast, maxlinelength, indent):
         # render basic type
         keyseparator = "" if itemkey == "" else ": "
         itemseparator = "" if islast else ","
-        items.append(itemkey + keyseparator + basictype2str(obj) + itemseparator)
+        items.append(itemkey + keyseparator + basictype2str(obj) +
+                     itemseparator)
 
     else:
         # render lists/dicts/tuples
@@ -60,9 +61,9 @@ def getsubitems(obj, itemkey, islast, maxlinelength, indent):
             itemkey_ = ""
             if isdict:
                 itemkey_ = basictype2str(k)
-            inner, is_inner_inline = getsubitems(
-                obj[k], itemkey_, islast_, maxlinelength - indent, indent
-            )
+            inner, is_inner_inline = getsubitems(obj[k], itemkey_, islast_,
+                                                 maxlinelength - indent,
+                                                 indent)
             # inner can be a string or a list
             subitems.extend(inner)
             # if a child couldn't be rendered inline, then we are not able either
@@ -170,7 +171,6 @@ def indentitems(items, indent, level):
         else:
             islast = i == len(items) - 1
             # no new line character after the last rendered line
-            res += (
-                indentstr + item if level == 0 and islast else indentstr + item + "\n"
-            )
+            res += (indentstr + item if level == 0 and islast else indentstr +
+                    item + "\n")
     return res

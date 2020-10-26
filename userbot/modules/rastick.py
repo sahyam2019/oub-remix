@@ -19,8 +19,7 @@ EMOJI_PATTERN = re.compile(
     "\U0001FA00-\U0001FA6F"  # Chess Symbols
     "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
     "\U00002702-\U000027B0"  # Dingbats
-    "]+"
-)
+    "]+")
 
 
 def deEmojify(inputString: str) -> str:
@@ -102,8 +101,7 @@ async def rastick(animu):
         63,
     ]
     sticcers = await bot.inline_query(
-        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}"
-    )
+        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}")
     try:
         await sticcers[0].click(
             animu.chat_id,

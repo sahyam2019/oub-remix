@@ -44,8 +44,7 @@ EMOJI_PATTERN = re.compile(
     "\U0001FA00-\U0001FA6F"  # Chess Symbols
     "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
     "\U00002702-\U000027B0"  # Dingbats
-    "]+"
-)
+    "]+")
 
 
 def deEmojify(inputString: str) -> str:
@@ -66,8 +65,7 @@ async def waifu(animu):
             return
     animus = [15, 30, 32, 33, 40, 41, 42, 48, 55, 58]
     sticcers = await bot.inline_query(
-        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}"
-    )
+        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}")
     try:
         await sticcers[0].click(
             animu.chat_id,
@@ -98,7 +96,8 @@ async def _(hazmat):
         await hazmat.edit("`Word can destroy anything Capt!...`")
         return
     chat = "@hazmat_suit_bot"
-    await hazmat.edit("```Suit Up Capt!, We are going to purge some virus...```")
+    await hazmat.edit(
+        "```Suit Up Capt!, We are going to purge some virus...```")
     message_id_to_reply = hazmat.message.reply_to_msg_id
     msg_reply = None
     async with hazmat.client.conversation(chat) as conv:
@@ -121,13 +120,11 @@ async def _(hazmat):
         if response.text.startswith("I can't"):
             await hazmat.edit("`Can't handle this GIF...`")
             await hazmat.client.delete_messages(
-                conv.chat_id, [msg.id, response.id, r.id, msg_reply.id]
-            )
+                conv.chat_id, [msg.id, response.id, r.id, msg_reply.id])
             return
         else:
             downloaded_file_name = await hazmat.client.download_media(
-                response.media, TEMP_DOWNLOAD_DIRECTORY
-            )
+                response.media, TEMP_DOWNLOAD_DIRECTORY)
             await hazmat.client.send_file(
                 hazmat.chat_id,
                 downloaded_file_name,
@@ -137,17 +134,17 @@ async def _(hazmat):
             """ - cleanup chat after completed - """
             if msg_reply is not None:
                 await hazmat.client.delete_messages(
-                    conv.chat_id, [msg.id, msg_reply.id, r.id, response.id]
-                )
+                    conv.chat_id, [msg.id, msg_reply.id, r.id, response.id])
             else:
-                await hazmat.client.delete_messages(conv.chat_id, [msg.id, response.id])
+                await hazmat.client.delete_messages(conv.chat_id,
+                                                    [msg.id, response.id])
     await hazmat.delete()
     return os.remove(downloaded_file_name)
 
 
-CMD_HELP.update(
-    {
-        "waifu": "`.waifu` text\
+CMD_HELP.update({
+    "waifu":
+    "`.waifu` text\
 \nUsage: for custom stickers.\
 \n\n`.hz` or `.hz [flip, x2, rotate (degree), background (number), black]`\
 \nUsage: Reply to a image / sticker to suit up!.\
@@ -155,5 +152,4 @@ CMD_HELP.update(
 \nUsage: To stickerize your text with random sticker templates.\
 \n\n`.hsb` <text or reply>\
 \nUsage: generates animated rolling sticker out of text."
-    }
-)
+})

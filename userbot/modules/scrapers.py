@@ -94,9 +94,10 @@ TRT_LANG = "en"
 TEMP_DOWNLOAD_DIRECTORY = "/root/userbot/.bin"
 
 
-async def ocr_space_file(
-    filename, overlay=False, api_key=OCR_SPACE_API_KEY, language="eng"
-):
+async def ocr_space_file(filename,
+                         overlay=False,
+                         api_key=OCR_SPACE_API_KEY,
+                         language="eng"):
     """OCR.space API request with local file.
         Python3.5 - not tested on 2.7
     :param filename: Your file path & name.
@@ -160,7 +161,8 @@ async def carbon_api(e):
     chrome_options.add_argument("--disable-gpu")
     prefs = {"download.default_directory": "/root/userbot/.bin"}
     chrome_options.add_experimental_option("prefs", prefs)
-    driver = webdriver.Chrome(executable_path=CHROME_DRIVER, options=chrome_options)
+    driver = webdriver.Chrome(executable_path=CHROME_DRIVER,
+                              options=chrome_options)
     driver.get(url)
     await e.edit("`Processing..\n50%`")
     download_path = "/root/userbot/.bin"
@@ -170,7 +172,10 @@ async def carbon_api(e):
     )
     params = {
         "cmd": "Page.setDownloadBehavior",
-        "params": {"behavior": "allow", "downloadPath": download_path},
+        "params": {
+            "behavior": "allow",
+            "downloadPath": download_path
+        },
     }
     command_result = driver.execute("send_command", params)
     driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
@@ -224,8 +229,7 @@ async def img_sampler(event):
     paths = response.download(arguments)
     lst = paths[0][query]
     await event.client.send_file(
-        await event.client.get_input_entity(event.chat_id), lst
-    )
+        await event.client.get_input_entity(event.chat_id), lst)
     shutil.rmtree(os.path.dirname(os.path.abspath(lst[0])))
     await event.delete()
 
@@ -240,15 +244,13 @@ async def moni(event):
             currency_from = input_sgra[1].upper()
             currency_to = input_sgra[2].upper()
             request_url = "https://api.exchangeratesapi.io/latest?base={}".format(
-                currency_from
-            )
+                currency_from)
             current_response = get(request_url).json()
             if currency_to in current_response["rates"]:
                 current_rate = float(current_response["rates"][currency_to])
                 rebmun = round(number * current_rate, 2)
-                await event.edit(
-                    "{} {} = {} {}".format(number, currency_from, rebmun, currency_to)
-                )
+                await event.edit("{} {} = {} {}".format(
+                    number, currency_from, rebmun, currency_to))
             else:
                 await event.edit(
                     "`This seems to be some alien currency, which I can't convert right now.`"
@@ -283,9 +285,9 @@ async def gsearch(q_event):
             msg += f"[{title}]({link})\n`{desc}`\n\n"
         except IndexError:
             break
-    await q_event.edit(
-        "**Search Query:**\n`" + match + "`\n\n**Results:**\n" + msg, link_preview=False
-    )
+    await q_event.edit("**Search Query:**\n`" + match + "`\n\n**Results:**\n" +
+                       msg,
+                       link_preview=False)
 
     if BOTLOG:
         await q_event.client.send_message(
@@ -322,8 +324,7 @@ async def wiki(wiki_q):
     await wiki_q.edit("**Search:**\n`" + match + "`\n\n**Result:**\n" + result)
     if BOTLOG:
         await wiki_q.client.send_message(
-            BOTLOG_CHATID, f"Wiki query `{match}` was executed successfully"
-        )
+            BOTLOG_CHATID, f"Wiki query `{match}` was executed successfully")
 
 
 @register(outgoing=True, pattern="^.ud (.*)")
@@ -337,9 +338,7 @@ async def _(event):
         mean = await urban.get_word(word)
         await event.edit(
             "Text: **{}**\n\nMeaning: **{}**\n\nExample: __{}__".format(
-                mean.word, mean.definition, mean.example
-            )
-        )
+                mean.word, mean.definition, mean.example))
     except asyncurban.WordNotFoundError:
         await event.edit("No result found for **" + word + "**")
 
@@ -384,10 +383,10 @@ async def text_to_speech(query):
             required_file_name + ".opus",
         ]
         try:
-            t_response = subprocess.check_output(
-                command_to_execute, stderr=subprocess.STDOUT
-            )
-        except (subprocess.CalledProcessError, NameError, FileNotFoundError) as exc:
+            t_response = subprocess.check_output(command_to_execute,
+                                                 stderr=subprocess.STDOUT)
+        except (subprocess.CalledProcessError, NameError,
+                FileNotFoundError) as exc:
             await query.edit(str(exc))
             # continue sending required_file_name
         else:
@@ -404,7 +403,8 @@ async def text_to_speech(query):
             voice_note=True,
         )
         os.remove(required_file_name)
-        await query.edit("Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms))
+        await query.edit("Processed {} ({}) in {} seconds!".format(
+            text[0:97], lan, ms))
         await asyncio.sleep(5)
         await query.delete()
     except Exception as e:
@@ -438,9 +438,7 @@ async def _(event):
         # TODO: emojify the :
         # either here, or before translation
         output_str = """**TRANSLATED** from {} to {}
-{}""".format(
-            translated.src, lan, mono_tr_text
-        )
+{}""".format(translated.src, lan, mono_tr_text)
         await event.edit(output_str)
     except Exception as exc:
         await event.edit(str(exc))
@@ -477,8 +475,8 @@ async def lang(value):
     await value.edit(f"`Language for {scraper} changed to {LANG.title()}.`")
     if BOTLOG:
         await value.client.send_message(
-            BOTLOG_CHATID, f"`Language for {scraper} changed to {LANG.title()}.`"
-        )
+            BOTLOG_CHATID,
+            f"`Language for {scraper} changed to {LANG.title()}.`")
 
 
 @register(outgoing=True, pattern=r"^\.yt (\d*) *(.*)")
@@ -499,11 +497,11 @@ async def yt_search(video_q):
     await video_q.edit("`Processing...`")
 
     try:
-        results = json.loads(YoutubeSearch(query, max_results=counter).to_json())
+        results = json.loads(
+            YoutubeSearch(query, max_results=counter).to_json())
     except KeyError:
         return await video_q.edit(
-            "`Youtube Search gone retard.\nCan't search this query!`"
-        )
+            "`Youtube Search gone retard.\nCan't search this query!`")
 
     output = f"**Search Query:**\n`{query}`\n\n**Results:**\n\n"
 
@@ -531,41 +529,59 @@ async def download_video(v_url):
 
     if type == "audio":
         opts = {
-            "format": "bestaudio",
-            "addmetadata": True,
-            "key": "FFmpegMetadata",
-            "writethumbnail": True,
-            "prefer_ffmpeg": True,
-            "geo_bypass": True,
-            "nocheckcertificate": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "320",
-                }
-            ],
-            "outtmpl": "%(id)s.mp3",
-            "quiet": True,
-            "logtostderr": False,
+            "format":
+            "bestaudio",
+            "addmetadata":
+            True,
+            "key":
+            "FFmpegMetadata",
+            "writethumbnail":
+            True,
+            "prefer_ffmpeg":
+            True,
+            "geo_bypass":
+            True,
+            "nocheckcertificate":
+            True,
+            "postprocessors": [{
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "320",
+            }],
+            "outtmpl":
+            "%(id)s.mp3",
+            "quiet":
+            True,
+            "logtostderr":
+            False,
         }
         video = False
         song = True
 
     elif type == "video":
         opts = {
-            "format": "best",
-            "addmetadata": True,
-            "key": "FFmpegMetadata",
-            "prefer_ffmpeg": True,
-            "geo_bypass": True,
-            "nocheckcertificate": True,
-            "postprocessors": [
-                {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
-            ],
-            "outtmpl": "%(id)s.mp4",
-            "logtostderr": False,
-            "quiet": True,
+            "format":
+            "best",
+            "addmetadata":
+            True,
+            "key":
+            "FFmpegMetadata",
+            "prefer_ffmpeg":
+            True,
+            "geo_bypass":
+            True,
+            "nocheckcertificate":
+            True,
+            "postprocessors": [{
+                "key": "FFmpegVideoConvertor",
+                "preferedformat": "mp4"
+            }],
+            "outtmpl":
+            "%(id)s.mp4",
+            "logtostderr":
+            False,
+            "quiet":
+            True,
         }
         song = False
         video = True
@@ -581,14 +597,14 @@ async def download_video(v_url):
     except GeoRestrictedError:
         return await v_url.edit(
             "`Video is not available from your geographic location "
-            "due to geographic restrictions imposed by a website.`"
-        )
+            "due to geographic restrictions imposed by a website.`")
     except MaxDownloadsReached:
         return await v_url.edit("`Max-downloads limit has been reached.`")
     except PostProcessingError:
         return await v_url.edit("`There was an error during post processing.`")
     except UnavailableVideoError:
-        return await v_url.edit("`Media is not available in the requested format.`")
+        return await v_url.edit(
+            "`Media is not available in the requested format.`")
     except XAttrMetadataError as XAME:
         return await v_url.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
     except ExtractorError:
@@ -597,7 +613,8 @@ async def download_video(v_url):
         return await v_url.edit(f"{str(type(e)): {str(e)}}")
     c_time = time.time()
     if song:
-        await v_url.edit(f"`Preparing to upload song:`\n**{rip_data['title']}**")
+        await v_url.edit(
+            f"`Preparing to upload song:`\n**{rip_data['title']}**")
         await v_url.client.send_file(
             v_url.chat_id,
             f"{rip_data['id']}.mp3",
@@ -609,22 +626,25 @@ async def download_video(v_url):
                     performer=str(rip_data["uploader"]),
                 )
             ],
-            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(d, t, v_url, c_time, "Uploading..", f"{rip_data['title']}.mp3")
-            ),
+            progress_callback=lambda d, t: asyncio.get_event_loop().
+            create_task(
+                progress(d, t, v_url, c_time, "Uploading..",
+                         f"{rip_data['title']}.mp3")),
         )
         os.remove(f"{rip_data['id']}.mp3")
         await v_url.delete()
     elif video:
-        await v_url.edit(f"`Preparing to upload video:`\n**{rip_data['title']}**")
+        await v_url.edit(
+            f"`Preparing to upload video:`\n**{rip_data['title']}**")
         await v_url.client.send_file(
             v_url.chat_id,
             f"{rip_data['id']}.mp4",
             supports_streaming=True,
             caption=rip_data["title"],
-            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(d, t, v_url, c_time, "Uploading..", f"{rip_data['title']}.mp4")
-            ),
+            progress_callback=lambda d, t: asyncio.get_event_loop().
+            create_task(
+                progress(d, t, v_url, c_time, "Uploading..",
+                         f"{rip_data['title']}.mp4")),
         )
         os.remove(f"{rip_data['id']}.mp4")
         await v_url.delete()
@@ -651,23 +671,22 @@ async def kbg(remob):
         await remob.edit("`Processing..`")
         try:
             if isinstance(
-                reply_message.media, MessageMediaPhoto
+                    reply_message.media, MessageMediaPhoto
             ) or "image" in reply_message.media.document.mime_type.split("/"):
                 downloaded_file_name = await remob.client.download_media(
-                    reply_message, TEMP_DOWNLOAD_DIRECTORY
-                )
+                    reply_message, TEMP_DOWNLOAD_DIRECTORY)
                 await remob.edit("`Removing background from this image..`")
                 output_file_name = await ReTrieveFile(downloaded_file_name)
                 os.remove(downloaded_file_name)
             else:
-                await remob.edit("`How do I remove the background from this ?`")
+                await remob.edit("`How do I remove the background from this ?`"
+                                 )
         except Exception as e:
             await remob.edit(str(e))
             return
     elif input_str:
         await remob.edit(
-            f"`Removing background from online image hosted at`\n{input_str}"
-        )
+            f"`Removing background from online image hosted at`\n{input_str}")
         output_file_name = await ReTrieveURL(input_str)
     else:
         await remob.edit("`I need something to remove the background from.`")
@@ -685,11 +704,8 @@ async def kbg(remob):
             )
             await remob.delete()
     else:
-        await remob.edit(
-            "**Error (Invalid API key, I guess ?)**\n`{}`".format(
-                output_file_name.content.decode("UTF-8")
-            )
-        )
+        await remob.edit("**Error (Invalid API key, I guess ?)**\n`{}`".format(
+            output_file_name.content.decode("UTF-8")))
 
 
 # this method will call the API, and return in the appropriate format
@@ -735,15 +751,16 @@ async def ocr(event):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     lang_code = event.pattern_match.group(1)
     downloaded_file_name = await bot.download_media(
-        await event.get_reply_message(), TEMP_DOWNLOAD_DIRECTORY
-    )
-    test_file = await ocr_space_file(filename=downloaded_file_name, language=lang_code)
+        await event.get_reply_message(), TEMP_DOWNLOAD_DIRECTORY)
+    test_file = await ocr_space_file(filename=downloaded_file_name,
+                                     language=lang_code)
     try:
         ParsedText = test_file["ParsedResults"][0]["ParsedText"]
     except BaseException:
         await event.edit("`Couldn't read it.`\n`I guess I need new glasses.`")
     else:
-        await event.edit(f"`Here's what I could read from it:`\n\n{ParsedText}")
+        await event.edit(f"`Here's what I could read from it:`\n\n{ParsedText}"
+                         )
     os.remove(downloaded_file_name)
 
 
@@ -751,8 +768,7 @@ async def ocr(event):
 async def parseqr(qr_e):
     """ For .decode command, get QR Code/BarCode content from the replied photo. """
     downloaded_file_name = await qr_e.client.download_media(
-        await qr_e.get_reply_message()
-    )
+        await qr_e.get_reply_message())
     # parse the Official ZXing webpage to decode the QRCode
     command_to_exec = [
         "curl",
@@ -795,7 +811,8 @@ async def bq(event):
         previous_message = await event.get_reply_message()
         reply_msg_id = previous_message.id
         if previous_message.media:
-            downloaded_file_name = await event.client.download_media(previous_message)
+            downloaded_file_name = await event.client.download_media(
+                previous_message)
             m_list = None
             with open(downloaded_file_name, "rb") as fd:
                 m_list = fd.readlines()
@@ -810,9 +827,13 @@ async def bq(event):
 
     bar_code_type = "code128"
     try:
-        bar_code_mode_f = barcode.get(bar_code_type, message, writer=ImageWriter())
+        bar_code_mode_f = barcode.get(bar_code_type,
+                                      message,
+                                      writer=ImageWriter())
         filename = bar_code_mode_f.save(bar_code_type)
-        await event.client.send_file(event.chat_id, filename, reply_to=reply_msg_id)
+        await event.client.send_file(event.chat_id,
+                                     filename,
+                                     reply_to=reply_msg_id)
         os.remove(filename)
     except Exception as e:
         return await event.edit(str(e))
@@ -831,7 +852,8 @@ async def make_qr(makeqr):
         previous_message = await makeqr.get_reply_message()
         reply_msg_id = previous_message.id
         if previous_message.media:
-            downloaded_file_name = await makeqr.client.download_media(previous_message)
+            downloaded_file_name = await makeqr.client.download_media(
+                previous_message)
             m_list = None
             with open(downloaded_file_name, "rb") as file:
                 m_list = file.readlines()
@@ -852,9 +874,9 @@ async def make_qr(makeqr):
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white")
     img.save("img_file.webp", "PNG")
-    await makeqr.client.send_file(
-        makeqr.chat_id, "img_file.webp", reply_to=reply_msg_id
-    )
+    await makeqr.client.send_file(makeqr.chat_id,
+                                  "img_file.webp",
+                                  reply_to=reply_msg_id)
     os.remove("img_file.webp")
     await makeqr.delete()
 
@@ -897,7 +919,8 @@ async def direct_link_generator(request):
         elif "androidfilehost.com" in link:
             reply += androidfilehost(link)
         else:
-            reply += re.findall(r"\bhttps?://(.*?[^/]+)", link)[0] + "is not supported"
+            reply += re.findall(r"\bhttps?://(.*?[^/]+)",
+                                link)[0] + "is not supported"
     await request.edit(reply)
 
 
@@ -932,9 +955,10 @@ def gdrive(url: str) -> str:
         page = BeautifulSoup(download.content, "lxml")
         export = drive + page.find("a", {"id": "uc-download-link"}).get("href")
         name = page.find("span", {"class": "uc-name-size"}).text
-        response = requests.get(
-            export, stream=True, allow_redirects=False, cookies=cookies
-        )
+        response = requests.get(export,
+                                stream=True,
+                                allow_redirects=False,
+                                cookies=cookies)
         dl_url = response.headers["location"]
         if "accounts.google.com" in dl_url:
             reply += "Link is not public!"
@@ -960,12 +984,10 @@ def zippy_share(url: str) -> str:
     scripts = page_soup.find_all("script", {"type": "text/javascript"})
     for script in scripts:
         if "getElementById('dlbutton')" in script.text:
-            url_raw = re.search(
-                r"= (?P<url>\".+\" \+ (?P<math>\(.+\)) .+);", script.text
-            ).group("url")
-            math = re.search(
-                r"= (?P<url>\".+\" \+ (?P<math>\(.+\)) .+);", script.text
-            ).group("math")
+            url_raw = re.search(r"= (?P<url>\".+\" \+ (?P<math>\(.+\)) .+);",
+                                script.text).group("url")
+            math = re.search(r"= (?P<url>\".+\" \+ (?P<math>\(.+\)) .+);",
+                             script.text).group("math")
             dl_url = url_raw.replace(math, '"' + str(eval(math)) + '"')
             break
     dl_url = base_url + eval(dl_url)
@@ -1045,10 +1067,8 @@ def sourceforge(url: str) -> str:
     file_path = re.findall(r"files(.*)/download", link)[0]
     reply = f"Mirrors for __{file_path.split('/')[-1]}__\n"
     project = re.findall(r"projects?/(.*?)/files", link)[0]
-    mirrors = (
-        f"https://sourceforge.net/settings/mirror_choices?"
-        f"projectname={project}&filename={file_path}"
-    )
+    mirrors = (f"https://sourceforge.net/settings/mirror_choices?"
+               f"projectname={project}&filename={file_path}")
     page = BeautifulSoup(requests.get(mirrors).content, "html.parser")
     info = page.find("ul", {"id": "mirrorList"}).findAll("li")
     for mirror in info[1:]:
@@ -1068,7 +1088,8 @@ def osdn(url: str) -> str:
     except IndexError:
         reply = "`No OSDN links found`\n"
         return reply
-    page = BeautifulSoup(requests.get(link, allow_redirects=True).content, "lxml")
+    page = BeautifulSoup(
+        requests.get(link, allow_redirects=True).content, "lxml")
     info = page.find("a", {"class": "mirror_link"})
     link = urllib.parse.unquote(osdn_link + info["href"])
     reply = f"Mirrors for __{link.split('/')[-1]}__\n"
@@ -1124,7 +1145,11 @@ def androidfilehost(url: str) -> str:
         "authority": "androidfilehost.com",
         "x-requested-with": "XMLHttpRequest",
     }
-    data = {"submit": "submit", "action": "getdownloadmirrors", "fid": f"{fid}"}
+    data = {
+        "submit": "submit",
+        "action": "getdownloadmirrors",
+        "fid": f"{fid}"
+    }
     mirrors = None
     reply = ""
     error = "`Error: Can't find Mirrors for the link`\n"
@@ -1155,8 +1180,7 @@ def useragent():
     useragents = BeautifulSoup(
         requests.get(
             "https://developers.whatismybrowser.com/"
-            "useragents/explore/operating_system_name/android/"
-        ).content,
+            "useragents/explore/operating_system_name/android/").content,
         "lxml",
     ).findAll("td", {"class": "useragent"})
     user_agent = choice(useragents)
@@ -1183,26 +1207,23 @@ async def capture(url):
         if link_match:
             link = link_match.group()
         else:
-            return await url.edit("`I need a valid link to take screenshots from.`")
+            return await url.edit(
+                "`I need a valid link to take screenshots from.`")
     driver.get(link)
     height = driver.execute_script(
         "return Math.max(document.body.scrollHeight, document.body.offsetHeight, "
         "document.documentElement.clientHeight, document.documentElement.scrollHeight, "
-        "document.documentElement.offsetHeight);"
-    )
+        "document.documentElement.offsetHeight);")
     width = driver.execute_script(
         "return Math.max(document.body.scrollWidth, document.body.offsetWidth, "
         "document.documentElement.clientWidth, document.documentElement.scrollWidth, "
-        "document.documentElement.offsetWidth);"
-    )
+        "document.documentElement.offsetWidth);")
     driver.set_window_size(width + 125, height + 125)
     wait_for = height / 1000
-    await url.edit(
-        "`Generating screenshot of the page...`"
-        f"\n`Height of page = {height}px`"
-        f"\n`Width of page = {width}px`"
-        f"\n`Waiting ({int(wait_for)}s) for the page to load.`"
-    )
+    await url.edit("`Generating screenshot of the page...`"
+                   f"\n`Height of page = {height}px`"
+                   f"\n`Width of page = {width}px`"
+                   f"\n`Waiting ({int(wait_for)}s) for the page to load.`")
     await sleep(int(wait_for))
     im_png = driver.get_screenshot_as_png()
     # saves screenshot of entire page
@@ -1229,14 +1250,14 @@ async def imdb(e):
         movie_name = e.pattern_match.group(1)
         remove_space = movie_name.split(" ")
         final_name = "+".join(remove_space)
-        page = get("https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name + "&s=all")
+        page = get("https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name +
+                   "&s=all")
         lnk = str(page.status_code)
         soup = BeautifulSoup(page.content, "lxml")
         odds = soup.findAll("tr", "odd")
         mov_title = odds[0].findNext("td").findNext("td").text
-        mov_link = (
-            "http://www.imdb.com/" + odds[0].findNext("td").findNext("td").a["href"]
-        )
+        mov_link = ("http://www.imdb.com/" +
+                    odds[0].findNext("td").findNext("td").a["href"])
         page1 = get(mov_link)
         soup = BeautifulSoup(page1.content, "lxml")
         if soup.find("div", "poster"):
@@ -1270,7 +1291,8 @@ async def imdb(e):
             actors.pop()
             stars = actors[0] + "," + actors[1] + "," + actors[2]
         if soup.find("div", "inline canwrap"):
-            story_line = soup.find("div", "inline canwrap").findAll("p")[0].text
+            story_line = soup.find("div",
+                                   "inline canwrap").findAll("p")[0].text
         else:
             story_line = "Not available"
         info = soup.findAll("div", "txt-block")
@@ -1291,26 +1313,15 @@ async def imdb(e):
             mov_rating = "Not available"
         await e.edit(
             "<a href=" + poster + ">&#8203;</a>"
-            "<b>Title : </b><code>"
-            + mov_title
-            + "</code>\n<code>"
-            + mov_details
-            + "</code>\n<b>Rating : </b><code>"
-            + mov_rating
-            + "</code>\n<b>Country : </b><code>"
-            + mov_country[0]
-            + "</code>\n<b>Language : </b><code>"
-            + mov_language[0]
-            + "</code>\n<b>Director : </b><code>"
-            + director
-            + "</code>\n<b>Writer : </b><code>"
-            + writer
-            + "</code>\n<b>Stars : </b><code>"
-            + stars
-            + "</code>\n<b>IMDB Url : </b>"
-            + mov_link
-            + "\n<b>Story Line : </b>"
-            + story_line,
+            "<b>Title : </b><code>" + mov_title + "</code>\n<code>" +
+            mov_details + "</code>\n<b>Rating : </b><code>" + mov_rating +
+            "</code>\n<b>Country : </b><code>" + mov_country[0] +
+            "</code>\n<b>Language : </b><code>" + mov_language[0] +
+            "</code>\n<b>Director : </b><code>" + director +
+            "</code>\n<b>Writer : </b><code>" + writer +
+            "</code>\n<b>Stars : </b><code>" + stars +
+            "</code>\n<b>IMDB Url : </b>" + mov_link +
+            "\n<b>Story Line : </b>" + story_line,
             link_preview=True,
             parse_mode="HTML",
         )
@@ -1318,9 +1329,9 @@ async def imdb(e):
         await e.edit("Plox enter **Valid movie name** kthx")
 
 
-CMD_HELP.update(
-    {
-        "scrappers": "`.img` <search_query>\
+CMD_HELP.update({
+    "scrappers":
+    "`.img` <search_query>\
 \nUsage: Does an image search on Google and shows 5 images.\
 \n\n`.currency` <amount> <from> <to>\
 \nUsage: Converts various currencies for you.\
@@ -1359,5 +1370,4 @@ CMD_HELP.update(
 \nExample of a valid URL : `google.com` or `https://www.google.com`\
 \n\n`.imdb` movie/series name\
 \nUsage:scrap movie/series information."
-    }
-)
+})

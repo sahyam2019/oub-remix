@@ -15,11 +15,9 @@ async def _(event):
     input_str = event.pattern_match.group(1)
     if input_str:
         entity = input_str
-    status_message = await event.reply(
-        "... this might take some time "
-        "depending on the number of messages "
-        "in the chat ..."
-    )
+    status_message = await event.reply("... this might take some time "
+                                       "depending on the number of messages "
+                                       "in the chat ...")
     mus = 0
     hmm = {}
     async for message in event.client.iter_messages(entity=entity, limit=None):

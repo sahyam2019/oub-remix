@@ -29,12 +29,14 @@ async def gbun(event):
     await event.edit("**Summoning out the mighty gban hammer ☠️**")
     asyncio.sleep(3.5)
     chat = await event.get_input_chat()
-    async for _ in bot.iter_participants(chat, filter=ChannelParticipantsAdmins):
+    async for _ in bot.iter_participants(chat,
+                                         filter=ChannelParticipantsAdmins):
         mentions += f""
     reply_message = None
     if event.reply_to_msg_id:
         reply_message = await event.get_reply_message()
-        replied_user = await event.client(GetFullUserRequest(reply_message.from_id))
+        replied_user = await event.client(
+            GetFullUserRequest(reply_message.from_id))
         firstname = replied_user.user.first_name
         usname = replied_user.user.username
         idd = reply_message.from_id
@@ -44,13 +46,11 @@ async def gbun(event):
                 "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 6969$ to my master__ [Heyworld](tg://user?id=1036951071) __to release your account__😏"
             )
         else:
-            jnl = (
-                "`Warning!!`"
-                "[{}](tg://user?id={})"
-                f"` 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By` {DEFAULTUSER}\n\n"
-                "**Name: ** __{}__\n"
-                "**ID : ** `{}`\n"
-            ).format(firstname, idd, firstname, idd)
+            jnl = ("`Warning!!`"
+                   "[{}](tg://user?id={})"
+                   f"` 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By` {DEFAULTUSER}\n\n"
+                   "**Name: ** __{}__\n"
+                   "**ID : ** `{}`\n").format(firstname, idd, firstname, idd)
             if usname is None:
                 jnl += "**Username: ** `Doesn't own a username!`\n"
             elif usname != "None":
@@ -69,9 +69,8 @@ async def gbun(event):
     await event.delete()
 
 
-CMD_HELP.update(
-    {
-        "fakegban": "`.fgban`\
+CMD_HELP.update({
+    "fakegban":
+    "`.fgban`\
     \nUsage: Type .fgban or Reply .fgban reason and see it yourself. "
-    }
-)
+})

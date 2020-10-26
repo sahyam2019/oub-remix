@@ -22,7 +22,8 @@ if GENIUS is not None:
 async def lyrics(lyric):
     await lyric.edit("`Getting information...`")
     if GENIUS is None:
-        await lyric.edit("`Provide genius access token to Heroku ConfigVars...`")
+        await lyric.edit(
+            "`Provide genius access token to Heroku ConfigVars...`")
         return False
     if lyric.pattern_match.group(1) == "now":
         playing = User(LASTFM_USERNAME, lastfm).get_now_playing()
@@ -50,18 +51,16 @@ async def lyrics(lyric):
         )
         os.remove("lyrics.txt")
     else:
-        await lyric.edit(
-            f"**Search query**:\n`{artist}` - `{song}`" f"\n\n```{songs.lyrics}```"
-        )
+        await lyric.edit(f"**Search query**:\n`{artist}` - `{song}`"
+                         f"\n\n```{songs.lyrics}```")
 
     return True
 
 
-CMD_HELP.update(
-    {
-        "lyrics": "`.lyrics` **<artist name> - <song name>**"
-        "\nUsage: Get lyrics matched artist and song."
-        "\n\n`.lyrics now`"
-        "\nUsage: Get lyrics artist and song from current lastfm scrobbling."
-    }
-)
+CMD_HELP.update({
+    "lyrics":
+    "`.lyrics` **<artist name> - <song name>**"
+    "\nUsage: Get lyrics matched artist and song."
+    "\n\n`.lyrics now`"
+    "\nUsage: Get lyrics artist and song from current lastfm scrobbling."
+})

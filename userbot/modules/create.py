@@ -29,19 +29,14 @@ async def telegraphs(grop):
                     # Not enough users (to create a chat, for example)
                     # Telegram, no longer allows creating a chat with ourselves
                     title=group_name,
-                )
-            )
+                ))
             created_chat_id = result.chats[0].id
             result = await grop.client(
                 functions.messages.ExportChatInviteRequest(
-                    peer=created_chat_id,
-                )
-            )
+                    peer=created_chat_id, ))
             await grop.edit(
-                "Your {} Group Created Successfully. Click [{}]({}) to join".format(
-                    group_name, group_name, result.link
-                )
-            )
+                "Your {} Group Created Successfully. Click [{}]({}) to join".
+                format(group_name, group_name, result.link))
         except Exception as e:  # pylint:disable=C0103,W0703
             await grop.edit(str(e))
     elif type_of_group in ["g", "c"]:
@@ -51,27 +46,22 @@ async def telegraphs(grop):
                     title=group_name,
                     about="Welcome to this Channel",
                     megagroup=type_of_group != "c",
-                )
-            )
+                ))
 
             created_chat_id = r.chats[0].id
             result = await grop.client(
                 functions.messages.ExportChatInviteRequest(
-                    peer=created_chat_id,
-                )
-            )
+                    peer=created_chat_id, ))
             await grop.edit(
-                "Your {} Group/Channel Created Successfully. Click [{}]({}) to join".format(
-                    group_name, group_name, result.link
-                )
-            )
+                "Your {} Group/Channel Created Successfully. Click [{}]({}) to join"
+                .format(group_name, group_name, result.link))
         except Exception as e:  # pylint:disable=C0103,W0703
             await grop.edit(str(e))
 
 
-CMD_HELP.update(
-    {
-        "create": "\
+CMD_HELP.update({
+    "create":
+    "\
 Create\
 \nUsage: Create Channel, Group & Group With Bot.\
 \n\n`.create g` <group name>\
@@ -81,5 +71,4 @@ Create\
 \n\n`.create c` <channel name>\
 \nUsage: Create a Channel.\
 "
-    }
-)
+})

@@ -30,13 +30,13 @@ async def filter_incoming_handler(handler):
             if not filters:
                 return
             for trigger in filters:
-                pattern = r"( |^|[^\w])" + escape(trigger.keyword) + r"( |$|[^\w])"
+                pattern = r"( |^|[^\w])" + escape(
+                    trigger.keyword) + r"( |$|[^\w])"
                 pro = search(pattern, name, flags=IGNORECASE)
                 if pro:
                     if trigger.f_mesg_id:
                         msg_o = await handler.client.get_messages(
-                            entity=BOTLOG_CHATID, ids=int(trigger.f_mesg_id)
-                        )
+                            entity=BOTLOG_CHATID, ids=int(trigger.f_mesg_id))
                         await handler.reply(msg_o.message, file=msg_o.media)
                     elif trigger.reply:
                         await handler.reply(trigger.reply)
@@ -101,8 +101,7 @@ async def remove_a_filter(r_handler):
         await r_handler.edit("`Filter`  **{}**  `doesn't exist`.".format(filt))
     else:
         await r_handler.edit(
-            "`Filter`  **{}**  `was deleted successfully`.".format(filt)
-        )
+            "`Filter`  **{}**  `was deleted successfully`.".format(filt))
 
 
 @register(outgoing=True, pattern="^.rmbotfilters (.*)")
@@ -123,11 +122,11 @@ async def kick_marie_filter(event):
             i = i.replace("`", "")
             await event.reply("/stop %s" % (i.strip()))
         await sleep(0.3)
-    await event.respond("```Successfully purged bots filters yaay!```\n Gimme cookies!")
+    await event.respond(
+        "```Successfully purged bots filters yaay!```\n Gimme cookies!")
     if BOTLOG:
         await event.client.send_message(
-            BOTLOG_CHATID, "I cleaned all filters at " + str(event.chat_id)
-        )
+            BOTLOG_CHATID, "I cleaned all filters at " + str(event.chat_id))
 
 
 @register(outgoing=True, pattern="^.filters$")
@@ -146,9 +145,9 @@ async def filters_active(event):
     await event.edit(transact)
 
 
-CMD_HELP.update(
-    {
-        "filter": "`.filters`\
+CMD_HELP.update({
+    "filter":
+    "`.filters`\
     \nUsage: Lists all active userbot filters in a chat.\
     \n\n`.filter` <keyword> <reply text> or reply to a message with .filter <keyword>\
     \nUsage: Saves the replied message as a reply to the 'keyword'.\
@@ -158,5 +157,4 @@ CMD_HELP.update(
     \nUsage: Stops the specified filter.\
     \n\n`.rmbotfilters` <marie/rose>\
     \nUsage: Removes all filters of admin bots (Currently supported: Marie, Rose and their clones.) in the chat."
-    }
-)
+})

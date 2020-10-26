@@ -28,10 +28,8 @@ async def terminal_runner(w3m):
         return
 
     if not command:
-        await w3m.edit(
-            "``` Give a URL or use .help w3m for \
-            an example.```"
-        )
+        await w3m.edit("``` Give a URL or use .help w3m for \
+            an example.```")
         return
 
     if command in ("userbot.session", "config.env"):
@@ -39,8 +37,10 @@ async def terminal_runner(w3m):
         return
 
     process = await asyncio.create_subprocess_exec(
-        "w3m", command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
-    )
+        "w3m",
+        command,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE)
     stdout, stderr = await process.communicate()
     result = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
