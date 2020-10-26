@@ -4,21 +4,32 @@
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module for changing your Telegram profile details+ now u can steal personal details of user. """
-
-import os
 import logging
-from telethon.tl import functions
+import os
+
 from telethon import events
-from telethon.tl.functions.account import UpdateUsernameRequest, UpdateProfileRequest
+from telethon.errors import ImageProcessFailedError
+from telethon.errors import PhotoCropSizeSmallError
+from telethon.errors.rpcerrorlist import PhotoExtInvalidError
+from telethon.errors.rpcerrorlist import UsernameOccupiedError
+from telethon.tl import functions
+from telethon.tl.functions.account import UpdateProfileRequest
+from telethon.tl.functions.account import UpdateUsernameRequest
 from telethon.tl.functions.channels import GetAdminedPublicChannelsRequest
-from telethon.errors import ImageProcessFailedError, PhotoCropSizeSmallError
-from telethon.tl.types import InputPhoto, MessageMediaPhoto, User, Chat, Channel
-from telethon.tl.functions.photos import DeletePhotosRequest,GetUserPhotosRequest
-from telethon.errors.rpcerrorlist import PhotoExtInvalidError, UsernameOccupiedError
+from telethon.tl.functions.photos import DeletePhotosRequest
+from telethon.tl.functions.photos import GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
+from telethon.tl.types import Channel
+from telethon.tl.types import Chat
+from telethon.tl.types import InputPhoto
 from telethon.tl.types import MessageEntityMentionName
+from telethon.tl.types import MessageMediaPhoto
+from telethon.tl.types import User
 from telethon.utils import get_input_location
-from userbot import bot, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
+
+from userbot import bot
+from userbot import CMD_HELP
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 # ====================== CONSTANT ===============================
@@ -81,8 +92,8 @@ async def _(event):
     else:
         if photo:
             await event.edit("now, Uploading to Telegram ...")
-            if photo.endswith((".mp4" ,".MP4",".gif",".GIF")):
-                #https://t.me/tgbetachat/324694
+            if photo.endswith((".mp4", ".MP4", ".gif", ".GIF")):
+                # https://t.me/tgbetachat/324694
                 size = os.stat(photo).st_size
                 if size > 2097152:
                     await event.edit("size must be less than 2 mb")
@@ -94,10 +105,9 @@ async def _(event):
                 catpic = await bot.upload_file(photo)  # pylint:disable=E0602
                 catvideo = None
             try:
-                await bot(functions.photos.UploadProfilePhotoRequest(
-                    file = catpic,
-                    video = catvideo,
-                    video_start_ts =  0.01               ))
+                await bot(
+                    functions.photos.UploadProfilePhotoRequest(
+                        file=catpic, video=catvideo, video_start_ts=0.01))
             except Exception as e:  # pylint:disable=C0103,W0703
                 await event.edit(str(e))
             else:
@@ -168,7 +178,7 @@ async def count(event):
 async def remove_profilepic(delpfp):
     """ For .delpfp command, delete your current profile picture in Telegram. """
     group = delpfp.text[8:]
-    if group == 'all':
+    if group == "all":
         lim = 0
     elif group.isdigit():
         lim = int(group)
@@ -180,21 +190,23 @@ async def remove_profilepic(delpfp):
                              offset=0,
                              max_id=0,
                              limit=lim))
-    input_photos = []
-    for sep in pfplist.photos:
-        input_photos.append(
-            InputPhoto(id=sep.id,
-                       access_hash=sep.access_hash,
-                       file_reference=sep.file_reference))
+    input_photos = [
+        InputPhoto(
+            id=sep.id,
+            access_hash=sep.access_hash,
+            file_reference=sep.file_reference,
+        ) for sep in pfplist.photos
+    ]
+
     await delpfp.client(DeletePhotosRequest(id=input_photos))
     await delpfp.edit(
         f"`Successfully deleted {len(input_photos)} profile picture(s).`")
 
+
 @register(pattern=".data(?: |$)(.*)", outgoing=True)
 async def who(event):
 
-    await event.edit(
-        "`Hacking into @durov's account and stealing data 😂...`")
+    await event.edit("`Hacking into @durov's account and stealing data 😂...`")
 
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -213,13 +225,15 @@ async def who(event):
         message_id_to_reply = None
 
     try:
-        await event.client.send_file(event.chat_id,
-                                     photo,
-                                     caption=caption,
-                                     link_preview=False,
-                                     force_document=False,
-                                     reply_to=message_id_to_reply,
-                                     parse_mode="html")
+        await event.client.send_file(
+            event.chat_id,
+            photo,
+            caption=caption,
+            link_preview=False,
+            force_document=False,
+            reply_to=message_id_to_reply,
+            parse_mode="html",
+        )
 
         if not photo.startswith("http"):
             os.remove(photo)
@@ -294,10 +308,10 @@ async def fetch_info(replied_user, event):
                                                       TEMP_DOWNLOAD_DIRECTORY +
                                                       str(user_id) + ".jpg",
                                                       download_big=True)
-    first_name = first_name.replace(
-        "\u2060", "") if first_name else ("This User has no First Name")
-    last_name = last_name.replace(
-        "\u2060", "") if last_name else ("This User has no Last Name")
+    first_name = (first_name.replace("\u2060", "") if first_name else
+                  ("This User has no First Name"))
+    last_name = (last_name.replace("\u2060", "") if last_name else
+                 ("This User has no Last Name"))
     username = "@{}".format(username) if username else (
         "This User has no Username")
     user_bio = "This User has no About" if not user_bio else user_bio
@@ -315,9 +329,10 @@ async def fetch_info(replied_user, event):
     caption += f"Bio: \n<code>{user_bio}</code>\n\n"
     caption += f"Common Chats with this user: {common_chat}\n"
     caption += "Permanent Link To Profile: "
-    caption += f"<a href=\"tg://user?id={user_id}\">{first_name}</a>"
+    caption += f'<a href="tg://user?id={user_id}">{first_name}</a>'
 
     return photo, caption
+
 
 CMD_HELP.update({
     "profile":

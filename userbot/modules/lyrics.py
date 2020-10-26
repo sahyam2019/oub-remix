@@ -3,13 +3,16 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
-
 import os
-import lyricsgenius
 
-from userbot.events import register
-from userbot import CMD_HELP, GENIUS, lastfm, LASTFM_USERNAME
+import lyricsgenius
 from pylast import User
+
+from userbot import CMD_HELP
+from userbot import GENIUS
+from userbot import lastfm
+from userbot import LASTFM_USERNAME
+from userbot.events import register
 
 if GENIUS is not None:
     genius = lyricsgenius.Genius(GENIUS)
@@ -25,9 +28,7 @@ async def lyrics(lyric):
     if lyric.pattern_match.group(1) == "now":
         playing = User(LASTFM_USERNAME, lastfm).get_now_playing()
         if playing is None:
-            await lyric.edit(
-                "`No information current lastfm scrobbling...`"
-            )
+            await lyric.edit("`No information current lastfm scrobbling...`")
             return False
         artist = playing.get_artist()
         song = playing.get_title()
@@ -49,14 +50,11 @@ async def lyrics(lyric):
             reply_to=lyric.id,
         )
         os.remove("lyrics.txt")
-        return True
     else:
-        await lyric.edit(
-            f"**Search query**:\n`{artist}` - `{song}`"
-            f"\n\n```{songs.lyrics}```"
-        )
-        return True
+        await lyric.edit(f"**Search query**:\n`{artist}` - `{song}`"
+                         f"\n\n```{songs.lyrics}```")
 
+    return True
 
 
 CMD_HELP.update({

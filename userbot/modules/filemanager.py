@@ -1,8 +1,8 @@
 import io
-import os
 import os.path
 import time
-from os.path import exists, isdir
+from os.path import exists
+from os.path import isdir
 
 from userbot import CMD_HELP
 from userbot.events import register
@@ -16,7 +16,7 @@ async def lst(event):
     if event.fwd_from:
         return
     cat = event.pattern_match.group(1)
-    path = cat if cat else os.getcwd()
+    path = cat or os.getcwd()
     if not exists(path):
         await event.edit(
             f"**There is no such directory or file with the name `{cat}` check again!**"
@@ -39,16 +39,13 @@ async def lst(event):
                 if contents.endswith((".opus")):
                     files += "🎙 " + f"`{contents}`\n"
                 elif contents.endswith(
-                    (".mkv", ".mp4", ".webm", ".avi", ".mov", ".flv")
-                ):
+                    (".mkv", ".mp4", ".webm", ".avi", ".mov", ".flv")):
                     files += "🎞 " + f"`{contents}`\n"
                 elif contents.endswith(
-                    (".zip", ".tar", ".tar.gz", ".rar", ".7z", ".xz")
-                ):
+                    (".zip", ".tar", ".tar.gz", ".rar", ".7z", ".xz")):
                     files += "🗜 " + f"`{contents}`\n"
-                elif contents.endswith(
-                    (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".ico", ".webp")
-                ):
+                elif contents.endswith((".jpg", ".jpeg", ".png", ".gif",
+                                        ".bmp", ".ico", ".webp")):
                     files += "🖼 " + f"`{contents}`\n"
                 elif contents.endswith((".exe", ".deb")):
                     files += "⚙️ " + f"`{contents}`\n"
@@ -74,7 +71,8 @@ async def lst(event):
             mode = "🎞 "
         elif path.endswith((".zip", ".tar", ".tar.gz", ".rar", ".7z", ".xz")):
             mode = "🗜 "
-        elif path.endswith((".jpg", ".jpeg", ".png", ".gif", ".bmp", ".ico", ".webp")):
+        elif path.endswith(
+            (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".ico", ".webp")):
             mode = "🖼 "
         elif path.endswith((".exe", ".deb")):
             mode = "⚙️ "
@@ -108,4 +106,3 @@ async def lst(event):
             await event.delete()
     else:
         await event.edit(msg)
-

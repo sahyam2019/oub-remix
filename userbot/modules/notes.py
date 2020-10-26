@@ -4,10 +4,12 @@
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module containing commands for keeping notes. """
-
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
-from userbot.events import register
 from asyncio import sleep
+
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
+from userbot.events import register
 
 
 @register(outgoing=True, pattern="^.notes$")
@@ -22,9 +24,7 @@ async def notes_active(svd):
     for note in notes:
         if message == "`There are no saved notes in this chat`":
             message = "Notes saved in this chat:\n"
-            message += "`#{}`\n".format(note.keyword)
-        else:
-            message += "`#{}`\n".format(note.keyword)
+        message += "`#{}`\n".format(note.keyword)
     await svd.edit(message)
 
 
@@ -57,8 +57,9 @@ async def add_note(fltr):
     if msg and msg.media and not string:
         if BOTLOG_CHATID:
             await fltr.client.send_message(
-                BOTLOG_CHATID, f"#NOTE\nCHAT ID: {fltr.chat_id}\nKEYWORD: {keyword}"
-                "\n\nThe following message is saved as the note's reply data for the chat, please do NOT delete it !!"
+                BOTLOG_CHATID,
+                f"#NOTE\nCHAT ID: {fltr.chat_id}\nKEYWORD: {keyword}"
+                "\n\nThe following message is saved as the note's reply data for the chat, please do NOT delete it !!",
             )
             msg_o = await fltr.client.forward_messages(entity=BOTLOG_CHATID,
                                                        messages=msg,
@@ -74,9 +75,9 @@ async def add_note(fltr):
         string = rep_msg.text
     success = "`Note {} successfully. Use` #{} `to get it`"
     if add_note(str(fltr.chat_id), keyword, string, msg_id) is False:
-        return await fltr.edit(success.format('updated', keyword))
+        return await fltr.edit(success.format("updated", keyword))
     else:
-        return await fltr.edit(success.format('added', keyword))
+        return await fltr.edit(success.format("added", keyword))
 
 
 @register(pattern=r"#\w*",
@@ -96,18 +97,21 @@ async def incom_note(getnt):
             message_id_to_reply = getnt.message.reply_to_msg_id
             if not message_id_to_reply:
                 message_id_to_reply = None
-            if note and note.f_mesg_id:
-                msg_o = await getnt.client.get_messages(entity=BOTLOG_CHATID,
-                                                        ids=int(
-                                                            note.f_mesg_id))
-                await getnt.client.send_message(getnt.chat_id,
-                                                msg_o.mesage,
-                                                reply_to=message_id_to_reply,
-                                                file=msg_o.media)
-            elif note and note.reply:
-                await getnt.client.send_message(getnt.chat_id,
-                                                note.reply,
-                                                reply_to=message_id_to_reply)
+            if note:
+                if note.f_mesg_id:
+                    msg_o = await getnt.client.get_messages(
+                        entity=BOTLOG_CHATID, ids=int(note.f_mesg_id))
+                    await getnt.client.send_message(
+                        getnt.chat_id,
+                        msg_o.mesage,
+                        reply_to=message_id_to_reply,
+                        file=msg_o.media,
+                    )
+                elif note.reply:
+                    await getnt.client.send_message(
+                        getnt.chat_id,
+                        note.reply,
+                        reply_to=message_id_to_reply)
     except AttributeError:
         pass
 
@@ -127,7 +131,7 @@ async def kick_marie_notes(kick):
         if bot_type == "marie":
             await kick.reply("/clear %s" % (i.strip()))
         if bot_type == "rose":
-            i = i.replace('`', '')
+            i = i.replace("`", "")
             await kick.reply("/clear %s" % (i.strip()))
         await sleep(0.3)
     await kick.respond(

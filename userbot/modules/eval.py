@@ -4,12 +4,14 @@
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module for executing code and terminal commands from Telegram. """
-
 import asyncio
 from getpass import getuser
 from os import remove
 from sys import executable
-from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID
+
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
 from userbot.events import register
 
 
@@ -35,9 +37,8 @@ async def evaluate(query):
         if evaluation:
             if isinstance(evaluation, str):
                 if len(evaluation) >= 4096:
-                    file = open("output.txt", "w+")
-                    file.write(evaluation)
-                    file.close()
+                    with open("output.txt", "w+") as file:
+                        file.write(evaluation)
                     await query.client.send_file(
                         query.chat_id,
                         "output.txt",
@@ -89,25 +90,24 @@ execute. Use .help exec for an example.```")
         codepre = code
     else:
         clines = code.splitlines()
-        codepre = clines[0] + "\n" + clines[1] + "\n" + clines[2] + \
-            "\n" + clines[3] + "..."
+        codepre = (clines[0] + "\n" + clines[1] + "\n" + clines[2] + "\n" +
+                   clines[3] + "...")
 
     command = "".join(f"\n {l}" for l in code.split("\n.strip()"))
     process = await asyncio.create_subprocess_exec(
         executable,
-        '-c',
+        "-c",
         command.strip(),
         stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE)
+        stderr=asyncio.subprocess.PIPE,
+    )
     stdout, stderr = await process.communicate()
-    result = str(stdout.decode().strip()) \
-        + str(stderr.decode().strip())
+    result = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
     if result:
         if len(result) > 4096:
-            file = open("output.txt", "w+")
-            file.write(result)
-            file.close()
+            with open("output.txt", "w+") as file:
+                file.write(result)
             await run_q.client.send_file(
                 run_q.chat_id,
                 "output.txt",
@@ -139,6 +139,7 @@ async def terminal_runner(term):
     command = term.pattern_match.group(1)
     try:
         from os import geteuid
+
         uid = geteuid()
     except ImportError:
         uid = "This ain't it chief!"
@@ -161,13 +162,11 @@ async def terminal_runner(term):
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE)
     stdout, stderr = await process.communicate()
-    result = str(stdout.decode().strip()) \
-        + str(stderr.decode().strip())
+    result = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
     if len(result) > 4096:
-        output = open("output.txt", "w+")
-        output.write(result)
-        output.close()
+        with open("output.txt", "w+") as output:
+            output.write(result)
         await term.client.send_file(
             term.chat_id,
             "output.txt",
@@ -200,8 +199,6 @@ CMD_HELP.update({
 \n\n`.w3m google.com`\
 \nUsage: Browse the internet with w3m on your server.\nPut your device into landscape mode for better preview."
 })
-
-
 
 CMD_HELP.update({
     "hacker":

@@ -1,5 +1,5 @@
 try:
-    from userbot.modules.sql_helper import SESSION, BASE
+    from userbot.modules.sql_helper import BASE, SESSION
 except ImportError:
     raise Exception("Hello!")
 
@@ -21,10 +21,7 @@ Mute.__table__.create(checkfirst=True)
 
 def is_muted(sender, chat_id):
     user = SESSION.query(Mute).get((str(sender), str(chat_id)))
-    if user:
-        return True
-    else:
-        return False
+    return bool(user)
 
 
 def mute(sender, chat_id):

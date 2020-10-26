@@ -8,22 +8,24 @@
 # License: MPL and OSSRPL
 """ Userbot module which contains everything related to \
     downloading/uploading from/to the server. """
-
+import asyncio
 import json
+import math
 import os
 import subprocess
 import time
-import math
 
-from pySmartDL import SmartDL
-import asyncio
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
+from pySmartDL import SmartDL
 from telethon.tl.types import DocumentAttributeVideo
 
-from userbot import LOGS, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
-from userbot.utils import progress, humanbytes
+from userbot import CMD_HELP
+from userbot import LOGS
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
+from userbot.utils import humanbytes
+from userbot.utils import progress
 
 
 @register(pattern=r".download(?: |$)(.*)", outgoing=True)
@@ -39,10 +41,10 @@ async def download(target_file):
         # https://stackoverflow.com/a/761825/4723940
         file_name = file_name.strip()
         head, tail = os.path.split(file_name)
-        if head:
-            if not os.path.isdir(os.path.join(TEMP_DOWNLOAD_DIRECTORY, head)):
-                os.makedirs(os.path.join(TEMP_DOWNLOAD_DIRECTORY, head))
-                file_name = os.path.join(head, tail)
+        if head and not os.path.isdir(
+                os.path.join(TEMP_DOWNLOAD_DIRECTORY, head)):
+            os.makedirs(os.path.join(TEMP_DOWNLOAD_DIRECTORY, head))
+            file_name = os.path.join(head, tail)
         downloaded_file_name = TEMP_DOWNLOAD_DIRECTORY + "/" + file_name
         downloader = SmartDL(url, downloaded_file_name, progress_bar=False)
         downloader.start(blocking=False)
@@ -50,18 +52,18 @@ async def download(target_file):
         display_message = None
         while not downloader.isFinished():
             status = downloader.get_status().capitalize()
-            total_length = downloader.filesize if downloader.filesize else None
+            total_length = downloader.filesize or None
             downloaded = downloader.get_dl_size()
             now = time.time()
             diff = now - c_time
             percentage = downloader.get_progress() * 100
             speed = downloader.get_speed()
             progress_str = "[{0}{1}] `{2}%`".format(
-                ''.join(["■" for i in range(
-                    math.floor(percentage / 10))]),
-                ''.join(["▨" for i in range(
-                    10 - math.floor(percentage / 10))]),
-                round(percentage, 2))
+                "".join(["■" for i in range(math.floor(percentage / 10))]),
+                "".join(["▨"
+                         for i in range(10 - math.floor(percentage / 10))]),
+                round(percentage, 2),
+            )
             estimated_total_time = downloader.get_eta(human=True)
             try:
                 current_message = (
@@ -70,8 +72,7 @@ async def download(target_file):
                     f"\n**{status}**... | {progress_str}"
                     f"\n{humanbytes(downloaded)} of {humanbytes(total_length)}"
                     f" @ {speed}"
-                    f"\n`ETA` -> {estimated_total_time}"
-                )
+                    f"\n`ETA` -> {estimated_total_time}")
 
                 if round(diff %
                          10.00) == 0 and current_message != display_message:
@@ -90,9 +91,9 @@ async def download(target_file):
             downloaded_file_name = await target_file.client.download_media(
                 await target_file.get_reply_message(),
                 TEMP_DOWNLOAD_DIRECTORY,
-                progress_callback=lambda d, t: asyncio.get_event_loop(
-                ).create_task(
-                    progress(d, t, target_file, c_time, "[DOWNLOAD]")))
+                progress_callback=lambda d, t: asyncio.get_event_loop().
+                create_task(progress(d, t, target_file, c_time, "[DOWNLOAD]")),
+            )
         except Exception as e:  # pylint:disable=C0103,W0703
             await target_file.edit(str(e))
         else:
@@ -136,7 +137,8 @@ async def uploadir(udir_event):
                         progress_callback=lambda d, t: asyncio.get_event_loop(
                         ).create_task(
                             progress(d, t, udir_event, c_time, "[UPLOAD]",
-                                     single_file)))
+                                     single_file)),
+                    )
                 else:
                     thumb_image = os.path.join(input_str, "thumb.jpg")
                     c_time = time.time()
@@ -170,9 +172,10 @@ async def uploadir(udir_event):
                         progress_callback=lambda d, t: asyncio.get_event_loop(
                         ).create_task(
                             progress(d, t, udir_event, c_time, "[UPLOAD]",
-                                     single_file)))
+                                     single_file)),
+                    )
                 os.remove(single_file)
-                uploaded = uploaded + 1
+                uploaded += 1
         await udir_event.edit(
             "Uploaded {} files successfully !!".format(uploaded))
     else:
@@ -185,7 +188,8 @@ async def upload(u_event):
     await u_event.edit("Processing ...")
     input_str = u_event.pattern_match.group(1)
     if input_str in ("userbot.session", "config.env"):
-        return await u_event.edit("`That's a dangerous operation! Not Permitted!`")
+        return await u_event.edit(
+            "`That's a dangerous operation! Not Permitted!`")
     if os.path.exists(input_str):
         c_time = time.time()
         await u_event.client.send_file(
@@ -196,7 +200,8 @@ async def upload(u_event):
             reply_to=u_event.message.id,
             progress_callback=lambda d, t: asyncio.get_event_loop(
             ).create_task(
-                progress(d, t, u_event, c_time, "[UPLOAD]", input_str)))
+                progress(d, t, u_event, c_time, "[UPLOAD]", input_str)),
+        )
         await u_event.edit("Uploaded successfully !!")
     else:
         await u_event.edit("404: File Not Found")
@@ -263,12 +268,12 @@ async def uploadas(uas_event):
     supports_streaming = False
     round_message = False
     spam_big_messages = False
-    if type_of_upload == "stream":
-        supports_streaming = True
-    if type_of_upload == "vn":
-        round_message = True
     if type_of_upload == "all":
         spam_big_messages = True
+    elif type_of_upload == "stream":
+        supports_streaming = True
+    elif type_of_upload == "vn":
+        round_message = True
     input_str = uas_event.pattern_match.group(2)
     thumb = None
     file_name = None
@@ -311,10 +316,11 @@ async def uploadas(uas_event):
                             supports_streaming=True,
                         )
                     ],
-                    progress_callback=lambda d, t: asyncio.get_event_loop(
-                    ).create_task(
-                        progress(d, t, uas_event, c_time, "[UPLOAD]",
-                                 file_name)))
+                    progress_callback=lambda d, t: asyncio.get_event_loop().
+                    create_task(
+                        progress(d, t, uas_event, c_time, "[UPLOAD]", file_name
+                                 )),
+                )
             elif round_message:
                 c_time = time.time()
                 await uas_event.client.send_file(
@@ -333,10 +339,11 @@ async def uploadas(uas_event):
                             supports_streaming=True,
                         )
                     ],
-                    progress_callback=lambda d, t: asyncio.get_event_loop(
-                    ).create_task(
-                        progress(d, t, uas_event, c_time, "[UPLOAD]",
-                                 file_name)))
+                    progress_callback=lambda d, t: asyncio.get_event_loop().
+                    create_task(
+                        progress(d, t, uas_event, c_time, "[UPLOAD]", file_name
+                                 )),
+                )
             elif spam_big_messages:
                 return await uas_event.edit("TBD: Not (yet) Implemented")
             os.remove(thumb)

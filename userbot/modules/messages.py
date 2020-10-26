@@ -4,12 +4,13 @@
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module for purging unneeded messages(usually spam or ot). """
-
 from asyncio import sleep
 
 from telethon.errors import rpcbaseerrors
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
 from userbot.events import register
 
 
@@ -24,7 +25,7 @@ async def fastpurger(purg):
     if purg.reply_to_msg_id is not None:
         async for msg in itermsg:
             msgs.append(msg)
-            count = count + 1
+            count += 1
             msgs.append(purg.reply_to_msg_id)
             if len(msgs) == 100:
                 await purg.client.delete_messages(chat, msgs)
@@ -36,8 +37,10 @@ async def fastpurger(purg):
     if msgs:
         await purg.client.delete_messages(chat, msgs)
     done = await purg.client.send_message(
-        purg.chat_id, f"`Fast purge complete!`\
-        \nPurged {str(count)} messages")
+        purg.chat_id,
+        f"`Fast purge complete!`\
+        \nPurged {str(count)} messages",
+    )
 
     if BOTLOG:
         await purg.client.send_message(
@@ -55,10 +58,10 @@ async def purgeme(delme):
     i = 1
 
     async for message in delme.client.iter_messages(delme.chat_id,
-                                                    from_user='me'):
+                                                    from_user="me"):
         if i > count + 1:
             break
-        i = i + 1
+        i += 1
         await message.delete()
 
     smsg = await delme.client.send_message(
@@ -96,7 +99,7 @@ async def editer(edit):
     """ For .editme command, edit your last message. """
     message = edit.text
     chat = await edit.get_input_chat()
-    self_id = await edit.client.get_peer_id('me')
+    self_id = await edit.client.get_peer_id("me")
     string = str(message[6:])
     i = 1
     async for message in edit.client.iter_messages(chat, self_id):
@@ -104,7 +107,7 @@ async def editer(edit):
             await message.edit(string)
             await edit.delete()
             break
-        i = i + 1
+        i += 1
     if BOTLOG:
         await edit.client.send_message(BOTLOG_CHATID,
                                        "Edit query was executed successfully")
@@ -138,4 +141,4 @@ CMD_HELP.update({
 \n\n`.sd `<x> <message>\
 \nUsage: Creates a message that selfdestructs in x seconds.\
 \nKeep the seconds under 100 since it puts your bot to sleep"
-})  
+})

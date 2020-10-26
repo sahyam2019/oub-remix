@@ -10,7 +10,6 @@
 # 114994699218449095458463470499996630
 #
 # വിവരണം അടിച്ചുമാറ്റിക്കൊണ്ട് പോകുന്നവർ ക്രെഡിറ്റ് വെച്ചാൽ സന്തോഷമേ ഉള്ളു..!
-
 import asyncio
 import logging
 import os
@@ -21,17 +20,16 @@ import aiofiles
 import aiohttp
 from apiclient.discovery import build
 from httplib2 import Http
-from oauth2client import client, file
+from oauth2client import client
+from oauth2client import file
 from telethon import events
 
-from userbot import (
-    BOTLOG_CHATID,
-    CMD_HELP,
-    G_PHOTOS_AUTH_TOKEN_ID,
-    G_PHOTOS_CLIENT_ID,
-    G_PHOTOS_CLIENT_SECRET,
-    TEMP_DOWNLOAD_DIRECTORY,
-)
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
+from userbot import G_PHOTOS_AUTH_TOKEN_ID
+from userbot import G_PHOTOS_CLIENT_ID
+from userbot import G_PHOTOS_CLIENT_SECRET
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 from userbot.utils import progress
 
@@ -74,15 +72,12 @@ async def create_token_file(token_file, event):
     )
     authorize_url = flow.step1_get_authorize_url()
     async with event.client.conversation(event.chat_id, timeout=600) as conv:
-        await conv.send_message(
-            "Go to "
-            "the following link in "
-            f"your browser: {authorize_url} and "
-            "reply the code"
-        )
+        await conv.send_message("Go to "
+                                "the following link in "
+                                f"your browser: {authorize_url} and "
+                                "reply the code")
         response = await conv.wait_event(
-            events.NewMessage(outgoing=True, chats=BOTLOG_CHATID)
-        )
+            events.NewMessage(outgoing=True, chats=BOTLOG_CHATID))
         # logger.info(response.stringify())
         code = response.message.message.strip()
         credentials = flow.step2_exchange(code)
@@ -104,8 +99,7 @@ async def create_token_file(token_file, event):
 async def check_creds(token_file, event):
     if G_PHOTOS_AUTH_TOKEN_ID:
         confidential_message = await event.client.get_messages(
-            entity=BOTLOG_CHATID, ids=G_PHOTOS_AUTH_TOKEN_ID
-        )
+            entity=BOTLOG_CHATID, ids=G_PHOTOS_AUTH_TOKEN_ID)
         if confidential_message and confidential_message.file:
             await confidential_message.download_media(file=token_file)
 
@@ -129,15 +123,15 @@ async def upload_google_photos(event):
     logger.info(input_str)
 
     if not event.reply_to_msg_id and not input_str:
-        await event.edit(
-            "©️ <b>[REMIX]</b>\nNo one gonna help you 🤣🤣🤣🤣", parse_mode="html"
-        )
+        await event.edit("©️ <b>[REMIX]</b>\nNo one gonna help you 🤣🤣🤣🤣",
+                         parse_mode="html")
         return
 
     token_file = TOKEN_FILE_NAME
     is_cred_exists, creds = await check_creds(token_file, event)
     if not is_cred_exists:
-        await event.edit("Run <code>.gpsetup</code> first 😡😒😒", parse_mode="html")
+        await event.edit("Run <code>.gpsetup</code> first 😡😒😒",
+                         parse_mode="html")
 
     service = build("photoslibrary", "v1", http=creds.authorize(Http()))
 
@@ -152,15 +146,13 @@ async def upload_google_photos(event):
 
     elif not input_str:
         media_message = await event.client.get_messages(
-            entity=event.chat_id, ids=event.reply_to_msg_id
-        )
+            entity=event.chat_id, ids=event.reply_to_msg_id)
 
         c_time = time.time()
         file_path = await media_message.download_media(
             file=TEMP_DOWNLOAD_DIRECTORY,
-            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(d, t, event, c_time, "[DOWNLOADING]")
-            ),
+            progress_callback=lambda d, t: asyncio.get_event_loop().
+            create_task(progress(d, t, event, c_time, "[DOWNLOADING]")),
         )
 
     logger.info(file_path)
@@ -184,7 +176,8 @@ async def upload_google_photos(event):
         }
         # Step 1: Initiating an upload session
         step_one_response = await session.post(
-            f"{PHOTOS_BASE_URI}/v1/uploads", headers=headers,
+            f"{PHOTOS_BASE_URI}/v1/uploads",
+            headers=headers,
         )
 
         if step_one_response.status != 200:
@@ -198,8 +191,7 @@ async def upload_google_photos(event):
         real_upload_url = step_one_resp_headers.get("X-Goog-Upload-URL")
         logger.info(real_upload_url)
         upload_granularity = int(
-            step_one_resp_headers.get("X-Goog-Upload-Chunk-Granularity")
-        )
+            step_one_resp_headers.get("X-Goog-Upload-Chunk-Granularity"))
         logger.info(upload_granularity)
         number_of_req_s = int((file_size / upload_granularity))
         logger.info(number_of_req_s)
@@ -219,9 +211,9 @@ async def upload_google_photos(event):
                 }
                 logger.info(i)
                 logger.info(headers)
-                response = await session.post(
-                    real_upload_url, headers=headers, data=current_chunk
-                )
+                response = await session.post(real_upload_url,
+                                              headers=headers,
+                                              data=current_chunk)
                 loop.create_task(
                     progress(
                         offset + part_size,
@@ -229,8 +221,7 @@ async def upload_google_photos(event):
                         event,
                         c_time,
                         "uploading(gphoto)🧐?",
-                    )
-                )
+                    ))
                 logger.info(response.headers)
 
                 # await f_d.seek(i * upload_granularity)
@@ -241,13 +232,14 @@ async def upload_google_photos(event):
             headers = {
                 "Content-Length": str(len(current_chunk)),
                 "X-Goog-Upload-Command": "upload, finalize",
-                "X-Goog-Upload-Offset": str(number_of_req_s * upload_granularity),
+                "X-Goog-Upload-Offset":
+                str(number_of_req_s * upload_granularity),
                 "Authorization": "Bearer " + creds.access_token,
             }
             logger.info(headers)
-            response = await session.post(
-                real_upload_url, headers=headers, data=current_chunk
-            )
+            response = await session.post(real_upload_url,
+                                          headers=headers,
+                                          data=current_chunk)
             logger.info(response.headers)
 
         final_response_text = await response.text()
@@ -255,32 +247,23 @@ async def upload_google_photos(event):
 
     await event.edit("`Uploaded to Google Photos, " "Getting FILE URI`")
 
-    response_create_album = (
-        service.mediaItems()
-        .batchCreate(
-            body={
-                "newMediaItems": [
-                    {
-                        "description": file_name,
-                        "simpleMediaItem": {
-                            "fileName": file_name,
-                            "uploadToken": final_response_text,
-                        },
-                    }
-                ]
-            }
-        )
-        .execute()
-    )
+    response_create_album = (service.mediaItems().batchCreate(
+        body={
+            "newMediaItems": [{
+                "description": file_name,
+                "simpleMediaItem": {
+                    "fileName": file_name,
+                    "uploadToken": final_response_text,
+                },
+            }]
+        }).execute())
     logger.info(response_create_album)
 
     try:
-        photo_url = (
-            response_create_album.get("newMediaItemResults")[0]
-            .get("mediaItem")
-            .get("productUrl")
-        )
-        await event.edit(f"`[SUCCESS]`\n\nUploaded to Google Photo [View]({photo_url})")
+        photo_url = (response_create_album.get("newMediaItemResults")[0].get(
+            "mediaItem").get("productUrl"))
+        await event.edit(
+            f"`[SUCCESS]`\n\nUploaded to Google Photo [View]({photo_url})")
     except Exception as e:
         await event.edit(str(e))
 
@@ -289,6 +272,6 @@ async def upload_google_photos(event):
 def file_ops(file_path):
     file_size = os.stat(file_path).st_size
     mime_type = guess_type(file_path)[0]
-    mime_type = mime_type if mime_type else "text/plain"
+    mime_type = mime_type or "text/plain"
     file_name = file_path.split("/")[-1]
     return file_name, mime_type, file_size
