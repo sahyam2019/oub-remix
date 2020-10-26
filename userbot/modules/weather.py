@@ -4,8 +4,6 @@
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module for getting the weather of a city. """
-
-
 import json
 from datetime import datetime
 

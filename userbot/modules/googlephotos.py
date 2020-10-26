@@ -10,7 +10,6 @@
 # 114994699218449095458463470499996630
 #
 # വിവരണം അടിച്ചുമാറ്റിക്കൊണ്ട് പോകുന്നവർ ക്രെഡിറ്റ് വെച്ചാൽ സന്തോഷമേ ഉള്ളു..!
-
 import asyncio
 import logging
 import os
@@ -21,12 +20,16 @@ import aiofiles
 import aiohttp
 from apiclient.discovery import build
 from httplib2 import Http
-from oauth2client import client, file
+from oauth2client import client
+from oauth2client import file
 from telethon import events
 
-from userbot import (BOTLOG_CHATID, CMD_HELP, G_PHOTOS_AUTH_TOKEN_ID,
-                     G_PHOTOS_CLIENT_ID, G_PHOTOS_CLIENT_SECRET,
-                     TEMP_DOWNLOAD_DIRECTORY)
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
+from userbot import G_PHOTOS_AUTH_TOKEN_ID
+from userbot import G_PHOTOS_CLIENT_ID
+from userbot import G_PHOTOS_CLIENT_SECRET
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 from userbot.utils import progress
 

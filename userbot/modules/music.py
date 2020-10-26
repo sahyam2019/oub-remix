@@ -2,7 +2,6 @@
 # Port to UserBot by @heyworld
 # Copyright (C) 2020 azrim.
 # imported .song and .vsong form catuserbot
-
 import asyncio
 import glob
 import os
@@ -18,9 +17,13 @@ from pylast import User
 from selenium import webdriver
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
+from telethon.tl.types import DocumentAttributeAudio
+from telethon.tl.types import DocumentAttributeVideo
 
-from userbot import CMD_HELP, GOOGLE_CHROME_BIN, TEMP_DOWNLOAD_DIRECTORY, bot
+from userbot import bot
+from userbot import CMD_HELP
+from userbot import GOOGLE_CHROME_BIN
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 from userbot.utils import progress
 

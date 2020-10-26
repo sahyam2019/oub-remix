@@ -6,7 +6,6 @@
 # thanks to the owner of X-tra-Telegram for tts fix
 #
 """ Userbot module containing various scrapers. """
-
 import asyncio
 import io
 import json
@@ -22,7 +21,8 @@ from datetime import datetime
 from html import unescape
 from os import popen
 from random import choice
-from re import findall, match
+from re import findall
+from re import match
 from shutil import rmtree
 from time import sleep
 from urllib.error import HTTPError
@@ -38,34 +38,55 @@ from bs4 import BeautifulSoup
 from emoji import get_emoji_regexp
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from googletrans import LANGUAGES, Translator
-from gtts import gTTS, gTTSError
+from googletrans import LANGUAGES
+from googletrans import Translator
+from gtts import gTTS
+from gtts import gTTSError
 from gtts.lang import tts_langs
 from humanize import naturalsize
-from requests import exceptions, get, post
+from requests import exceptions
+from requests import get
+from requests import post
 from search_engine_parser import YahooSearch  # GoogleSearch
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import Select
 from telethon import events
-from telethon.tl.types import DocumentAttributeAudio, MessageMediaPhoto
+from telethon.tl.types import DocumentAttributeAudio
+from telethon.tl.types import MessageMediaPhoto
 from urbandict import define
 from wikipedia import summary
-from wikipedia.exceptions import DisambiguationError, PageError
+from wikipedia.exceptions import DisambiguationError
+from wikipedia.exceptions import PageError
 from youtube_dl import YoutubeDL
-from youtube_dl.utils import (ContentTooShortError, DownloadError,
-                              ExtractorError, GeoRestrictedError,
-                              MaxDownloadsReached, PostProcessingError,
-                              UnavailableVideoError, XAttrMetadataError)
+from youtube_dl.utils import ContentTooShortError
+from youtube_dl.utils import DownloadError
+from youtube_dl.utils import ExtractorError
+from youtube_dl.utils import GeoRestrictedError
+from youtube_dl.utils import MaxDownloadsReached
+from youtube_dl.utils import PostProcessingError
+from youtube_dl.utils import UnavailableVideoError
+from youtube_dl.utils import XAttrMetadataError
 from youtube_search import YoutubeSearch
 
-from userbot import (BOTLOG, BOTLOG_CHATID, CHROME_DRIVER, CMD_HELP,
-                     GOOGLE_CHROME_BIN, LOGS, OCR_SPACE_API_KEY,
-                     REM_BG_API_KEY, TEMP_DOWNLOAD_DIRECTORY, YOUTUBE_API_KEY,
-                     bot)
+from userbot import bot
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import CHROME_DRIVER
+from userbot import CMD_HELP
+from userbot import GOOGLE_CHROME_BIN
+from userbot import LOGS
+from userbot import OCR_SPACE_API_KEY
+from userbot import REM_BG_API_KEY
+from userbot import TEMP_DOWNLOAD_DIRECTORY
+from userbot import YOUTUBE_API_KEY
 from userbot.events import register
-from userbot.utils import (chrome, googleimagesdownload, humanbytes, options,
-                           progress, time_formatter)
+from userbot.utils import chrome
+from userbot.utils import googleimagesdownload
+from userbot.utils import humanbytes
+from userbot.utils import options
+from userbot.utils import progress
+from userbot.utils import time_formatter
 
 CARBONLANG = "auto"
 TTS_LANG = "en"

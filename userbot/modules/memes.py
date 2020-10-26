@@ -5,7 +5,6 @@
 # custom cmds by @heyworld to make it look more gayish
 # Thanks to @AbhinavShinde for strings
 """ Userbot module for having some fun with people. """
-
 import asyncio
 import html
 import io
@@ -17,15 +16,19 @@ import time
 from asyncio import sleep
 from collections import deque
 from os import execl
-from random import choice, getrandbits, randint
+from random import choice
+from random import getrandbits
+from random import randint
 from re import sub
 
 import pyfiglet
 import requests
 from cowpy import cow
-from telethon import events, functions
+from telethon import events
+from telethon import functions
 
-from userbot import CMD_HELP, bot
+from userbot import bot
+from userbot import CMD_HELP
 from userbot.events import register
 from userbot.modules.admin import get_user_from_event
 

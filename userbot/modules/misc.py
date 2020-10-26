@@ -5,7 +5,6 @@
 #
 # You can find misc modules, which dont fit in anything xD
 """ Userbot module for other small commands. """
-
 import io
 import os
 import re
@@ -19,8 +18,12 @@ import requests
 from bs4 import BeautifulSoup
 from PIL import Image
 
-from userbot import (ALIVE_NAME, BOTLOG, BOTLOG_CHATID, CMD_HELP,
-                     GIT_REPO_NAME, bot)
+from userbot import ALIVE_NAME
+from userbot import bot
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
+from userbot import GIT_REPO_NAME
 from userbot.events import register
 from userbot.utils import time_formatter
 

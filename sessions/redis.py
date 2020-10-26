@@ -13,10 +13,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with TG-UserBot.  If not, see <https://www.gnu.org/licenses/>.
-
 # This was purely based on https://github.com/ezdev128/telethon-session-redis/
 # since it hasn't been updated for a while now and missed a few things.
-
 import logging
 
 import redis

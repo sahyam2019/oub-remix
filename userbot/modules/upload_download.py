@@ -8,7 +8,6 @@
 # License: MPL and OSSRPL
 """ Userbot module which contains everything related to \
     downloading/uploading from/to the server. """
-
 import asyncio
 import json
 import math
@@ -21,9 +20,12 @@ from hachoir.parser import createParser
 from pySmartDL import SmartDL
 from telethon.tl.types import DocumentAttributeVideo
 
-from userbot import CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY
+from userbot import CMD_HELP
+from userbot import LOGS
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
-from userbot.utils import humanbytes, progress
+from userbot.utils import humanbytes
+from userbot.utils import progress
 
 
 @register(pattern=r".download(?: |$)(.*)", outgoing=True)

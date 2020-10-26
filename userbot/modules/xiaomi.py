@@ -1,9 +1,9 @@
 # created by @eve_enryu
-
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
-from userbot import CMD_HELP, bot
+from userbot import bot
+from userbot import CMD_HELP
 from userbot.events import register
 
 

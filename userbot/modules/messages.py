@@ -4,12 +4,13 @@
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module for purging unneeded messages(usually spam or ot). """
-
 from asyncio import sleep
 
 from telethon.errors import rpcbaseerrors
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
 from userbot.events import register
 
 

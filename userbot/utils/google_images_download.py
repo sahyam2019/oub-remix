@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # In[ ]:
 #  coding: utf-8
-
 ###### Searching and Downloading Google Images to the local disk ######
-
 import argparse
 import codecs
 import datetime
@@ -11,9 +9,9 @@ import json
 import os
 import re
 import ssl
-# Import Libraries
 import sys
 import time  # Importing the time library to check the time of code execution
+# Import Libraries
 
 version = (3, 0)
 cur_version = sys.version_info

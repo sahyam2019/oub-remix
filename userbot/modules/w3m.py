@@ -2,11 +2,12 @@
 # Based on the evaluators.py script so credit goes to the original creator
 #
 """ Userbot module for browsing internet from Telegram. """
-
 import asyncio
 from os import remove
 
-from userbot import BOTLOG, BOTLOG_CHATID, TERM_ALIAS
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import TERM_ALIAS
 from userbot.events import register
 
 

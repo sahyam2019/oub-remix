@@ -3,33 +3,38 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
-
 import asyncio
 import datetime
 import hashlib
 import logging
 import math
-import os
 import os.path
 import re
 import shlex
 import sys
 import time
 from os import getcwd
-from os.path import basename, join
-from typing import Optional, Tuple, Union
+from os.path import basename
+from os.path import join
+from typing import Optional
+from typing import Tuple
+from typing import Union
 
-from telethon import errors, events
+from telethon import errors
+from telethon import events
 from telethon.tl import types
 from telethon.tl.functions.channels import GetParticipantRequest
 from telethon.tl.functions.messages import GetPeerDialogsRequest
 from telethon.tl.tlobject import TLObject
-from telethon.tl.types import (ChannelParticipantAdmin,
-                               ChannelParticipantCreator,
-                               DocumentAttributeFilename, MessageEntityPre)
-from telethon.utils import add_surrogate, get_display_name
+from telethon.tl.types import ChannelParticipantAdmin
+from telethon.tl.types import ChannelParticipantCreator
+from telethon.tl.types import DocumentAttributeFilename
+from telethon.tl.types import MessageEntityPre
+from telethon.utils import add_surrogate
+from telethon.utils import get_display_name
 
-from userbot import LOGS, bot
+from userbot import bot
+from userbot import LOGS
 
 
 async def md5(fname: str) -> str:

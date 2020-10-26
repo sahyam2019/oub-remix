@@ -4,12 +4,13 @@
 # you may not use this file except in compliance with the License.
 #
 # Credits @adekmaulana
-
 import os
 
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 
-from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, bot
+from userbot import bot
+from userbot import CMD_HELP
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 

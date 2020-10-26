@@ -10,20 +10,29 @@ from urllib.parse import quote
 
 import bs4
 import requests
-from justwatch import JustWatch, justwatchapi
+from justwatch import JustWatch
+from justwatch import justwatchapi
 from telethon import *
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl import functions, types
+from telethon.tl import functions
+from telethon.tl import types
 from telethon.tl.functions.users import GetFullUserRequest
-from telethon.tl.types import (ChatBannedRights, DocumentAttributeVideo,
-                               MessageEntityMentionName, UserStatusEmpty,
-                               UserStatusLastMonth, UserStatusLastWeek,
-                               UserStatusOffline, UserStatusOnline,
-                               UserStatusRecently)
+from telethon.tl.types import ChatBannedRights
+from telethon.tl.types import DocumentAttributeVideo
+from telethon.tl.types import MessageEntityMentionName
+from telethon.tl.types import UserStatusEmpty
+from telethon.tl.types import UserStatusLastMonth
+from telethon.tl.types import UserStatusLastWeek
+from telethon.tl.types import UserStatusOffline
+from telethon.tl.types import UserStatusOnline
+from telethon.tl.types import UserStatusRecently
 
-from userbot import (ALIVE_NAME, CMD_HELP, DEFAULT_BIO,
-                     TEMP_DOWNLOAD_DIRECTORY, bot)
+from userbot import ALIVE_NAME
+from userbot import bot
+from userbot import CMD_HELP
+from userbot import DEFAULT_BIO
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 normiefont = [

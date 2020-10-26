@@ -3,12 +3,12 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
-
 import asyncio
 import html
 import json
 import textwrap
-from io import BytesIO, StringIO
+from io import BytesIO
+from io import StringIO
 from urllib.parse import quote as urlencode
 
 import aiohttp
@@ -19,9 +19,11 @@ from html_telegraph_poster import TelegraphPoster
 from jikanpy import Jikan
 from jikanpy.exceptions import APIException
 from telethon.errors.rpcerrorlist import FilePartsInvalidError
-from telethon.tl.types import (DocumentAttributeAnimated,
-                               DocumentAttributeFilename, MessageMediaDocument)
-from telethon.utils import is_image, is_video
+from telethon.tl.types import DocumentAttributeAnimated
+from telethon.tl.types import DocumentAttributeFilename
+from telethon.tl.types import MessageMediaDocument
+from telethon.utils import is_image
+from telethon.utils import is_video
 
 from userbot import CMD_HELP
 from userbot.events import register

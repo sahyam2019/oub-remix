@@ -7,10 +7,13 @@ import re
 import requests
 from html_telegraph_poster.upload_images import upload_image
 from PIL import Image
-from telegraph import exceptions, upload_file
+from telegraph import exceptions
+from telegraph import upload_file
 from validators.url import url
 
-from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, bot
+from userbot import bot
+from userbot import CMD_HELP
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 EMOJI_PATTERN = re.compile(

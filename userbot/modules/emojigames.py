@@ -1,6 +1,5 @@
 # fix by @heyworld for OUB
 # bug fixed by @d3athwarrior
-
 from telethon.tl.types import InputMediaDice
 
 from userbot import CMD_HELP

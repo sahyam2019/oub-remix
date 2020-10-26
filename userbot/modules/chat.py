@@ -3,28 +3,35 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 """ Userbot module containing userid, chatid and log commands"""
-
 from asyncio import sleep
 from datetime import datetime
 from math import sqrt
 
 from emoji import emojize
-from telethon import events, functions
-from telethon.errors import (ChannelInvalidError, ChannelPrivateError,
-                             ChannelPublicGroupNaError, InviteHashEmptyError,
-                             InviteHashExpiredError, InviteHashInvalidError)
-from telethon.tl.functions.channels import (GetFullChannelRequest,
-                                            GetParticipantsRequest)
-from telethon.tl.functions.messages import (CheckChatInviteRequest,
-                                            GetFullChatRequest,
-                                            GetHistoryRequest)
-from telethon.tl.types import (ChannelParticipantAdmin,
-                               ChannelParticipantsAdmins,
-                               ChannelParticipantsBots,
-                               MessageActionChannelMigrateFrom)
-from telethon.utils import get_input_location, pack_bot_file_id
+from telethon import events
+from telethon import functions
+from telethon.errors import ChannelInvalidError
+from telethon.errors import ChannelPrivateError
+from telethon.errors import ChannelPublicGroupNaError
+from telethon.errors import InviteHashEmptyError
+from telethon.errors import InviteHashExpiredError
+from telethon.errors import InviteHashInvalidError
+from telethon.tl.functions.channels import GetFullChannelRequest
+from telethon.tl.functions.channels import GetParticipantsRequest
+from telethon.tl.functions.messages import CheckChatInviteRequest
+from telethon.tl.functions.messages import GetFullChatRequest
+from telethon.tl.functions.messages import GetHistoryRequest
+from telethon.tl.types import ChannelParticipantAdmin
+from telethon.tl.types import ChannelParticipantsAdmins
+from telethon.tl.types import ChannelParticipantsBots
+from telethon.tl.types import MessageActionChannelMigrateFrom
+from telethon.utils import get_input_location
+from telethon.utils import pack_bot_file_id
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from userbot import bot
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
 from userbot.events import register
 from userbot.modules.admin import get_user_from_event
 

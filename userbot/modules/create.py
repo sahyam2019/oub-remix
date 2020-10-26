@@ -5,8 +5,8 @@
 #
 # (c) Spechide - UniBorg
 # Port From UniBorg to UserBot by @afdulfauzan
-
-from telethon.tl import functions, types
+from telethon.tl import functions
+from telethon.tl import types
 
 from userbot import CMD_HELP
 from userbot.events import register

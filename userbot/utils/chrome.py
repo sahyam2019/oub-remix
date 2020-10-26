@@ -3,13 +3,14 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
-
 import os
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-from userbot import CHROME_DRIVER, GOOGLE_CHROME_BIN, TEMP_DOWNLOAD_DIRECTORY
+from userbot import CHROME_DRIVER
+from userbot import GOOGLE_CHROME_BIN
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 
 
 async def chrome(chrome_options=None):

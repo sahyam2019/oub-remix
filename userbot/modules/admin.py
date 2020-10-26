@@ -6,7 +6,6 @@
 """
 Userbot module to help you manage a group
 """
-
 import asyncio
 import html
 import io
@@ -15,27 +14,37 @@ import re
 from asyncio import sleep
 from os import remove
 
-from telethon import events, utils
-from telethon.errors import (BadRequestError, ChatAdminRequiredError,
-                             ImageProcessFailedError, PhotoCropSizeSmallError,
-                             UserAdminInvalidError)
-from telethon.errors.rpcerrorlist import (MessageTooLongError,
-                                          UserIdInvalidError)
-from telethon.tl import functions, types
-from telethon.tl.functions.channels import (EditAdminRequest,
-                                            EditBannedRequest,
-                                            EditPhotoRequest)
-from telethon.tl.functions.messages import (EditChatDefaultBannedRightsRequest,
-                                            UpdatePinnedMessageRequest)
-from telethon.tl.types import (ChannelParticipantAdmin,
-                               ChannelParticipantCreator,
-                               ChannelParticipantsAdmins,
-                               ChannelParticipantsBots, ChatAdminRights,
-                               ChatBannedRights, MessageEntityMentionName,
-                               MessageMediaPhoto, PeerChannel)
+from telethon import events
+from telethon import utils
+from telethon.errors import BadRequestError
+from telethon.errors import ChatAdminRequiredError
+from telethon.errors import ImageProcessFailedError
+from telethon.errors import PhotoCropSizeSmallError
+from telethon.errors import UserAdminInvalidError
+from telethon.errors.rpcerrorlist import MessageTooLongError
+from telethon.errors.rpcerrorlist import UserIdInvalidError
+from telethon.tl import functions
+from telethon.tl import types
+from telethon.tl.functions.channels import EditAdminRequest
+from telethon.tl.functions.channels import EditBannedRequest
+from telethon.tl.functions.channels import EditPhotoRequest
+from telethon.tl.functions.messages import EditChatDefaultBannedRightsRequest
+from telethon.tl.functions.messages import UpdatePinnedMessageRequest
+from telethon.tl.types import ChannelParticipantAdmin
+from telethon.tl.types import ChannelParticipantCreator
+from telethon.tl.types import ChannelParticipantsAdmins
+from telethon.tl.types import ChannelParticipantsBots
+from telethon.tl.types import ChatAdminRights
+from telethon.tl.types import ChatBannedRights
+from telethon.tl.types import MessageEntityMentionName
+from telethon.tl.types import MessageMediaPhoto
+from telethon.tl.types import PeerChannel
 
 import userbot.modules.sql_helper.warns_sql as sql
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from userbot import bot
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
 from userbot.events import register
 from userbot.utils.tools import is_admin
 
