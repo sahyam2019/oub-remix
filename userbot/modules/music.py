@@ -3,17 +3,15 @@
 # Copyright (C) 2020 azrim.
 # imported .song and .vsong form catuserbot
 
-from telethon import events
 import asyncio
 import glob
-import shutil
-from userbot.events import register
-from userbot import bot, CMD_HELP, GOOGLE_CHROME_BIN, TEMP_DOWNLOAD_DIRECTORY, bot
-from telethon.errors.rpcerrorlist import YouBlockedUserError
 import os
+import shutil
 import subprocess
 import time
 from asyncio.exceptions import TimeoutError
+
+import pybase64
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from pylast import User
@@ -21,8 +19,10 @@ from selenium import webdriver
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
+
+from userbot import CMD_HELP, GOOGLE_CHROME_BIN, TEMP_DOWNLOAD_DIRECTORY, bot
+from userbot.events import register
 from userbot.utils import progress
-import pybase64
 
 
 async def catmusic(cat, QUALITY, hello):

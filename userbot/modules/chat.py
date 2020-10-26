@@ -5,32 +5,28 @@
 """ Userbot module containing userid, chatid and log commands"""
 
 from asyncio import sleep
-from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, bot
 from datetime import datetime
-from telethon import functions
-from emoji import emojize
 from math import sqrt
-from telethon.tl.functions.channels import GetFullChannelRequest, GetParticipantsRequest
-from telethon.tl.functions.messages import (
-    GetHistoryRequest,
-    CheckChatInviteRequest,
-    GetFullChatRequest,
-)
-from telethon.tl.types import MessageActionChannelMigrateFrom, ChannelParticipantsAdmins
-from telethon.errors import (
-    ChannelInvalidError,
-    ChannelPrivateError,
-    ChannelPublicGroupNaError,
-    InviteHashEmptyError,
-    InviteHashExpiredError,
-    InviteHashInvalidError,
-)
-from telethon.utils import get_input_location
-from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantsBots
+
+from emoji import emojize
+from telethon import events, functions
+from telethon.errors import (ChannelInvalidError, ChannelPrivateError,
+                             ChannelPublicGroupNaError, InviteHashEmptyError,
+                             InviteHashExpiredError, InviteHashInvalidError)
+from telethon.tl.functions.channels import (GetFullChannelRequest,
+                                            GetParticipantsRequest)
+from telethon.tl.functions.messages import (CheckChatInviteRequest,
+                                            GetFullChatRequest,
+                                            GetHistoryRequest)
+from telethon.tl.types import (ChannelParticipantAdmin,
+                               ChannelParticipantsAdmins,
+                               ChannelParticipantsBots,
+                               MessageActionChannelMigrateFrom)
+from telethon.utils import get_input_location, pack_bot_file_id
+
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
 from userbot.modules.admin import get_user_from_event
-from telethon import events
-from telethon.utils import pack_bot_file_id
 
 
 @register(outgoing=True, pattern="^.getid(?: |$)(.*)")

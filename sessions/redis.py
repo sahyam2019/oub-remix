@@ -20,7 +20,6 @@
 import logging
 
 import redis
-
 from telethon.crypto import AuthKey
 from telethon.sessions import MemorySession
 

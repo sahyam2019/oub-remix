@@ -3,7 +3,7 @@
 Original Module Credits: https://t.me/UniBorg/127"""
 from userbot.events import register
 from userbot.utils import humanbytes
-from userbot.utils.tools import yaml_format, parse_pre
+from userbot.utils.tools import parse_pre, yaml_format
 
 
 @register(outgoing=True, pattern="^.confs(?: |$)(.*)")

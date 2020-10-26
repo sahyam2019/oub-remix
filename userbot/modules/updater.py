@@ -8,23 +8,16 @@
 This module updates the userbot based on upstream revision
 """
 
-from os import remove, execle, path, environ
 import asyncio
 import sys
+from os import environ, execle, path, remove
 
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from userbot import (
-    BOTLOG,
-    BOTLOG_CHATID,
-    CMD_HELP,
-    HEROKU_API_KEY,
-    HEROKU_APP_NAME,
-    UPSTREAM_REPO_URL,
-    UPSTREAM_REPO_BRANCH,
-    TERM_ALIAS,
-)
+from userbot import (BOTLOG, BOTLOG_CHATID, CMD_HELP, HEROKU_API_KEY,
+                     HEROKU_APP_NAME, TERM_ALIAS, UPSTREAM_REPO_BRANCH,
+                     UPSTREAM_REPO_URL)
 from userbot.events import register
 
 requirements_path = path.join(

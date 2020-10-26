@@ -5,21 +5,18 @@
 #
 """ Userbot module for kanging stickers or making new ones. Thanks @rupansh"""
 
+import asyncio
 import io
 import math
-import asyncio
 import random
 import urllib.request
 from os import remove
 
 from PIL import Image
 from telethon.tl.functions.messages import GetStickerSetRequest
-from telethon.tl.types import (
-    DocumentAttributeFilename,
-    DocumentAttributeSticker,
-    InputStickerSetID,
-    MessageMediaPhoto,
-)
+from telethon.tl.types import (DocumentAttributeFilename,
+                               DocumentAttributeSticker, InputStickerSetID,
+                               MessageMediaPhoto)
 
 from userbot import CMD_HELP, bot
 from userbot.events import register

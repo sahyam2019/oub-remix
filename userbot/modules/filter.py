@@ -6,7 +6,8 @@
 """ Userbot module for filter commands """
 
 from asyncio import sleep
-from re import search, IGNORECASE, escape
+from re import IGNORECASE, escape, search
+
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
 from userbot.events import register
 

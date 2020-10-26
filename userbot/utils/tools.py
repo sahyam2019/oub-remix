@@ -4,36 +4,32 @@
 # you may not use this file except in compliance with the License.
 #
 
-import re
-import hashlib
 import asyncio
-import shlex
 import datetime
+import hashlib
 import logging
-import os
-from os.path import basename, join
 import math
-from os import getcwd
+import os
 import os.path
+import re
+import shlex
 import sys
 import time
-from typing import Tuple, Union, Optional
-from userbot import bot, LOGS
+from os import getcwd
+from os.path import basename, join
+from typing import Optional, Tuple, Union
 
-from telethon import errors
+from telethon import errors, events
 from telethon.tl import types
-from telethon.utils import get_display_name
-from telethon import events
-from telethon.tl.tlobject import TLObject
-from telethon.tl.functions.messages import GetPeerDialogsRequest
 from telethon.tl.functions.channels import GetParticipantRequest
-from telethon.tl.types import (
-    ChannelParticipantAdmin,
-    ChannelParticipantCreator,
-    DocumentAttributeFilename,
-    MessageEntityPre,
-)
-from telethon.utils import add_surrogate
+from telethon.tl.functions.messages import GetPeerDialogsRequest
+from telethon.tl.tlobject import TLObject
+from telethon.tl.types import (ChannelParticipantAdmin,
+                               ChannelParticipantCreator,
+                               DocumentAttributeFilename, MessageEntityPre)
+from telethon.utils import add_surrogate, get_display_name
+
+from userbot import LOGS, bot
 
 
 async def md5(fname: str) -> str:

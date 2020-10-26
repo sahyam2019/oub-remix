@@ -7,87 +7,65 @@
 #
 """ Userbot module containing various scrapers. """
 
-import os
-import time
 import asyncio
-import shutil
-import json
-import requests
-from os import popen
-import urllib.parse
-import logging
-from bs4 import BeautifulSoup
-import re
-from re import match
 import io
-from random import choice
-from humanize import naturalsize
-import qrcode
-import barcode
-from barcode.writer import ImageWriter
-import emoji
-from time import sleep
+import json
+import logging
+import os
+import re
+import shutil
+import subprocess
+import time
+import urllib.parse
+from asyncio import sleep
+from datetime import datetime
 from html import unescape
-from re import findall
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.chrome.options import Options
-from urllib.parse import quote_plus
+from os import popen
+from random import choice
+from re import findall, match
+from shutil import rmtree
+from time import sleep
 from urllib.error import HTTPError
-from telethon import events
-from wikipedia import summary
-from wikipedia.exceptions import DisambiguationError, PageError
-from urbandict import define
-from requests import get, post, exceptions
-from search_engine_parser import YahooSearch  # GoogleSearch
+from urllib.parse import quote_plus
+
+import asyncurban
+import barcode
+import emoji
+import qrcode
+import requests
+from barcode.writer import ImageWriter
+from bs4 import BeautifulSoup
+from emoji import get_emoji_regexp
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googletrans import LANGUAGES, Translator
-from shutil import rmtree
 from gtts import gTTS, gTTSError
 from gtts.lang import tts_langs
-from emoji import get_emoji_regexp
-from telethon.tl.types import MessageMediaPhoto
-from youtube_search import YoutubeSearch
+from humanize import naturalsize
+from requests import exceptions, get, post
+from search_engine_parser import YahooSearch  # GoogleSearch
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import Select
+from telethon import events
+from telethon.tl.types import DocumentAttributeAudio, MessageMediaPhoto
+from urbandict import define
+from wikipedia import summary
+from wikipedia.exceptions import DisambiguationError, PageError
 from youtube_dl import YoutubeDL
-from youtube_dl.utils import (
-    DownloadError,
-    ContentTooShortError,
-    ExtractorError,
-    GeoRestrictedError,
-    MaxDownloadsReached,
-    PostProcessingError,
-    UnavailableVideoError,
-    XAttrMetadataError,
-)
-from asyncio import sleep
-from userbot import (
-    CMD_HELP,
-    BOTLOG,
-    BOTLOG_CHATID,
-    YOUTUBE_API_KEY,
-    CHROME_DRIVER,
-    GOOGLE_CHROME_BIN,
-    bot,
-    REM_BG_API_KEY,
-    TEMP_DOWNLOAD_DIRECTORY,
-    OCR_SPACE_API_KEY,
-    LOGS,
-)
-from userbot.events import register
-from telethon.tl.types import DocumentAttributeAudio
-from userbot.utils import (
-    progress,
-    humanbytes,
-    time_formatter,
-    chrome,
-    options,
-    googleimagesdownload,
-)
-import subprocess
-from datetime import datetime
-import asyncurban
+from youtube_dl.utils import (ContentTooShortError, DownloadError,
+                              ExtractorError, GeoRestrictedError,
+                              MaxDownloadsReached, PostProcessingError,
+                              UnavailableVideoError, XAttrMetadataError)
+from youtube_search import YoutubeSearch
 
+from userbot import (BOTLOG, BOTLOG_CHATID, CHROME_DRIVER, CMD_HELP,
+                     GOOGLE_CHROME_BIN, LOGS, OCR_SPACE_API_KEY,
+                     REM_BG_API_KEY, TEMP_DOWNLOAD_DIRECTORY, YOUTUBE_API_KEY,
+                     bot)
+from userbot.events import register
+from userbot.utils import (chrome, googleimagesdownload, humanbytes, options,
+                           progress, time_formatter)
 
 CARBONLANG = "auto"
 TTS_LANG = "en"

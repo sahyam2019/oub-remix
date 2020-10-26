@@ -6,22 +6,23 @@
 # You can find misc modules, which dont fit in anything xD
 """ Userbot module for other small commands. """
 
+import io
+import os
+import re
+import sys
+import urllib
+from os import execl
 from random import randint
 from time import sleep
-from os import execl
-import sys
-import os
-import io
-import sys
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, GIT_REPO_NAME, ALIVE_NAME
-from userbot.events import register
-from userbot.utils import time_formatter
-import urllib
+
 import requests
 from bs4 import BeautifulSoup
-import re
 from PIL import Image
 
+from userbot import (ALIVE_NAME, BOTLOG, BOTLOG_CHATID, CMD_HELP,
+                     GIT_REPO_NAME, bot)
+from userbot.events import register
+from userbot.utils import time_formatter
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node

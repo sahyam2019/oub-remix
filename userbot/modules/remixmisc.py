@@ -1,35 +1,30 @@
 # imported from github.com/ravana69/PornHub to userbot by @heyworld
 # please don't nuke my credits 😓
-import requests
-import bs4
-import os
 import asyncio
-import time
 import html
+import logging
+import os
+import time
+from datetime import datetime
+from urllib.parse import quote
+
+import bs4
+import requests
 from justwatch import JustWatch, justwatchapi
 from telethon import *
-from userbot.events import register
-from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY, DEFAULT_BIO, ALIVE_NAME
 from telethon import events
-from telethon.tl import functions, types
-from urllib.parse import quote
-from datetime import datetime
-from telethon.tl.types import (
-    UserStatusEmpty,
-    UserStatusLastMonth,
-    UserStatusLastWeek,
-    UserStatusOffline,
-    UserStatusOnline,
-    UserStatusRecently,
-    ChatBannedRights,
-)
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.tl.types import MessageEntityMentionName
-from telethon.tl.types import DocumentAttributeVideo
 from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl import functions, types
+from telethon.tl.functions.users import GetFullUserRequest
+from telethon.tl.types import (ChatBannedRights, DocumentAttributeVideo,
+                               MessageEntityMentionName, UserStatusEmpty,
+                               UserStatusLastMonth, UserStatusLastWeek,
+                               UserStatusOffline, UserStatusOnline,
+                               UserStatusRecently)
 
-
-import logging
+from userbot import (ALIVE_NAME, CMD_HELP, DEFAULT_BIO,
+                     TEMP_DOWNLOAD_DIRECTORY, bot)
+from userbot.events import register
 
 normiefont = [
     "a",

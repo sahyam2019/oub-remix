@@ -2,8 +2,9 @@
 # bug fixed by @d3athwarrior
 
 from telethon.tl.types import InputMediaDice
-from userbot.events import register
+
 from userbot import CMD_HELP
+from userbot.events import register
 
 
 @register(outgoing=True, pattern="^.dice(?: |$)(.*)")

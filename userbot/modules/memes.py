@@ -6,26 +6,26 @@
 # Thanks to @AbhinavShinde for strings
 """ Userbot module for having some fun with people. """
 
-from asyncio import sleep
 import asyncio
+import html
+import io
+import json
+import os
 import random
+import sys
+import time
+from asyncio import sleep
+from collections import deque
+from os import execl
 from random import choice, getrandbits, randint
 from re import sub
-from random import randint
-from os import execl
-import time
-from telethon import events, functions
-from userbot import bot
+
 import pyfiglet
-from collections import deque
 import requests
-import sys
-import os
-import io
-import html
-import json
 from cowpy import cow
-from userbot import CMD_HELP
+from telethon import events, functions
+
+from userbot import CMD_HELP, bot
 from userbot.events import register
 from userbot.modules.admin import get_user_from_event
 

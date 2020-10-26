@@ -1,9 +1,9 @@
 import random
 import re
+from asyncio import sleep
 
 from userbot import CMD_HELP, bot
 from userbot.events import register
-from asyncio import sleep
 
 EMOJI_PATTERN = re.compile(
     "["

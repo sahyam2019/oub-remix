@@ -8,9 +8,11 @@
 import asyncio
 import io
 import re
-import userbot.modules.sql_helper.blacklist_sql as sql
+
 from telethon import events, utils
-from telethon.tl import types, functions
+from telethon.tl import functions, types
+
+import userbot.modules.sql_helper.blacklist_sql as sql
 from userbot import CMD_HELP, bot
 from userbot.events import register
 

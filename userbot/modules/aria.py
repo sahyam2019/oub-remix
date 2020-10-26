@@ -1,12 +1,14 @@
-import os
-import aria2p
 import math
+import os
 from asyncio import sleep
 from subprocess import PIPE, Popen
-from userbot import LOGS, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
+
+import aria2p
+from requests import get
+
+from userbot import CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 from userbot.utils import humanbytes
-from requests import get
 
 
 def subprocess_run(cmd):
