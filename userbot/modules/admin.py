@@ -142,9 +142,7 @@ async def promote(promt):
     user, rank = await get_user_from_event(promt)
     if not rank:
         rank = "Administrator"  # Just in case.
-    if user:
-        pass
-    else:
+    if not user:
         return
 
     # Try to promote if current user is admin or creator
@@ -184,9 +182,7 @@ async def demote(dmod):
     rank = "admeme"  # dummy rank, lol.
     user = await get_user_from_event(dmod)
     user = user[0]
-    if user:
-        pass
-    else:
+    if not user:
         return
 
     # New rights after demotion
@@ -230,9 +226,7 @@ async def ban(bon):
         return
 
     user, reason = await get_user_from_event(bon)
-    if user:
-        pass
-    else:
+    if not user:
         return
 
     # Announce that we're going to whack the pest
@@ -287,9 +281,7 @@ async def nothanos(unbon):
 
     user = await get_user_from_event(unbon)
     user = user[0]
-    if user:
-        pass
-    else:
+    if not user:
         return
 
     try:
@@ -329,9 +321,7 @@ async def spider(spdr):
         return
 
     user, reason = await get_user_from_event(spdr)
-    if user:
-        pass
-    else:
+    if not user:
         return
 
     self_user = await spdr.client.get_me()
@@ -390,9 +380,7 @@ async def unmoot(unmot):
     await unmot.edit('```Unmuting...```')
     user = await get_user_from_event(unmot)
     user = user[0]
-    if user:
-        pass
-    else:
+    if not user:
         return
 
     if unmute(unmot.chat_id, user.id) is False:
@@ -467,9 +455,7 @@ async def ungmoot(un_gmute):
 
     user = await get_user_from_event(un_gmute)
     user = user[0]
-    if user:
-        pass
-    else:
+    if not user:
         return
 
     # If pass, inform and start ungmuting
@@ -509,9 +495,7 @@ async def gspider(gspdr):
         return
 
     user, reason = await get_user_from_event(gspdr)
-    if user:
-        pass
-    else:
+    if not user:
         return
 
     # If pass, inform and start gmuting
@@ -634,9 +618,7 @@ async def getadmin(event):
     input_str = event.pattern_match.group(1)
     to_write_chat = await event.get_input_chat()
     chat = None
-    if not input_str:
-        chat = to_write_chat
-    else:
+    if input_str:
         mentions_heading = "Admins in {} : \n".format(input_str)
         mentions = mentions_heading
         try:
@@ -644,18 +626,21 @@ async def getadmin(event):
         except Exception as e:
             await event.edit(str(e))
             return None
+    else:
+        chat = to_write_chat
     try:
         async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
-            if not x.deleted:
-                if isinstance(x.participant, ChannelParticipantCreator):
-                    mentions += "\n [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
+            if not x.deleted and isinstance(
+                x.participant, ChannelParticipantCreator
+            ):
+                mentions += "\n [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
         mentions += "\n"
         async for x in event.client.iter_participants(chat, filter=ChannelParticipantsAdmins):
-            if not x.deleted:
+            if x.deleted:
+                mentions += "\n `{}`".format(x.id)
+            else:
                 if isinstance(x.participant, ChannelParticipantAdmin):
                     mentions += "\n [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
-            else:
-                mentions += "\n `{}`".format(x.id)
     except Exception as e:
         mentions += " " + str(e) + "\n"
     if should_mention_admins:
@@ -759,16 +744,10 @@ async def kick(usr):
 async def get_users(show):
     """ For .users command, list all of the users in a chat. """
     info = await show.client.get_entity(show.chat_id)
-    title = info.title if info.title else "this chat"
+    title = info.title or "this chat"
     mentions = 'Users in {}: \n'.format(title)
     try:
-        if not show.pattern_match.group(1):
-            async for user in show.client.iter_participants(show.chat_id):
-                if not user.deleted:
-                    mentions += f"\n[{user.first_name}](tg://user?id={user.id}) `{user.id}`"
-                else:
-                    mentions += f"\nDeleted Account `{user.id}`"
-        else:
+        if show.pattern_match.group(1):
             searchq = show.pattern_match.group(1)
             async for user in show.client.iter_participants(
                     show.chat_id, search=f'{searchq}'):
@@ -776,6 +755,12 @@ async def get_users(show):
                     mentions += f"\n[{user.first_name}](tg://user?id={user.id}) `{user.id}`"
                 else:
                     mentions += f"\nDeleted Account `{user.id}`"
+        else:
+            async for user in show.client.iter_participants(show.chat_id):
+                if user.deleted:
+                    mentions += f"\nDeleted Account `{user.id}`"
+                else:
+                    mentions += f"\n[{user.first_name}](tg://user?id={user.id}) `{user.id}`"
     except ChatAdminRequiredError as err:
         mentions += " " + str(err) + "\n"
     try:
@@ -783,9 +768,8 @@ async def get_users(show):
     except MessageTooLongError:
         await show.edit(
             "Damn, this is a huge group. Uploading users lists as file.")
-        file = open("userslist.txt", "w+")
-        file.write(mentions)
-        file.close()
+        with open("userslist.txt", "w+") as file:
+            file.write(mentions)
         await show.client.send_file(
             show.chat_id,
             "userslist.txt",
@@ -799,7 +783,7 @@ async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
     args = event.pattern_match.group(1).split(' ', 1)
     extra = None
-    if event.reply_to_msg_id and not len(args) == 2:
+    if event.reply_to_msg_id and len(args) != 2:
         previous_message = await event.get_reply_message()
         user_obj = await event.client.get_entity(previous_message.from_id)
         extra = event.pattern_match.group(1)
@@ -849,7 +833,7 @@ async def get_user_from_id(user, event):
 async def get_usersdel(show):
     """ For .usersdel command, list all of the deleted users in a chat. """
     info = await show.client.get_entity(show.chat_id)
-    title = info.title if info.title else "this chat"
+    title = info.title or "this chat"
     mentions = 'deletedUsers in {}: \n'.format(title)
     try:
         if not show.pattern_match.group(1):
@@ -873,9 +857,8 @@ async def get_usersdel(show):
     except MessageTooLongError:
         await show.edit(
             "Damn, this is a huge group. Uploading deletedusers lists as file.")
-        file = open("userslist.txt", "w+")
-        file.write(mentions)
-        file.close()
+        with open("userslist.txt", "w+") as file:
+            file.write(mentions)
         await show.client.send_file(
             show.chat_id,
             "deleteduserslist.txt",
@@ -889,7 +872,7 @@ async def get_userdel_from_event(event):
     """ Get the deleted user from argument or replied message. """
     args = event.pattern_match.group(1).split(' ', 1)
     extra = None
-    if event.reply_to_msg_id and not len(args) == 2:
+    if event.reply_to_msg_id and len(args) != 2:
         previous_message = await event.get_reply_message()
         user_obj = await event.client.get_entity(previous_message.from_id)
         extra = event.pattern_match.group(1)
@@ -993,11 +976,9 @@ async def locks(event):
     else:
         if not input_str:
             await event.edit("`I can't lock nothing !!`")
-            return
         else:
             await event.edit(f"`Invalid lock type:` {input_str}")
-            return
-
+        return
     lock_rights = ChatBannedRights(
         until_date=None,
         send_messages=msg,
@@ -1081,11 +1062,9 @@ async def rem_locks(event):
     else:
         if not input_str:
             await event.edit("`I can't unlock nothing !!`")
-            return
         else:
             await event.edit(f"`Invalid unlock type:` {input_str}")
-            return
-
+        return
     unlock_rights = ChatBannedRights(
         until_date=None,
         send_messages=msg,

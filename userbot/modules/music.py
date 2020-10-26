@@ -88,10 +88,7 @@ async def _(event):
         await event.edit(f"Sorry..! i can't find anything with `{query}`")
         return
     thumbcat = glob.glob("./temp/*.jpg") + glob.glob("./temp/*.webp")
-    if thumbcat:
-        catthumb = thumbcat[0]
-    else:
-        catthumb = None
+    catthumb = thumbcat[0] if thumbcat else None
     loa = l[0]
     await bot.send_file(
         event.chat_id,
@@ -132,10 +129,7 @@ async def _(event):
         await event.edit(f"Sorry..! i can't find anything with `{query}`")
         return
     thumbcat = glob.glob("./temp/*.jpg") + glob.glob("./temp/*.webp")
-    if thumbcat:
-        catthumb = thumbcat[0]
-    else:
-        catthumb = None
+    catthumb = thumbcat[0] if thumbcat else None
     loa = l[0]
     await bot.send_file(
         event.chat_id,

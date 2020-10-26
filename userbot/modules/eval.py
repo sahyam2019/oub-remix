@@ -35,9 +35,8 @@ async def evaluate(query):
         if evaluation:
             if isinstance(evaluation, str):
                 if len(evaluation) >= 4096:
-                    file = open("output.txt", "w+")
-                    file.write(evaluation)
-                    file.close()
+                    with open("output.txt", "w+") as file:
+                        file.write(evaluation)
                     await query.client.send_file(
                         query.chat_id,
                         "output.txt",
@@ -105,9 +104,8 @@ execute. Use .help exec for an example.```")
 
     if result:
         if len(result) > 4096:
-            file = open("output.txt", "w+")
-            file.write(result)
-            file.close()
+            with open("output.txt", "w+") as file:
+                file.write(result)
             await run_q.client.send_file(
                 run_q.chat_id,
                 "output.txt",
@@ -165,9 +163,8 @@ async def terminal_runner(term):
         + str(stderr.decode().strip())
 
     if len(result) > 4096:
-        output = open("output.txt", "w+")
-        output.write(result)
-        output.close()
+        with open("output.txt", "w+") as output:
+            output.write(result)
         await term.client.send_file(
             term.chat_id,
             "output.txt",

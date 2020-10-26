@@ -39,9 +39,7 @@ async def _(fry):
                           m,
                           reply_to=msg.id)
                 r = await conv.get_response()
-                response = await conv.get_response()
-            else:
-                response = await conv.get_response()
+            response = await conv.get_response()
             """ - don't spam notif - """
             await bot.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:

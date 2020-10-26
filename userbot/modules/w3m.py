@@ -18,20 +18,20 @@ async def terminal_runner(w3m):
         uid = geteuid()
     except ImportError:
         uid = "This ain't it chief!"
- 
+
     if w3m.is_channel and not w3m.is_group:
         await w3m.edit("`w3m command isn't permitted on channels!`")
         return
- 
+
     if not command:
         await w3m.edit("``` Give a URL or use .help w3m for \
             an example.```")
         return
- 
+
     if command in ("userbot.session", "config.env"):
         await w3m.edit("`That's a dangerous operation! Not Permitted!`")
         return
- 
+
     process = await asyncio.create_subprocess_exec(
         "w3m",
         command,
@@ -40,11 +40,10 @@ async def terminal_runner(w3m):
     stdout, stderr = await process.communicate()
     result = str(stdout.decode().strip()) \
         + str(stderr.decode().strip())
- 
+
     if len(result) > 4096:
-        output = open("output.txt", "w+")
-        output.write(result)
-        output.close()
+        with open("output.txt", "w+") as output:
+            output.write(result)
         await w3m.client.send_file(
             w3m.chat_id,
             "output.txt",
@@ -53,12 +52,12 @@ async def terminal_runner(w3m):
         )
         remove("output.txt")
         return
- 
+
     if uid == 0:
         await w3m.edit("`" f"{curruser}:~# w3m {command}" f"\n{result}" "`")
     else:
         await w3m.edit("`" f"{curruser}:~$ w3m {command}" f"\n{result}" "`")
- 
+
     if BOTLOG:
         await w3m.client.send_message(
             BOTLOG_CHATID,

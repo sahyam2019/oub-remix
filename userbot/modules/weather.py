@@ -5,6 +5,7 @@
 #
 """ Userbot module for getting the weather of a city. """
 
+
 import json
 from requests import get
 from datetime import datetime
@@ -17,10 +18,7 @@ from userbot import OPEN_WEATHER_MAP_APPID as OWM_API
 from userbot.events import register
 
 # ===== CONSTANT =====
-if WEATHER_DEFCITY:
-    DEFCITY = WEATHER_DEFCITY
-else:
-    DEFCITY = None
+DEFCITY = WEATHER_DEFCITY or None
 # ====================
 
 

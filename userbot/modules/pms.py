@@ -36,75 +36,74 @@ NO_PM_LOG_USERS = []
 async def permitpm(event):
     """ Prohibits people from PMing you without approval. \
         Will block retarded nibbas automatically. """
-    if PM_AUTO_BAN:
-        self_user = await event.client.get_me()
-        if event.is_private and event.chat_id != 777000 and event.chat_id != self_user.id and not (
+    if not PM_AUTO_BAN:
+        return
+    self_user = await event.client.get_me()
+    if event.is_private and event.chat_id != 777000 and event.chat_id != self_user.id and not (
                 await event.get_sender()).bot:
-            try:
-                from userbot.modules.sql_helper.pm_permit_sql import is_approved
-                from userbot.modules.sql_helper.globals import gvarstatus
-            except AttributeError:
-                return
-            apprv = is_approved(event.chat_id)
-            notifsoff = gvarstatus("NOTIF_OFF")
+        try:
+            from userbot.modules.sql_helper.pm_permit_sql import is_approved
+            from userbot.modules.sql_helper.globals import gvarstatus
+        except AttributeError:
+            return
+        apprv = is_approved(event.chat_id)
+        notifsoff = gvarstatus("NOTIF_OFF")
 
             # This part basically is a sanity check
             # If the message that sent before is Unapproved Message
             # then stop sending it again to prevent FloodHit
-            if not apprv and event.text != UNAPPROVED_MSG:
-                if event.chat_id in LASTMSG:
-                    prevmsg = LASTMSG[event.chat_id]
-                    # If the message doesn't same as previous one
-                    # Send the Unapproved Message again
-                    if event.text != prevmsg:
-                        async for message in event.client.iter_messages(
-                                event.chat_id,
-                                from_user='me',
-                                search=UNAPPROVED_MSG):
-                            await message.delete()
-                        await event.reply(UNAPPROVED_MSG)
-                    LASTMSG.update({event.chat_id: event.text})
-                else:
+        if not apprv and event.text != UNAPPROVED_MSG:
+            if event.chat_id in LASTMSG:
+                prevmsg = LASTMSG[event.chat_id]
+                # If the message doesn't same as previous one
+                # Send the Unapproved Message again
+                if event.text != prevmsg:
+                    async for message in event.client.iter_messages(
+                            event.chat_id,
+                            from_user='me',
+                            search=UNAPPROVED_MSG):
+                        await message.delete()
                     await event.reply(UNAPPROVED_MSG)
-                    LASTMSG.update({event.chat_id: event.text})
+            else:
+                await event.reply(UNAPPROVED_MSG)
+            LASTMSG.update({event.chat_id: event.text})
+            if notifsoff:
+                await event.client.send_read_acknowledge(event.chat_id)
+            if event.chat_id not in COUNT_PM:
+                COUNT_PM.update({event.chat_id: 1})
+            else:
+                COUNT_PM[event.chat_id] = COUNT_PM[event.chat_id] + 1
 
-                if notifsoff:
-                    await event.client.send_read_acknowledge(event.chat_id)
-                if event.chat_id not in COUNT_PM:
-                    COUNT_PM.update({event.chat_id: 1})
-                else:
-                    COUNT_PM[event.chat_id] = COUNT_PM[event.chat_id] + 1
+            if COUNT_PM[event.chat_id] > 2:
+                await event.respond(
+                    "`You were spamming my pm dude.`\n"
+                    "`You have been BLOCKED and reported as SPAM now. JUST FUCK OFF 🖕.`"
+                )
 
-                if COUNT_PM[event.chat_id] > 2:
-                    await event.respond(
-                        "`You were spamming my pm dude.`\n"
-                        "`You have been BLOCKED and reported as SPAM now. JUST FUCK OFF 🖕.`"
-                    )
-
-                    try:
-                        del COUNT_PM[event.chat_id]
-                        del LASTMSG[event.chat_id]
-                    except KeyError:
-                        if BOTLOG:
-                            await event.client.send_message(
-                                BOTLOG_CHATID,
-                                "Count PM is seemingly going retard, plis restart bot!",
-                            )
-                        LOGS.info("CountPM wen't rarted boi")
-                        return
-
-                    await event.client(BlockRequest(event.chat_id))
-                    await event.client(ReportSpamRequest(peer=event.chat_id))
-
+                try:
+                    del COUNT_PM[event.chat_id]
+                    del LASTMSG[event.chat_id]
+                except KeyError:
                     if BOTLOG:
-                        name = await event.client.get_entity(event.chat_id)
-                        name0 = str(name.first_name)
                         await event.client.send_message(
                             BOTLOG_CHATID,
-                            "[" + name0 + "](tg://user?id=" +
-                            str(event.chat_id) + ")" +
-                            " was just another retarded nibba",
+                            "Count PM is seemingly going retard, plis restart bot!",
                         )
+                    LOGS.info("CountPM wen't rarted boi")
+                    return
+
+                await event.client(BlockRequest(event.chat_id))
+                await event.client(ReportSpamRequest(peer=event.chat_id))
+
+                if BOTLOG:
+                    name = await event.client.get_entity(event.chat_id)
+                    name0 = str(name.first_name)
+                    await event.client.send_message(
+                        BOTLOG_CHATID,
+                        "[" + name0 + "](tg://user?id=" +
+                        str(event.chat_id) + ")" +
+                        " was just another retarded nibba",
+                    )
 
 
 @register(disable_edited=True, outgoing=True, disable_errors=True)
@@ -308,13 +307,11 @@ async def approve_p_m(event):
         return
     reason = event.pattern_match.group(1)
     chat = await event.get_chat()
-    if NC_LOG_P_M_S:
-        if event.is_private:
-            if chat.id not in NO_PM_LOG_USERS:
-                NO_PM_LOG_USERS.append(chat.id)
-                await event.edit("Won't Log Messages from this chat")
-                await asyncio.sleep(3)
-                await event.delete()
+    if NC_LOG_P_M_S and event.is_private and chat.id not in NO_PM_LOG_USERS:
+        NO_PM_LOG_USERS.append(chat.id)
+        await event.edit("Won't Log Messages from this chat")
+        await asyncio.sleep(3)
+        await event.delete()
 
                 
 @register(pattern="^.log(?: |$)(.*)")
@@ -323,13 +320,11 @@ async def approve_p_m(event):
         return
     reason = event.pattern_match.group(1)
     chat = await event.get_chat()
-    if NC_LOG_P_M_S:
-        if event.is_private:
-            if chat.id in NO_PM_LOG_USERS:
-                NO_PM_LOG_USERS.remove(chat.id)
-                await event.edit("Will Log Messages from this chat")
-                await asyncio.sleep(3)
-                await event.delete()
+    if NC_LOG_P_M_S and event.is_private and chat.id in NO_PM_LOG_USERS:
+        NO_PM_LOG_USERS.remove(chat.id)
+        await event.edit("Will Log Messages from this chat")
+        await asyncio.sleep(3)
+        await event.delete()
 
 @register(outgoing=True, pattern=r"^.pmute ?(\d+)?")
 async def startmute(event):
@@ -340,7 +335,7 @@ async def startmute(event):
         await event.edit("Unexpected issues or ugly errors may occur!")
         await asyncio.sleep(3)
         private = True
-    if any([x in event.raw_text for x in ("/mute", "!mute")]):
+    if any(x in event.raw_text for x in ("/mute", "!mute")):
         await asyncio.sleep(0.5)
     else:
         reply = await event.get_reply_message()
@@ -355,15 +350,11 @@ async def startmute(event):
         chat_id = event.chat_id
         chat = await event.get_chat()
         if "admin_rights" in vars(chat) and vars(chat)["admin_rights"] is not None: 
-            if chat.admin_rights.delete_messages is True:
-                pass
-            else:
+            if chat.admin_rights.delete_messages is not True:
                 return await event.edit("`You can't mute a person if you dont have delete messages permission. ಥ﹏ಥ`")
         elif "creator" in vars(chat):
             pass
-        elif private is True:
-            pass
-        else:
+        elif private is not True:
             return await event.edit("`You can't mute a person without admin rights niqq.` ಥ﹏ಥ  ")
         if is_muted(userid, chat_id):
             return await event.edit("This user is already muted in this chat ~~lmfao sed rip~~")
@@ -383,7 +374,7 @@ async def endmute(event):
         await event.edit("Unexpected issues or ugly errors may occur!")
         await asyncio.sleep(3)
         private = True
-    if any([x in event.raw_text for x in ("/unmute", "!unmute")]):
+    if any(x in event.raw_text for x in ("/unmute", "!unmute")):
         await asyncio.sleep(0.5)
     else:
         reply = await event.get_reply_message()
@@ -420,10 +411,9 @@ async def hehehe(event):
     if event.fwd_from:
         return
     chat = await event.get_chat()
-    if event.is_private:
-        if not pm_permit_sql.is_approved(chat.id):
-            pm_permit_sql.approve(chat.id, "supreme lord ehehe")
-            await bot.send_message(chat, "`This inbox has been blessed by my master. Consider yourself lucky.`\n**Increased Stability and Karma** (づ￣ ³￣)づ")
+    if event.is_private and not pm_permit_sql.is_approved(chat.id):
+        pm_permit_sql.approve(chat.id, "supreme lord ehehe")
+        await bot.send_message(chat, "`This inbox has been blessed by my master. Consider yourself lucky.`\n**Increased Stability and Karma** (づ￣ ³￣)づ")
 
 CMD_HELP.update({
     "pm":

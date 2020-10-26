@@ -62,8 +62,8 @@ async def variable(var):
                 return True
         else:
             configvars = heroku_var.to_dict()
-            msg = ''
             if BOTLOG:
+                msg = ''
                 for item in configvars:
                     msg += f"`{item}` = `{configvars[item]}`\n"
                 await var.client.send_message(

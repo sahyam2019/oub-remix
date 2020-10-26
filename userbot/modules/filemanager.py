@@ -16,7 +16,7 @@ async def lst(event):
     if event.fwd_from:
         return
     cat = event.pattern_match.group(1)
-    path = cat if cat else os.getcwd()
+    path = cat or os.getcwd()
     if not exists(path):
         await event.edit(
             f"**There is no such directory or file with the name `{cat}` check again!**"
