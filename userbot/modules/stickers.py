@@ -76,7 +76,9 @@ async def kang(args):
             await args.edit("`Unsupported File!`")
             return
     else:
-        await args.edit("`Couldn't download sticker! Make sure you send a proper sticker/photo.`")
+        await args.edit(
+            "`Couldn't download sticker! Make sure you send a proper sticker/photo.`"
+        )
         return
 
     if photo:
@@ -374,4 +376,5 @@ CMD_HELP.update(
 \nUsage: reply to a sticker to get 'PNG' file of sticker.\
 \n\n`.cs <text>`\
 \nUsage: Type .cs text and generate rgb sticker."
-    })
+    }
+)

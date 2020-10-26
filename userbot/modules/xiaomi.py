@@ -16,9 +16,10 @@ async def _(event):
     async with bot.conversation("@XiaomiGeeksBot") as conv:
         firmware = "firmware"
         try:
-            response = conv.wait_event(events.NewMessage(
-                incoming=True, from_users=774181428))
-            await conv.send_message(f'/{firmware} {link}')
+            response = conv.wait_event(
+                events.NewMessage(incoming=True, from_users=774181428)
+            )
+            await conv.send_message(f"/{firmware} {link}")
             response = await response
         except YouBlockedUserError:
             await event.reply("```Unblock @XiaomiGeeksBot plox```")
@@ -38,9 +39,10 @@ async def _(event):
     async with bot.conversation("@XiaomiGeeksBot") as conv:
         fboot = "fastboot"
         try:
-            response = conv.wait_event(events.NewMessage(
-                incoming=True, from_users=774181428))
-            await conv.send_message(f'/{fboot} {link}')
+            response = conv.wait_event(
+                events.NewMessage(incoming=True, from_users=774181428)
+            )
+            await conv.send_message(f"/{fboot} {link}")
             response = await response
         except YouBlockedUserError:
             await event.reply("```Unblock @XiaomiGeeksBoot plox```")
@@ -60,9 +62,10 @@ async def _(event):
     async with bot.conversation("@XiaomiGeeksBot") as conv:
         recovery = "recovery"
         try:
-            response = conv.wait_event(events.NewMessage(
-                incoming=True, from_users=774181428))
-            await conv.send_message(f'/{recovery} {link}')
+            response = conv.wait_event(
+                events.NewMessage(incoming=True, from_users=774181428)
+            )
+            await conv.send_message(f"/{recovery} {link}")
             response = await response
         except YouBlockedUserError:
             await event.reply("```Unblock @XiaomiGeeksBot plox```")
@@ -82,9 +85,10 @@ async def _(event):
     async with bot.conversation("@XiaomiGeeksBot") as conv:
         pitch = "pb"
         try:
-            response = conv.wait_event(events.NewMessage(
-                incoming=True, from_users=774181428))
-            await conv.send_message(f'/{pitch} {link}')
+            response = conv.wait_event(
+                events.NewMessage(incoming=True, from_users=774181428)
+            )
+            await conv.send_message(f"/{pitch} {link}")
             response = await response
         except YouBlockedUserError:
             await event.reply("```Unblock @XiaomiGeeksBot plox```")
@@ -104,9 +108,10 @@ async def _(event):
     async with bot.conversation("@XiaomiGeeksBot") as conv:
         ofox = "of"
         try:
-            response = conv.wait_event(events.NewMessage(
-                incoming=True, from_users=774181428))
-            await conv.send_message(f'/{ofox} {link}')
+            response = conv.wait_event(
+                events.NewMessage(incoming=True, from_users=774181428)
+            )
+            await conv.send_message(f"/{ofox} {link}")
             response = await response
         except YouBlockedUserError:
             await event.reply("```Unblock @XiaomiGeeksBot plox```")
@@ -126,9 +131,10 @@ async def _(event):
     async with bot.conversation("@XiaomiGeeksBot") as conv:
         eu = "eu"
         try:
-            response = conv.wait_event(events.NewMessage(
-                incoming=True, from_users=774181428))
-            await conv.send_message(f'/{eu} {link}')
+            response = conv.wait_event(
+                events.NewMessage(incoming=True, from_users=774181428)
+            )
+            await conv.send_message(f"/{eu} {link}")
             response = await response
         except YouBlockedUserError:
             await event.reply("```Unblock @XiaomiGeeksBot plox```")
@@ -148,9 +154,10 @@ async def _(event):
     async with bot.conversation("@XiaomiGeeksBot") as conv:
         vendor = "vendor"
         try:
-            response = conv.wait_event(events.NewMessage(
-                incoming=True, from_users=774181428))
-            await conv.send_message(f'/{vendor} {link}')
+            response = conv.wait_event(
+                events.NewMessage(incoming=True, from_users=774181428)
+            )
+            await conv.send_message(f"/{vendor} {link}")
             response = await response
         except YouBlockedUserError:
             await event.reply("```Unblock @XiaomiGeeksBot plox```")
@@ -170,9 +177,10 @@ async def _(event):
     async with bot.conversation("@XiaomiGeeksBot") as conv:
         specs = "specs"
         try:
-            response = conv.wait_event(events.NewMessage(
-                incoming=True, from_users=774181428))
-            await conv.send_message(f'/{specs} {link}')
+            response = conv.wait_event(
+                events.NewMessage(incoming=True, from_users=774181428)
+            )
+            await conv.send_message(f"/{specs} {link}")
             response = await response
         except YouBlockedUserError:
             await event.reply("```Unblock @XiaomiGeeksBot plox```")
@@ -182,9 +190,9 @@ async def _(event):
             await bot.forward_messages(event.chat_id, response.message)
 
 
-CMD_HELP.update({
-    "xiaomi":
-    "For Xiaomeme devices only!\
+CMD_HELP.update(
+    {
+        "xiaomi": "For Xiaomeme devices only!\
 \n\n`.firmware` (codename)\
      \nUsage : Get lastest Firmware\
 \n\n`.pb` (codename)\
@@ -200,4 +208,6 @@ CMD_HELP.update({
 \n\n`.vendor` (codename)\
     \nUsage: fetches latest vendor\
 \n\n`.of` (codename)\
-     \nUsage : Get latest ORangeFox Recovery"})
+     \nUsage : Get latest ORangeFox Recovery"
+    }
+)

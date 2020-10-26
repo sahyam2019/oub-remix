@@ -30,10 +30,11 @@ async def subprocess_run(megadl, cmd):
     exitCode = subproc.returncode
     if exitCode != 0:
         await megadl.edit(
-            '**An error was detected while running subprocess.**\n'
-            f'exitCode : `{exitCode}`\n'
-            f'stdout : `{stdout.decode().strip()}`\n'
-            f'stderr : `{stderr.decode().strip()}`')
+            "**An error was detected while running subprocess.**\n"
+            f"exitCode : `{exitCode}`\n"
+            f"stdout : `{stdout.decode().strip()}`\n"
+            f"stderr : `{stderr.decode().strip()}`"
+        )
         return exitCode
     return stdout.decode().strip(), stderr.decode().strip(), exitCode
 
@@ -52,7 +53,7 @@ async def mega_downloader(megadl):
     else:
         return await megadl.edit("Usage: `.mega` **<MEGA.nz link>**")
     try:
-        link = re.findall(r'\bhttps?://.*mega.*\.nz\S+', link)[0]
+        link = re.findall(r"\bhttps?://.*mega.*\.nz\S+", link)[0]
         """ - Mega changed their URL again - """
         if "file" in link:
             link = link.replace("#", "!").replace("file/", "#!")
@@ -61,7 +62,7 @@ async def mega_downloader(megadl):
             return
     except IndexError:
         return await megadl.edit("`MEGA.nz link not found...`")
-    cmd = f'bin/megadown -q -m {link}'
+    cmd = f"bin/megadown -q -m {link}"
     result = await subprocess_run(megadl, cmd)
     try:
         data = json.loads(result[0])
@@ -78,12 +79,10 @@ async def mega_downloader(megadl):
     file_path = TEMP_DOWNLOAD_DIRECTORY + file_name
     if os.path.isfile(file_path):
         try:
-            raise FileExistsError(
-                errno.EEXIST, os.strerror(errno.EEXIST), file_path)
+            raise FileExistsError(errno.EEXIST, os.strerror(errno.EEXIST), file_path)
         except FileExistsError as e:
             return await megadl.edit(f"`{str(e)}`")
-    downloader = SmartDL(
-        file_url, temp_file_path, progress_bar=False)
+    downloader = SmartDL(file_url, temp_file_path, progress_bar=False)
     display_message = None
     try:
         downloader.start(blocking=False)
@@ -99,11 +98,10 @@ async def mega_downloader(megadl):
         estimated_total_time = round(downloader.get_eta())
         progress_str = "`{0}` | [{1}{2}] `{3}%`".format(
             status,
-            ''.join(["●" for i in range(
-                    math.floor(percentage / 10))]),
-            ''.join(["○" for i in range(
-                    10 - math.floor(percentage / 10))]),
-            round(percentage, 2))
+            "".join(["●" for i in range(math.floor(percentage / 10))]),
+            "".join(["○" for i in range(10 - math.floor(percentage / 10))]),
+            round(percentage, 2),
+        )
         diff = time.time() - start
         try:
             current_message = (
@@ -130,10 +128,12 @@ async def mega_downloader(megadl):
     if downloader.isSuccessful():
         download_time = round(downloader.get_dl_time() + wait)
         try:
-            P = multiprocessing.Process(target=await decrypt_file(megadl,
-                                                                  file_path, temp_file_path,
-                                                                  hex_key, hex_raw_key),
-                                        name="Decrypt_File")
+            P = multiprocessing.Process(
+                target=await decrypt_file(
+                    megadl, file_path, temp_file_path, hex_key, hex_raw_key
+                ),
+                name="Decrypt_File",
+            )
             P.start()
             P.join()
         except FileNotFoundError as e:
@@ -142,30 +142,32 @@ async def mega_downloader(megadl):
             return await megadl.edit(
                 f"`{file_name}`\n\n"
                 f"Successfully downloaded in: `{file_path}`.\n"
-                f"Download took: {time_formatter(download_time)}.")
+                f"Download took: {time_formatter(download_time)}."
+            )
     else:
-        await megadl.edit("`Failed to download, "
-                          "check heroku Logs for more details`.")
+        await megadl.edit(
+            "`Failed to download, " "check heroku Logs for more details`."
+        )
         for e in downloader.get_errors():
             LOGS.info(str(e))
     return
 
 
-async def decrypt_file(megadl, file_path, temp_file_path,
-                       hex_key, hex_raw_key):
-    cmd = ("cat '{}' | openssl enc -d -aes-128-ctr -K {} -iv {} > '{}'"
-           .format(temp_file_path, hex_key, hex_raw_key, file_path))
+async def decrypt_file(megadl, file_path, temp_file_path, hex_key, hex_raw_key):
+    cmd = "cat '{}' | openssl enc -d -aes-128-ctr -K {} -iv {} > '{}'".format(
+        temp_file_path, hex_key, hex_raw_key, file_path
+    )
     if await subprocess_run(megadl, cmd):
         os.remove(temp_file_path)
     else:
-        raise FileNotFoundError(
-            errno.ENOENT, os.strerror(errno.ENOENT), file_path)
+        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), file_path)
     return
 
 
-CMD_HELP.update({
-    "mega":
-    "`.mega <MEGA.nz link>`"
-    "\nUsage: Reply to a MEGA.nz link or paste your MEGA.nz link to "
-    "download the file into your userbot server."
-})
+CMD_HELP.update(
+    {
+        "mega": "`.mega <MEGA.nz link>`"
+        "\nUsage: Reply to a MEGA.nz link or paste your MEGA.nz link to "
+        "download the file into your userbot server."
+    }
+)

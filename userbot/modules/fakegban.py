@@ -4,7 +4,8 @@ import asyncio
 from telethon import events
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import ChannelParticipantsAdmins
-#from userbot.utils import admin_cmd
+
+# from userbot.utils import admin_cmd
 from userbot.events import register
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, ALIVE_NAME
 
@@ -34,33 +35,38 @@ async def gbun(event):
         idd = reply_message.from_id
         # make meself invulnerable cuz why not xD
         if idd == 1036951071:
-            await reply_message.reply("`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 6969$ to my master__ [Heyworld](tg://user?id=1036951071) __to release your account__😏")
+            await reply_message.reply(
+                "`Wait a second, This is my master!`\n**How dare you threaten to ban my master nigger!**\n\n__Your account has been hacked! Pay 6969$ to my master__ [Heyworld](tg://user?id=1036951071) __to release your account__😏"
+            )
         else:
-            jnl = ("`Warning!!`"
-                   "[{}](tg://user?id={})"
-                   f"` 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By` {DEFAULTUSER}\n\n"
-                   "**Name: ** __{}__\n"
-                   "**ID : ** `{}`\n"
-                   ).format(firstname, idd, firstname, idd)
+            jnl = (
+                "`Warning!!`"
+                "[{}](tg://user?id={})"
+                f"` 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By` {DEFAULTUSER}\n\n"
+                "**Name: ** __{}__\n"
+                "**ID : ** `{}`\n"
+            ).format(firstname, idd, firstname, idd)
             if usname is None:
                 jnl += "**Username: ** `Doesn't own a username!`\n"
             elif usname != "None":
                 jnl += "**Username** : @{}\n".format(usname)
             if len(gbunVar) > 0:
                 gbunm = "`{}`".format(gbunVar)
-                gbunr = "**Reason: **"+gbunm
+                gbunr = "**Reason: **" + gbunm
                 jnl += gbunr
             else:
                 no_reason = "No Reason Given "
                 jnl += no_reason
             await reply_message.reply(jnl)
     else:
-        mention = (
-            f"Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By {DEFAULTUSER} \nReason: No Reason Given. ")
+        mention = f"Warning!! User 𝙂𝘽𝘼𝙉𝙉𝙀𝘿 By {DEFAULTUSER} \nReason: No Reason Given. "
         await event.reply(mention)
     await event.delete()
 
-CMD_HELP.update({
-    "fakegban": "`.fgban`\
+
+CMD_HELP.update(
+    {
+        "fakegban": "`.fgban`\
     \nUsage: Type .fgban or Reply .fgban reason and see it yourself. "
-})
+    }
+)
