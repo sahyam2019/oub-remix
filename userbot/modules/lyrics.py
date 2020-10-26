@@ -58,7 +58,6 @@ async def lyrics(lyric):
     return True
 
 
-
 CMD_HELP.update({
     "lyrics":
     "`.lyrics` **<artist name> - <song name>**"

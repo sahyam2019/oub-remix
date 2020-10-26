@@ -2,12 +2,13 @@
 # Based on the evaluators.py script so credit goes to the original creator
 #
 """ Userbot module for browsing internet from Telegram. """
- 
+
 import asyncio
 from os import remove
 from userbot import BOTLOG, BOTLOG_CHATID, TERM_ALIAS
 from userbot.events import register
- 
+
+
 @register(outgoing=True, pattern="^.w3m(?: |$)(.*)")
 async def terminal_runner(w3m):
     """ For .w3m command, browser the internet with w3m on your server. """
@@ -63,4 +64,3 @@ async def terminal_runner(w3m):
             BOTLOG_CHATID,
             "w3m with URL " + command + " was executed sucessfully",
         )
-      

@@ -31,6 +31,7 @@ KANGING_STR = [
     "Kanging this sticker...",
 ]
 
+
 @register(outgoing=True, pattern="^.kang")
 async def kang(args):
     """ For .kang command, kangs stickers or creates new ones. """
@@ -252,7 +253,7 @@ async def kang(args):
             parse_mode="md",
         )
         await asyncio.sleep(7.5)
-        await args.delete() 
+        await args.delete()
 
 
 async def resize_photo(photo):
@@ -373,4 +374,4 @@ CMD_HELP.update(
 \nUsage: reply to a sticker to get 'PNG' file of sticker.\
 \n\n`.cs <text>`\
 \nUsage: Type .cs text and generate rgb sticker."
-})
+    })

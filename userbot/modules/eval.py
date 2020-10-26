@@ -199,7 +199,6 @@ CMD_HELP.update({
 })
 
 
-
 CMD_HELP.update({
     "hacker":
     "`.eval` 2+3\

@@ -13,13 +13,14 @@ from math import sqrt
 from telethon.tl.functions.channels import GetFullChannelRequest, GetParticipantsRequest
 from telethon.tl.functions.messages import GetHistoryRequest, CheckChatInviteRequest, GetFullChatRequest
 from telethon.tl.types import MessageActionChannelMigrateFrom, ChannelParticipantsAdmins
-from telethon.errors import (ChannelInvalidError, ChannelPrivateError, ChannelPublicGroupNaError, InviteHashEmptyError, InviteHashExpiredError, InviteHashInvalidError)
+from telethon.errors import (ChannelInvalidError, ChannelPrivateError, ChannelPublicGroupNaError,
+                             InviteHashEmptyError, InviteHashExpiredError, InviteHashInvalidError)
 from telethon.utils import get_input_location
 from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantsBots
 from userbot.events import register
 from userbot.modules.admin import get_user_from_event
 from telethon import events
-from telethon.utils import pack_bot_file_id 
+from telethon.utils import pack_bot_file_id
 
 
 @register(outgoing=True, pattern="^.getid(?: |$)(.*)")
@@ -72,9 +73,11 @@ async def _(event):
     try:
         async for x in bot.iter_participants(chat, filter=ChannelParticipantsBots):
             if isinstance(x.participant, ChannelParticipantAdmin):
-                mentions += "\n ⚜️ [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
+                mentions += "\n ⚜️ [{}](tg://user?id={}) `{}`".format(
+                    x.first_name, x.id, x.id)
             else:
-                mentions += "\n [{}](tg://user?id={}) `{}`".format(x.first_name, x.id, x.id)
+                mentions += "\n [{}](tg://user?id={}) `{}`".format(
+                    x.first_name, x.id, x.id)
     except Exception as e:
         mentions += " " + str(e) + "\n"
     await event.edit(mentions)
@@ -182,6 +185,7 @@ async def sedNinjaToggle(event):
         await sleep(1)
         await event.delete()
 
+
 @register(pattern=".chatinfo(?: |$)(.*)", outgoing=True)
 async def info(event):
     await event.edit("`Analysing the chat...`")
@@ -233,55 +237,74 @@ async def get_chatinfo(event):
 async def fetch_info(chat, event):
     # chat.chats is a list so we use get_entity() to avoid IndexError
     chat_obj_info = await event.client.get_entity(chat.full_chat.id)
-    broadcast = chat_obj_info.broadcast if hasattr(chat_obj_info, "broadcast") else False
+    broadcast = chat_obj_info.broadcast if hasattr(
+        chat_obj_info, "broadcast") else False
     chat_type = "Channel" if broadcast else "Group"
     chat_title = chat_obj_info.title
     warn_emoji = emojize(":warning:")
     try:
-        msg_info = await event.client(GetHistoryRequest(peer=chat_obj_info.id, offset_id=0, offset_date=datetime(2010, 1, 1), 
+        msg_info = await event.client(GetHistoryRequest(peer=chat_obj_info.id, offset_id=0, offset_date=datetime(2010, 1, 1),
                                                         add_offset=-1, limit=1, max_id=0, min_id=0, hash=0))
     except Exception as e:
         msg_info = None
         print("Exception:", e)
     # No chance for IndexError as it checks for msg_info.messages first
-    first_msg_valid = True if msg_info and msg_info.messages and msg_info.messages[0].id == 1 else False
+    first_msg_valid = True if msg_info and msg_info.messages and msg_info.messages[
+        0].id == 1 else False
     # Same for msg_info.users
     creator_valid = True if first_msg_valid and msg_info.users else False
     creator_id = msg_info.users[0].id if creator_valid else None
-    creator_firstname = msg_info.users[0].first_name if creator_valid and msg_info.users[0].first_name is not None else "Deleted Account"
+    creator_firstname = msg_info.users[0].first_name if creator_valid and msg_info.users[
+        0].first_name is not None else "Deleted Account"
     creator_username = msg_info.users[0].username if creator_valid and msg_info.users[0].username is not None else None
     created = msg_info.messages[0].date if first_msg_valid else None
-    former_title = msg_info.messages[0].action.title if first_msg_valid and type(msg_info.messages[0].action) is MessageActionChannelMigrateFrom and msg_info.messages[0].action.title != chat_title else None
+    former_title = msg_info.messages[0].action.title if first_msg_valid and type(
+        msg_info.messages[0].action) is MessageActionChannelMigrateFrom and msg_info.messages[0].action.title != chat_title else None
     try:
         dc_id, location = get_input_location(chat.full_chat.chat_photo)
     except Exception as e:
         dc_id = "Unknown"
         location = str(e)
-    
-    #this is some spaghetti I need to change
+
+    # this is some spaghetti I need to change
     description = chat.full_chat.about
-    members = chat.full_chat.participants_count if hasattr(chat.full_chat, "participants_count") else chat_obj_info.participants_count
-    admins = chat.full_chat.admins_count if hasattr(chat.full_chat, "admins_count") else None
-    banned_users = chat.full_chat.kicked_count if hasattr(chat.full_chat, "kicked_count") else None
-    restrcited_users = chat.full_chat.banned_count if hasattr(chat.full_chat, "banned_count") else None
-    members_online = chat.full_chat.online_count if hasattr(chat.full_chat, "online_count") else 0
-    group_stickers = chat.full_chat.stickerset.title if hasattr(chat.full_chat, "stickerset") and chat.full_chat.stickerset else None
+    members = chat.full_chat.participants_count if hasattr(
+        chat.full_chat, "participants_count") else chat_obj_info.participants_count
+    admins = chat.full_chat.admins_count if hasattr(
+        chat.full_chat, "admins_count") else None
+    banned_users = chat.full_chat.kicked_count if hasattr(
+        chat.full_chat, "kicked_count") else None
+    restrcited_users = chat.full_chat.banned_count if hasattr(
+        chat.full_chat, "banned_count") else None
+    members_online = chat.full_chat.online_count if hasattr(
+        chat.full_chat, "online_count") else 0
+    group_stickers = chat.full_chat.stickerset.title if hasattr(
+        chat.full_chat, "stickerset") and chat.full_chat.stickerset else None
     messages_viewable = msg_info.count if msg_info else None
-    messages_sent = chat.full_chat.read_inbox_max_id if hasattr(chat.full_chat, "read_inbox_max_id") else None
-    messages_sent_alt = chat.full_chat.read_outbox_max_id if hasattr(chat.full_chat, "read_outbox_max_id") else None
+    messages_sent = chat.full_chat.read_inbox_max_id if hasattr(
+        chat.full_chat, "read_inbox_max_id") else None
+    messages_sent_alt = chat.full_chat.read_outbox_max_id if hasattr(
+        chat.full_chat, "read_outbox_max_id") else None
     exp_count = chat.full_chat.pts if hasattr(chat.full_chat, "pts") else None
-    username = chat_obj_info.username if hasattr(chat_obj_info, "username") else None
+    username = chat_obj_info.username if hasattr(
+        chat_obj_info, "username") else None
     bots_list = chat.full_chat.bot_info  # this is a list
     bots = 0
-    supergroup = "<b>Yes</b>" if hasattr(chat_obj_info, "megagroup") and chat_obj_info.megagroup else "No"
-    slowmode = "<b>Yes</b>" if hasattr(chat_obj_info, "slowmode_enabled") and chat_obj_info.slowmode_enabled else "No"
-    slowmode_time = chat.full_chat.slowmode_seconds if hasattr(chat_obj_info, "slowmode_enabled") and chat_obj_info.slowmode_enabled else None
-    restricted = "<b>Yes</b>" if hasattr(chat_obj_info, "restricted") and chat_obj_info.restricted else "No"
-    verified = "<b>Yes</b>" if hasattr(chat_obj_info, "verified") and chat_obj_info.verified else "No"
+    supergroup = "<b>Yes</b>" if hasattr(chat_obj_info,
+                                         "megagroup") and chat_obj_info.megagroup else "No"
+    slowmode = "<b>Yes</b>" if hasattr(
+        chat_obj_info, "slowmode_enabled") and chat_obj_info.slowmode_enabled else "No"
+    slowmode_time = chat.full_chat.slowmode_seconds if hasattr(
+        chat_obj_info, "slowmode_enabled") and chat_obj_info.slowmode_enabled else None
+    restricted = "<b>Yes</b>" if hasattr(chat_obj_info,
+                                         "restricted") and chat_obj_info.restricted else "No"
+    verified = "<b>Yes</b>" if hasattr(chat_obj_info,
+                                       "verified") and chat_obj_info.verified else "No"
     username = "@{}".format(username) if username else None
-    creator_username = "@{}".format(creator_username) if creator_username else None
-    #end of spaghetti block
-    
+    creator_username = "@{}".format(
+        creator_username) if creator_username else None
+    # end of spaghetti block
+
     if admins is None:
         # use this alternative way if chat.full_chat.admins_count is None, works even without being an admin
         try:
@@ -355,12 +378,13 @@ async def fetch_info(chat, event):
         else:
             caption += "\n"
     if hasattr(chat_obj_info, "scam") and chat_obj_info.scam:
-    	caption += "Scam: <b>Yes</b>\n\n"
+        caption += "Scam: <b>Yes</b>\n\n"
     if hasattr(chat_obj_info, "verified"):
         caption += f"Verified by Telegram: {verified}\n\n"
     if description:
         caption += f"Description: \n<code>{description}</code>\n"
     return caption
+
 
 @register(outgoing=True, pattern="^.invite(?: |$)(.*)")
 async def _(event):
@@ -416,5 +440,5 @@ CMD_HELP.update({
 \n\n`.chatinfo [optional: <reply/tag/chat id/invite link>]`\
 \nUsage: Gets info of a chat. Some info might be limited due to missing permissions..\
 \n\n`.invite`\
-\nUsage: Invites users to a chat, not to a private message."       
+\nUsage: Invites users to a chat, not to a private message."
 })

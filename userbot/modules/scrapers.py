@@ -69,6 +69,7 @@ TTS_LANG = "en"
 TRT_LANG = "en"
 TEMP_DOWNLOAD_DIRECTORY = "/root/userbot/.bin"
 
+
 async def ocr_space_file(filename,
                          overlay=False,
                          api_key=OCR_SPACE_API_KEY,
@@ -101,11 +102,13 @@ async def ocr_space_file(filename,
 
 DOGBIN_URL = "https://del.dog/"
 
+
 @register(outgoing=True, pattern="^.crblang (.*)")
 async def setlang(prog):
     global CARBONLANG
     CARBONLANG = prog.pattern_match.group(1)
     await prog.edit(f"Language for carbon.now.sh set to {CARBONLANG}")
+
 
 @register(outgoing=True, pattern="^.karbon")
 async def carbon_api(e):
@@ -309,12 +312,11 @@ async def _(event):
         await event.edit("Text: **{}**\n\nMeaning: **{}**\n\nExample: __{}__".format(mean.word, mean.definition, mean.example))
     except asyncurban.WordNotFoundError:
         await event.edit("No result found for **" + word + "**")
-       
-               
+
 
 @register(outgoing=True, pattern=r"^.tts(?: |$)([\s\S]*)")
 async def text_to_speech(query):
-#async def _(event):
+    # async def _(event):
     if query.fwd_from:
         return
     input_str = query.pattern_match.group(1)
@@ -334,25 +336,26 @@ async def text_to_speech(query):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     required_file_name = TEMP_DOWNLOAD_DIRECTORY + "voice.ogg"
     try:
-        #https://github.com/SpEcHiDe/UniBorg/commit/17f8682d5d2df7f3921f50271b5b6722c80f4106
+        # https://github.com/SpEcHiDe/UniBorg/commit/17f8682d5d2df7f3921f50271b5b6722c80f4106
         tts = gTTS(text, lang=lan)
         tts.save(required_file_name)
         command_to_execute = [
             "ffmpeg",
             "-i",
-             required_file_name,
-             "-map",
-             "0:a",
-             "-codec:a",
-             "libopus",
-             "-b:a",
-             "100k",
-             "-vbr",
-             "on",
-             required_file_name + ".opus"
+            required_file_name,
+            "-map",
+            "0:a",
+            "-codec:a",
+            "libopus",
+            "-b:a",
+            "100k",
+            "-vbr",
+            "on",
+            required_file_name + ".opus"
         ]
         try:
-            t_response = subprocess.check_output(command_to_execute, stderr=subprocess.STDOUT)
+            t_response = subprocess.check_output(
+                command_to_execute, stderr=subprocess.STDOUT)
         except (subprocess.CalledProcessError, NameError, FileNotFoundError) as exc:
             await query.edit(str(exc))
             # continue sending required_file_name
@@ -375,6 +378,7 @@ async def text_to_speech(query):
         await query.delete()
     except Exception as e:
         await query.edit(str(e))
+
 
 @register(outgoing=True, pattern="^.tr(?: |$)(.*)")
 async def _(event):
@@ -411,7 +415,6 @@ async def _(event):
         await event.edit(output_str)
     except Exception as exc:
         await event.edit(str(exc))
-
 
 
 @register(pattern=".lang (tr|tts) (.*)", outgoing=True)
@@ -488,6 +491,7 @@ async def yt_search(video_q):
             break
 
     await video_q.edit(output, link_preview=False)
+
 
 @register(outgoing=True, pattern=r".rip(audio|video) (.*)")
 async def download_video(v_url):
@@ -620,6 +624,7 @@ def deEmojify(inputString):
     """ Remove emojis and other non-safe characters from string """
     return get_emoji_regexp().sub(u'', inputString)
 
+
 @register(outgoing=True, pattern="^.rbg(?: |$)(.*)")
 async def kbg(remob):
     """ For .rbg command, Remove Image Background. """
@@ -682,10 +687,10 @@ async def ReTrieveFile(input_file_name):
         "image_file": (input_file_name, open(input_file_name, "rb")),
     }
     return requests.post("https://api.remove.bg/v1.0/removebg",
-                      headers=headers,
-                      files=files,
-                      allow_redirects=True,
-                      stream=True)
+                         headers=headers,
+                         files=files,
+                         allow_redirects=True,
+                         stream=True)
 
 
 async def ReTrieveURL(input_url):
@@ -694,10 +699,11 @@ async def ReTrieveURL(input_url):
     }
     data = {"image_url": input_url}
     return requests.post("https://api.remove.bg/v1.0/removebg",
-                      headers=headers,
-                      data=data,
-                      allow_redirects=True,
-                      stream=True)    
+                         headers=headers,
+                         data=data,
+                         allow_redirects=True,
+                         stream=True)
+
 
 @register(pattern=r".ocr (.*)", outgoing=True)
 async def ocr(event):
@@ -721,6 +727,7 @@ async def ocr(event):
         await event.edit(f"`Here's what I could read from it:`\n\n{ParsedText}"
                          )
     os.remove(downloaded_file_name)
+
 
 @register(pattern=r"^.decode$", outgoing=True)
 async def parseqr(qr_e):
@@ -833,6 +840,7 @@ async def make_qr(makeqr):
                                   reply_to=reply_msg_id)
     os.remove("img_file.webp")
     await makeqr.delete()
+
 
 @register(outgoing=True, pattern=r"^.direct(?: |$)([\s\S]*)")
 async def direct_link_generator(request):
@@ -1135,6 +1143,7 @@ def useragent():
     user_agent = choice(useragents)
     return user_agent.text
 
+
 @register(pattern="^.ss (.*)", outgoing=True)
 async def capture(url):
     """ For .ss command, capture a website's screenshot and send the photo. """
@@ -1190,6 +1199,7 @@ async def capture(url):
                                    force_document=True,
                                    reply_to=message_id)
         await url.delete()
+
 
 @register(outgoing=True, pattern="^.imdb (.*)")
 async def imdb(e):

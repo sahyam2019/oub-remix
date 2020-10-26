@@ -656,7 +656,7 @@ class googleimagesdownload:
             "image_width": main[1],
             "image_link": main[0],
             "image_format": main[0][
-                -1 * (len(main[0]) - main[0].rfind(".") - 1) :
+                -1 * (len(main[0]) - main[0].rfind(".") - 1):
             ],
             "image_description": info["2003"][3],
             "image_host": info["183836587"][0],
@@ -1636,7 +1636,8 @@ class googleimagesdownload:
                         dir_name = ""
                     else:
                         dir_name = search_term + (
-                            "-" + arguments["color"] if arguments["color"] else ""
+                            "-" +
+                            arguments["color"] if arguments["color"] else ""
                         )  # sub-directory
 
                     if not arguments["no_download"]:
@@ -1685,8 +1686,9 @@ class googleimagesdownload:
                         except OSError as e:
                             print(e)
                         with open(
-                            "logs/" + search_keyword[i] + ".json", "w") as json_file:
-                            json.dump(items, json_file, indent=4, sort_keys=True)
+                                "logs/" + search_keyword[i] + ".json", "w") as json_file:
+                            json.dump(items, json_file,
+                                      indent=4, sort_keys=True)
                     # Related images
                     if arguments["related_images"]:
                         print(

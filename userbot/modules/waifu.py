@@ -1,6 +1,6 @@
-#imported from ppe-remix by @heyworld & @DeletedUser420
-#Based Code by @adekmaulana
-#Improve by @aidilaryanto
+# imported from ppe-remix by @heyworld & @DeletedUser420
+# Based Code by @adekmaulana
+# Improve by @aidilaryanto
 from asyncio import sleep
 from random import choice, getrandbits, randint
 import re
@@ -38,7 +38,7 @@ EMOJI_PATTERN = re.compile(
     "\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
     "\U0001FA00-\U0001FA6F"  # Chess Symbols
     "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
-    "\U00002702-\U000027B0"  # Dingbats 
+    "\U00002702-\U000027B0"  # Dingbats
     "]+")
 
 
@@ -49,8 +49,8 @@ def deEmojify(inputString: str) -> str:
 
 @register(outgoing=True, pattern="^.waifu(?: |$)(.*)")
 async def waifu(animu):
-#"""Generate random waifu sticker with the text!"""
-     
+    #"""Generate random waifu sticker with the text!"""
+
     text = animu.pattern_match.group(1)
     if not text:
         if animu.is_reply:
@@ -76,6 +76,7 @@ async def waifu(animu):
     await sleep(5)
     await animu.delete()
 
+
 @register(outgoing=True, pattern=r'^.hz(:? |$)(.*)?')
 async def _(hazmat):
     await hazmat.edit("`Sending information...`")
@@ -99,14 +100,14 @@ async def _(hazmat):
             if level:
                 m = f"/hazmat {level}"
                 msg_reply = await conv.send_message(
-                          m,
-                          reply_to=msg.id)
+                    m,
+                    reply_to=msg.id)
                 r = await conv.get_response()
             elif reply_message.gif:
                 m = f"/hazmat"
                 msg_reply = await conv.send_message(
-                          m,
-                          reply_to=msg.id)
+                    m,
+                    reply_to=msg.id)
                 r = await conv.get_response()
             response = await conv.get_response()
             """ - don't spam notif - """
@@ -122,8 +123,8 @@ async def _(hazmat):
             return
         else:
             downloaded_file_name = await hazmat.client.download_media(
-                                 response.media,
-                                 TEMP_DOWNLOAD_DIRECTORY
+                response.media,
+                TEMP_DOWNLOAD_DIRECTORY
             )
             await hazmat.client.send_file(
                 hazmat.chat_id,
@@ -138,7 +139,7 @@ async def _(hazmat):
                     [msg.id, msg_reply.id, r.id, response.id])
             else:
                 await hazmat.client.delete_messages(conv.chat_id,
-                                                 [msg.id, response.id])
+                                                    [msg.id, response.id])
     await hazmat.delete()
     return os.remove(downloaded_file_name)
 

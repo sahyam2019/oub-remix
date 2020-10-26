@@ -82,7 +82,7 @@ async def on_delete_blacklist(rmbl):
     )
 
     await rmbl.edit(f"Removed {successful} / {len(to_unblacklist)} from the blacklist")
-    
+
 CMD_HELP.update({
     "blacklist":
     ".listbl\

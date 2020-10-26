@@ -23,7 +23,6 @@ import re
 from PIL import Image
 
 
-
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 # ============================================
@@ -118,7 +117,7 @@ async def reedme(e):
         "\n[Video Tutorial - 576p](https://mega.nz/#!ErwCESbJ!1ZvYAKdTEfb6y1FnqqiLhHH9vZg4UB2QZNYL9fbQ9vs)"
         "\n[Video Tutorial - 1080p](https://mega.nz/#!x3JVhYwR!u7Uj0nvD8_CyyARrdKrFqlZEBFTnSVEiqts36HBMr-o)"
         "\n[Special - Note](https://telegra.ph/Special-Note-11-02)")
-    
+
 
 # Copyright (c) Gegham Zakaryan | 2019
 @register(outgoing=True, pattern="^.repeat (.*)")
@@ -142,13 +141,14 @@ async def repo_is_here(wannasee):
         "Click [here](https://github.com/sahyam2019/oub-remix) to open oub-remix's GitHub page."
     )
 
-    
+
 @register(outgoing=True, pattern="^.myrepo$")
 async def myrepo_is_here(wannaseeme):
     """ For .myrepo command, just returns the repo URL. """
     await wannaseeme.edit(
         f'Click [here](https://github.com/{GIT_REPO_NAME}/tree/sql-extended/) to open {DEFAULTUSER}`s GitHub page'
     )
+
 
 @register(outgoing=True, pattern="^.raw$")
 async def raw(event):
@@ -172,6 +172,7 @@ async def raw(event):
             allow_cache=False,
             reply_to=reply_to_id,
             caption="`Here's the decoded message data !!`")
+
 
 @register(outgoing=True, pattern=r"^.reverse(?: |$)(\d*)")
 async def okgoogle(img):

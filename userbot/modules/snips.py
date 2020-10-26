@@ -38,6 +38,7 @@ async def on_snip(event):
                                             reply_to=message_id_to_reply)
             await event.delete()
 
+
 @register(outgoing=True, pattern="^.snip (\w*)")
 async def on_snip_save(event):
     """ For .snip command, saves snips for future use. """

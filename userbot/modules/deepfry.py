@@ -36,8 +36,8 @@ async def _(fry):
             if level:
                 m = f"/deepfry {level}"
                 msg_level = await conv.send_message(
-                          m,
-                          reply_to=msg.id)
+                    m,
+                    reply_to=msg.id)
                 r = await conv.get_response()
             response = await conv.get_response()
             """ - don't spam notif - """
@@ -49,8 +49,8 @@ async def _(fry):
             await fry.edit("`Please disable your forward privacy setting...`")
         else:
             downloaded_file_name = await fry.client.download_media(
-                                 response.media,
-                                 TEMP_DOWNLOAD_DIRECTORY
+                response.media,
+                TEMP_DOWNLOAD_DIRECTORY
             )
             await fry.client.send_file(
                 fry.chat_id,

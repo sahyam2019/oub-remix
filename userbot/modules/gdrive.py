@@ -557,8 +557,8 @@ async def change_permission(service, Id):
 
 async def get_information(service, Id):
     return service.files().get(fileId=Id, fields="name, id, size, mimeType, "
-                            "webViewLink, webContentLink,"
-                            "description", supportsAllDrives=True).execute()
+                               "webViewLink, webContentLink,"
+                               "description", supportsAllDrives=True).execute()
 
 
 async def create_dir(service, folder_name):
@@ -1282,7 +1282,6 @@ async def check_progress_for_dl(gdrive, gid, previous):
                     )
                 except Exception:
                     pass
-
 
 
 CMD_HELP.update({

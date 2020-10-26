@@ -13,7 +13,7 @@ from telethon.tl.functions.account import UpdateUsernameRequest, UpdateProfileRe
 from telethon.tl.functions.channels import GetAdminedPublicChannelsRequest
 from telethon.errors import ImageProcessFailedError, PhotoCropSizeSmallError
 from telethon.tl.types import InputPhoto, MessageMediaPhoto, User, Chat, Channel
-from telethon.tl.functions.photos import DeletePhotosRequest,GetUserPhotosRequest
+from telethon.tl.functions.photos import DeletePhotosRequest, GetUserPhotosRequest
 from telethon.errors.rpcerrorlist import PhotoExtInvalidError, UsernameOccupiedError
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
@@ -81,8 +81,8 @@ async def _(event):
     else:
         if photo:
             await event.edit("now, Uploading to Telegram ...")
-            if photo.endswith((".mp4" ,".MP4",".gif",".GIF")):
-                #https://t.me/tgbetachat/324694
+            if photo.endswith((".mp4", ".MP4", ".gif", ".GIF")):
+                # https://t.me/tgbetachat/324694
                 size = os.stat(photo).st_size
                 if size > 2097152:
                     await event.edit("size must be less than 2 mb")
@@ -95,9 +95,9 @@ async def _(event):
                 catvideo = None
             try:
                 await bot(functions.photos.UploadProfilePhotoRequest(
-                    file = catpic,
-                    video = catvideo,
-                    video_start_ts =  0.01               ))
+                    file=catpic,
+                    video=catvideo,
+                    video_start_ts=0.01))
             except Exception as e:  # pylint:disable=C0103,W0703
                 await event.edit(str(e))
             else:
@@ -192,6 +192,7 @@ async def remove_profilepic(delpfp):
     await delpfp.client(DeletePhotosRequest(id=input_photos))
     await delpfp.edit(
         f"`Successfully deleted {len(input_photos)} profile picture(s).`")
+
 
 @register(pattern=".data(?: |$)(.*)", outgoing=True)
 async def who(event):
