@@ -3,9 +3,9 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 """ Userbot module containing commands for keeping global notes. """
-
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
 from userbot.events import register
-from userbot import CMD_HELP, BOTLOG_CHATID
 
 
 @register(outgoing=True,
@@ -27,16 +27,19 @@ async def on_snip(event):
         if snip.f_mesg_id:
             msg_o = await event.client.get_messages(entity=BOTLOG_CHATID,
                                                     ids=int(snip.f_mesg_id))
-            await event.client.send_message(event.chat_id,
-                                            msg_o.message,
-                                            reply_to=message_id_to_reply,
-                                            file=msg_o.media)
+            await event.client.send_message(
+                event.chat_id,
+                msg_o.message,
+                reply_to=message_id_to_reply,
+                file=msg_o.media,
+            )
             await event.delete()
         elif snip.reply:
             await event.client.send_message(event.chat_id,
                                             snip.reply,
                                             reply_to=message_id_to_reply)
             await event.delete()
+
 
 @register(outgoing=True, pattern="^.snip (\w*)")
 async def on_snip_save(event):
@@ -53,9 +56,10 @@ async def on_snip_save(event):
     if msg and msg.media and not string:
         if BOTLOG_CHATID:
             await event.client.send_message(
-                BOTLOG_CHATID, f"#SNIP\
+                BOTLOG_CHATID,
+                f"#SNIP\
             \nKEYWORD: {keyword}\
-            \n\nThe following message is saved as the data for the snip, please do NOT delete it !!"
+            \n\nThe following message is saved as the data for the snip, please do NOT delete it !!",
             )
             msg_o = await event.client.forward_messages(
                 entity=BOTLOG_CHATID,
@@ -73,9 +77,9 @@ async def on_snip_save(event):
         string = rep_msg.text
     success = "`Snip {} successfully. Use` **${}** `anywhere to get it`"
     if add_snip(keyword, string, msg_id) is False:
-        await event.edit(success.format('updated', keyword))
+        await event.edit(success.format("updated", keyword))
     else:
-        await event.edit(success.format('saved', keyword))
+        await event.edit(success.format("saved", keyword))
 
 
 @register(outgoing=True, pattern="^.snips$")

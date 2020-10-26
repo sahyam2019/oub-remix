@@ -3,12 +3,12 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
-
 import asyncio
 import html
 import json
 import textwrap
-from io import BytesIO, StringIO
+from io import BytesIO
+from io import StringIO
 from urllib.parse import quote as urlencode
 
 import aiohttp
@@ -19,9 +19,11 @@ from html_telegraph_poster import TelegraphPoster
 from jikanpy import Jikan
 from jikanpy.exceptions import APIException
 from telethon.errors.rpcerrorlist import FilePartsInvalidError
-from telethon.tl.types import (DocumentAttributeAnimated,
-                               DocumentAttributeFilename, MessageMediaDocument)
-from telethon.utils import is_image, is_video
+from telethon.tl.types import DocumentAttributeAnimated
+from telethon.tl.types import DocumentAttributeFilename
+from telethon.tl.types import MessageMediaDocument
+from telethon.utils import is_image
+from telethon.utils import is_video
 
 from userbot import CMD_HELP
 from userbot.events import register
@@ -80,12 +82,10 @@ def get_anime_manga(mal_id, search_type, _user_id):
         else:
             LOL = "<code>No Trailer Available</code>"
         image = getBannerLink(mal_id)
-        studio_string = ", ".join(
-            studio_info["name"] for studio_info in result["studios"]
-        )
-        producer_string = ", ".join(
-            producer_info["name"] for producer_info in result["producers"]
-        )
+        studio_string = ", ".join(studio_info["name"]
+                                  for studio_info in result["studios"])
+        producer_string = ", ".join(producer_info["name"]
+                                    for producer_info in result["producers"])
     elif search_type == "anime_manga":
         result = jikan.manga(mal_id)
         image = result["image_url"]
@@ -116,8 +116,7 @@ def get_anime_manga(mal_id, search_type, _user_id):
         if result[entity] is None:
             result[entity] = "Unknown"
     if search_type == "anime_anime":
-        caption += textwrap.dedent(
-            f"""
+        caption += textwrap.dedent(f"""
         🆎 <b>Type</b>: <code>{result['type']}</code>
         📡 <b>Status</b>: <code>{result['status']}</code>
         🎙️ <b>Aired</b>: <code>{result['aired']['string']}</code>
@@ -130,11 +129,9 @@ def get_anime_manga(mal_id, search_type, _user_id):
         💸 <b>Producers</b>: <code>{producer_string}</code>
         🎬 <b>Trailer:</b> {LOL}
         📖 <b>Synopsis</b>: <code>{synopsis_string}</code> <a href='{result['url']}'>Read More</a>
-        """
-        )
+        """)
     elif search_type == "anime_manga":
-        caption += textwrap.dedent(
-            f"""
+        caption += textwrap.dedent(f"""
         🆎 <b>Type</b>: <code>{result['type']}</code>
         📡 <b>Status</b>: <code>{result['status']}</code>
         🔢 <b>Volumes</b>: <code>{result['volumes']}</code>
@@ -142,8 +139,7 @@ def get_anime_manga(mal_id, search_type, _user_id):
         💯 <b>Score</b>: <code>{result['score']}</code>
         🎭 <b>Genres</b>: <code>{genre_string}</code>
         📖 <b>Synopsis</b>: <code>{synopsis_string}</code>
-        """
-        )
+        """)
     return caption, image
 
 
@@ -151,13 +147,12 @@ def get_poster(query):
     url_enc_name = query.replace(" ", "+")
     # Searching for query list in imdb
     page = requests.get(
-        f"https://www.imdb.com/find?ref_=nv_sr_fn&q={url_enc_name}&s=all"
-    )
+        f"https://www.imdb.com/find?ref_=nv_sr_fn&q={url_enc_name}&s=all")
     soup = bs4.BeautifulSoup(page.content, "lxml")
     odds = soup.findAll("tr", "odd")
     # Fetching the first post from search
-    page_link = "http://www.imdb.com/" + \
-        odds[0].findNext("td").findNext("td").a["href"]
+    page_link = "http://www.imdb.com/" + odds[0].findNext("td").findNext(
+        "td").a["href"]
     page1 = requests.get(page_link)
     soup = bs4.BeautifulSoup(page1.content, "lxml")
     # Poster Link
@@ -172,24 +167,17 @@ def post_to_telegraph(anime_title, html_format_content):
     auth_name = "@GengKapak"
     bish = "https://t.me/GengKapak"
     post_client.create_api_token(auth_name)
-    post_page = post_client.post(
-        title=anime_title,
-        author=auth_name,
-        author_url=bish,
-        text=html_format_content)
+    post_page = post_client.post(title=anime_title,
+                                 author=auth_name,
+                                 author_url=bish,
+                                 text=html_format_content)
     return post_page["url"]
 
 
 def replace_text(text):
-    return text.replace(
-        '"',
-        "").replace(
-        "\\r",
-        "").replace(
-            "\\n",
-            "").replace(
-                "\\",
-        "")
+    return text.replace('"', "").replace("\\r",
+                                         "").replace("\\n",
+                                                     "").replace("\\", "")
 
 
 @register(outgoing=True, pattern=r"^\.anime ?(.*)")
@@ -284,7 +272,8 @@ async def manga(event):
         try:
             manga = jikan.manga(res)
         except APIException:
-            await event.edit("`Error connecting to the API. Please try again!`")
+            await event.edit("`Error connecting to the API. Please try again!`"
+                             )
             return ""
         title = manga.get("title")
         japanese = manga.get("title_japanese")
@@ -528,7 +517,9 @@ async def get_anime(message):
 """
 
     await p_rm.delete()
-    await message.client.send_file(message.chat_id, file=main_poster, caption=captions)
+    await message.client.send_file(message.chat_id,
+                                   file=main_poster,
+                                   caption=captions)
 
 
 @register(outgoing=True, pattern=r"^\.smanga ?(.*)")
@@ -539,12 +530,13 @@ async def manga(message):
     jikan = jikanpy.jikan.Jikan()
     search_result = jikan.search("manga", search_query)
     first_mal_id = search_result["results"][0]["mal_id"]
-    caption, image = get_anime_manga(
-        first_mal_id, "anime_manga", message.chat_id)
+    caption, image = get_anime_manga(first_mal_id, "anime_manga",
+                                     message.chat_id)
     await message.delete()
-    await message.client.send_file(
-        message.chat_id, file=image, caption=caption, parse_mode="HTML"
-    )
+    await message.client.send_file(message.chat_id,
+                                   file=image,
+                                   caption=caption,
+                                   parse_mode="HTML")
 
 
 @register(outgoing=True, pattern=r"^\.sanime ?(.*)")
@@ -555,18 +547,20 @@ async def anime(message):
     jikan = jikanpy.jikan.Jikan()
     search_result = jikan.search("anime", search_query)
     first_mal_id = search_result["results"][0]["mal_id"]
-    caption, image = get_anime_manga(
-        first_mal_id, "anime_anime", message.chat_id)
+    caption, image = get_anime_manga(first_mal_id, "anime_anime",
+                                     message.chat_id)
     try:
         await message.delete()
-        await message.client.send_file(
-            message.chat_id, file=image, caption=caption, parse_mode="HTML"
-        )
+        await message.client.send_file(message.chat_id,
+                                       file=image,
+                                       caption=caption,
+                                       parse_mode="HTML")
     except BaseException:
         image = getBannerLink(first_mal_id, False)
-        await message.client.send_file(
-            message.chat_id, file=image, caption=caption, parse_mode="HTML"
-        )
+        await message.client.send_file(message.chat_id,
+                                       file=image,
+                                       caption=caption,
+                                       parse_mode="HTML")
 
 
 CMD_HELP.update({
@@ -585,5 +579,4 @@ CMD_HELP.update({
     \nUsage: Search anime.\
     \n\n`.smanga` <manga>\
     \nUsage: Search manga."
-
 })

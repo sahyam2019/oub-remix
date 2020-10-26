@@ -1,9 +1,11 @@
 import random
 import re
-
-from userbot import CMD_HELP, bot
-from userbot.events import register
 from asyncio import sleep
+
+from userbot import bot
+from userbot import CMD_HELP
+from userbot.events import register
+
 EMOJI_PATTERN = re.compile(
     "["
     "\U0001F1E0-\U0001F1FF"  # flags (iOS)
@@ -17,8 +19,7 @@ EMOJI_PATTERN = re.compile(
     "\U0001FA00-\U0001FA6F"  # Chess Symbols
     "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
     "\U00002702-\U000027B0"  # Dingbats
-    "]+"
-)
+    "]+")
 
 
 def deEmojify(inputString: str) -> str:
@@ -100,8 +101,7 @@ async def rastick(animu):
         63,
     ]
     sticcers = await bot.inline_query(
-        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}"
-    )
+        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}")
     try:
         await sticcers[0].click(
             animu.chat_id,
@@ -117,6 +117,7 @@ async def rastick(animu):
     await sleep(5)
     await animu.delete()
 
+
 @register(outgoing=True, pattern=r"^\.hsb(?: |$)(.*)")
 async def rollstick(tem):
     text = tem.pattern_match.group(1)
@@ -127,9 +128,7 @@ async def rollstick(tem):
             await tem.edit("`No text given, hence no stickers.`")
             return
 
-    fries = await bot.inline_query(
-        "honka_says_bot", f"{(deEmojify(text))}.."
-    )
+    fries = await bot.inline_query("honka_says_bot", f"{(deEmojify(text))}..")
     try:
         await fries[0].click(
             tem.chat_id,

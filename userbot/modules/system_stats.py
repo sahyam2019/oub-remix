@@ -1,29 +1,38 @@
-#Copyright (C) 2019 The Raphielscape Company LLC.
+# Copyright (C) 2019 The Raphielscape Company LLC.
 #
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module for getting information about the server. """
-
-from asyncio import create_subprocess_exec as asyncrunapp
-from asyncio.subprocess import PIPE as asyncPIPE
-from platform import python_version, uname
-from shutil import which
-from os import remove
-from telethon import __version__, version
+import asyncio
 import platform
 import sys
 import time
-import asyncio
+from asyncio import create_subprocess_exec as asyncrunapp
+from asyncio.subprocess import PIPE as asyncPIPE
 from datetime import datetime
+from os import remove
+from platform import python_version
+from platform import uname
+from shutil import which
+
 import psutil
-from userbot import CMD_HELP, ALIVE_NAME, BOT_VER, ALIVE_LOGO, bot, StartTime
+from telethon import __version__
+from telethon import version
+
+from userbot import ALIVE_LOGO
+from userbot import ALIVE_NAME
+from userbot import bot
+from userbot import BOT_VER
+from userbot import CMD_HELP
+from userbot import StartTime
 from userbot.events import register
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
-# ============================================
 
+
+# ============================================
 async def get_readable_time(seconds: int) -> str:
     count = 0
     up_time = ""
@@ -32,7 +41,8 @@ async def get_readable_time(seconds: int) -> str:
 
     while count < 4:
         count += 1
-        remainder, result = divmod(seconds, 60) if count < 3 else divmod(seconds, 24)
+        remainder, result = divmod(seconds, 60) if count < 3 else divmod(
+            seconds, 24)
         if seconds == 0 and remainder == 0:
             break
         time_list.append(int(result))
@@ -49,7 +59,6 @@ async def get_readable_time(seconds: int) -> str:
     return up_time
 
 
-
 @register(outgoing=True, pattern="^.sysd$")
 async def sysdetails(sysd):
     """ For .sysd command, get system info using neofetch. """
@@ -63,12 +72,13 @@ async def sysdetails(sysd):
             )
 
             stdout, stderr = await fetch.communicate()
-            result = str(stdout.decode().strip()) \
-                + str(stderr.decode().strip())
+            result = str(stdout.decode().strip()) + str(
+                stderr.decode().strip())
 
             await sysd.edit("`" + result + "`")
         except FileNotFoundError:
             await sysd.edit("`Install neofetch first !!`")
+
 
 @register(outgoing=True, pattern=r"^\.spc")
 async def psu(event):
@@ -84,10 +94,10 @@ async def psu(event):
     softw += f"`Boot Time: {bt.day}/{bt.month}/{bt.year}  {bt.hour}:{bt.minute}:{bt.second}`\n"
     # CPU Cores
     cpuu = "**CPU Info**\n"
-    cpuu += "`Physical cores   : " + \
-        str(psutil.cpu_count(logical=False)) + "`\n"
-    cpuu += "`Total cores      : " + \
-        str(psutil.cpu_count(logical=True)) + "`\n"
+    cpuu += "`Physical cores   : " + str(
+        psutil.cpu_count(logical=False)) + "`\n"
+    cpuu += "`Total cores      : " + str(
+        psutil.cpu_count(logical=True)) + "`\n"
     # CPU frequencies
     cpufreq = psutil.cpu_freq()
     cpuu += f"`Max Frequency    : {cpufreq.max:.2f}Mhz`\n"
@@ -125,7 +135,7 @@ def get_size(bytes, suffix="B"):
     for unit in ["", "K", "M", "G", "T", "P"]:
         if bytes < factor:
             return f"{bytes:.2f}{unit}{suffix}"
-        bytes /= factor            
+        bytes /= factor
 
 
 @register(outgoing=True, pattern="^.botver$")
@@ -143,8 +153,7 @@ async def bot_ver(event):
             stderr=asyncPIPE,
         )
         stdout, stderr = await ver.communicate()
-        verout = str(stdout.decode().strip()) \
-            + str(stderr.decode().strip())
+        verout = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
         rev = await asyncrunapp(
             "git",
@@ -155,8 +164,7 @@ async def bot_ver(event):
             stderr=asyncPIPE,
         )
         stdout, stderr = await rev.communicate()
-        revout = str(stdout.decode().strip()) \
-            + str(stderr.decode().strip())
+        revout = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
         await event.edit("`Userbot Version: "
                          f"{verout}"
@@ -187,8 +195,7 @@ async def pipcheck(pip):
         )
 
         stdout, stderr = await pipc.communicate()
-        pipout = str(stdout.decode().strip()) \
-            + str(stderr.decode().strip())
+        pipout = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
         if pipout:
             if len(pipout) > 4096:
@@ -214,46 +221,52 @@ async def pipcheck(pip):
     else:
         await pip.edit("`Use .help system to see an example`")
 
+
 @register(outgoing=True, pattern="^.start$")
 async def amireallyalive(alive):
     """ For .start command, check if the bot is running.  """
     logo = ALIVE_LOGO
     uptime = await get_readable_time((time.time() - StartTime))
     output = (f"`🤖 STATUS: Remix is running ✅`\n"
-             f"`Telethon version`: {version.__version__} \n"
-             f"`Python version🐍`: {python_version()} \n"
-             f"`Bot Version🤘: Remix {BOT_VER}` \n"
-             f"==================================== \n"
-             f"`User 👨‍🚀`: {DEFAULTUSER} \n"
-             f"`Maintainer 🏄‍♂️`: @heyworld \n"
-             f"`Bot Uptime ⏱️`: {uptime} \n"
-             f"====================================\n")
+              f"`Telethon version`: {version.__version__} \n"
+              f"`Python version🐍`: {python_version()} \n"
+              f"`Bot Version🤘: Remix {BOT_VER}` \n"
+              f"==================================== \n"
+              f"`User 👨‍🚀`: {DEFAULTUSER} \n"
+              f"`Maintainer 🏄‍♂️`: @heyworld \n"
+              f"`Bot Uptime ⏱️`: {uptime} \n"
+              f"====================================\n")
     if ALIVE_LOGO:
         try:
             logo = ALIVE_LOGO
             await alive.delete()
-            pic_alive = await bot.send_file(alive.chat_id, logo, caption=output)
+            pic_alive = await bot.send_file(alive.chat_id,
+                                            logo,
+                                            caption=output)
             await asyncio.sleep(40)
             await pic_alive.delete()
         except BaseException:
-            await alive.edit(output + "\n\n *`The provided logo is invalid."
-                             "\nMake sure the link is directed to the logo picture`")
+            await alive.edit(
+                output + "\n\n *`The provided logo is invalid."
+                "\nMake sure the link is directed to the logo picture`")
     else:
         await alive.edit(output)
         await asyncio.sleep(25)
         await alive.delete()
 
+
 @register(outgoing=True, pattern="^.aliveu")
 async def amireallyaliveuser(username):
     """ For .aliveu command, change the username in the .alive command. """
     message = username.text
-    output = '.aliveu [new user without brackets] nor can it be empty'
-    if message != '.aliveu' and message[7:8] == ' ':
+    output = ".aliveu [new user without brackets] nor can it be empty"
+    if message != ".aliveu" and message[7:8] == " ":
         newuser = message[8:]
         global DEFAULTUSER
         DEFAULTUSER = newuser
-        output = 'Successfully changed user to ' + newuser + '!'
+        output = "Successfully changed user to " + newuser + "!"
     await username.edit("`" f"{output}" "`")
+
 
 @register(outgoing=True, pattern="^.resetalive$")
 async def amireallyalivereset(ureset):
@@ -280,5 +293,5 @@ CMD_HELP.update({
 \n\n`.db`\
 \nUsage:Shows database related info.\
 \n\n.`.spc`\
-\nUsage:Show system specification."   
-})  
+\nUsage:Show system specification."
+})

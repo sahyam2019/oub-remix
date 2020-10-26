@@ -3,18 +3,24 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 # All Credits to https://t.me/azrim89 for timestamp.
-
 """ Userbot module which contains afk-related commands """
-
-from datetime import datetime
 import time
-from random import choice, randint
+from datetime import datetime
+from random import choice
+from random import randint
 
 from telethon.events import StopPropagation
 from telethon.tl.functions.account import UpdateProfileRequest
 
-from userbot import (AFKREASON, COUNT_MSG, CMD_HELP, ISAFK, BOTLOG,
-                     BOTLOG_CHATID, USERS, PM_AUTO_BAN, bot)
+from userbot import AFKREASON
+from userbot import bot
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
+from userbot import COUNT_MSG
+from userbot import ISAFK
+from userbot import PM_AUTO_BAN
+from userbot import USERS
 from userbot.events import register
 
 # ========================= CONSTANTS ============================
@@ -44,7 +50,6 @@ AFKSTR = [
     "`I am not here right now...\nbut if I was...\n\nwouldn't that be awesome?`",
 ]
 
-
 global USER_AFK  # pylint:disable=E0602
 global afk_time  # pylint:disable=E0602
 global afk_start
@@ -52,6 +57,7 @@ global afk_end
 USER_AFK = {}
 afk_time = None
 afk_start = {}
+
 
 # =================================================================
 @register(outgoing=True, pattern="^.afk(?: |$)(.*)", disable_errors=True)
@@ -79,9 +85,13 @@ async def set_afk(afk_e):
     else:
         await afk_e.edit("**Going AFK!**")
     if user.last_name:
-        await afk_e.client(UpdateProfileRequest(first_name=user.first_name, last_name=user.last_name + " [ OFFLINE ]"))
+        await afk_e.client(
+            UpdateProfileRequest(first_name=user.first_name,
+                                 last_name=user.last_name + " [ OFFLINE ]"))
     else:
-        await afk_e.client(UpdateProfileRequest(first_name=user.first_name, last_name=" [ OFFLINE ]"))
+        await afk_e.client(
+            UpdateProfileRequest(first_name=user.first_name,
+                                 last_name=" [ OFFLINE ]"))
     if BOTLOG:
         await afk_e.client.send_message(BOTLOG_CHATID, "#AFK\nYou went AFK!")
     ISAFK = True
@@ -110,7 +120,8 @@ async def type_afk_is_not_true(notafk):
         msg = await notafk.respond("**I'm no longer AFK.**")
         time.sleep(3)
         await msg.delete()
-        await notafk.client(UpdateProfileRequest(first_name=user.first_name, last_name=last1))
+        await notafk.client(
+            UpdateProfileRequest(first_name=user.first_name, last_name=last1))
         if BOTLOG:
             await notafk.client.send_message(
                 BOTLOG_CHATID,
@@ -144,11 +155,8 @@ async def mention_afk(mention):
     back_alivee = datetime.now()
     afk_end = back_alivee.replace(microsecond=0)
     afk_since = "**a while ago**"
-    if (
-        mention.message.mentioned
-        and not (await mention.get_sender()).bot
-        and ISAFK
-    ):
+    if mention.message.mentioned and not (await
+                                          mention.get_sender()).bot and ISAFK:
         now = datetime.now()
         datime_since_afk = now - afk_time  # pylint:disable=E0602
         time = float(datime_since_afk.seconds)
@@ -163,13 +171,12 @@ async def mention_afk(mention):
             afk_since = "**Yesterday**"
         elif days > 1:
             if days > 6:
-                date = now + \
-                    datetime.timedelta(
-                        days=-days, hours=-hours, minutes=-minutes)
+                date = now + datetime.timedelta(
+                    days=-days, hours=-hours, minutes=-minutes)
                 afk_since = date.strftime("%A, %Y %B %m, %H:%I")
             else:
                 wday = now + datetime.timedelta(days=-days)
-                afk_since = wday.strftime('%A')
+                afk_since = wday.strftime("%A")
         elif hours > 1:
             afk_since = f"`{int(hours)}h {int(minutes)}m`"
         elif minutes > 0:
@@ -211,11 +218,13 @@ async def afk_on_pm(sender):
     back_alivee = datetime.now()
     afk_end = back_alivee.replace(microsecond=0)
     afk_since = "**a while ago**"
-    if sender.is_private and sender.sender_id != 777000 and not (
-            await sender.get_sender()).bot:
+    if (sender.is_private and sender.sender_id != 777000
+            and not (await sender.get_sender()).bot):
         if PM_AUTO_BAN:
             try:
-                from userbot.modules.sql_helper.pm_permit_sql import is_approved
+                from userbot.modules.sql_helper.pm_permit_sql import \
+                    is_approved
+
                 apprv = is_approved(sender.sender_id)
             except AttributeError:
                 apprv = True
@@ -236,13 +245,12 @@ async def afk_on_pm(sender):
                 afk_since = "**yesterday**"
             elif days > 1:
                 if days > 6:
-                    date = now + \
-                        datetime.timedelta(
-                            days=-days, hours=-hours, minutes=-minutes)
+                    date = now + datetime.timedelta(
+                        days=-days, hours=-hours, minutes=-minutes)
                     afk_since = date.strftime("%A, %Y %B %m, %H:%I")
                 else:
                     wday = now + datetime.timedelta(days=-days)
-                    afk_since = wday.strftime('%A')
+                    afk_since = wday.strftime("%A")
             elif hours > 1:
                 afk_since = f"`{int(hours)}h {int(minutes)}m`"
             elif minutes > 0:

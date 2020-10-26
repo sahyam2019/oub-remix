@@ -4,24 +4,24 @@
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module for getting the weather of a city. """
-
-
 import json
-from requests import get
 from datetime import datetime
+
+from pytz import country_names as c_n
 from pytz import country_timezones as c_tz
 from pytz import timezone as tz
-from pytz import country_names as c_n
+from requests import get
 
-from userbot import CMD_HELP, WEATHER_DEFCITY
+from userbot import CMD_HELP
 from userbot import OPEN_WEATHER_MAP_APPID as OWM_API
+from userbot import WEATHER_DEFCITY
 from userbot.events import register
 
 # ===== CONSTANT =====
 DEFCITY = WEATHER_DEFCITY or None
+
+
 # ====================
-
-
 async def get_tz(con):
     """ Get time zone of the given country. """
     """ Credits: @aragon12 and @zakaryan2004. """
@@ -68,13 +68,13 @@ async def get_weather(weather):
         else:
             country = await get_tz((newcity[1].strip()).title())
             try:
-                countrycode = timezone_countries[f'{country}']
+                countrycode = timezone_countries[f"{country}"]
             except KeyError:
                 await weather.edit("`Invalid country.`")
                 return
             CITY = newcity[0].strip() + "," + countrycode.strip()
 
-    url = f'https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={APPID}'
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={APPID}"
     request = get(url)
     result = json.loads(request.text)
 
@@ -82,18 +82,18 @@ async def get_weather(weather):
         await weather.edit("`Invalid country.`")
         return
 
-    cityname = result['name']
-    curtemp = result['main']['temp']
-    humidity = result['main']['humidity']
-    min_temp = result['main']['temp_min']
-    max_temp = result['main']['temp_max']
-    desc = result['weather'][0]
-    desc = desc['main']
-    country = result['sys']['country']
-    sunrise = result['sys']['sunrise']
-    sunset = result['sys']['sunset']
-    wind = result['wind']['speed']
-    winddir = result['wind']['deg']
+    cityname = result["name"]
+    curtemp = result["main"]["temp"]
+    humidity = result["main"]["humidity"]
+    min_temp = result["main"]["temp_min"]
+    max_temp = result["main"]["temp_max"]
+    desc = result["weather"][0]
+    desc = desc["main"]
+    country = result["sys"]["country"]
+    sunrise = result["sys"]["sunrise"]
+    sunset = result["sys"]["sunset"]
+    wind = result["wind"]["speed"]
+    winddir = result["wind"]["deg"]
 
     ctimezone = tz(c_tz[country][0])
     time = datetime.now(ctimezone).strftime("%A, %I:%M %p")
@@ -101,7 +101,7 @@ async def get_weather(weather):
 
     dirs = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 
-    div = (360 / len(dirs))
+    div = 360 / len(dirs)
     funmath = int((winddir + (div / 2)) / div)
     findir = dirs[funmath % len(dirs)]
     kmph = str(wind * 3.6).split(".")

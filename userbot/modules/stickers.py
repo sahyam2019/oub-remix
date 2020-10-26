@@ -4,24 +4,22 @@
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module for kanging stickers or making new ones. Thanks @rupansh"""
-
+import asyncio
 import io
 import math
-import asyncio
 import random
 import urllib.request
 from os import remove
 
 from PIL import Image
 from telethon.tl.functions.messages import GetStickerSetRequest
-from telethon.tl.types import (
-    DocumentAttributeFilename,
-    DocumentAttributeSticker,
-    InputStickerSetID,
-    MessageMediaPhoto,
-)
+from telethon.tl.types import DocumentAttributeFilename
+from telethon.tl.types import DocumentAttributeSticker
+from telethon.tl.types import InputStickerSetID
+from telethon.tl.types import MessageMediaPhoto
 
-from userbot import CMD_HELP, bot
+from userbot import bot
+from userbot import CMD_HELP
 from userbot.events import register
 
 KANGING_STR = [
@@ -30,6 +28,7 @@ KANGING_STR = [
     "Inviting this sticker over to my pack...",
     "Kanging this sticker...",
 ]
+
 
 @register(outgoing=True, pattern="^.kang")
 async def kang(args):
@@ -52,16 +51,15 @@ async def kang(args):
             await args.edit(f"`{random.choice(KANGING_STR)}`")
             photo = io.BytesIO()
             await bot.download_file(message.media.document, photo)
-            if (
-                DocumentAttributeFilename(file_name="sticker.webp")
-                in message.media.document.attributes
-            ):
+            if (DocumentAttributeFilename(file_name="sticker.webp") in
+                    message.media.document.attributes):
                 emoji = message.media.document.attributes[1].alt
                 if emoji != "":
                     emojibypass = True
         elif "tgsticker" in message.media.document.mime_type:
             await args.edit(f"`{random.choice(KANGING_STR)}`")
-            await bot.download_file(message.media.document, "AnimatedSticker.tgs")
+            await bot.download_file(message.media.document,
+                                    "AnimatedSticker.tgs")
 
             attributes = message.media.document.attributes
             for attribute in attributes:
@@ -75,7 +73,9 @@ async def kang(args):
             await args.edit("`Unsupported File!`")
             return
     else:
-        await args.edit("`Couldn't download sticker! Make sure you send a proper sticker/photo.`")
+        await args.edit(
+            "`Couldn't download sticker! Make sure you send a proper sticker/photo.`"
+        )
         return
 
     if photo:
@@ -111,14 +111,11 @@ async def kang(args):
             cmd = "/newanimated"
 
         response = urllib.request.urlopen(
-            urllib.request.Request(f"http://t.me/addstickers/{packname}")
-        )
+            urllib.request.Request(f"http://t.me/addstickers/{packname}"))
         htmlstr = response.read().decode("utf8").split("\n")
 
-        if (
-            "  A <strong>Telegram</strong> user has created the <strong>Sticker&nbsp;Set</strong>."
-            not in htmlstr
-        ):
+        if ("  A <strong>Telegram</strong> user has created the <strong>Sticker&nbsp;Set</strong>."
+                not in htmlstr):
             async with bot.conversation("Stickers") as conv:
                 await conv.send_message("/addsticker")
                 await conv.get_response()
@@ -130,11 +127,8 @@ async def kang(args):
                     pack += 1
                     packname = f"a{user.id}_by_{user.username}_{pack}"
                     packnick = f"@{user.username}'s remix pack Vol.{pack}"
-                    await args.edit(
-                        "`Switching to Pack "
-                        + str(pack)
-                        + " due to insufficient space`"
-                    )
+                    await args.edit("`Switching to Pack " + str(pack) +
+                                    " due to insufficient space`")
                     await conv.send_message(packname)
                     x = await conv.get_response()
                     if x.text == "Invalid pack selected.":
@@ -252,7 +246,7 @@ async def kang(args):
             parse_mode="md",
         )
         await asyncio.sleep(7.5)
-        await args.delete() 
+        await args.delete()
 
 
 async def resize_photo(photo):
@@ -293,7 +287,8 @@ async def get_pack_info(event):
 
     try:
         stickerset_attr = rep_msg.document.attributes[1]
-        await event.edit("`Fetching details of the sticker pack, please wait..`")
+        await event.edit(
+            "`Fetching details of the sticker pack, please wait..`")
     except BaseException:
         await event.edit("`This is not a sticker. Reply to a sticker.`")
         return
@@ -307,22 +302,18 @@ async def get_pack_info(event):
             InputStickerSetID(
                 id=stickerset_attr.stickerset.id,
                 access_hash=stickerset_attr.stickerset.access_hash,
-            )
-        )
-    )
+            )))
     pack_emojis = []
     for document_sticker in get_stickerset.packs:
         if document_sticker.emoticon not in pack_emojis:
             pack_emojis.append(document_sticker.emoticon)
 
-    OUTPUT = (
-        f"**Sticker Title:** `{get_stickerset.set.title}\n`"
-        f"**Sticker Short Name:** `{get_stickerset.set.short_name}`\n"
-        f"**Official:** `{get_stickerset.set.official}`\n"
-        f"**Archived:** `{get_stickerset.set.archived}`\n"
-        f"**Stickers In Pack:** `{len(get_stickerset.packs)}`\n"
-        f"**Emojis In Pack:**\n{' '.join(pack_emojis)}"
-    )
+    OUTPUT = (f"**Sticker Title:** `{get_stickerset.set.title}\n`"
+              f"**Sticker Short Name:** `{get_stickerset.set.short_name}`\n"
+              f"**Official:** `{get_stickerset.set.official}`\n"
+              f"**Archived:** `{get_stickerset.set.archived}`\n"
+              f"**Stickers In Pack:** `{len(get_stickerset.packs)}`\n"
+              f"**Emojis In Pack:**\n{' '.join(pack_emojis)}")
 
     await event.edit(OUTPUT)
 
@@ -357,9 +348,9 @@ async def sticker_to_png(sticker):
     return
 
 
-CMD_HELP.update(
-    {
-        "stickers": ".kang\
+CMD_HELP.update({
+    "stickers":
+    ".kang\
 \nUsage: Reply .kang to a sticker or an image to kang it to your userbot pack.\
 \n\n`.kang` [emoji('s)]\
 \nUsage: Works just like .kang but uses the emoji('s) you picked.\

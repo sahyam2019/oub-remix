@@ -11,7 +11,8 @@ from telegraph import exceptions
 from telegraph import upload_file
 from validators.url import url
 
-from userbot import bot, CMD_HELP
+from userbot import bot
+from userbot import CMD_HELP
 from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
@@ -112,7 +113,7 @@ async def phss(uplded, input, name):
 async def trumptweet(text):
     r = requests.get(
         f"https://nekobot.xyz/api/imagegen?type=trumptweet&text={text}").json(
-    )
+        )
     geng = r.get("message")
     kapak = url(geng)
     if not kapak:
@@ -493,6 +494,7 @@ async def phcomment(event):
         return await event.edit("`Reply message has no text!`")
     await event.delete()
     await purge()
+
 
 CMD_HELP.update({
     "imgmemes":

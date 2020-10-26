@@ -2,12 +2,15 @@
 # Based on the evaluators.py script so credit goes to the original creator
 #
 """ Userbot module for browsing internet from Telegram. """
- 
 import asyncio
 from os import remove
-from userbot import BOTLOG, BOTLOG_CHATID, TERM_ALIAS
+
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import TERM_ALIAS
 from userbot.events import register
- 
+
+
 @register(outgoing=True, pattern="^.w3m(?: |$)(.*)")
 async def terminal_runner(w3m):
     """ For .w3m command, browser the internet with w3m on your server. """
@@ -15,6 +18,7 @@ async def terminal_runner(w3m):
     command = w3m.pattern_match.group(1)
     try:
         from os import geteuid
+
         uid = geteuid()
     except ImportError:
         uid = "This ain't it chief!"
@@ -38,8 +42,7 @@ async def terminal_runner(w3m):
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE)
     stdout, stderr = await process.communicate()
-    result = str(stdout.decode().strip()) \
-        + str(stderr.decode().strip())
+    result = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
     if len(result) > 4096:
         with open("output.txt", "w+") as output:
@@ -63,4 +66,3 @@ async def terminal_runner(w3m):
             BOTLOG_CHATID,
             "w3m with URL " + command + " was executed sucessfully",
         )
-      

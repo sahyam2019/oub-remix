@@ -1,17 +1,25 @@
-import os
-import aria2p
 import math
+import os
 from asyncio import sleep
-from subprocess import PIPE, Popen
-from userbot import LOGS, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
+from subprocess import PIPE
+from subprocess import Popen
+
+import aria2p
+from requests import get
+
+from userbot import CMD_HELP
+from userbot import LOGS
+from userbot import TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 from userbot.utils import humanbytes
-from requests import get
 
 
 def subprocess_run(cmd):
-    subproc = Popen(cmd, stdout=PIPE, stderr=PIPE,
-                    shell=True, universal_newlines=True)
+    subproc = Popen(cmd,
+                    stdout=PIPE,
+                    stderr=PIPE,
+                    shell=True,
+                    universal_newlines=True)
     talk = subproc.communicate()
     exitCode = subproc.returncode
     if exitCode != 0:
@@ -21,8 +29,8 @@ def subprocess_run(cmd):
 
 # Get best trackers for improved download speeds, thanks K-E-N-W-A-Y.
 trackers_list = get(
-    'https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt'
-).text.replace('\n\n', ',')
+    "https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt"
+).text.replace("\n\n", ",")
 trackers = f"[{trackers_list}]"
 
 cmd = f"aria2c \
@@ -44,12 +52,12 @@ cmd = f"aria2c \
 subprocess_run(cmd)
 if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
     os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
-download_path = os.getcwd() + TEMP_DOWNLOAD_DIRECTORY.strip('.')
+download_path = os.getcwd() + TEMP_DOWNLOAD_DIRECTORY.strip(".")
 
 aria2 = aria2p.API(aria2p.Client(host="http://localhost", port=8210,
                                  secret=""))
 
-aria2.set_global_options({'dir': download_path})
+aria2.set_global_options({"dir": download_path})
 
 
 @register(outgoing=True, pattern="^.amag(?: |$)(.*)")
@@ -139,12 +147,12 @@ async def show_all(event):
     downloads = aria2.get_downloads()
     msg = ""
     for download in downloads:
-        msg = msg + "File: `" + str(download.name) + "`\nSpeed: " + str(
-            download.download_speed_string()) + "\nProgress: " + str(
-                download.progress_string()) + "\nTotal Size: " + str(
-                    download.total_length_string()) + "\nStatus: " + str(
-                        download.status) + "\nETA:  " + str(
-                            download.eta_string()) + "\n\n"
+        msg = (msg + "File: `" + str(download.name) + "`\nSpeed: " +
+               str(download.download_speed_string()) + "\nProgress: " +
+               str(download.progress_string()) + "\nTotal Size: " +
+               str(download.total_length_string()) + "\nStatus: " +
+               str(download.status) + "\nETA:  " + str(download.eta_string()) +
+               "\n\n")
     if len(msg) <= 4096:
         await event.edit("`On-going Downloads: `\n" + msg)
         await sleep(5)
@@ -152,7 +160,7 @@ async def show_all(event):
     else:
         await event.edit("`Output is too big, sending it as a file...`")
         output = "output.txt"
-        with open(output, 'w') as f:
+        with open(output, "w") as f:
             f.write(msg)
         await sleep(2)
         await event.delete()
@@ -183,11 +191,12 @@ async def check_progress_for_dl(gid, event, previous):
                 percentage = int(file.progress)
                 downloaded = percentage * int(file.total_length) / 100
                 prog_str = "`Downloading` | [{0}{1}] `{2}`".format(
-                    "".join(["■" for i in range(
-                            math.floor(percentage / 10))]),
-                    "".join(["▨" for i in range(
-                            10 - math.floor(percentage / 10))]),
-                    file.progress_string())
+                    "".join(["■" for i in range(math.floor(percentage / 10))]),
+                    "".join([
+                        "▨" for i in range(10 - math.floor(percentage / 10))
+                    ]),
+                    file.progress_string(),
+                )
                 msg = (
                     f"`Name`: `{file.name}`\n"
                     f"`Status` -> **{file.status.capitalize()}**\n"
@@ -209,8 +218,7 @@ async def check_progress_for_dl(gid, event, previous):
                     f"`Name`: `{file.name}`\n"
                     f"`Size`: `{file.total_length_string()}`\n"
                     f"`Path`: `{TEMP_DOWNLOAD_DIRECTORY + file.name}`\n"
-                    "`Response`: **OK** - Successfully downloaded..."
-                )
+                    "`Response`: **OK** - Successfully downloaded...")
         except Exception as e:
             if " not found" in str(e) or "'file'" in str(e):
                 await event.edit("Download Canceled :\n`{}`".format(file.name))
@@ -221,6 +229,7 @@ async def check_progress_for_dl(gid, event, previous):
                 await event.edit(
                     "Download Auto Canceled :\n`{}`\nYour Torrent/Link is Dead."
                     .format(file.name))
+
 
 CMD_HELP.update({
     "aria":

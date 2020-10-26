@@ -4,10 +4,14 @@
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module for filter commands """
-
 from asyncio import sleep
-from re import search, IGNORECASE, escape
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from re import escape
+from re import IGNORECASE
+from re import search
+
+from userbot import BOTLOG
+from userbot import BOTLOG_CHATID
+from userbot import CMD_HELP
 from userbot.events import register
 
 
@@ -26,8 +30,8 @@ async def filter_incoming_handler(handler):
             if not filters:
                 return
             for trigger in filters:
-                pattern = (
-                    r"( |^|[^\w])" + escape(trigger.keyword) + r"( |$|[^\w])")
+                pattern = r"( |^|[^\w])" + escape(
+                    trigger.keyword) + r"( |$|[^\w])"
                 pro = search(pattern, name, flags=IGNORECASE)
                 if pro:
                     if trigger.f_mesg_id:
@@ -60,14 +64,16 @@ async def add_new_filter(new_handler):
     if msg and msg.media and not string:
         if BOTLOG_CHATID:
             await new_handler.client.send_message(
-                BOTLOG_CHATID, f"#FILTER\nCHAT ID: {new_handler.chat_id}\nTRIGGER: {keyword}"
-                "\n\nThe following message is saved as the filter's reply data for the chat, please do NOT delete it !!"
+                BOTLOG_CHATID,
+                f"#FILTER\nCHAT ID: {new_handler.chat_id}\nTRIGGER: {keyword}"
+                "\n\nThe following message is saved as the filter's reply data for the chat, please do NOT delete it !!",
             )
             msg_o = await new_handler.client.forward_messages(
                 entity=BOTLOG_CHATID,
                 messages=msg,
                 from_peer=new_handler.chat_id,
-                silent=True)
+                silent=True,
+            )
             msg_id = msg_o.id
         else:
             return await new_handler.edit(
@@ -78,9 +84,9 @@ async def add_new_filter(new_handler):
         string = rep_msg.text
     success = "`Filter`  **{}**  `{} successfully`."
     if add_filter(str(new_handler.chat_id), keyword, string, msg_id) is True:
-        await new_handler.edit(success.format(keyword, 'added'))
+        await new_handler.edit(success.format(keyword, "added"))
     else:
-        await new_handler.edit(success.format(keyword, 'updated'))
+        await new_handler.edit(success.format(keyword, "updated"))
 
 
 @register(outgoing=True, pattern=r"^.stop (.*)")
@@ -113,7 +119,7 @@ async def kick_marie_filter(event):
         if bot_type.lower() == "marie":
             await event.reply("/stop %s" % (i.strip()))
         if bot_type.lower() == "rose":
-            i = i.replace('`', '')
+            i = i.replace("`", "")
             await event.reply("/stop %s" % (i.strip()))
         await sleep(0.3)
     await event.respond(
