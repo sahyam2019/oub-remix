@@ -16,22 +16,15 @@ from os import execl
 import time
 from telethon import events, functions
 from userbot import bot
-
-
-
-
+import pyfiglet
 from collections import deque
-
 import requests
 import sys
 import os
 import io
 import html
-
 import json
-
 from cowpy import cow
-
 from userbot import CMD_HELP
 from userbot.events import register
 from userbot.modules.admin import get_user_from_event
@@ -649,7 +642,7 @@ GDMORNING = [
     "`The more you count yourself as blessed, the more blessed you will be. Thank God for this beautiful morning and let friendship and love prevail this morning.`",
     "`Wake up and sip a cup of loving friendship. Eat your heart out from a plate of hope. To top it up, a fork full of kindness and love. Enough for a happy good morning!`",
     "`It is easy to imagine the world coming to an end. But it is difficult to imagine spending a day without my friends. Good morning.`",
-]    
+]
 SHGS = [
     "┐(´д｀)┌",
     "┐(´～｀)┌",
@@ -1068,8 +1061,8 @@ async def zal(zgfy):
 async def hoi(hello):
     """ Greet everyone! """
     await hello.edit(choice(HELLOSTR))
-                      
-                      
+
+
 @register(outgoing=True, pattern="^.gn$")
 async def night(night):
     """ Greet everyone! """
@@ -1283,39 +1276,44 @@ async def let_me_google_that_for_you(lmgtfy_q):
     \n[{query}]({r.json()['shorturl']})")
 
 
-#@register(pattern=r".scam(?: |$)(.*)", outgoing=True)
-#async def scam(event):
-   # """ Just a small command to fake chat actions for fun !! """
-   # options = [
-      #  'typing', 'contact', 'game', 'location', 'voice', 'round', 'video',
-     #   'photo', 'document', 'cancel'
-    #]
-   # input_str = event.pattern_match.group(1)
-  #  args = input_str.split()
-   # if len(args) is 0:  # Let bot decide action and time
-        #scam_action = choice(options)
-       # scam_time = randint(30, 60)
-    #elif len(args) is 1:  # User decides time/action, bot decides the other.
-        #try:
-         #   scam_action = str(args[0]).lower()
-        #    scam_time = randint(30, 60)
-       # except ValueError:
-      #      scam_action = choice(options)
-     #       scam_time = int(args[0])
-    #elif len(args) is 2:  # User decides both action and time
-      #  scam_action = str(args[0]).lower()
-     #   scam_time = int(args[1])
-    #else:
-      #  await event.edit("`Invalid Syntax !!`")
-     #   return
-    #try:
-        #if (scam_time > 0):
-       #     await event.delete()
-      #      async with event.client.action(event.chat_id, scam_action):
-     #           await sleep(scam_time)
-    #except BaseException:
-       # return
-                      
+@register(outgoing=True, pattern=r"^\.figlet(?: |$)(.*)")
+async def figlet(fg):
+    if fg.fwd_from:
+        return
+    CMD_FIG = {
+        "slant": "slant",
+        "3D": "3-d",
+        "5line": "5lineoblique",
+        "alpha": "alphabet",
+        "banner": "banner3-D",
+        "doh": "doh",
+        "iso": "isometric1",
+        "letter": "letters",
+        "allig": "alligator",
+        "dotm": "dotmatrix",
+        "bubble": "bubble",
+        "bulb": "bulbhead",
+        "digi": "digital",
+    }
+    input_str = fg.pattern_match.group(1)
+    if "." in input_str:
+        text, cmd = input_str.split(".", maxsplit=1)
+    elif input_str is not None:
+        cmd = None
+        text = input_str
+    else:
+        await fg.edit("`Please add some text to figlet`")
+        return
+    if cmd is not None:
+        try:
+            font = CMD_FIG[cmd]
+        except KeyError:
+            await fg.edit("`Invalid selected font.`")
+            return
+        result = pyfiglet.figlet_format(text, font=font)
+    else:
+        result = pyfiglet.figlet_format(text)
+    await fg.edit("‌‌‎`{}`".format(result))
 
 
 @register(pattern=r".type(?: |$)(.*)", outgoing=True)
@@ -1653,5 +1651,13 @@ CMD_HELP.update({
 \n\n`.scam` <action> <time>\
 \n[Available Actions: (typing, contact, game, location, voice, round, video, photo, document, cancel)]\
 \nUsage: Create fake chat actions, for fun. (Default action: typing)\
-\n\n\nThanks to 🅱️ottom🅱️ext🅱️ot (@NotAMemeBot) for some of these."
-})
+\n\n\nThanks to 🅱️ottom🅱️ext🅱️ot (@NotAMemeBot) for some of these."})
+
+CMD_HELP.update(
+    {
+        "figlet": ".figlet"
+        "\nUsage: Enhance ur text to strip line with anvil."
+        "\n\nExample: `.figlet whatever.slant`"
+        "\nSTYLE LIST: `slant`, `3D`, `5line`, `alpha`, `banner`, `doh`, `iso`, `letter`, `allig`, `dotm`, `bubble`, `bulb`, `digi`"
+    }
+)
