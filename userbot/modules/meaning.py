@@ -2,7 +2,7 @@ from userbot.events import register
 from userbot import CMD_HELP
 from PyDictionary import PyDictionary
 
-@register(outgoing=True, pattern=r"^\.mng(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.meaning(?: |$)(.*)")
 async def _(event):
     word = event.pattern_match.group(1)
     dictionary = PyDictionary()
