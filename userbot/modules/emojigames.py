@@ -72,9 +72,26 @@ async def _(event):
                 await r.delete()
                 r = await event.reply(file=InputMediaDice('⚽'))
         except:
-            pass        
+            pass
+     
+@register(outgoing=True, pattern="^.jackpot(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    await event.delete()
+    r = await event.reply(file=InputMediaDice('🎰'))
+    if input_str:
+        try:
+            required_number = int(input_str)
+            while not r.media.value == required_number:
+                await r.delete()
+                r = await event.reply(file=InputMediaDice('🎰'))
+        except:
+            pass 
+
 CMD_HELP.update({
     "emojigames":
-    "`.dice` 1-6 or `.dart`1-6 or `.bb`1-5 or `.fb`1-5\
+    "`.dice` 1-6 or `.dart`1-6 or `.bb`1-5 or `.fb`1-5 or '.jackpot 1-5'\
 \nUsage: hahaha just a magic.\nWarning:`Don't use any other values or bot will crash`"
 })    
