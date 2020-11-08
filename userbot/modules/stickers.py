@@ -11,7 +11,8 @@ import asyncio
 import random
 import urllib.request
 from os import remove
-
+import requests
+from bs4 import BeautifulSoup as bs
 from PIL import Image
 from telethon.tl.functions.messages import GetStickerSetRequest
 from telethon.tl.types import (
@@ -24,12 +25,13 @@ from telethon.tl.types import (
 from userbot import CMD_HELP, bot
 from userbot.events import register
 
+combot_stickers_url = "https://combot.org/telegram/stickers?q="
+
 KANGING_STR = [
     "Stealing this sticker...",
     "Plagiarising hehe...",
     "Inviting this sticker over to my pack...",
-    "Kanging this sticker...",
-]
+    "Kanging this sticker...",]
 
 @register(outgoing=True, pattern="^.kang")
 async def kang(args):
@@ -252,7 +254,7 @@ async def kang(args):
             parse_mode="md",
         )
         await asyncio.sleep(7.5)
-        await args.delete() 
+        await args.delete()
 
 
 async def resize_photo(photo):
@@ -326,6 +328,27 @@ async def get_pack_info(event):
 
     await event.edit(OUTPUT)
 
+@register(outgoing=True, pattern=r"^\.stickers ?(.*)")
+async def cb_sticker(event):
+    split = event.pattern_match.group(1)
+    if not split:
+        await event.edit("`Provide some name to search for pack.`")
+        return
+    await event.edit("`Searching sticker packs`")
+    text = requests.get(combot_stickers_url + split).text
+    soup = bs(text, "lxml")
+    results = soup.find_all("div", {'class': "sticker-pack__header"})
+    if not results:
+        await event.edit("`No results found :(.`")
+        return
+    reply = f"**Sticker packs found for {split} are :**"
+    for pack in results:
+        if pack.button:
+            packtitle = (pack.find("div", "sticker-pack__title")).get_text()
+            packlink = (pack.a).get('href')
+            packid = (pack.button).get('data-popup')
+            reply += f"\n **• ID: **`{packid}`\n [{packtitle}]({packlink})"
+    await event.edit(reply)
 
 @register(outgoing=True, pattern="^.getsticker$")
 async def sticker_to_png(sticker):
@@ -372,5 +395,7 @@ CMD_HELP.update(
 \n\n`.getsticker`\
 \nUsage: reply to a sticker to get 'PNG' file of sticker.\
 \n\n`.cs <text>`\
-\nUsage: Type .cs text and generate rgb sticker."
+\nUsage: Type .cs text and generate rgb sticker.\
+\n\n`.stickers` <name of user or pack>\
+\nUsage: Fetch sticker Packs according to your query."
 })
