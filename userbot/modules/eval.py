@@ -194,9 +194,9 @@ CMD_HELP.update(
 \nUsage: Evalute mini-expressions.\
 \n\n`.exec` print('hello')\
 \nusage: Execute small python scripts.\
-\n\n`.term` ls\
 \n\n`.w3m google.com`\
 \nUsage: Browse the internet with w3m on your server.\nPut your device into landscape mode for better preview.\
+\n\n`.term` ls\
 \nUsage: Run bash commands and scripts on your server."
     }
 )
