@@ -395,7 +395,7 @@ CMD_HELP.update(
 \n\n`.getsticker`\
 \nUsage: reply to a sticker to get 'PNG' file of sticker.\
 \n\n`.cs <text>`\
-\nUsage: Type .cs text and generate rgb sticker.
+\nUsage: Type .cs text and generate rgb sticker.\
 \n\n`.stickers` <name of user or pack>\
 \nUsage: Fetch sticker Packs according to your query."
 })
