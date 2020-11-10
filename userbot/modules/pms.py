@@ -26,7 +26,7 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 UNAPPROVED_MSG = (
-    "`HeY! Please don't spam. Wait for my lazy guy reply🤪\nMessage remaining:3 \n\n`")
+    "`HeY! welcome Wait for my lazy guy approve🤪\nMessage remaining:3 \n\n`")
 # =================================================================
 
 NO_PM_LOG_USERS = []
@@ -246,7 +246,7 @@ async def blockpm(block):
         aname = replied_user.id
         name0 = str(replied_user.first_name)
         await block.client(BlockRequest(replied_user.id))
-        await block.edit("`You've been blocked!`")
+        await block.edit("`You've been blocked! xD`")
         uid = replied_user.id
     else:
         await block.client(BlockRequest(block.chat_id))
