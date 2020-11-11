@@ -223,7 +223,7 @@ async def amireallyalive(alive):
     logo = ALIVE_LOGO
     uptime = await get_readable_time((time.time() - StartTime))
     output = (f"`👻 STATUS: F.R.E.A.K.Y online😈 ✅`\n"
-             f"`Telethon version`: {version.__version__} \n"
+             f"`Telethon version🥊`: {version.__version__} \n"
              f"`Python version🐍`: {python_version()} \n"
              f"`Bot Version🤖: Remix {BOT_VER}` \n"
              f"==================================== \n"
