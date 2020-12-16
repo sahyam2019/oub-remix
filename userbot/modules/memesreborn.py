@@ -336,8 +336,8 @@ CMD_HELP.update({
 \nUsage: gib text and see magik.\
 \n\n`.rape .thanos .chu .abuse .abusehard`\
 \nUsage: See it yourself nibba🌚.\
-\n\n: `.paw`\
-\nUsage: `try it`.\
+\n\n`.paw`\
+\nUsage: try it.\
 \n\n`.dick` or `.penis`\
 \nUsage: nonsense\
 \n\n`.retrard`\
