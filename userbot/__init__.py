@@ -156,7 +156,7 @@ BITLY_TOKEN = os.environ.get("BITLY_TOKEN", None)
 TERM_ALIAS = os.environ.get("TERM_ALIAS", "oub-remix")
 
 #Bot version
-BOT_VER = os.environ.get("BOT_VER", "3.6")
+BOT_VER = os.environ.get("BOT_VER", "4.0")
 
 # Default .alive logo
 ALIVE_LOGO = os.environ.get(
