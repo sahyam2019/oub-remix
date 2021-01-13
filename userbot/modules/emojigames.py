@@ -103,7 +103,7 @@ async def _(event):
             required_number = int(input_str)
             while not r.media.value == required_number:
                 await r.delete()
-                r = await event.reply(file=InputMediaDice('⚽'))
+                r = await event.reply(file=InputMediaDice('🎳'))
         except:
             pass
 
