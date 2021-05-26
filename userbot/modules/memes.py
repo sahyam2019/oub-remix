@@ -1435,6 +1435,13 @@ async def nih(e):
                      "`\n(●_●)`"
                      "`\n🌹<\  *Now give it back`")
 
+@register(outgoing=True, pattern="^.tisu$")
+async def tisu(e):
+    if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
+        await e.edit("`\n{\__/}`"
+                     "`\n( • . •)`"
+                     "`\n/ >🇮🇱 Nih Tisu buat berak`"
+                     "`\n                    `")
 
 @register(outgoing=True, pattern="^.fag$")  
 async def gtfo(e):
