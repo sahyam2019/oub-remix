@@ -124,9 +124,3 @@ async def main(event):
 
         await asyncio.sleep(3600) #Edit this to your required needs
 
-CMD_HELP.update({
-    "coolprofilepics":
-    "`.randompp`\
-\nUsage: Change Your Profile Picture to Random Pic\
-"
-})
