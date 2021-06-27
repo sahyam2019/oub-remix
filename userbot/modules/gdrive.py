@@ -286,11 +286,9 @@ async def download(gdrive, service, uri=None):
                 return reply
             else:
                 reply += (
-                    f"`{status}`\n\n"
                     f"`Name   :` `{file_name}`\n"
                     f"`Size   :` `{humanbytes(result[0])}`\n"
                     f"`Link   :` [{file_name}]({result[1]})\n"
-                    "`Status :` **OK** - Successfully uploaded.\n\n"
                 )
                 return reply
         else:
@@ -530,11 +528,9 @@ async def download_gdrive(gdrive, service, uri):
             )
         else:
             reply += (
-                "`[FILE - UPLOAD]`\n\n"
                 f"`Name   :` `{file_name}`\n"
                 f"`Size   :` `{humanbytes(result[0])}`\n"
                 f"`Link   :` [{file_name}]({result[1]})\n"
-                "`Status :` **OK**\n\n"
             )
         return reply
     else:
@@ -1144,7 +1140,7 @@ async def google_drive(gdrive):
         )
     if result:
         await gdrive.respond(
-            "`[FILE - UPLOAD]`\n\n"
+            "`FILE - UPLOAD`\n\n"
             f"`Name   :` `{file_name}`\n"
             f"`Size   :` `{humanbytes(result[0])}`\n"
             f"`Link   :` [{file_name}]({result[1]})\n"
